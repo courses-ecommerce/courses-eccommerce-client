@@ -6,8 +6,9 @@ export interface IAuth {
 }
 
 export interface IAccount {
-  userName: string;
+  email: string;
   password: string;
+  keepLogin?: boolean;
 }
 
 export interface IUser {
