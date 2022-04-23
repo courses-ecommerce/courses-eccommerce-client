@@ -6,10 +6,8 @@
       "components/*": ["./components/*"],
       "assets/*": ["./assets/*"],
       "routers/*": ["./routers/*"],
-      "utils/*": ["./utils/*"]
-      // "services/*": ["./services/*"],
-      // "theme/*": ["./theme/*"],
-      // "data/*": ["./data/*"],
+      "utils/*": ["./utils/*"],
+      "hooks/*": ["./hooks/*"]
     }
   }
 }

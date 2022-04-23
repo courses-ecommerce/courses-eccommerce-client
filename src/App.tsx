@@ -1,11 +1,11 @@
-import Icon from "./components/Icon";
-import React from "react";
+import useMediaQuery from "./hooks/useMediaQuery";
 
 function App() {
+  const matches = useMediaQuery("(min-width: 768px)");
   return (
-    <div>
-      <Icon icon="tablet" color="red" size={20} />
-    </div>
+    <div>{`The view port is ${
+      matches ? "at least" : "less than"
+    } 768 pixels wide ádas${matches}`}</div>
   );
 }
 
