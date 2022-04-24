@@ -1,7 +1,42 @@
 a {
   display: flex;
   align-items: center;
-  > span {
+  > .title-list {
     margin-left: 20px;
+  }
+  > .title-item {
+    margin-left: 4px;
+  }
+}
+
+.nav-list {
+  &-item {
+    display: flex;
+    align-items: center;
+    > span {
+      margin: 0 40px 0 20px;
+    }
+  }
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  > a {
+    padding: 8px 50px;
+    margin: 0 4px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #606c77;
+
+    border-bottom: 1px solid rgb(212, 212, 212);
+    &:hover,
+    &.active {
+      background: rgb(232, 238, 247);
+      color: rgb(73, 129, 217);
+      // border-radius: 6px;
+    }
   }
 }

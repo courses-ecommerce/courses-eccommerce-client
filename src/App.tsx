@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Navigate, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import {
   ADMIN_ROUTE,
   AUTH_ROUTE,
@@ -10,12 +9,6 @@ import {
 import { authRoute, mainRoute, privateRoute } from "./routes/Router";
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate("/dashboard");
-  }, []);
-
   return (
     <Routes>
       {mainRoute(MAIN_ROUTE)}

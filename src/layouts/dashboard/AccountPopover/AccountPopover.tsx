@@ -1,4 +1,11 @@
-import { Avatar, Button, Divider, IconButton, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Divider,
+  IconButton,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import MenuPopover from "src/layouts/dashboard/AccountPopover/MenuPopover/MenuPopover";
@@ -27,12 +34,14 @@ const AccountPopover = () => {
 
   return (
     <div className="account-popover">
-      <IconButton ref={nodeRef} onClick={() => setShow(true)}>
-        <Avatar
-          src="https://th.bing.com/th/id/OIP.8t1WtYLAPVB189hu7pCP3gHaHa?pid=ImgDet&rs=1"
-          alt="photoURL"
-        />
-      </IconButton>
+      <Tooltip title="Thông tin cá nhân">
+        <IconButton ref={nodeRef} onClick={() => setShow(true)}>
+          <Avatar
+            src="https://th.bing.com/th/id/OIP.8t1WtYLAPVB189hu7pCP3gHaHa?pid=ImgDet&rs=1"
+            alt="photoURL"
+          />
+        </IconButton>
+      </Tooltip>
 
       <MenuPopover
         open={Boolean(show)}

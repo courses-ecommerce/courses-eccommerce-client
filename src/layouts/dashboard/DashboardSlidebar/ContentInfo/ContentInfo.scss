@@ -2,14 +2,15 @@
   display: flex;
   flex-direction: column;
 
+  gap: 30px;
   &-logo {
   }
 
   &-user {
-    margin-top: 30px;
+    // margin-top: 20px;
   }
 
   &-nav {
-    margin-top: 50px;
+    // margin-top: 30px;
   }
 }
