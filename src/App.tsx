@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Routes, useNavigate } from "react-router-dom";
 import {
   ADMIN_ROUTE,
   AUTH_ROUTE,

@@ -33,6 +33,11 @@ const MAIN_ROUTE = [
     path: "/dashboard",
     element: <DashboardLayout />,
   },
+  {
+    role: "page",
+    path: "/dashboard/user",
+    element: <DashboardLayout />,
+  },
 
   { role: "page", path: "/*", element: <NotFound /> },
 ];

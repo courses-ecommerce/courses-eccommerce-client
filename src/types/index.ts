@@ -25,3 +25,20 @@ export interface ICourse {
   thumbnail: string;
   categories?: string[];
 }
+
+// for popover
+export interface INotify {
+  image: string;
+  title?: string;
+  isRead?: boolean;
+  content: string;
+  time: string;
+}
+
+export interface IMessage {
+  image: string;
+  title?: string;
+  isRead?: boolean;
+  content: string;
+  time: string;
+}

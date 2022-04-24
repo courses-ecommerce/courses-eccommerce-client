@@ -3,20 +3,27 @@
   flex-direction: column;
   gap: 2px;
 
-  > a {
+  > a,
+  > .nav-list {
     font-size: 14px;
+
+    cursor: pointer;
 
     padding: 10px;
     margin: 0 4px;
-    border-radius: 6px;
     text-transform: capitalize;
     text-align: center;
 
     font-weight: 500;
     color: #606c77;
 
+    &:not(:last-child) {
+      border-bottom: 1px solid rgb(212, 212, 212);
+    }
+
     &:hover,
     &.active {
+      border-radius: 6px;
       background: rgb(232, 238, 247);
       color: rgb(73, 129, 217);
       font-weight: 500;

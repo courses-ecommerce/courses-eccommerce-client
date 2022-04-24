@@ -1,5 +1,8 @@
-import { NavLink, useLocation } from "react-router-dom";
+import classNames from "classnames";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Icon from "src/components/Icon/Icon";
+import useClickOutSide from "src/hooks/useClickOutSide";
+import useHover from "src/hooks/useHover";
 import "./NavItem.scss";
 
 interface ItemProps {
@@ -7,7 +10,7 @@ interface ItemProps {
   path: string;
   icon: string;
   info: string;
-  children: any;
+  children?: Array<any>;
 }
 
 interface NavItemProps {
@@ -19,17 +22,89 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
   const { title, path, icon, info, children } = item;
   const { pathname } = useLocation();
 
+  const { nodeRef, show, setShow } = useClickOutSide();
+  const { nodeRef: hoverRef, show: showHover } = useHover();
+
+  const renderChildrenNav = (navs: ItemProps[]) => {
+    return (
+      navs.length > 0 &&
+      navs.map((nav: ItemProps, index) => {
+        const { title, path, icon, info, children } = nav;
+
+        return (
+          <Link
+            key={index}
+            className={path === pathname ? "active" : ""}
+            to={path}
+          >
+            {icon && (
+              <Icon
+                color={path === pathname ? "#2065d1" : "#637381"}
+                size={14}
+                icon={icon}
+              />
+            )}
+            <span className="title-item">{title}</span>
+          </Link>
+        );
+      })
+    );
+  };
+
   return (
-    <NavLink to={path}>
-      {icon && (
-        <Icon
-          color={path === pathname ? "#2065d1" : "#637381"}
-          size={30}
-          icon={icon}
-        />
+    <>
+      {!children ? (
+        <Link className={path === pathname ? "active" : ""} to={path}>
+          {icon && (
+            <Icon
+              color={path === pathname ? "#2065d1" : "#637381"}
+              size={20}
+              icon={icon}
+            />
+          )}
+          <span className="title-list">{title}</span>
+        </Link>
+      ) : (
+        <>
+          <div
+            className={classNames(
+              "nav-list",
+              path === pathname ? "active" : ""
+            )}
+            ref={hoverRef}
+            onClick={() => setShow(!show)}
+          >
+            <div className="nav-list-item">
+              {icon && (
+                <Icon
+                  color={path === pathname || showHover ? "#2065d1" : "#637381"}
+                  size={20}
+                  icon={icon}
+                />
+              )}
+              <span>{title}</span>
+              {show ? (
+                <Icon
+                  icon="chevron-down"
+                  // color={path === pathname ? "#2065d1" : "#637381"}
+                  color={path === pathname || showHover ? "#2065d1" : "#637381"}
+                  size={12}
+                />
+              ) : (
+                <Icon
+                  icon="chevron-right"
+                  color={path === pathname || showHover ? "#2065d1" : "#637381"}
+                  size={12}
+                />
+              )}
+            </div>
+          </div>
+          {show && (
+            <div className="nav-item">{renderChildrenNav(children)}</div>
+          )}
+        </>
       )}
-      <span>{title}</span>
-    </NavLink>
+    </>
   );
 };
 
