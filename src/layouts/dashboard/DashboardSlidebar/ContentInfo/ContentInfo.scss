@@ -1,0 +1,15 @@
+.content-info {
+  display: flex;
+  flex-direction: column;
+
+  &-logo {
+  }
+
+  &-user {
+    margin-top: 30px;
+  }
+
+  &-nav {
+    margin-top: 50px;
+  }
+}
