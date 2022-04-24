@@ -28,17 +28,6 @@ const MAIN_ROUTE = [
     path: "/courses/:id",
     element: <CourseDetail />,
   },
-  {
-    role: "page",
-    path: "/dashboard",
-    element: <DashboardLayout />,
-  },
-  {
-    role: "page",
-    path: "/dashboard/user",
-    element: <DashboardLayout />,
-  },
-
   { role: "page", path: "/*", element: <NotFound /> },
 ];
 
@@ -76,14 +65,14 @@ const DASHBOARD_ROUTE = [
     children: [
       {
         path: "dashboard",
-        href: "/dashboard",
+        href: "/admin/dashboard",
         element: () => "chưa lamf",
         title: "dashboard",
         icon: "info-circle",
       },
       {
         path: "dashboard/user",
-        href: "/dashboard/user",
+        href: "/admin/dashboard/user",
         element: () => "chưa lamf",
         title: "Quản lý người dùng",
         icon: "user",
