@@ -1,4 +1,5 @@
-import { NavLink, useLocation } from "react-router-dom";
+import classNames from "classnames";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Icon from "src/components/Icon/Icon";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import useHover from "src/hooks/useHover";
@@ -31,7 +32,11 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
         const { title, path, icon, info, children } = nav;
 
         return (
-          <NavLink to={path}>
+          <Link
+            key={index}
+            className={path === pathname ? "active" : ""}
+            to={path}
+          >
             {icon && (
               <Icon
                 color={path === pathname ? "#2065d1" : "#637381"}
@@ -40,7 +45,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
               />
             )}
             <span className="title-item">{title}</span>
-          </NavLink>
+          </Link>
         );
       })
     );
@@ -49,7 +54,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
   return (
     <>
       {!children ? (
-        <NavLink to={path}>
+        <Link className={path === pathname ? "active" : ""} to={path}>
           {icon && (
             <Icon
               color={path === pathname ? "#2065d1" : "#637381"}
@@ -58,14 +63,21 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
             />
           )}
           <span className="title-list">{title}</span>
-        </NavLink>
+        </Link>
       ) : (
         <>
-          <div className="nav-list" ref={hoverRef}>
-            <div className="nav-list-item" onClick={() => setShow(!show)}>
+          <div
+            className={classNames(
+              "nav-list",
+              path === pathname ? "active" : ""
+            )}
+            ref={hoverRef}
+            onClick={() => setShow(!show)}
+          >
+            <div className="nav-list-item">
               {icon && (
                 <Icon
-                  color={path === pathname ? "#2065d1" : "#637381"}
+                  color={path === pathname || showHover ? "#2065d1" : "#637381"}
                   size={20}
                   icon={icon}
                 />
@@ -75,13 +87,13 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
                 <Icon
                   icon="chevron-down"
                   // color={path === pathname ? "#2065d1" : "#637381"}
-                  color={showHover ? "#2065d1" : "#637381"}
+                  color={path === pathname || showHover ? "#2065d1" : "#637381"}
                   size={12}
                 />
               ) : (
                 <Icon
                   icon="chevron-right"
-                  color={showHover ? "#2065d1" : "#637381"}
+                  color={path === pathname || showHover ? "#2065d1" : "#637381"}
                   size={12}
                 />
               )}
