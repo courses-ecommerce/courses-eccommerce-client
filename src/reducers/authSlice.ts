@@ -3,10 +3,12 @@ import { IAuth } from "src/types";
 
 const initialState: IAuth = {
   isLoading: false,
-  isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
-  isRole: JSON.parse(localStorage.getItem("role") || "{}")
-    ? JSON.parse(localStorage.getItem("role") || "{}")
-    : "",
+  isAuth: true,
+  isRole: "admin",
+  // isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
+  // isRole: JSON.parse(localStorage.getItem("role") || "{}")
+  //   ? JSON.parse(localStorage.getItem("role") || "null")
+  //   : "",
 };
 
 const authSlice = createSlice({

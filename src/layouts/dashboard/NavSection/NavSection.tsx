@@ -15,8 +15,8 @@ const NavSection: React.FC<NavSectionProps> = ({ navConfig, ...other }) => {
 
   return (
     <div className="nav-section">
-      {navConfig.map((item) => (
-        <NavItem key={item.title} item={item} active={match} />
+      {navConfig.map((item, index) => (
+        <NavItem key={index} item={item} active={match} />
       ))}
     </div>
   );

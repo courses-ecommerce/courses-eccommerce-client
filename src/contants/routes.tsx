@@ -1,8 +1,8 @@
 import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import AdminPage from "src/pages/AdminPage/AdminPage";
-import ForgotPassword from "src/pages/AuthPage/ForgotPassword";
-import Login from "src/pages/AuthPage/Login";
-import Register from "src/pages/AuthPage/Register";
+import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
+import Login from "src/pages/AuthPage/Login/Login";
+import Register from "src/pages/AuthPage/Register/Register";
 import CourseDetail from "src/pages/CoursePage/CourseDetail";
 import CoursePage from "src/pages/CoursePage/CoursePage";
 import HomePage from "src/pages/MainPage/HomePage";
@@ -67,4 +67,89 @@ const TEACHER_ROUTE = [
   //   { role: "teacher", path: "/teacher/profile", element: <TeacherProfile /> },
 ];
 
-export { MAIN_ROUTE, AUTH_ROUTE, ADMIN_ROUTE, TEACHER_ROUTE, STUDENT_ROUTE };
+//Dash board routes
+const DASHBOARD_ROUTE = [
+  {
+    role: "admin",
+    path: "/admin",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "dashboard",
+        href: "/dashboard",
+        element: () => "chưa lamf",
+        title: "dashboard",
+        icon: "info-circle",
+      },
+      {
+        path: "dashboard/user",
+        href: "/dashboard/user",
+        element: () => "chưa lamf",
+        title: "Quản lý người dùng",
+        icon: "user",
+        children: [
+          {
+            title: "Xem người dùng",
+            path: "/dashboard/user",
+            // icon: "info",
+          },
+          {
+            title: "Thêm người dùng",
+            path: "/dashboard/user/add",
+            //  icon: "plus"
+          },
+          {
+            title: "Xoá người dùng",
+            path: "/dashboard/user/delete",
+            //icon: "trash-o"
+          },
+          {
+            title: "Sửa người dùng",
+            path: "/dashboard/user/modify", //icon: "pencil"
+          },
+        ],
+      },
+      {
+        path: "dashboard/course",
+        title: "Quản lý khoá học",
+        href: "/admin/dashboard/course",
+        icon: "book",
+      },
+      {
+        path: "dashboard/categories",
+        href: "/admin/dashboard/categories",
+        element: () => "chưa lamf",
+        title: "Quản lý danh mục",
+        icon: "user",
+      },
+
+      {
+        path: "dashboard/export",
+        href: "/admin/dashboard/export",
+        element: () => "chưa lamf",
+        title: "Thống kê",
+        icon: "list-alt",
+      },
+    ],
+  },
+  // {
+  //   role: "teacher",
+  //   path: "/teacher",
+  //   element: <DashboardLayout />,
+  //   children: [
+  //     { path: "theme/colors", element: () => "chưa lamf" },
+  //     { path: "theme/typography", element: () => "chưa lamf" },
+  //     { path: "base/accordion", element: () => "chưa lamf" },
+  //     { path: "base/breadcrumbs", element: () => "chưa lamf" },
+  //   ],
+  // },
+];
+
+export {
+  MAIN_ROUTE,
+  AUTH_ROUTE,
+  ADMIN_ROUTE,
+  TEACHER_ROUTE,
+  STUDENT_ROUTE,
+  DASHBOARD_ROUTE,
+};
