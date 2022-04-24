@@ -3,6 +3,7 @@ import { Routes, useNavigate } from "react-router-dom";
 import {
   ADMIN_ROUTE,
   AUTH_ROUTE,
+  DASHBOARD_ROUTE,
   MAIN_ROUTE,
   STUDENT_ROUTE,
   TEACHER_ROUTE,
@@ -12,9 +13,9 @@ import { authRoute, mainRoute, privateRoute } from "./routes/Router";
 function App() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    navigate("/dashboard");
-  }, []);
+  // useEffect(() => {
+  //   navigate("/dashboard");
+  // }, [navigate]);
 
   return (
     <Routes>
@@ -23,6 +24,8 @@ function App() {
       {privateRoute(ADMIN_ROUTE)}
       {privateRoute(TEACHER_ROUTE)}
       {privateRoute(STUDENT_ROUTE)}
+      {/* Dashboard routes */}
+      {privateRoute(DASHBOARD_ROUTE)}
     </Routes>
   );
 }
