@@ -1,3 +1,4 @@
+import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword";
 import Login from "src/pages/AuthPage/Login";
@@ -26,6 +27,11 @@ const MAIN_ROUTE = [
     role: "page",
     path: "/courses/:id",
     element: <CourseDetail />,
+  },
+  {
+    role: "page",
+    path: "/dashboard",
+    element: <DashboardLayout />,
   },
 
   { role: "page", path: "/*", element: <NotFound /> },

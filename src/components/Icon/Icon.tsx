@@ -13,15 +13,14 @@ interface IconProps {
 const Icon: React.FC<IconProps> = (props) => {
   const { color, size, icon, className, ...rest } = props;
   return (
-    <div className={className}>
-      <IcomoonReact
-        iconSet={iconSet}
-        color={color ?? "#444"}
-        size={size ?? 100}
-        icon={icon}
-        {...rest}
-      />
-    </div>
+    <IcomoonReact
+      className={className}
+      iconSet={iconSet}
+      color={color ?? "#444"}
+      size={size ?? 100}
+      icon={icon}
+      {...rest}
+    />
   );
 };
 

@@ -25,11 +25,7 @@ const useClickOutSide = (nodeHtml?: any) => {
     };
   }, [nodeHtml]);
 
-  return {
-    nodeRef,
-    show,
-    setShow,
-  };
+  return { nodeRef, show, setShow };
 };
 
 export default useClickOutSide;
