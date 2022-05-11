@@ -1,0 +1,30 @@
+.auth-container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > .auth-title {
+    > span {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  > .auth-form {
+    max-width: 600px;
+    width: 100%;
+    > form {
+      padding: 20px;
+      border-radius: 16px;
+
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+}
