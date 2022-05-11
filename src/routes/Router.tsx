@@ -28,7 +28,11 @@ const privateRoute = (routes: Array<any>) => {
       >
         {route.children &&
           route.children.map((subLink: any, index: number) => (
-            <Route key={index} path={subLink.path} element={subLink.element} />
+            <Route
+              key={index}
+              path={subLink.path}
+              element={subLink.element}
+            ></Route>
           ))}
       </Route>
     );

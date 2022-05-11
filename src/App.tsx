@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Routes, useNavigate } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { authRoute, mainRoute, privateRoute } from "./routes/Router";
 import {
   ADMIN_ROUTE,
   AUTH_ROUTE,
@@ -7,16 +7,9 @@ import {
   MAIN_ROUTE,
   STUDENT_ROUTE,
   TEACHER_ROUTE,
-} from "./contants/routes";
-import { authRoute, mainRoute, privateRoute } from "./routes/Router";
+} from "./routes/routes";
 
 function App() {
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   navigate("/dashboard");
-  // }, [navigate]);
-
   return (
     <Routes>
       {mainRoute(MAIN_ROUTE)}

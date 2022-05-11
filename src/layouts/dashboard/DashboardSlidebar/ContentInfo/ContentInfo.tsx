@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { DASHBOARD_ROUTE } from "src/contants/routes";
+import { DASHBOARD_ROUTE } from "src/routes/routes";
 import LogoHeader from "src/layouts/dashboard/DashboardSlidebar/LogoHeader/LogoHeader";
 import { selectAuthorization } from "src/reducers/authSlice";
 import NavSection from "../../NavSection/NavSection";

@@ -1,28 +1,23 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import DashboardHeader from "./DashBoardHeader/DashboardHeader";
-
 import DashboardSidebar from "./DashboardSlidebar/DashboardSidebar";
+import "./DashboardLayout.scss";
 
 const DashboardLayout = () => {
-  const [open, setOpen] = useState(false);
-
   return (
-    <>
-      {/* dashboard menu */}
-      <DashboardHeader />
-      <DashboardSidebar
-        isOpenSidebar={open}
-        onCloseSidebar={() => setOpen(false)}
-      />
-
-      {/* content here */}
-
-      <div>
-        <Outlet />
-        {/* dfasfsd */}
+    <div className="dashboard">
+      <div className="header">
+        <DashboardHeader />
       </div>
-    </>
+      <div className="body">
+        <div className="sidebar">
+          <DashboardSidebar />
+        </div>
+        <div className="content">
+          <Outlet />
+        </div>
+      </div>
+    </div>
   );
 };
 

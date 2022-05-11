@@ -1,5 +1,6 @@
 import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import AdminPage from "src/pages/AdminPage/AdminPage";
+import UserList from "src/pages/AdminPage/UserManage/UserList";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
@@ -66,37 +67,41 @@ const DASHBOARD_ROUTE = [
       {
         path: "dashboard",
         href: "/admin/dashboard",
-        element: () => "chưa lamf",
-        title: "dashboard",
+        element: <UserList />,
+        title: "Thông tin cá nhân",
         icon: "info-circle",
       },
       {
         path: "dashboard/user",
         href: "/admin/dashboard/user",
-        element: () => "chưa lamf",
+        element: <UserList />,
         title: "Quản lý người dùng",
         icon: "user",
-        children: [
-          {
-            title: "Xem người dùng",
-            path: "/dashboard/user",
-            // icon: "info",
-          },
-          {
-            title: "Thêm người dùng",
-            path: "/dashboard/user/add",
-            //  icon: "plus"
-          },
-          {
-            title: "Xoá người dùng",
-            path: "/dashboard/user/delete",
-            //icon: "trash-o"
-          },
-          {
-            title: "Sửa người dùng",
-            path: "/dashboard/user/modify", //icon: "pencil"
-          },
-        ],
+        // children: [
+        //   {
+        //     title: "Xem người dùng",
+        //     path: "/admin/dashboard/user",
+        //     element: <UserList />,
+        //     // icon: "info",
+        //   },
+        //   {
+        //     title: "Thêm người dùng",
+        //     path: "/admin/dashboard/user/add",
+        //     element: <UserList />,
+        //     //  icon: "plus"
+        //   },
+        //   {
+        //     title: "Xoá người dùng",
+        //     path: "/admin/dashboard/user/delete",
+        //     element: <UserList />,
+        //     //icon: "trash-o"
+        //   },
+        //   {
+        //     title: "Sửa người dùng",
+        //     path: "/admin/dashboard/user/modify",
+        //     element: <UserList />, //icon: "pencil"
+        //   },
+        // ],
       },
       {
         path: "dashboard/course",
@@ -111,27 +116,23 @@ const DASHBOARD_ROUTE = [
         title: "Quản lý danh mục",
         icon: "user",
       },
+      {
+        path: "dashboard/coupon",
+        href: "/admin/dashboard/coupon",
+        element: () => "chưa lamf",
+        title: "Quản lý khuyến mãi",
+        icon: "barcode",
+      },
 
       {
         path: "dashboard/export",
         href: "/admin/dashboard/export",
         element: () => "chưa lamf",
         title: "Thống kê",
-        icon: "list-alt",
+        icon: "bar-chart",
       },
     ],
   },
-  // {
-  //   role: "teacher",
-  //   path: "/teacher",
-  //   element: <DashboardLayout />,
-  //   children: [
-  //     { path: "theme/colors", element: () => "chưa lamf" },
-  //     { path: "theme/typography", element: () => "chưa lamf" },
-  //     { path: "base/accordion", element: () => "chưa lamf" },
-  //     { path: "base/breadcrumbs", element: () => "chưa lamf" },
-  //   ],
-  // },
 ];
 
 export {
