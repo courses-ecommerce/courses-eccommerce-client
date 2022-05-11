@@ -9,10 +9,12 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ title, children }) => {
   return (
     <div className="auth-container">
-      <div className="auth-title">
-        <span>{title}</span>
+      <div className="auth-content">
+        <div className="auth-title">
+          <span>{title}</span>
+        </div>
+        <div className="auth-form">{children}</div>
       </div>
-      <div className="auth-form">{children}</div>
     </div>
   );
 };
