@@ -1,46 +1,78 @@
-# Getting Started with Create React App
+# Course Ecommerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Link Apis: [https://hnam.works/api-docs/](https://hnam.works/api-docs/?fbclid=IwAR3A5GNo_i52lIIu1q2J4P_Y1CDkf9YwBQ4UPmJ8gI6bnxqqY5RwrdpihvI)
 
-## Available Scripts
+Link Demo Website: [course-ecommerce](https://www.course-ecommerce.tk/)
 
-In the project directory, you can run:
+## 1. Auth Page:
 
-### `npm start`
+### 1.1. Login Page:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [ ] Login
+- [ ] Google Login
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1.2 Register Page:
 
-### `npm test`
+- [ ] Verify Email
+- [ ]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1.3 Forgot password Page:
 
-### `npm run build`
+- [ ] Send Email to get new password
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 2. Page user:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2.1 Keep Login:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [ ] Keep Login ( refresh token)
 
-### `npm run eject`
+### 2.2 Profile:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [ ] Mange Profile??
+- [ ] Change password
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2.3 Cart??
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 3. Page admin:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 3.1 Manage User:
 
-## Learn More
+- [ ] Get users
+- [ ] Create new user
+- [ ] Update user
+- [ ] Delete user
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 3.2 Manage Categories:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Get categories
+- [ ] Create new category
+- [ ] Update category
+- [ ] Delete category
+
+### 3.3 Manage Course:
+
+- [ ] Get courses
+- [ ] View details course
+- [ ] Add new course
+- [ ] Update course
+
+### 3.4 Manage Coupon:
+
+- [ ] Get coupons
+- [ ] Create new coupon
+- [ ] Update coupon
+- [ ] Delete coupon
+- [ ] View detail coupon
+
+## 4. Courses:
+
+- [ ] Get courses
+  - [ ] Relate
+  - [ ] Hot
+  - [ ] Suggest (by history search)
+
+## 5. Payment:
+
+- [ ] Estimate amount cart
+- [ ] Checkout cart
+- [ ] Notify Checkout Success
