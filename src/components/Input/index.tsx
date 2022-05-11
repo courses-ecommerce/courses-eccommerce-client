@@ -40,7 +40,7 @@ const Input = React.forwardRef(
         >
           <div className="input-form">
             <input
-              required={required}
+              // required={required}
               name={name}
               type={show ? "text" : type}
               onFocus={() => setFocused(true)}

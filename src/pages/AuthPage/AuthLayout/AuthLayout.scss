@@ -1,0 +1,59 @@
+.auth-container {
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("https://th.bing.com/th/id/R.815d3a8988fca53ea55eb4389fc3f070?rik=%2bSQSGWo%2bnuD0Eg&riu=http%3a%2f%2fwww.ecofeet.com.au%2fwp-content%2fuploads%2f2014%2f07%2fgreen-leaf-bg1.jpg&ehk=rBOmP71uxYu5GRoE0UkuqJoD34AGBCSTIC08gWGIWf0%3d&risl=&pid=ImgRaw&r=0");
+
+  > .auth-content {
+    padding: 20px;
+    border-radius: 16px;
+
+    max-width: 600px;
+    width: 100%;
+
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    > .auth-title {
+      text-align: center;
+
+      > span {
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
+
+    > .auth-form {
+      > form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      > .extra-links {
+        margin-top: 20px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        > div {
+          display: flex;
+          gap: 20px;
+        }
+        // > a {
+        //   flex: 1;
+        //   display: flex;
+        //   justify-content: center;
+        // }
+      }
+    }
+  }
+}
