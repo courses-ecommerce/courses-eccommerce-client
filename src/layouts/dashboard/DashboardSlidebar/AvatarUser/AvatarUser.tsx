@@ -9,7 +9,7 @@ const AvatarUser = () => {
   const { isRole } = useSelector(selectAuthorization);
 
   return (
-    <Link className="user" to="/dashboard">
+    <Link className="user" to={`/${isRole}/dashboard`}>
       <Avatar
         className="user-avatar"
         src="https://th.bing.com/th/id/OIP.8t1WtYLAPVB189hu7pCP3gHaHa?pid=ImgDet&rs=1"

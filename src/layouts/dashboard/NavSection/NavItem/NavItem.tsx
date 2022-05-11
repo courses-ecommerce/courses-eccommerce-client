@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Icon from "src/components/Icon/Icon";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import useHover from "src/hooks/useHover";

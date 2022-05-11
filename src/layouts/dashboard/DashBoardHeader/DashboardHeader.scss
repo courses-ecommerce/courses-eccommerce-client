@@ -1,11 +1,21 @@
 .dashboard-header {
   color: black;
-  padding-right: 20px;
+  padding: 0 20px;
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
 
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+  > .toggle {
+    cursor: pointer;
+  }
+
+  > .content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  }
 }
