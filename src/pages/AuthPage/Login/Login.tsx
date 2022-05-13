@@ -17,7 +17,6 @@ const Login = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Phải là email")
-        .max(20, "Tối đa 20 kí tự")
         .required("Vui lòng nhập địa chỉ email"),
       password: Yup.string()
         .min(8, "Mật khẩu ít nhất 8 kí tự")

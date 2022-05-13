@@ -1,16 +1,3 @@
-//for auth
-export interface IAuth {
-  isLoading: boolean;
-  isAuth: boolean;
-  isRole: string;
-}
-
-export interface IAccount {
-  email: string;
-  password: string;
-  keepLogin?: boolean;
-}
-
 export interface IUser {
   email: string;
   password: string;
