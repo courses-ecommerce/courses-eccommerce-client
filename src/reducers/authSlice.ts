@@ -1,6 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IAuth } from "src/types/auth";
 
+// export const postLogin = createAsyncThunk(
+//   "auth/login",
+//   async (params: ILogin, thunkApi) => {
+//     // thunkAPI.dispatch(...)
+
+//     console.log("ádasdas", params);
+
+//     const response = await authApi.postLogin(params);
+//     return response;
+//   }
+// );
+
 const initialState: IAuth = {
   isLoading: false,
   // isAuth: true,
@@ -32,6 +44,7 @@ const authSlice = createSlice({
       state.isRole = "";
     },
   },
+  extraReducers: {},
 });
 
 const { actions, reducer } = authSlice;

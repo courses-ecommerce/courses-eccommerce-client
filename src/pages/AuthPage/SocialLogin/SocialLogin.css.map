@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACE,aADW,GACT,MAAM,CAAC;EACP,OAAO,EAAE,IAAI;EACb,GAAG,EAAE,IAAI;CACV;;AAGH,MAAM,EAAE,SAAS,EAAE,KAAK;EACtB,AAEI,aAFS,GACT,MAAM,GACJ,IAAI,CAAC;IACL,SAAS,EAAE,IAAI;GAChB",
+    "sources": [
+        "SocialLogin.scss"
+    ],
+    "names": [],
+    "file": "SocialLogin.css"
+}

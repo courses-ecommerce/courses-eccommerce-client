@@ -1,4 +1,7 @@
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Routes } from "react-router-dom";
+import { selectAuthorization } from "./reducers/authSlice";
 import { authRoute, mainRoute, privateRoute } from "./routes/Router";
 import {
   ADMIN_ROUTE,
@@ -10,16 +13,27 @@ import {
 } from "./routes/routes";
 
 function App() {
+  const { isLoading } = useSelector(selectAuthorization);
+
   return (
-    <Routes>
-      {mainRoute(MAIN_ROUTE)}
-      {authRoute(AUTH_ROUTE)}
-      {privateRoute(ADMIN_ROUTE)}
-      {privateRoute(TEACHER_ROUTE)}
-      {privateRoute(STUDENT_ROUTE)}
-      {/* Dashboard routes */}
-      {privateRoute(DASHBOARD_ROUTE)}
-    </Routes>
+    <>
+      <Routes>
+        {mainRoute(MAIN_ROUTE)}
+        {authRoute(AUTH_ROUTE)}
+        {privateRoute(ADMIN_ROUTE)}
+        {privateRoute(TEACHER_ROUTE)}
+        {privateRoute(STUDENT_ROUTE)}
+        {/* Dashboard routes */}
+        {privateRoute(DASHBOARD_ROUTE)}
+      </Routes>
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
   );
 }
 

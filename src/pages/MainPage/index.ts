@@ -1,3 +1,3 @@
 export * from "./AccessDenied";
-export * from "./HomePage";
-export * from "./NotFound";
+export * from "./HomePage/HomePage";
+export * from "./NotFound/NotFound";
