@@ -1,31 +1,37 @@
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import Dropdown from "src/components/Dropdown";
 import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input";
 import { genderTypes } from "src/data";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import { IRegister } from "src/types/auth";
 import { isEmail, phoneRegExp } from "src/utils";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
 import "./Register.scss";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
-      fullname: "",
+      fullName: "",
       email: "",
       verifyCode: "",
       password: "",
-      passwordConfirm: "",
-      birthday: "",
+      // passwordConfirm: "",
+      // birthday: "",
       phone: "",
     },
     validationSchema: Yup.object({
-      fullname: Yup.string().required("Vui lòng nhập họ tên"),
+      fullName: Yup.string().required("Vui lòng nhập họ tên"),
       email: Yup.string()
         .email("Phải là email")
         .required("Vui lòng nhập gmail"),
@@ -34,13 +40,14 @@ const Register = () => {
       password: Yup.string()
         .min(8, "Mật khẩu ít nhất 8 kí tự")
         .required("Vui lòng nhập mật khẩu"),
-      passwordConfirm: Yup.string()
-        .min(8, "Mật khẩu ít nhất 8 kí tự")
-        .required("Vui lòng nhập mật khẩu"),
+      // passwordConfirm: Yup.string()
+      //   .min(8, "Mật khẩu ít nhất 8 kí tự")
+      //   .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng nhau"),
       phone: Yup.string().matches(phoneRegExp, "Nhập đúng số điện thoại"),
     }),
     onSubmit: (values) => {
       console.log("lấy được dữ liệu là", values);
+      postRegister(values);
     },
   });
 
@@ -70,6 +77,22 @@ const Register = () => {
       );
     } catch (error) {
       toast.error(`${error}`, { position: "bottom-right" });
+    }
+  };
+
+  const postRegister = async (params: IRegister) => {
+    dispatch(isPending());
+    try {
+      await authApi.postRegister(params);
+      dispatch(isSuccess());
+
+      toast.warning("Tạo tài khoản thành công, quay lại đăng nhập", {
+        position: "bottom-right",
+      });
+      navigate("/login");
+    } catch (error) {
+      toast.warning(`${error}`, { position: "bottom-right" });
+      dispatch(isSuccess());
     }
   };
 
@@ -113,7 +136,7 @@ const Register = () => {
             errorMessage={formik.touched.password ? formik.errors.password : ""}
             {...formik.getFieldProps("password")}
           />
-          <Input
+          {/* <Input
             required
             type="password"
             label="Nhập lại mật khẩu"
@@ -124,7 +147,7 @@ const Register = () => {
                 : ""
             }
             {...formik.getFieldProps("passwordConfirm")}
-          />
+          /> */}
         </div>
 
         <div>
@@ -132,8 +155,8 @@ const Register = () => {
             required
             label="Họ và tên"
             placeholder="Nhập họ và tên"
-            errorMessage={formik.touched.fullname ? formik.errors.fullname : ""}
-            {...formik.getFieldProps("fullname")}
+            errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
+            {...formik.getFieldProps("fullName")}
           />
           <Input
             label="Số điện thoại"
@@ -141,12 +164,12 @@ const Register = () => {
             errorMessage={formik.touched.phone ? formik.errors.phone : ""}
             {...formik.getFieldProps("phone")}
           />
-          <Input
+          {/* <Input
             type="date"
             label="Ngày sinh nhật"
             {...formik.getFieldProps("birthday")}
           />
-          <Dropdown label="Giới tính" list={genderTypes} />
+          <Dropdown label="Giới tính" list={genderTypes} /> */}
         </div>
       </form>
       <Button
