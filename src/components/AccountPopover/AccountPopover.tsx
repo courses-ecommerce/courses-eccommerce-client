@@ -1,35 +1,16 @@
-import {
-  Avatar,
-  Button,
-  Divider,
-  IconButton,
-  MenuItem,
-  Tooltip,
-} from "@mui/material";
+import { Avatar, Divider, IconButton, MenuItem, Tooltip } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import useClickOutSide from "src/hooks/useClickOutSide";
-import MenuPopover from "src/layouts/dashboard/AccountPopover/MenuPopover/MenuPopover";
+import Logout from "src/pages/AuthPage/Logout/Logout";
+import { IRoute } from "src/types";
+import MenuPopover from "../MenuPopover/MenuPopover";
 import "./AccountPopover.scss";
 
-const MENU_OPTIONS = [
-  {
-    label: "Trang chủ",
-    icon: "eva:home-fill",
-    linkTo: "/",
-  },
-  // {
-  //   label: "Thông tin cá nhân",
-  //   icon: "eva:person-fill",
-  //   linkTo: "#",
-  // },
-  // {
-  //   label: "Giỏ hàng",
-  //   icon: "eva:settings-2-fill",
-  //   linkTo: "#",
-  // },
-];
+interface AccountPopoverProps {
+  routes: IRoute[];
+}
 
-const AccountPopover = () => {
+const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
   const { nodeRef, show, setShow } = useClickOutSide();
 
   return (
@@ -49,14 +30,14 @@ const AccountPopover = () => {
         onClose={() => setShow(false)}
       >
         <div className="account-popover-menu">
-          {MENU_OPTIONS.map((option) => (
+          {routes?.map((route: IRoute) => (
             <MenuItem
-              key={option.label}
-              to={option.linkTo}
+              key={route.name}
+              to={route.path}
               component={RouterLink}
               onClick={() => setShow(false)}
             >
-              {option.label}
+              {route.name}
             </MenuItem>
           ))}
         </div>
@@ -64,9 +45,7 @@ const AccountPopover = () => {
         <Divider sx={{ borderStyle: "groove" }} />
 
         <div className="account-popover-handle">
-          <Button variant="contained" color="warning">
-            Đăng xuất
-          </Button>
+          <Logout />
         </div>
       </MenuPopover>
     </div>

@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
@@ -22,7 +23,10 @@ const Login = () => {
       console.log(response);
       // dispatch(isLogin(response));
     } catch (error) {
-      console.log("lỗi rồi", error);
+      // console.log("lỗi rồi", error);
+      toast.warning(`${error}`, {
+        position: "bottom-right",
+      });
       dispatch(isSuccess());
     }
   };

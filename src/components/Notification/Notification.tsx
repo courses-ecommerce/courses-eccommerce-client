@@ -1,8 +1,9 @@
 import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import useClickOutSide from "src/hooks/useClickOutSide";
-import MenuPopover from "src/layouts/dashboard/AccountPopover/MenuPopover/MenuPopover";
+
 import { IMessage, INotify } from "src/types";
+import MenuPopover from "../MenuPopover/MenuPopover";
 import Icon from "../Icon/Icon";
 
 interface NotificationProps {

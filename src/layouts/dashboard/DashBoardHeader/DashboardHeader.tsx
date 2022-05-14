@@ -1,6 +1,8 @@
+import AccountPopover from "src/components/AccountPopover/AccountPopover";
 import Icon from "src/components/Icon/Icon";
 import Notification from "src/components/Notification/Notification";
-import AccountPopover from "../AccountPopover/AccountPopover";
+import { linkUserProfile } from "src/data/sidebar";
+
 import "./DashboardHeader.scss";
 
 const DashboardHeader = () => {
@@ -12,7 +14,7 @@ const DashboardHeader = () => {
       <div className="content">
         <Notification type="notify" />
         <Notification type="message" />
-        <AccountPopover />
+        <AccountPopover routes={linkUserProfile} />
       </div>
     </div>
   );

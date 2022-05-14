@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -58,9 +58,16 @@ const Register = () => {
   };
 
   const verifyEmail = async (email: string) => {
+    const params = { email: email };
     try {
-      const response = await authApi.postVerifyEmailRegister(email);
+      const response = await authApi.postVerifyEmailRegister(params);
       console.log(response);
+      toast.success(
+        "Gửi mã xác thực thành công!. Vui lòng kiểm tra thử email",
+        {
+          position: "bottom-right",
+        }
+      );
     } catch (error) {
       toast.error(`${error}`, { position: "bottom-right" });
     }
@@ -91,9 +98,11 @@ const Register = () => {
               }
               {...formik.getFieldProps("verifyCode")}
             />
-            <span className="icon" onClick={handleVerifyEmail}>
-              <Icon icon="send" size={25} />
-            </span>
+            <Tooltip title="Nhận mã xác thực gmail">
+              <span className="icon" onClick={handleVerifyEmail}>
+                <Icon icon="send" size={25} />
+              </span>
+            </Tooltip>
           </div>
 
           <Input
