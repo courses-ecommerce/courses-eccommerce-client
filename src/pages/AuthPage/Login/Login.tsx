@@ -21,6 +21,8 @@ const Login = () => {
     try {
       const response = await authApi.postLogin(data);
       console.log(response);
+      const { refreshToken, role, token }: any = response;
+      dispatch(isLogin(role));
       // dispatch(isLogin(response));
     } catch (error) {
       // console.log("lỗi rồi", error);
