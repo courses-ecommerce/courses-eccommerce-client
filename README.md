@@ -1,24 +1,36 @@
-# Course Ecommerce
+# Course Ecommerce- Thesis
 
 Link Apis: [https://hnam.works/api-docs/](https://hnam.works/api-docs/?fbclid=IwAR3A5GNo_i52lIIu1q2J4P_Y1CDkf9YwBQ4UPmJ8gI6bnxqqY5RwrdpihvI)
 
 Link Demo Website: [course-ecommerce](https://www.course-ecommerce.tk/)
 
+Account:
+
+```jsx
+// User
+hacthuylong@gmail.com
+12345678
+// Admin
+efert269@gmail.com
+123456789
+```
+
 ## 1. Auth Page:
 
 ### 1.1. Login Page:
 
-- [ ] Login
+- [x] Login
 - [ ] Google Login
 
 ### 1.2 Register Page:
 
-- [ ] Verify Email
-- [ ]
+- [x] Verify Email
+- [x] Register
 
 ### 1.3 Forgot password Page:
 
 - [ ] Send Email to get new password
+- [ ] Forgot_password
 
 ## 2. Page user:
 
@@ -32,6 +44,8 @@ Link Demo Website: [course-ecommerce](https://www.course-ecommerce.tk/)
 - [ ] Change password
 
 ### 2.3 Cart??
+
+### 2.4 Manage course
 
 ## 3. Page admin:
 
