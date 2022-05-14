@@ -15,7 +15,7 @@ const authApi = {
     const url = AUTH_API;
     return axiosClient.post(url, account);
   },
-  postLoginGoogle: (access_token: string) => {
+  postLoginGoogle: (access_token: Object) => {
     const url = AUTH_API + "google";
     return axiosClient.post(url, access_token);
   },
@@ -23,7 +23,7 @@ const authApi = {
     const url = AUTH_API + "/logout";
     return axiosClient.post(url);
   },
-  postRefreshToken: (refresh_token: string) => {
+  postRefreshToken: (refresh_token: Object) => {
     const url = AUTH_API + "/refresh-token";
     return axiosClient.post(url, refresh_token);
   },
@@ -33,7 +33,7 @@ const authApi = {
     const url = ACCOUNTS_API + "/signup";
     return axiosClient.post(url, account);
   },
-  postVerifyEmailRegister: (email: string) => {
+  postVerifyEmailRegister: (email: Object) => {
     const url = ACCOUNTS_API + "/verify";
     return axiosClient.post(url, email);
   },
@@ -42,7 +42,7 @@ const authApi = {
     const url = ACCOUNTS_API + "forgot-pw";
     return axiosClient.post(url, account);
   },
-  postVerifyEmailForgotPassword: (email: string) => {
+  postVerifyEmailForgotPassword: (email: Object) => {
     const url = ACCOUNTS_API + "/verify/forgot";
     return axiosClient.post(url, email);
   },

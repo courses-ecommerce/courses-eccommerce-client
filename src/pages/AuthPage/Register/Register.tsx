@@ -58,9 +58,16 @@ const Register = () => {
   };
 
   const verifyEmail = async (email: string) => {
+    const params = { email: email };
     try {
-      const response = await authApi.postVerifyEmailRegister(email);
+      const response = await authApi.postVerifyEmailRegister(params);
       console.log(response);
+      toast.success(
+        "Gửi mã xác thực thành công!. Vui lòng kiểm tra thử email",
+        {
+          position: "bottom-right",
+        }
+      );
     } catch (error) {
       toast.error(`${error}`, { position: "bottom-right" });
     }
