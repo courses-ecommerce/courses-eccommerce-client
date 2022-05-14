@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AACG,AACC,qBADI,GACF,CAAC,CAAC;EACF,SAAS,EAAE,IAAI;CAChB;;AAEF,AAAD,uBAAQ,CAAC;EACP,OAAO,EAAE,IAAI;CACd",
-    "sources": [
-        "AccountPopover.scss"
-    ],
-    "names": [],
-    "file": "AccountPopover.css"
-}

@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,SAAS,CAAC;EACR,gBAAgB,EAAE,IAAI;EACtB,gBAAgB,EAAE,6DAKjB;EACD,eAAe,EAAE,SAAS;EAC1B,SAAS,EAAE,0BAA0B;CACtC;;AAED,UAAU,CAAV,KAAU;EACR,EAAE;IACA,qBAAqB,EAAE,KAAK",
-    "sources": [
-        "LoadingSkeleton.scss"
-    ],
-    "names": [],
-    "file": "LoadingSkeleton.css"
-}

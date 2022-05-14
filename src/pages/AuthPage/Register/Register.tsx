@@ -81,7 +81,7 @@ const Register = () => {
             errorMessage={formik.touched.email ? formik.errors.email : ""}
             {...formik.getFieldProps("email")}
           />
-          <div className="verify-code" onClick={handleVerifyEmail}>
+          <div className="verify-code">
             <Input
               required
               label="Mã xác nhận email"
@@ -91,7 +91,7 @@ const Register = () => {
               }
               {...formik.getFieldProps("verifyCode")}
             />
-            <span className="icon">
+            <span className="icon" onClick={handleVerifyEmail}>
               <Icon icon="send" size={25} />
             </span>
           </div>
