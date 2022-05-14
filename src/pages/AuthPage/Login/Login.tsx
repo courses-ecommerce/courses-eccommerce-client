@@ -1,14 +1,32 @@
+import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
-import AuthLayout from "../AuthLayout/AuthLayout";
-import * as Yup from "yup";
-import Input from "src/components/Input";
-import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import GoogleLogin from "../SocialLogin/GoogleLogin";
+import authApi from "src/apis/authApi";
+import Input from "src/components/Input";
+import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
+import { ILogin } from "src/types/auth";
+import * as Yup from "yup";
+import AuthLayout from "../AuthLayout/AuthLayout";
 import FacebookLogin from "../SocialLogin/FacebookLogin";
+import GoogleLogin from "../SocialLogin/GoogleLogin";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  const postLogin = async (data: ILogin) => {
+    dispatch(isPending());
+    try {
+      const response = await authApi.postLogin(data);
+      console.log(response);
+      // dispatch(isLogin(response));
+    } catch (error) {
+      console.log("lỗi rồi", error);
+      dispatch(isSuccess());
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,6 +42,7 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       console.log("lấy được dữ liệu là", values);
+      postLogin(values);
     },
   });
 

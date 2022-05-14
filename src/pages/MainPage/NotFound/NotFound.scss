@@ -1,0 +1,19 @@
+.notfound-page {
+  width: 100vw;
+  height: 100vh;
+  background: url("https://www.wpoven.com/blog/wp-content/uploads/2019/12/404-error-not-found.png")
+    no-repeat center / cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > a {
+    margin-top: 120px;
+    font-size: 25px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

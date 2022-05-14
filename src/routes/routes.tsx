@@ -6,8 +6,8 @@ import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
 import CourseDetail from "src/pages/CoursePage/CourseDetail";
 import CoursePage from "src/pages/CoursePage/CoursePage";
-import HomePage from "src/pages/MainPage/HomePage";
-import NotFound from "src/pages/MainPage/NotFound";
+import HomePage from "src/pages/MainPage/HomePage/HomePage";
+import NotFound from "src/pages/MainPage/NotFound/NotFound";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
