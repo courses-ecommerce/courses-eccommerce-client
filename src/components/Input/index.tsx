@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-
 import classnames from "classnames";
-import "./Input.scss";
+import React, { useState } from "react";
 import Icon from "../Icon/Icon";
+import "./Input.scss";
 
 const Input = React.forwardRef(
   (props: InputProps, ref?: React.LegacyRef<HTMLInputElement>) => {
@@ -51,6 +50,7 @@ const Input = React.forwardRef(
               {...rest}
             />
           </div>
+
           {icon && (
             <Icon
               className="input-icon"
@@ -59,6 +59,7 @@ const Input = React.forwardRef(
               color={"#94A3B8"}
             />
           )}
+
           {type === "password" && (
             <div
               className="input-icon"

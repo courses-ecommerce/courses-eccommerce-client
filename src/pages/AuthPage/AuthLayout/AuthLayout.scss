@@ -24,11 +24,25 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
     > .auth-title {
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
 
       > span {
         font-size: 24px;
         font-weight: 600;
+      }
+
+      > .icon {
+        cursor: pointer;
+        > svg {
+          > path {
+            &:hover {
+              fill: rgb(115, 0, 255) !important;
+            }
+          }
+        }
       }
     }
 

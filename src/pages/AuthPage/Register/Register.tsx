@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -91,9 +91,11 @@ const Register = () => {
               }
               {...formik.getFieldProps("verifyCode")}
             />
-            <span className="icon" onClick={handleVerifyEmail}>
-              <Icon icon="send" size={25} />
-            </span>
+            <Tooltip title="Nhận mã xác thực gmail">
+              <span className="icon" onClick={handleVerifyEmail}>
+                <Icon icon="send" size={25} />
+              </span>
+            </Tooltip>
           </div>
 
           <Input

@@ -36,7 +36,7 @@ const authSlice = createSlice({
       state.isRole = action.payload;
     },
     isSuccess(state) {
-      state.isAuth = true;
+      // state.isAuth = true;
       state.isLoading = false;
     },
     isLogout(state) {

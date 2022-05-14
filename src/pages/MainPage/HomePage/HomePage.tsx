@@ -1,6 +1,7 @@
 import React from "react";
+import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 
 const HomePage = () => {
-  return <div>trang home</div>;
+  return <LayoutContainer>trang home</LayoutContainer>;
 };
 export default HomePage;
