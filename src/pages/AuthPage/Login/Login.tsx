@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import localStorage from "redux-persist/es/storage";
 import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
@@ -23,9 +24,11 @@ const Login = () => {
       console.log(response);
       const { refreshToken, role, token }: any = response;
       dispatch(isLogin(role));
+
       // dispatch(isLogin(response));
+      toast.success("Đăng nhập thành công", { position: "bottom-right" });
     } catch (error) {
-      // console.log("lỗi rồi", error);
+      console.log("lỗi rồi", error);
       toast.warning(`${error}`, {
         position: "bottom-right",
       });
@@ -47,7 +50,7 @@ const Login = () => {
         .required("Vui lòng nhập mật khẩu"),
     }),
     onSubmit: (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
       postLogin(values);
     },
   });
