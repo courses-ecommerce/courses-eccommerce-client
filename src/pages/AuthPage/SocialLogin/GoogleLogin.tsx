@@ -1,17 +1,19 @@
-import { Button } from "@mui/material";
-import React from "react";
-import Icon from "src/components/Icon/Icon";
-import "./SocialLogin.scss";
+import GoogleLogin from "react-google-login";
 
-const GoogleLogin = () => {
+const GoogleLoginBtn = () => {
+  const responseGoogle = (response: any) => {
+    console.log(response);
+  };
+
   return (
-    <div className="social-login">
-      <Button variant="contained" color="inherit">
-        <Icon icon="google" size={25} />
-        <span>Đăng nhập bằng Google</span>
-      </Button>
-    </div>
+    <GoogleLogin
+      clientId="294692584033-udrskhmtd5g7fj2f18eduqvudlbpgeaf.apps.googleusercontent.com"
+      buttonText="Đăng nhập bằng google"
+      onSuccess={responseGoogle}
+      onFailure={responseGoogle}
+      cookiePolicy="single_host_origin"
+    />
   );
 };
 
-export default GoogleLogin;
+export default GoogleLoginBtn;

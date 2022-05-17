@@ -5,10 +5,8 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import Dropdown from "src/components/Dropdown";
 import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input";
-import { genderTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IRegister } from "src/types/auth";
 import { isEmail, phoneRegExp } from "src/utils";
@@ -46,7 +44,7 @@ const Register = () => {
       phone: Yup.string().matches(phoneRegExp, "Nhập đúng số điện thoại"),
     }),
     onSubmit: (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
       postRegister(values);
     },
   });
@@ -65,18 +63,19 @@ const Register = () => {
   };
 
   const verifyEmail = async (email: string) => {
+    dispatch(isPending());
     const params = { email: email };
     try {
       const response = await authApi.postVerifyEmailRegister(params);
       console.log(response);
-      toast.success(
-        "Gửi mã xác thực thành công!. Vui lòng kiểm tra thử email",
-        {
-          position: "bottom-right",
-        }
-      );
+      const { message }: any = response;
+      dispatch(isSuccess());
+      toast.success(`${message}. Vui lòng kiểm tra thử email`, {
+        position: "bottom-right",
+      });
     } catch (error) {
       toast.error(`${error}`, { position: "bottom-right" });
+      dispatch(isSuccess());
     }
   };
 

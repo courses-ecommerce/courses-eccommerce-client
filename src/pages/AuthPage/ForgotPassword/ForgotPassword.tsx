@@ -1,12 +1,23 @@
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import authApi from "src/apis/authApi";
+import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import { IForgotPassword } from "src/types/auth";
+import { isEmail } from "src/utils";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
+import "./ForgotPassword.scss";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,7 +27,6 @@ const ForgotPassword = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Phải là email")
-        .max(20, "Tối đa 20 kí tự")
         .required("Vui lòng nhập gmail"),
 
       verifyCode: Yup.string().required("Vui lòng nhập mã xác thực email"),
@@ -25,13 +35,60 @@ const ForgotPassword = () => {
         .required("Vui lòng nhập mật khẩu"),
     }),
     onSubmit: (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
+      postForgotPassword(values);
     },
   });
 
+  const handleVerifyEmail = () => {
+    if (!isEmail(formik.values.email)) {
+      toast.warning("Địa chỉ email không hợp lệ, xin vui lòng nhập lại", {
+        position: "bottom-right",
+      });
+    } else {
+      toast.info("Đang tiến hành gửi email", {
+        position: "bottom-right",
+      });
+      verifyEmail(formik.values.email);
+    }
+  };
+
+  const verifyEmail = async (email: string) => {
+    dispatch(isPending());
+    const params = { email: email };
+    try {
+      const response = await authApi.postVerifyEmailForgotPassword(params);
+      console.log(response);
+      const { message }: any = response;
+      dispatch(isSuccess());
+      toast.success(`${message}. Vui lòng kiểm tra thử email`, {
+        position: "bottom-right",
+      });
+    } catch (error) {
+      toast.error(`${error}`, { position: "bottom-right" });
+      dispatch(isSuccess());
+    }
+  };
+
+  const postForgotPassword = async (params: IForgotPassword) => {
+    dispatch(isPending());
+    try {
+      await authApi.postForgotPassword(params);
+      dispatch(isSuccess());
+
+      toast.warning("Lấy lại mật khẩu thành công, quay lại đăng nhập", {
+        position: "bottom-right",
+      });
+      navigate("/login");
+    } catch (error) {
+      toast.warning(`${error}`, { position: "bottom-right" });
+      dispatch(isSuccess());
+    }
+  };
+
   return (
     <AuthLayout title="Lấy lại mật khẩu">
-      <form onSubmit={formik.handleSubmit}>
+      <form className="forgot-password-form" onSubmit={formik.handleSubmit}>
         <Input
           required
           label="Email"
@@ -39,15 +96,22 @@ const ForgotPassword = () => {
           errorMessage={formik.touched.email ? formik.errors.email : ""}
           {...formik.getFieldProps("email")}
         />
-        <Input
-          required
-          label="Mã xác nhận email"
-          placeholder="Nhập mã xác nhận"
-          errorMessage={
-            formik.touched.verifyCode ? formik.errors.verifyCode : ""
-          }
-          {...formik.getFieldProps("verifyCode")}
-        />
+        <div className="verify-code">
+          <Input
+            required
+            label="Mã xác nhận email"
+            placeholder="Nhập mã xác thực email"
+            errorMessage={
+              formik.touched.verifyCode ? formik.errors.verifyCode : ""
+            }
+            {...formik.getFieldProps("verifyCode")}
+          />
+          <Tooltip title="Nhận mã xác thực gmail">
+            <span className="icon" onClick={handleVerifyEmail}>
+              <Icon icon="send" size={25} />
+            </span>
+          </Tooltip>
+        </div>
         <Input
           required
           type="password"

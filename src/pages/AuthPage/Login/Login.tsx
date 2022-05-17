@@ -10,7 +10,7 @@ import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
-import FacebookLogin from "../SocialLogin/FacebookLogin";
+// import FacebookLogin from "../SocialLogin/FacebookLogin";
 import GoogleLogin from "../SocialLogin/GoogleLogin";
 
 const Login = () => {
@@ -78,7 +78,7 @@ const Login = () => {
       <div className="extra-links">
         <div>
           <GoogleLogin />
-          <FacebookLogin />
+          {/* <FacebookLogin /> */}
         </div>
         <div>
           <Link className="register" to="/register">
