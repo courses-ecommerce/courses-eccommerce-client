@@ -39,7 +39,7 @@ const authApi = {
   },
 
   postForgotPassword: (account: IForgotPassword) => {
-    const url = ACCOUNTS_API + "forgot-pw";
+    const url = ACCOUNTS_API + "/forgot-pw";
     return axiosClient.post(url, account);
   },
   postVerifyEmailForgotPassword: (email: Object) => {

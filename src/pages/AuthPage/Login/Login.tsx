@@ -4,13 +4,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import localStorage from "redux-persist/es/storage";
 import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
-import FacebookLogin from "../SocialLogin/FacebookLogin";
+// import FacebookLogin from "../SocialLogin/FacebookLogin";
 import GoogleLogin from "../SocialLogin/GoogleLogin";
 
 const Login = () => {
@@ -23,9 +24,11 @@ const Login = () => {
       console.log(response);
       const { refreshToken, role, token }: any = response;
       dispatch(isLogin(role));
+
       // dispatch(isLogin(response));
+      toast.success("Đăng nhập thành công", { position: "bottom-right" });
     } catch (error) {
-      // console.log("lỗi rồi", error);
+      console.log("lỗi rồi", error);
       toast.warning(`${error}`, {
         position: "bottom-right",
       });
@@ -47,7 +50,7 @@ const Login = () => {
         .required("Vui lòng nhập mật khẩu"),
     }),
     onSubmit: (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
       postLogin(values);
     },
   });
@@ -78,7 +81,7 @@ const Login = () => {
       <div className="extra-links">
         <div>
           <GoogleLogin />
-          <FacebookLogin />
+          {/* <FacebookLogin /> */}
         </div>
         <div>
           <Link className="register" to="/register">
