@@ -1,6 +1,6 @@
 // material
 import { Popover } from "@mui/material";
-
+import "./MenuPopover.scss";
 interface MenuPopoverProps {
   children: any;
   open?: boolean;

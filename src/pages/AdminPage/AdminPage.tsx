@@ -7,7 +7,7 @@ const AdminPage = () => {
     navigate("/admin/dashboard");
   }, [navigate]);
 
-  return <div>AdminPage</div>;
+  return <div></div>;
 };
 
 export default AdminPage;

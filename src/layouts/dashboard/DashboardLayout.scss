@@ -3,6 +3,11 @@
   flex-direction: column;
 
   > .header {
+    width: 100%;
+    padding: 0;
+    > .dashboard-header {
+      width: 100%;
+    }
   }
 
   > .body {
@@ -12,9 +17,7 @@
 
     > .content {
       flex: 1;
-
-      background: #000;
-      color: wheat;
+      margin-top: 50px;
     }
   }
 }

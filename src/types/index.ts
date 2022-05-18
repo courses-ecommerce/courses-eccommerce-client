@@ -4,6 +4,7 @@ export interface IRoute {
   name: string;
   path: string;
   href?: string;
+  role?: "account" | "page";
 }
 
 export interface IComponent {
