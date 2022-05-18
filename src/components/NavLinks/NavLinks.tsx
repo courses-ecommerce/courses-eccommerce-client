@@ -14,7 +14,9 @@ const NavLinks: React.FC<NavLinksProps> = ({ links, className }) => {
     return (
       links.length > 0 &&
       links.map((link: IRoute, index) => (
-        <NavLink to={link.path}>{link.name}</NavLink>
+        <NavLink key={index} to={link.path}>
+          {link.name}
+        </NavLink>
       ))
     );
   };

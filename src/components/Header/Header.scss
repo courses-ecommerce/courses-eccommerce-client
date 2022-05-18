@@ -1,5 +1,6 @@
 .header {
   height: 60px;
+  width: 100%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
   display: flex;
@@ -7,6 +8,12 @@
   align-items: center;
 
   padding: 0 40px;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+
+  background: white;
 
   &-img {
     max-width: 200px;
@@ -17,6 +24,14 @@
       no-repeat center / cover;
   }
   &-links {
+    display: flex;
+    gap: 50px;
+    > a {
+      cursor: pointer;
+      &.active {
+        color: red;
+      }
+    }
   }
   &-profile {
     display: flex;

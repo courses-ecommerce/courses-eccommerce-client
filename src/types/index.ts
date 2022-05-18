@@ -1,6 +1,7 @@
 export interface IRoute {
   name: string;
   path: string;
+  href?: string;
 }
 
 export interface IUser {
