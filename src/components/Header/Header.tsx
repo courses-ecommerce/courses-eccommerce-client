@@ -17,8 +17,7 @@ const Header = () => {
           to={link.href || ""}
           spy={true}
           smooth={true}
-          duration={250}
-          // containerId="containerElement"
+          duration={400}
         >
           {link.name}
         </Link>
@@ -29,6 +28,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-img"></div>
+
       <div className="header-links">
         {/* <NavLinks links={linkHeader} /> */}
         {renderSmoothLinks(linkHeader)}

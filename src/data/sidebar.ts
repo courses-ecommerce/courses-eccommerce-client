@@ -1,9 +1,9 @@
 import { IRoute } from "src/types";
 
 export const linkHeader: IRoute[] = [
-  { name: "Trang chủ", path: "/", href: "home" },
+  { name: "Trang chủ", path: "/", href: "" },
   { name: "Khoá học", path: "/course", href: "course" },
-  { name: "Hỗ trợ", path: "/support", href: "support" },
+  { name: "Hỗ trợ", path: "/support", href: "contact" },
 ];
 
 export const linkUserProfile: IRoute[] = [

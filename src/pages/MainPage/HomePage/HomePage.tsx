@@ -1,7 +1,6 @@
 import React from "react";
-import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 
 const HomePage = () => {
-  return <LayoutContainer />;
+  return <div>asdsa</div>;
 };
 export default HomePage;
