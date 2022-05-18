@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IAuth } from "src/types/auth";
+import { IAuthSlice } from "src/types/slice";
 
 // export const postLogin = createAsyncThunk(
 //   "auth/login",
@@ -13,14 +13,14 @@ import { IAuth } from "src/types/auth";
 //   }
 // );
 
-const initialState: IAuth = {
+const initialState: IAuthSlice = {
   isLoading: false,
-  // isAuth: true,
-  // isRole: "admin",
-  isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
-  isRole: JSON.parse(localStorage.getItem("role") || "{}")
-    ? JSON.parse(localStorage.getItem("role") || "null")
-    : "",
+  isAuth: false,
+  isRole: "",
+  // isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
+  // isRole: JSON.parse(localStorage.getItem("role") || "{}")
+  //   ? JSON.parse(localStorage.getItem("role") || "null")
+  //   : "",
 };
 
 const authSlice = createSlice({
@@ -51,6 +51,6 @@ const { actions, reducer } = authSlice;
 
 export const { isPending, isLogin, isSuccess, isLogout } = actions;
 
-export const selectAuthorization = (state: { auth: IAuth }) => state.auth;
+export const selectAuthorization = (state: { auth: IAuthSlice }) => state.auth;
 
 export default reducer;

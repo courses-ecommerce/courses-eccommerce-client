@@ -12,6 +12,7 @@
   position: fixed;
   left: 0;
   right: 0;
+  z-index: 9999;
 
   background: white;
 
@@ -42,5 +43,18 @@
     display: flex;
     align-items: center;
     gap: 20px;
+  }
+}
+
+@media (max-width: 715px) {
+  .header {
+    &-img {
+      display: none;
+    }
+    &-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
   }
 }

@@ -4,20 +4,12 @@ export interface IRoute {
   name: string;
   path: string;
   href?: string;
+  role?: "account" | "page";
 }
 
 export interface IComponent {
   id: string;
   component: ReactNode;
-}
-
-export interface IUser {
-  email: string;
-  password: string;
-  fullName: string;
-  birthday?: string;
-  gender?: boolean;
-  phone?: string;
 }
 
 export interface ICourse {

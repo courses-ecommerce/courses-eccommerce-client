@@ -1,7 +1,9 @@
 import { Avatar, Divider, IconButton, MenuItem, Tooltip } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { IRoute } from "src/types";
 import MenuPopover from "../MenuPopover/MenuPopover";
 import "./AccountPopover.scss";
@@ -12,6 +14,8 @@ interface AccountPopoverProps {
 
 const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
   const { nodeRef, show, setShow } = useClickOutSide();
+
+  const { isRole } = useSelector(selectAuthorization);
 
   return (
     <div className="account-popover">
@@ -33,7 +37,11 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
           {routes?.map((route: IRoute) => (
             <MenuItem
               key={route.name}
-              to={route.path}
+              to={
+                route.role === "account"
+                  ? `/${isRole}/${route.path}`
+                  : `${route.path}`
+              }
               component={RouterLink}
               onClick={() => setShow(false)}
             >

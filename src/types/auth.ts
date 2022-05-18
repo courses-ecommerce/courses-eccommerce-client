@@ -1,9 +1,4 @@
 //for auth
-export interface IAuth {
-  isLoading: boolean;
-  isAuth: boolean;
-  isRole: string;
-}
 
 export interface ILogin {
   email: string;

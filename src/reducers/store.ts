@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
-
 import authReducer from "./authSlice";
 
 // export default configureStore({
@@ -20,6 +18,9 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
+
+  // blacklist: [""], // navigation will not be persisted
+  whitelist: ["auth", "token"], // only navigation will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

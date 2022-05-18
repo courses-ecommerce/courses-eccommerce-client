@@ -10,7 +10,7 @@ const MainPage = () => {
     return (
       pageElements.length > 0 &&
       pageElements.map((page: IComponent, index) => (
-        <Element className="main-page-element" tabIndex={index} name={page.id}>
+        <Element className="main-page-element" key={index} name={page.id}>
           {page.component}
         </Element>
       ))
