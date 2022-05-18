@@ -45,3 +45,16 @@
     gap: 20px;
   }
 }
+
+@media (max-width: 715px) {
+  .header {
+    &-img {
+      display: none;
+    }
+    &-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

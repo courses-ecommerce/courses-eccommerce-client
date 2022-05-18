@@ -12,15 +12,6 @@ export interface IComponent {
   component: ReactNode;
 }
 
-export interface IUser {
-  email: string;
-  password: string;
-  fullName: string;
-  birthday?: string;
-  gender?: boolean;
-  phone?: string;
-}
-
 export interface ICourse {
   name: string;
   thumbnail: string;

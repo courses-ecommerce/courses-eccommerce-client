@@ -6,6 +6,7 @@ import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 
 import authReducer from "./authSlice";
+import tokenReducer from "./tokenSlice";
 
 // export default configureStore({
 //   reducer: {
@@ -15,11 +16,15 @@ import authReducer from "./authSlice";
 
 const reducers = combineReducers({
   auth: authReducer,
+  token: tokenReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
+
+  // blacklist: [""], // navigation will not be persisted
+  whitelist: ["auth", "token"], // only navigation will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

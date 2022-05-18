@@ -15,12 +15,12 @@ import { IAuth } from "src/types/auth";
 
 const initialState: IAuth = {
   isLoading: false,
-  // isAuth: true,
-  // isRole: "admin",
-  isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
-  isRole: JSON.parse(localStorage.getItem("role") || "{}")
-    ? JSON.parse(localStorage.getItem("role") || "null")
-    : "",
+  isAuth: false,
+  isRole: "",
+  // isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
+  // isRole: JSON.parse(localStorage.getItem("role") || "{}")
+  //   ? JSON.parse(localStorage.getItem("role") || "null")
+  //   : "",
 };
 
 const authSlice = createSlice({

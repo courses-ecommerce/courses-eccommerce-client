@@ -4,10 +4,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import localStorage from "redux-persist/es/storage";
 import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
+import { getAccessToken, getRefreshToken } from "src/reducers/tokenSlice";
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
@@ -21,10 +21,15 @@ const Login = () => {
     dispatch(isPending());
     try {
       const response = await authApi.postLogin(data);
-      console.log(response);
+      // console.log(response);
       const { refreshToken, role, token }: any = response;
-      dispatch(isLogin(role));
+      console.log("token", token, "refreshtoken", refreshToken);
 
+      //get token
+      dispatch(getAccessToken(token));
+      dispatch(getRefreshToken(refreshToken));
+      //get role
+      dispatch(isLogin(role));
       // dispatch(isLogin(response));
       toast.success("Đăng nhập thành công", { position: "bottom-right" });
     } catch (error) {
