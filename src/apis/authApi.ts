@@ -16,7 +16,7 @@ const authApi = {
     return axiosClient.post(url, account);
   },
   postLoginGoogle: (access_token: Object) => {
-    const url = AUTH_API + "google";
+    const url = AUTH_API + "/google";
     return axiosClient.post(url, access_token);
   },
   postLogout: () => {
