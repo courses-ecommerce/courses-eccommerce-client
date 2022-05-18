@@ -1,0 +1,38 @@
+.slide-show {
+  position: relative;
+
+  > .btn-left {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    z-index: 10;
+    background: white;
+
+    cursor: pointer;
+  }
+  > .btn-right {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    z-index: 10;
+    background: white;
+
+    cursor: pointer;
+  }
+}

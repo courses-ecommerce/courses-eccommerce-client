@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
-import { getAccessToken, getRefreshToken } from "src/reducers/tokenSlice";
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
@@ -23,11 +22,8 @@ const Login = () => {
       const response = await authApi.postLogin(data);
       // console.log(response);
       const { refreshToken, role, token }: any = response;
-      console.log("token", token, "refreshtoken", refreshToken);
+      // console.log("token", token, "refreshtoken", refreshToken);
 
-      //get token
-      dispatch(getAccessToken(token));
-      dispatch(getRefreshToken(refreshToken));
       //get role
       dispatch(isLogin(role));
       // dispatch(isLogin(response));

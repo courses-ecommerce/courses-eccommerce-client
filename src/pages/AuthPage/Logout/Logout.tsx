@@ -3,7 +3,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isLogout, selectAuthorization } from "src/reducers/authSlice";
-import { clearToken } from "src/reducers/tokenSlice";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -11,7 +10,6 @@ const Logout = () => {
   const { isAuth } = useSelector(selectAuthorization);
 
   const handleLogout = () => {
-    dispatch(clearToken());
     dispatch(isLogout());
     // toast.success("Đăng xuất thành công, quay lại trang đăng nhập", {
     //   position: "bottom-right",

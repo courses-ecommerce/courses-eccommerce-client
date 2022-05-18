@@ -4,7 +4,7 @@ import "./MenuPopover.scss";
 interface MenuPopoverProps {
   children: any;
   open?: boolean;
-  anchorEl?: boolean | null;
+  anchorEl?: boolean;
   sx?: any;
   onClose?: Function;
   other?: any;
@@ -20,6 +20,7 @@ const MenuPopover: React.FC<MenuPopoverProps> = ({
 }) => {
   return (
     <Popover
+      // anchorEl={anchorEl}
       open={open}
       anchorOrigin={{
         vertical: 70,

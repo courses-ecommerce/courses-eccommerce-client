@@ -1,20 +1,8 @@
 import React from "react";
 import SlideShow from "src/components/SlideShow/SlideShow";
+import { listSlideShow } from "src/data/data";
 
 const HomePage = () => {
-  return (
-    <SlideShow
-      data={[
-        "1",
-        "sadda",
-        "sdasa",
-        "dsasad",
-        "sdasada",
-        "1213",
-        "đâs",
-        "dsadsa",
-      ]}
-    />
-  );
+  return <SlideShow listSlideShow={listSlideShow} />;
 };
 export default HomePage;
