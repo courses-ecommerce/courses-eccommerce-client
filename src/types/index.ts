@@ -1,6 +1,14 @@
+import { ReactNode } from "react";
+
 export interface IRoute {
   name: string;
   path: string;
+  href?: string;
+}
+
+export interface IComponent {
+  id: string;
+  component: ReactNode;
 }
 
 export interface IUser {

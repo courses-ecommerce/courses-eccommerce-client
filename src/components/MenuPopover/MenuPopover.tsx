@@ -22,13 +22,13 @@ const MenuPopover: React.FC<MenuPopoverProps> = ({
     <Popover
       open={open}
       anchorOrigin={{
-        vertical: 60,
+        vertical: 70,
         horizontal: "right",
       }}
       PaperProps={{
         sx: {
           p: 1,
-          width: 200,
+          width: 180,
           overflow: "inherit",
           ...sx,
         },
