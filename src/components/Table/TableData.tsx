@@ -56,9 +56,14 @@ const TableData: React.FC<TableDataProps> = ({
               key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              {keys.map((key, index) => (
-                <TableCell key={index}>{data[key]}</TableCell>
-              ))}
+              {keys.map((key, index) => {
+                if (Array.isArray(data[key])) {
+                  // console.log(data[key], "là mảng");
+                  return;
+                } else {
+                  return <TableCell key={index}>{data[key]}</TableCell>;
+                }
+              })}
             </TableRow>
           )
         );

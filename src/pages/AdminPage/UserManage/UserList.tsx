@@ -1,26 +1,48 @@
+import { useEffect, useState } from "react";
+import adminApi from "src/apis/adminApi";
 import TableData from "src/components/Table/TableData";
 
 export default function UserList() {
-  const data = [
-    { id: 1, name: "sadasdas", value: 1 },
-    { id: 2, name: "Luan", value: 1 },
-    { id: 3, name: "Luasdasdsaan", value: 1 },
-    { id: 4, name: "Luasdasdsaan", value: 1 },
-    { id: 5, name: "Luasdasdsaan", value: 1 },
-    { id: 6, name: "Luasdasdsaan", value: 1 },
-    { id: 7, name: "Luasdasdsaan", value: 1 },
-    { id: 8, name: "Luasdasdsaan", value: 1 },
-    { id: 9, name: "Luasdasdsaan", value: 1 },
-    { id: 10, name: "Luasdasdsaan", value: 1 },
-    { id: 11, name: "Luasdasdsaan", value: 1 },
-    { id: 12, name: "Luasdasdsaan", value: 1 },
-  ];
+  const [users, setUsers] = useState([]);
+  const [headerColumns, setHeaderColumns] = useState<string[]>([]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = async () => {
+    try {
+      const response = await adminApi.getUsers();
+      const { users, totalCount }: any = response;
+      // console.log(response);
+
+      getHeaderColums(users[0]);
+      setUsers(users);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
+
+  const getHeaderColums = (data: any) => {
+    let columnHeaders: string[] = [];
+    //_id,account,fullName,...
+    let keys = Object.keys(data);
+    console.log("nhận được", keys);
+    //filter keys
+    keys.forEach((key) => {
+      if (!Array.isArray(data[key])) {
+        columnHeaders.push(key);
+      }
+    });
+    //save keys
+    setHeaderColumns(columnHeaders);
+  };
 
   return (
     <TableData
-      title="Quản lý người dùng"
-      headerColumns={["Số thứ tự", "Tên", "Giá trị"]}
-      dataColumns={data}
+      title="Quản lý thông tin người dùng"
+      headerColumns={headerColumns}
+      dataColumns={users}
     />
   );
 }
