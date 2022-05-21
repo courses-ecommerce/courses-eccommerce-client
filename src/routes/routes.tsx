@@ -8,6 +8,7 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail";
 import CoursePage from "src/pages/CoursePage/CoursePage";
 import MainPage from "src/pages/MainPage/MainPage";
 import NotFound from "src/pages/MainPage/NotFound/NotFound";
+import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
@@ -65,9 +66,9 @@ const DASHBOARD_ROUTE = [
     element: <DashboardLayout />,
     children: [
       {
-        path: "dashboard",
-        href: "/admin/dashboard",
-        element: <UserList />,
+        path: "info",
+        href: "/admin/info",
+        element: <ProfilePage />,
         title: "Thông tin cá nhân",
         icon: "info-circle",
       },
