@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import React, { useState } from "react";
+import { translateVi } from "src/utils";
 import "./TableData.scss";
 
 interface TableDataProps {
@@ -40,7 +41,7 @@ const TableData: React.FC<TableDataProps> = ({
     return (
       headerColumns.length > 0 &&
       headerColumns.map((headerColumn, index) => (
-        <TableCell key={index}>{headerColumn}</TableCell>
+        <TableCell key={index}>{translateVi(headerColumn)}</TableCell>
       ))
     );
   };
@@ -53,11 +54,19 @@ const TableData: React.FC<TableDataProps> = ({
         return (
           index < _limit && (
             <TableRow
+              hover
               key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {keys.map((key, index) => {
-                if (Array.isArray(data[key])) {
+                if (
+                  Array.isArray(data[key]) ||
+                  key === "_id" ||
+                  key === "createdAt" ||
+                  key === "updatedAt" ||
+                  key === "__v" ||
+                  key === "avatar"
+                ) {
                   // console.log(data[key], "là mảng");
                   return;
                 } else {
@@ -77,20 +86,24 @@ const TableData: React.FC<TableDataProps> = ({
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>{renderTableHeaders(headerColumns)}</TableRow>
+            <TableRow hover>{renderTableHeaders(headerColumns)}</TableRow>
           </TableHead>
           <TableBody>{checkKeys(dataColumns, rowsPerPage)}</TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={dataColumns.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      {dataColumns.length > 0 && (
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          labelRowsPerPage="Hiển thị"
+          component="div"
+          count={dataColumns.length}
+          // count={1000}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      )}
     </div>
   );
 };

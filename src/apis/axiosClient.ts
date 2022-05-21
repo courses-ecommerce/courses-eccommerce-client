@@ -13,7 +13,8 @@ axiosClient.interceptors.request.use(async (config: any) => {
   // Handle token here ...
   config.params = config.params || {};
 
-  config.headers["Authorization"] = ` Bearer  `;
+  // config.headers["Authorization"] = ` Bearer  `;
+
   return config;
 });
 

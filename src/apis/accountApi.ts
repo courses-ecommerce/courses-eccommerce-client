@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const ACCOUNT_API = "/users";
+const ACCOUNT_API = "/user";
 
 const accountApi = {
   getMe: () => {

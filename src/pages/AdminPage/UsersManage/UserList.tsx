@@ -13,8 +13,9 @@ export default function UserList() {
   const getUsers = async () => {
     try {
       const response = await adminApi.getUsers();
+
       const { users, totalCount }: any = response;
-      // console.log(response);
+      console.log(response);
 
       getHeaderColums(users[0]);
       setUsers(users);
@@ -30,7 +31,14 @@ export default function UserList() {
     console.log("nhận được", keys);
     //filter keys
     keys.forEach((key) => {
-      if (!Array.isArray(data[key])) {
+      if (
+        !Array.isArray(data[key]) &&
+        key !== "_id" &&
+        key !== "createdAt" &&
+        key !== "updatedAt" &&
+        key !== "__v" &&
+        key !== "avatar"
+      ) {
         columnHeaders.push(key);
       }
     });
