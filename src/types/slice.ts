@@ -3,8 +3,3 @@ export interface IAuthSlice {
   isAuth: boolean;
   isRole: string;
 }
-
-export interface ITokenSlice {
-  refreshToken: string;
-  accessToken: Object;
-}
