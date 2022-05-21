@@ -1,0 +1,28 @@
+import axiosClient from "./axiosClient";
+
+const ACCOUNT_API = "/user";
+
+const usertApi = {
+  getMe: () => {
+    const url = ACCOUNT_API;
+    return axiosClient.get(url);
+  },
+  updateInfo: (user_info: Object) => {
+    const url = ACCOUNT_API;
+    return axiosClient.put(url, user_info);
+  },
+  registerIntructor: () => {
+    const url = ACCOUNT_API;
+    return axiosClient.post(url);
+  },
+  getHistorySearch: () => {
+    const url = ACCOUNT_API + "/history";
+    return axiosClient.get(url);
+  },
+  getHistoryPayment: () => {
+    const url = ACCOUNT_API + "/invoices";
+    return axiosClient.get(url);
+  },
+};
+
+export default usertApi;
