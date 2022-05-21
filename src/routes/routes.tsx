@@ -1,6 +1,8 @@
 import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import AdminPage from "src/pages/AdminPage/AdminPage";
-import UserList from "src/pages/AdminPage/UserManage/UserList";
+import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
+import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
+import UserList from "src/pages/AdminPage/UsersManage/UserList";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
@@ -108,12 +110,13 @@ const DASHBOARD_ROUTE = [
         path: "dashboard/course",
         title: "Quản lý khoá học",
         href: "/admin/dashboard/course",
+        element: <CourseList />,
         icon: "book",
       },
       {
         path: "dashboard/categories",
         href: "/admin/dashboard/categories",
-        element: () => "chưa lamf",
+        element: <CategoryList />,
         title: "Quản lý danh mục",
         icon: "user",
       },
@@ -131,6 +134,21 @@ const DASHBOARD_ROUTE = [
         element: () => "chưa lamf",
         title: "Thống kê",
         icon: "bar-chart",
+      },
+    ],
+  },
+
+  {
+    role: "student",
+    path: "/student",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "info",
+        href: "/student/info",
+        element: <ProfilePage />,
+        title: "Thông tin cá nhân",
+        icon: "info-circle",
       },
     ],
   },

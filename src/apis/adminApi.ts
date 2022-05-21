@@ -8,17 +8,21 @@ const adminApi = {
     const url = ADMIN_API + "/users";
     return axiosClient.get(url, { params });
   },
+  getUserDetail: (id: string) => {
+    const url = ADMIN_API + "/users/" + id;
+    return axiosClient.get(url);
+  },
   createNewUser: (userInfo: ICreateNewUser) => {
     const url = ADMIN_API + "/users";
     return axiosClient.post(url, userInfo);
   },
-  updateUserInfo: (userInfo: ICreateNewUser) => {
-    const url = ADMIN_API + "/users";
+  updateUserInfo: (userInfo: ICreateNewUser, id: string) => {
+    const url = ADMIN_API + "/users/" + id;
     return axiosClient.post(url, userInfo);
   },
-  deleteUser: (id: Object) => {
-    const url = ADMIN_API + "/users";
-    return axiosClient.delete(url, id);
+  deleteUser: (id: string) => {
+    const url = ADMIN_API + "/users/" + id;
+    return axiosClient.delete(url);
   },
 };
 

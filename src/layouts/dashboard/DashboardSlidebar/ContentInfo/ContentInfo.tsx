@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { DASHBOARD_ROUTE } from "src/routes/routes";
-import LogoHeader from "src/layouts/dashboard/DashboardSlidebar/LogoHeader/LogoHeader";
 import { selectAuthorization } from "src/reducers/authSlice";
 import NavSection from "../../NavSection/NavSection";
 import AvatarUser from "../AvatarUser/AvatarUser";
@@ -23,9 +22,6 @@ const ContentInfo = () => {
 
   return (
     <div className="content-info">
-      <div className="content-info-logo">
-        <LogoHeader />
-      </div>
       <div className="content-info-user">
         <AvatarUser />
       </div>

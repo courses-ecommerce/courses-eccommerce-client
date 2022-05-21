@@ -8,7 +8,7 @@ export const NonAuthRoute = ({ children }: { children: JSX.Element }) => {
   const { isAuth, isLoading, isRole } = useSelector(selectAuthorization);
 
   if (isAuth) {
-    return <Navigate to={`/${isRole}`} state={{ from: location }} />;
+    return <Navigate to={`/${isRole}/info`} state={{ from: location }} />;
   }
 
   return children;
