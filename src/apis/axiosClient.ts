@@ -13,7 +13,17 @@ axiosClient.interceptors.request.use(async (config: any) => {
   // Handle token here ...
   config.params = config.params || {};
 
-  // config.headers["Authorization"] = ` Bearer  `;
+  const { accessToken }: any = JSON.parse(
+    localStorage?.getItem("access_token") || "null"
+  );
+
+  // console.log("đá", accessToken);
+
+  // const access_token = JSON.parse(
+  //   localStorage?.getItem("access_token")?.accessToken
+  // );
+
+  config.headers["Authorization"] = ` Bearer ${accessToken}`;
 
   return config;
 });

@@ -14,6 +14,12 @@ export const isEmail = (email: string) => {
 
 export const translateVi = (name: string) => {
   switch (name) {
+    //role
+    case "student":
+      return "Học viên";
+    case "teacher":
+      return "Giảng viên";
+
     //user
     case "fullName":
       return "Họ và tên";
