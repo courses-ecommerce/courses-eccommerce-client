@@ -1,14 +1,14 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
-import ModalContainer from "src/components/ModalContainer";
+import { IUser } from "src/types";
 import { checkGender } from "src/utils";
 import "./ProfilePage.scss";
+import UpdateProfile from "./UpdateProfile";
 
 const ProfilePage = () => {
-  const [info, setinfo] = useState<any>({});
-  const [showModal, setShowModal] = useState(false);
+  const [info, setinfo] = useState<IUser>({});
 
   useEffect(() => {
     getMe();
@@ -46,11 +46,11 @@ const ProfilePage = () => {
             </div>
             <div className="item">
               <span className="title">Chức vụ:</span>
-              <span className="value">{info.account.role}</span>
+              <span className="value">{info.account?.role}</span>
             </div>
             <div className="item">
               <span className="title">Email:</span>
-              <span className="value">{info.account.email}</span>
+              <span className="value">{info.account?.email}</span>
             </div>
             <div className="item">
               <span className="title">Giới tính:</span>
@@ -68,27 +68,7 @@ const ProfilePage = () => {
         </div>
 
         <div>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => setShowModal(true)}
-          >
-            Thay đổi thông tin
-          </Button>
-
-          <ModalContainer
-            width={400}
-            title="Thông tin người dùng"
-            open={showModal}
-            onClose={() => setShowModal(false)}
-          >
-            <div>Đăng nhập</div>
-            <div>Đăng nhập</div>
-            <div>Đăng nhập</div>
-            <div>Đăng nhập</div>
-            <div>Đăng nhập</div>
-            <div>Đăng nhập</div>
-          </ModalContainer>
+          <UpdateProfile data={info} />
         </div>
       </div>
     );

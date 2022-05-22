@@ -33,7 +33,7 @@ const TableData: React.FC<TableDataProps> = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
     // console.log(event.target.value);
   };
 
@@ -99,7 +99,7 @@ const TableData: React.FC<TableDataProps> = ({
           count={dataColumns.length}
           // count={1000}
           rowsPerPage={rowsPerPage}
-          page={page}
+          page={page - 1}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />

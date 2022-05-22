@@ -3,10 +3,11 @@ declare interface DropdownProps {
   icon?: string;
   list: {
     id: number | string;
+    value: boolean;
     name: string;
   }[];
   name?: string;
-  defaultValue?: string | number;
+  defaultValue?: string | number | boolean;
   errorMessage?: string;
   style?: CSSProperties;
   border?: boolean;

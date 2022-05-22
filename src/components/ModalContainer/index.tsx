@@ -42,7 +42,7 @@ const ModalContainer: React.FC<ModalProps> = ({
             onClick={onClose}
           />
         </div>
-        <Divider sx={{ marginTop: 1, marginBottom: 1 }} />
+        <Divider sx={{ marginTop: 3, marginBottom: 3 }} />
         {children}
       </div>
     </Dialog>
