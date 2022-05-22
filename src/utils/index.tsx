@@ -40,3 +40,6 @@ export const translateVi = (name: string) => {
       return name;
   }
 };
+
+//check value
+export const checkGender = (name: string) => (name ? "Nam" : "Nữ");
