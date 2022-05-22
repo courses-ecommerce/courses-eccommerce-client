@@ -1,6 +1,10 @@
 import axios from "axios";
 // import queryString from "query-string";
 
+const { accessToken }: any = JSON.parse(
+  localStorage.getItem("access_token") || ""
+);
+
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -13,17 +17,8 @@ axiosClient.interceptors.request.use(async (config: any) => {
   // Handle token here ...
   config.params = config.params || {};
 
-  const { accessToken }: any = JSON.parse(
-    localStorage?.getItem("access_token") || "null"
-  );
-
-  // console.log("đá", accessToken);
-
-  // const access_token = JSON.parse(
-  //   localStorage?.getItem("access_token")?.accessToken
-  // );
-
   config.headers["Authorization"] = ` Bearer ${accessToken}`;
+  // config.headers["Authorization"] = ` Bearer `;
 
   return config;
 });

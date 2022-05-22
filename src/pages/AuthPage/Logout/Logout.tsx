@@ -14,7 +14,7 @@ const Logout = () => {
     // toast.success("Đăng xuất thành công, quay lại trang đăng nhập", {
     //   position: "bottom-right",
     // });
-    // localStorage.clear();
+    localStorage.clear();
     navigate("/login");
   };
 
