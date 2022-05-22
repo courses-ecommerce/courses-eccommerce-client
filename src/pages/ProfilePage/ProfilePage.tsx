@@ -75,7 +75,9 @@ const ProfilePage = () => {
           >
             Thay đổi thông tin
           </Button>
+
           <ModalContainer
+            width={400}
             title="Thông tin người dùng"
             open={showModal}
             onClose={() => setShowModal(false)}

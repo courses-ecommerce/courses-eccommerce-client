@@ -1,29 +1,27 @@
 .modal-container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  margin: auto;
-  background: #ffffff;
-  border-radius: 1.6rem;
+  // position: relative;
+  // height: 100%;
+  // width: 100%;
+  // margin: auto;
+  // background: #ffffff;
+  // border-radius: 160px !important;
+
+  padding: 15px;
 
   &-header {
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     & > .title {
-      font-size: 1.6rem;
-      line-height: 2.4rem;
+      font-size: 22px;
+      line-height: 24px;
       font-weight: 700;
-      padding: 1.5rem 0;
-      // border-bottom: 0.5px solid @greyscale-100;
     }
 
     & > .icon {
-      position: absolute;
       cursor: pointer;
-      // fill: @greyscale-400;
-      right: 1.5rem;
-      top: 1.5rem;
-      z-index: 99;
     }
   }
 }

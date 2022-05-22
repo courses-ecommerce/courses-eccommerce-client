@@ -1,10 +1,12 @@
-import { Dialog } from "@mui/material";
+import { Dialog, Divider } from "@mui/material";
 
 import * as React from "react";
 import Icon from "../Icon/Icon";
 import "./ModalContainer.scss";
 
 interface ModalProps {
+  width?: number;
+  height?: number;
   children: React.ReactNode;
   title?: string;
   open: boolean;
@@ -12,6 +14,8 @@ interface ModalProps {
 }
 
 const ModalContainer: React.FC<ModalProps> = ({
+  width,
+  height,
   children,
   title,
   onClose,
@@ -27,17 +31,18 @@ const ModalContainer: React.FC<ModalProps> = ({
         },
       }}
     >
-      <div className="modal-container">
+      <div className="modal-container" style={{ width, height }}>
         <div className="modal-container-header">
           {title && <span className="title">{title}</span>}
           <Icon
             className="icon"
             icon="close"
-            size={15}
+            size={20}
             color=""
             onClick={onClose}
           />
         </div>
+        <Divider sx={{ marginTop: 1, marginBottom: 1 }} />
         {children}
       </div>
     </Dialog>
