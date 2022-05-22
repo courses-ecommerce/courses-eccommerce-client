@@ -1,12 +1,14 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
+import ModalContainer from "src/components/ModalContainer";
 import { checkGender } from "src/utils";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
   const [info, setinfo] = useState<any>({});
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getMe();
@@ -63,6 +65,28 @@ const ProfilePage = () => {
               <span className="value">{info.birthday}</span>
             </div>
           </div>
+        </div>
+
+        <div>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => setShowModal(true)}
+          >
+            Thay đổi thông tin
+          </Button>
+          <ModalContainer
+            title="Thông tin người dùng"
+            open={showModal}
+            onClose={() => setShowModal(false)}
+          >
+            <div>Đăng nhập</div>
+            <div>Đăng nhập</div>
+            <div>Đăng nhập</div>
+            <div>Đăng nhập</div>
+            <div>Đăng nhập</div>
+            <div>Đăng nhập</div>
+          </ModalContainer>
         </div>
       </div>
     );
