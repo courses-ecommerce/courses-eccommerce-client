@@ -18,6 +18,25 @@ export interface ICourse {
   categories?: string[];
 }
 
+export interface IAccount {
+  id: string;
+  email: string;
+  password: string;
+  role: "student" | "admin" | "teacher";
+  refreshToken: string;
+  accessToken: string;
+  isActive: boolean;
+}
+
+export interface IUser {
+  account?: IAccount;
+  fullName?: string;
+  birthday?: string;
+  gender?: boolean;
+  phone?: string;
+  avatar?: string;
+}
+
 // for popover
 export interface INotify {
   image: string;

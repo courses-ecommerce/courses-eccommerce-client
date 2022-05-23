@@ -42,4 +42,4 @@ export const translateVi = (name: string) => {
 };
 
 //check value
-export const checkGender = (name: string) => (name ? "Nam" : "Nữ");
+export const checkGender = (name: any) => (name ? "Nam" : "Nữ");

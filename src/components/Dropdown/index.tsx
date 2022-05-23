@@ -21,7 +21,8 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
     border = true,
     ...rest
   } = props;
-  const [value, setValue] = React.useState(defaultValue?.toString() || "");
+
+  const [value, setValue] = React.useState(defaultValue ? "1" : "0");
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);

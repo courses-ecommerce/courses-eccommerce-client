@@ -2,11 +2,13 @@ import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
+import { IUser } from "src/types";
 import { checkGender } from "src/utils";
 import "./ProfilePage.scss";
+import UpdateProfile from "./UpdateProfile";
 
 const ProfilePage = () => {
-  const [info, setinfo] = useState<any>({});
+  const [info, setinfo] = useState<IUser>({});
 
   useEffect(() => {
     getMe();
@@ -44,11 +46,11 @@ const ProfilePage = () => {
             </div>
             <div className="item">
               <span className="title">Chức vụ:</span>
-              <span className="value">{info.account.role}</span>
+              <span className="value">{info.account?.role}</span>
             </div>
             <div className="item">
               <span className="title">Email:</span>
-              <span className="value">{info.account.email}</span>
+              <span className="value">{info.account?.email}</span>
             </div>
             <div className="item">
               <span className="title">Giới tính:</span>
@@ -63,6 +65,10 @@ const ProfilePage = () => {
               <span className="value">{info.birthday}</span>
             </div>
           </div>
+        </div>
+
+        <div>
+          <UpdateProfile data={info} />
         </div>
       </div>
     );

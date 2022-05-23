@@ -1,4 +1,4 @@
 export const genderTypes = [
-  { id: 0, name: "Nữ" },
-  { id: 1, name: "Nam" },
+  { id: 0, value: false, name: "Nữ" },
+  { id: 1, value: true, name: "Nam" },
 ];
