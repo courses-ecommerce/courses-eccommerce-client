@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import usertApi from "src/apis/userApi";
 import Dropdown from "src/components/Dropdown";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
@@ -17,16 +18,38 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
   const formik = useFormik({
     initialValues: {
       fullName: data.fullName,
+      // birthday: formatDate(data?.birthday, "dd-MM-yy"),
       birthday: data.birthday,
       gender: data.gender,
       phone: data.phone,
-      images: [],
+      avatar: [],
     },
 
     onSubmit: (values) => {
       console.log("lấy được dữ liệu là", values);
+
+      UpdateProfile(values);
     },
   });
+
+  const UpdateProfile = async (user_info: IUser) => {
+    const newData: any = user_info;
+    const keys = Object.keys(user_info);
+
+    var formData: any = new FormData();
+    keys.forEach((key) => {
+      formData.append(key, newData[key]);
+    });
+
+    console.log("sadasdas", ...formData);
+
+    try {
+      const response = await usertApi.updateInfo(formData);
+      console.log("rẻwer", response);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
 
   return (
     <div>
@@ -48,8 +71,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
           <InputFile
             label="Ảnh đại diện"
             multiple
-            value={formik.values.images}
-            onChange={(value) => formik.setFieldValue("images", value)}
+            value={formik.values.avatar}
+            onChange={(value) => formik.setFieldValue("avatar", value)}
           />
           <Input label="Họ và tên" {...formik.getFieldProps("fullName")} />
           <Input
