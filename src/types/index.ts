@@ -34,7 +34,7 @@ export interface IUser {
   birthday?: string;
   gender?: boolean;
   phone?: string;
-  avatar?: string;
+  avatar?: any;
 }
 
 // for popover
