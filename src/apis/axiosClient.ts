@@ -2,7 +2,7 @@ import axios from "axios";
 // import queryString from "query-string";
 
 const { accessToken }: any = JSON.parse(
-  localStorage.getItem("access_token") || ""
+  localStorage?.getItem("access_token") || ""
 );
 
 const axiosClient = axios.create({

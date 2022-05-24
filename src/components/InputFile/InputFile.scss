@@ -1,17 +1,17 @@
 .input-file {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem 0;
+  gap: 10px;
 
   & > .error {
     font-size: 1.2rem;
     font-weight: 600;
-    // color: @red;
+    color: red;
   }
 
-  & > h2 {
+  & > span {
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 14px;
     // color: @gray-500;
   }
 
@@ -21,50 +21,14 @@
 
   & > label {
     cursor: pointer;
+    width: fit-content !important;
     & > img {
-      width: 9.4rem;
-      height: 9.4rem;
-      border-radius: 1.2rem;
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
       object-fit: cover;
       background: white;
-      border-radius: 1.3rem;
-      // border: 1px dashed @greyscale-100;
-    }
-  }
-
-  & > .list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    user-select: none;
-
-    & > .image {
-      position: relative;
-
-      & > .icon {
-        cursor: pointer;
-        position: absolute;
-        right: 0.5rem;
-        top: 0.5rem;
-        z-index: 99;
-        fill: white;
-      }
-
-      & > img {
-        width: 9.4rem;
-        height: 9.4rem;
-        border-radius: 1.2rem;
-        object-fit: cover;
-        // border: 1px dashed @greyscale-100;
-      }
-    }
-
-    & > label {
-      cursor: pointer;
-      & > img {
-        background: white;
-        border-radius: 1.3rem;
-      }
+      border: 1px dashed rgb(255, 255, 255);
     }
   }
 }

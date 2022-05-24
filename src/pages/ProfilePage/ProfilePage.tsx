@@ -4,6 +4,7 @@ import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
+
 import "./ProfilePage.scss";
 import UpdateProfile from "./UpdateProfile";
 
@@ -60,6 +61,7 @@ const ProfilePage = () => {
               <span className="title">Số điện thoại:</span>
               <span className="value">{info.phone}</span>
             </div>
+
             <div className="item">
               <span className="title">Ngày sinh:</span>
               <span className="value">{info.birthday}</span>

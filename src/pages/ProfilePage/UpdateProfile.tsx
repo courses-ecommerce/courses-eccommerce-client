@@ -7,7 +7,7 @@ import InputFile from "src/components/InputFile";
 import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data";
 import { IUser } from "src/types";
-
+import formatDate from "src/utils/formatDay";
 interface UpdateProfileProps {
   data: IUser;
 }
