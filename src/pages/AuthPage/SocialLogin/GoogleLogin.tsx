@@ -1,5 +1,6 @@
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
 
@@ -24,6 +25,9 @@ const GoogleLoginBtn = () => {
       dispatch(isLogin(role));
     } catch (error) {
       console.log("lỗi rồi", error);
+      toast.warning(`${error}`, {
+        position: "bottom-right",
+      });
       dispatch(isSuccess());
     }
   };

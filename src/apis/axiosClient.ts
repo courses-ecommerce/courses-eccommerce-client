@@ -1,9 +1,5 @@
 import axios from "axios";
-// import queryString from "query-string";
-
-const { accessToken }: any = JSON.parse(
-  localStorage?.getItem("access_token") || ""
-);
+import { IAccesstoken } from "src/types/token";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -14,13 +10,17 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config: any) => {
-  // Handle token here ...
-  config.params = config.params || {};
+  const { accessToken }: IAccesstoken = JSON.parse(
+    localStorage.getItem("access_token") || JSON.stringify({ accessToken: "" })
+  );
 
-  config.headers["Authorization"] = ` Bearer ${accessToken}`;
-  // config.headers["Authorization"] = ` Bearer `;
-
-  return config;
+  return {
+    ...config,
+    params: config.params || {},
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
 });
 
 axiosClient.interceptors.response.use(
@@ -31,6 +31,27 @@ axiosClient.interceptors.response.use(
     return response;
   },
 
+  // async (error) => {
+  //   // Handle errors
+
+  //   if (error.response) {
+  //     //Call request token, access token expires
+  //     if (error.request.status === 401) {
+  //       try {
+  //       } catch (error: any) {
+  //         if (error.response && error.response.data) {
+  //           return Promise.reject(error.response.data);
+  //         }
+  //         return Promise.reject(error);
+  //       }
+  //     }
+  //   }
+  //   return Promise.reject(
+  //     error.response.data.message || {
+  //       error: "Response Error sever dont correct",
+  //     }
+  //   );
+  // }
   async (error) => {
     // Handle errors
 
@@ -46,11 +67,7 @@ axiosClient.interceptors.response.use(
         }
       }
     }
-    return Promise.reject(
-      error.response.data.message || {
-        error: "Response Error sever dont correct",
-      }
-    );
+    return Promise.reject(error);
   }
 );
 export default axiosClient;
