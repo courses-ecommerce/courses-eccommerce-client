@@ -46,13 +46,10 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
       >
         <form onSubmit={formik.handleSubmit}>
           <InputFile
-            label="Hình ảnh đại lý"
+            label="Ảnh đại diện"
             multiple
             value={formik.values.images}
             onChange={(value) => formik.setFieldValue("images", value)}
-            errorMessage={
-              formik.touched.images ? (formik.errors.images as string) : ""
-            }
           />
           <Input label="Họ và tên" {...formik.getFieldProps("fullName")} />
           <Input
