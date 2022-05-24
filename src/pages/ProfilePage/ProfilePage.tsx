@@ -4,9 +4,9 @@ import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
-
 import "./ProfilePage.scss";
-import UpdateProfile from "./UpdateProfile";
+import UpdateProfile from "./UpdateProfile/UpdateProfile";
+import { default as UserInfoItem } from "./UserInfoItem/UserInfo";
 
 const ProfilePage = () => {
   const [info, setinfo] = useState<IUser>({});
@@ -41,31 +41,12 @@ const ProfilePage = () => {
             />
           </div>
           <div className="content">
-            <div className="item">
-              <span className="title">Tên:</span>
-              <span className="value">{info.fullName}</span>
-            </div>
-            <div className="item">
-              <span className="title">Chức vụ:</span>
-              <span className="value">{info.account?.role}</span>
-            </div>
-            <div className="item">
-              <span className="title">Email:</span>
-              <span className="value">{info.account?.email}</span>
-            </div>
-            <div className="item">
-              <span className="title">Giới tính:</span>
-              <span className="value">{checkGender(info.gender)}</span>
-            </div>
-            <div className="item">
-              <span className="title">Số điện thoại:</span>
-              <span className="value">{info.phone}</span>
-            </div>
-
-            <div className="item">
-              <span className="title">Ngày sinh:</span>
-              <span className="value">{info.birthday}</span>
-            </div>
+            <UserInfoItem title="Tên:" value={info.fullName} />
+            <UserInfoItem title="Chức vụ:" value={info.account?.role} />
+            <UserInfoItem title="Email:" value={info.account?.email} />
+            <UserInfoItem title="Giới tính:" value={checkGender(info.gender)} />
+            <UserInfoItem title="Số điện thoại:" value={info.phone} />
+            <UserInfoItem title="Ngày sinh:" value={info.birthday} />
           </div>
         </div>
 
