@@ -4,9 +4,11 @@ import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
+import formatDate from "src/utils/formatDay";
 import "./ProfilePage.scss";
+import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
-import { default as UserInfoItem } from "./UserInfoItem/UserInfo";
+import UserInfoItem from "./UserInfoItem/UserInfo";
 
 const ProfilePage = () => {
   const [info, setinfo] = useState<IUser>({});
@@ -18,8 +20,6 @@ const ProfilePage = () => {
   const getMe = async () => {
     try {
       const response = await usertApi.getMe();
-
-      // console.log("dsfds", response);
       const { user }: any = response;
       setinfo(user);
     } catch (error) {
@@ -46,12 +46,16 @@ const ProfilePage = () => {
             <UserInfoItem title="Email:" value={info.account?.email} />
             <UserInfoItem title="Giới tính:" value={checkGender(info.gender)} />
             <UserInfoItem title="Số điện thoại:" value={info.phone} />
-            <UserInfoItem title="Ngày sinh:" value={info.birthday} />
+            <UserInfoItem
+              title="Ngày sinh:"
+              value={formatDate(info.birthday, "dd-MM-yyyy")}
+            />
           </div>
         </div>
 
-        <div>
+        <div className="btns">
           <UpdateProfile data={info} />
+          <UpdatePassword />
         </div>
       </div>
     );

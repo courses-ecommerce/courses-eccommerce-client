@@ -1,5 +1,5 @@
 export * from "./AccountPopover";
-export * from "./Dropdown";
+export * from "./InputSelect";
 export * from "./Header";
 export * from "./Icon";
 export * from "./Input";

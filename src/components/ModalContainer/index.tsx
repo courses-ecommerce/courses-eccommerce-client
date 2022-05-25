@@ -28,6 +28,7 @@ const ModalContainer: React.FC<ModalProps> = ({
       sx={{
         "& .MuiPaper-root": {
           maxWidth: "max-content",
+          maxHeight: "fit-content",
         },
       }}
     >

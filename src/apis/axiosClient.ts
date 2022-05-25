@@ -31,27 +31,6 @@ axiosClient.interceptors.response.use(
     return response;
   },
 
-  // async (error) => {
-  //   // Handle errors
-
-  //   if (error.response) {
-  //     //Call request token, access token expires
-  //     if (error.request.status === 401) {
-  //       try {
-  //       } catch (error: any) {
-  //         if (error.response && error.response.data) {
-  //           return Promise.reject(error.response.data);
-  //         }
-  //         return Promise.reject(error);
-  //       }
-  //     }
-  //   }
-  //   return Promise.reject(
-  //     error.response.data.message || {
-  //       error: "Response Error sever dont correct",
-  //     }
-  //   );
-  // }
   async (error) => {
     // Handle errors
 
@@ -67,7 +46,28 @@ axiosClient.interceptors.response.use(
         }
       }
     }
-    return Promise.reject(error);
+    return Promise.reject(
+      error.response.data.message || {
+        error: "Response Error sever dont correct",
+      }
+    );
   }
+  // async (error) => {
+  //   // Handle errors
+
+  //   if (error.response) {
+  //     //Call request token, access token expires
+  //     if (error.request.status === 401) {
+  //       try {
+  //       } catch (error: any) {
+  //         if (error.response && error.response.data) {
+  //           return Promise.reject(error.response.data);
+  //         }
+  //         return Promise.reject(error);
+  //       }
+  //     }
+  //   }
+  //   return Promise.reject(error);
+  // }
 );
 export default axiosClient;

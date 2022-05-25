@@ -7,6 +7,7 @@ import "./InputFile.scss";
 interface InputFileProps {
   label: string;
   value?: string | string[];
+  valueDefault?: string;
   onChange: (value: any) => void;
   multiple?: boolean;
   errorMessage?: string;
@@ -15,12 +16,14 @@ interface InputFileProps {
 const InputFile: React.FC<InputFileProps> = ({
   label,
   value,
+  valueDefault,
   multiple = false,
   onChange,
   errorMessage,
 }) => {
   // const [image, setImage] = useState<any>([]);
-  const [imagePreview, setImagePreview] = useState("");
+
+  const [imagePreview, setImagePreview] = useState(valueDefault);
 
   const handleChangeImage = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
