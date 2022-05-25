@@ -39,11 +39,17 @@ const CourseModal: React.FC<CourseModalProps> = ({ title, course }) => {
         <span className="course-summary">
           <b>Bạn sẽ học được: </b>
           <div className="list">
-            {course.targets?.map((target, index) => (
-              <span key={index}>
-                {index + 1}. {target}
-              </span>
-            ))}
+            {course.targets?.map(
+              (target, index) =>
+                index < 3 && (
+                  <span key={index}>
+                    {index + 1}. {target}
+                  </span>
+                )
+            )}
+            {(course.targets?.length || []) > 3 && (
+              <span className="more">....</span>
+            )}
           </div>
         </span>
       </div>
