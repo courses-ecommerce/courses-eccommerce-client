@@ -28,7 +28,7 @@ const UpdatePassword = () => {
       password: Yup.string()
         .min(8, "Mật khẩu ít nhất 8 kí tự")
 
-        .required("Vui lòng nhập mật khẩu"),
+        .required("Vui lòng nhập mật khẩu mới"),
 
       passwordConfirm: Yup.string()
         .min(8, "Mật khẩu ít nhất 8 kí tự")
@@ -40,7 +40,11 @@ const UpdatePassword = () => {
     }),
     validate: (values) => {
       let errors = {};
-      if (values.oldPassword === values.password) {
+      if (
+        values.oldPassword &&
+        values.password &&
+        values.oldPassword === values.password
+      ) {
         errors = {
           ...errors,
           password: "Mật khẩu mới không được đặt giống với mật khẩu cũ",

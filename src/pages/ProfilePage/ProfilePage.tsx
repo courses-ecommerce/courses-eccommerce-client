@@ -5,17 +5,20 @@ import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
 import formatDate from "src/utils/formatDay";
-import "./ProfilePage.scss";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import UserInfoItem from "./UserInfoItem/UserInfo";
+import "./ProfilePage.scss";
+import { useSelector } from "react-redux";
+import { selectAuthorization } from "src/reducers/authSlice";
 
 const ProfilePage = () => {
   const [info, setinfo] = useState<IUser>({});
+  const { isLoading } = useSelector(selectAuthorization);
 
   useEffect(() => {
     getMe();
-  }, []);
+  }, [isLoading]);
 
   const getMe = async () => {
     try {

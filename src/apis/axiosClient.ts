@@ -38,6 +38,8 @@ axiosClient.interceptors.response.use(
       //Call request token, access token expires
       if (error.request.status === 401) {
         try {
+          const url = window.location.origin + "/unauthorized";
+          window.location.href = url;
         } catch (error: any) {
           if (error.response && error.response.data) {
             return Promise.reject(error.response.data);
