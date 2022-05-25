@@ -1,0 +1,54 @@
+.course-modal {
+  // width: 600px;
+  // height: 400px;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+
+  padding: 10px;
+  border-radius: 12px;
+  top: -50px;
+  right: -310px;
+
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  z-index: 5;
+
+  > .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  > .content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    > span {
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    > .name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    > .intended-learners {
+      display: flex;
+      gap: 2px;
+      > .list {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    > .course-summary {
+      > .list {
+        display: flex;
+        flex-direction: column;
+
+        > span {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}

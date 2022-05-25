@@ -30,7 +30,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
 
       <MenuPopover
         open={Boolean(show)}
-        anchorEl={show}
+        // anchorEl={show}
         onClose={() => setShow(false)}
       >
         <div className="account-popover-menu">

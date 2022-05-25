@@ -12,10 +12,40 @@ export interface IComponent {
   component: ReactNode;
 }
 
+export interface IUser {
+  _id?: string;
+  account?: IAccount;
+  fullName?: string;
+  birthday?: string;
+  gender?: boolean;
+  phone?: string;
+  avatar?: any;
+}
+export interface ICategory {
+  _id?: string;
+  name?: string;
+  slug?: string;
+}
+
 export interface ICourse {
-  name: string;
-  thumbnail: string;
-  categories?: string[];
+  _id?: string;
+  author?: IUser;
+  name?: string;
+  thumbnail?: string;
+  category?: ICategory;
+  currentPrice?: number;
+  originalPrice?: number;
+  description?: string;
+  hashtags?: string[];
+  intendedLearners?: string[];
+  requirements?: string[];
+  rating?: string[];
+  language?: string;
+  level?: string;
+  saleOff?: string;
+  sellNumber?: string;
+  slug?: string;
+  targets?: string[];
 }
 
 export interface IAccount {
@@ -28,28 +58,19 @@ export interface IAccount {
   isActive: boolean;
 }
 
-export interface IUser {
-  account?: IAccount;
-  fullName?: string;
-  birthday?: string;
-  gender?: boolean;
-  phone?: string;
-  avatar?: any;
-}
+// // for popover
+// export interface INotify {
+//   image: string;
+//   title?: string;
+//   isRead?: boolean;
+//   content: string;
+//   time: string;
+// }
 
-// for popover
-export interface INotify {
-  image: string;
-  title?: string;
-  isRead?: boolean;
-  content: string;
-  time: string;
-}
-
-export interface IMessage {
-  image: string;
-  title?: string;
-  isRead?: boolean;
-  content: string;
-  time: string;
-}
+// export interface IMessage {
+//   image: string;
+//   title?: string;
+//   isRead?: boolean;
+//   content: string;
+//   time: string;
+// }

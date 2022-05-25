@@ -2,21 +2,21 @@ import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import useClickOutSide from "src/hooks/useClickOutSide";
 
-import { IMessage, INotify } from "src/types";
+// import { IMessage, INotify } from "src/types";
 import MenuPopover from "../MenuPopover/MenuPopover";
 import Icon from "../Icon/Icon";
 
 interface NotificationProps {
   type: "notify" | "message";
   sticky?: boolean;
-  notifications?: INotify[];
-  messages?: IMessage[];
+  // notifications?: INotify[];
+  // messages?: IMessage[];
 }
 
 const Notification: React.FC<NotificationProps> = ({
   type,
-  notifications,
-  messages,
+  // notifications,
+  // messages,
   sticky = false,
 }) => {
   const { nodeRef, show, setShow } = useClickOutSide();
@@ -31,7 +31,7 @@ const Notification: React.FC<NotificationProps> = ({
           </Tooltip>
           <MenuPopover
             open={Boolean(show)}
-            anchorEl={show}
+            // anchorEl={show}
             onClose={() => setShow(false)}
           >
             <div>Hệ thống sẽ cập nhật thêm chức năng notify</div>
@@ -46,7 +46,7 @@ const Notification: React.FC<NotificationProps> = ({
           </Tooltip>
           <MenuPopover
             open={Boolean(show)}
-            anchorEl={show}
+            // anchorEl={show}
             onClose={() => setShow(false)}
           >
             <div>Hệ thống sẽ cập nhật thêm chức năng message</div>
