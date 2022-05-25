@@ -1,10 +1,11 @@
 // material
 import { Popover } from "@mui/material";
+import React from "react";
 import "./MenuPopover.scss";
 interface MenuPopoverProps {
   children: any;
   open?: boolean;
-  anchorEl?: boolean;
+  // anchorEl?: boolean;
   sx?: any;
   onClose?: Function;
   other?: any;
@@ -14,7 +15,7 @@ const MenuPopover: React.FC<MenuPopoverProps> = ({
   children,
   sx,
   open = false,
-  anchorEl = false,
+  // anchorEl = false,
   onClose,
   ...other
 }) => {

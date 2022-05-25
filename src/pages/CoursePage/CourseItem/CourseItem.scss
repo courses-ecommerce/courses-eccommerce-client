@@ -1,0 +1,30 @@
+.course-item {
+  width: 22%;
+  > .img {
+    position: relative;
+    > img {
+      cursor: pointer;
+      width: 100%;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  > .content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    line-height: 25px;
+
+    > .name {
+      font-weight: 700;
+    }
+
+    > .description {
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+}

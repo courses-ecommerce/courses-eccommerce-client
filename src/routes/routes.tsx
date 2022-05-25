@@ -6,7 +6,7 @@ import UserList from "src/pages/AdminPage/UsersManage/UserList";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
-import CourseDetail from "src/pages/CoursePage/CourseDetail";
+import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
 import CoursePage from "src/pages/CoursePage/CoursePage";
 import MainPage from "src/pages/MainPage/MainPage";
 import NotFound from "src/pages/MainPage/NotFound/NotFound";
