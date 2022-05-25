@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const ACCOUNT_API = "/user";
 
-const usertApi = {
+const userApi = {
   getMe: () => {
     const url = ACCOUNT_API;
     return axiosClient.get(url);
@@ -25,4 +25,4 @@ const usertApi = {
   },
 };
 
-export default usertApi;
+export default userApi;

@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import usertApi from "src/apis/userApi";
+import userApi from "src/apis/userApi";
 import InputSelect from "src/components/InputSelect";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
@@ -11,7 +11,10 @@ import { genderTypes } from "src/data";
 import { IUser } from "src/types";
 import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
+import * as Yup from "yup";
+
 import "./UpdateProfile.scss";
+import { phoneRegExp } from "src/utils";
 
 interface UpdateProfileProps {
   data: IUser;
@@ -28,7 +31,9 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
       phone: data.phone,
       avatar: null,
     },
-
+    validationSchema: Yup.object({
+      phone: Yup.string().matches(phoneRegExp, "Định dạng số điện thoại sai"),
+    }),
     onSubmit: (values) => {
       // console.log("lấy được dữ liệu là", values);
       updateProfile(values);
@@ -47,7 +52,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
     // console.log("sadasdas", ...formData);
     dispatch(isPending());
     try {
-      await usertApi.updateInfo(formData);
+      await userApi.updateInfo(formData);
       setShowModal(false);
       dispatch(isSuccess());
       toast.success("Cập nhật thông tin thành công", {
@@ -89,7 +94,11 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
             label="Ngày sinh"
             {...formik.getFieldProps("birthday")}
           />
-          <Input label="Số điện thoại" {...formik.getFieldProps("phone")} />
+          <Input
+            label="Số điện thoại"
+            {...formik.getFieldProps("phone")}
+            errorMessage={formik.touched.phone ? formik.errors.phone : ""}
+          />
           <InputSelect
             label="Giới tính"
             list={genderTypes}

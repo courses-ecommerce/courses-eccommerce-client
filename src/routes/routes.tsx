@@ -10,7 +10,10 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail";
 import CoursePage from "src/pages/CoursePage/CoursePage";
 import MainPage from "src/pages/MainPage/MainPage";
 import NotFound from "src/pages/MainPage/NotFound/NotFound";
+import UnauthorizedPage from "src/pages/MainPage/UnauthorizedPage/UnauthorizedPage";
+import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
+import RegisterInstructor from "src/pages/ProfilePage/RegisterInstructor/RegisterInstructor";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
@@ -32,6 +35,7 @@ const MAIN_ROUTE = [
     path: "/courses/:id",
     element: <CourseDetail />,
   },
+  { role: "page", path: "/unauthorized", element: <UnauthorizedPage /> },
   { role: "page", path: "/*", element: <NotFound /> },
 ];
 
@@ -43,21 +47,16 @@ const AUTH_ROUTE = [
 ];
 
 // admin route
-const ADMIN_ROUTE = [
-  { role: "admin", path: "/admin", element: <AdminPage /> },
-  //   { role: "admin", path: "/admin/profile", element: <AdminProfile /> },
-];
+const ADMIN_ROUTE = [{ role: "admin", path: "/admin", element: <AdminPage /> }];
 
 // Student route
 const STUDENT_ROUTE = [
   { role: "student", path: "/student", element: <StudentPage /> },
-  //   { role: "student", path: "/student/profile", element: <StudentProfile /> },
 ];
 
 // Teacher route
 const TEACHER_ROUTE = [
   { role: "teacher", path: "/teacher", element: <TeacherPage /> },
-  //   { role: "teacher", path: "/teacher/profile", element: <TeacherProfile /> },
 ];
 
 //Dash board routes
@@ -86,23 +85,6 @@ const DASHBOARD_ROUTE = [
         //     path: "/admin/dashboard/user",
         //     element: <UserList />,
         //     // icon: "info",
-        //   },
-        //   {
-        //     title: "Thêm người dùng",
-        //     path: "/admin/dashboard/user/add",
-        //     element: <UserList />,
-        //     //  icon: "plus"
-        //   },
-        //   {
-        //     title: "Xoá người dùng",
-        //     path: "/admin/dashboard/user/delete",
-        //     element: <UserList />,
-        //     //icon: "trash-o"
-        //   },
-        //   {
-        //     title: "Sửa người dùng",
-        //     path: "/admin/dashboard/user/modify",
-        //     element: <UserList />, //icon: "pencil"
         //   },
         // ],
       },
@@ -149,6 +131,20 @@ const DASHBOARD_ROUTE = [
         element: <ProfilePage />,
         title: "Thông tin cá nhân",
         icon: "info-circle",
+      },
+      {
+        path: "history-payment",
+        href: "/student/history-payment",
+        element: <HistoryPayment />,
+        title: "Lịch sử thanh toán",
+        icon: "file-text-o",
+      },
+      {
+        path: "register-instructor",
+        href: "/student/register-instructor",
+        element: <RegisterInstructor />,
+        title: "Đăng ký bán khoá học",
+        icon: "usd",
       },
     ],
   },
