@@ -1,4 +1,4 @@
-declare interface DropdownProps {
+declare interface InputSelectProps {
   label?: string;
   icon?: string;
   list: {

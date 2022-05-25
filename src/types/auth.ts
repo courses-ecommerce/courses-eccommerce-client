@@ -21,7 +21,7 @@ export interface IForgotPassword {
 }
 
 export interface IUpdatePassword {
-  old_password: string;
-  new_password: string;
-  email: string;
+  oldPassword: string;
+  password: string;
+  passwordConfirm?: string;
 }

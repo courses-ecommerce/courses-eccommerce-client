@@ -8,7 +8,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
 import Icon from "../Icon/Icon";
 
-const Dropdown: React.FC<DropdownProps> = (props) => {
+const InputSelect: React.FC<InputSelectProps> = (props) => {
   const {
     label,
     list,
@@ -104,4 +104,4 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   );
 };
 
-export default Dropdown;
+export default InputSelect;

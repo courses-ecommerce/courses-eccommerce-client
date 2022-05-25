@@ -1,58 +1,66 @@
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import usertApi from "src/apis/userApi";
-import Dropdown from "src/components/Dropdown";
+import InputSelect from "src/components/InputSelect";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data";
 import { IUser } from "src/types";
-import formatDate from "src/utils/formatDay";
+import { useDispatch } from "react-redux";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import "./UpdateProfile.scss";
+
 interface UpdateProfileProps {
   data: IUser;
 }
 const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       fullName: data.fullName,
-      // birthday: formatDate(data?.birthday, "dd-MM-yy"),
       birthday: data.birthday,
       gender: data.gender,
       phone: data.phone,
-      avatar: [],
+      avatar: null,
     },
 
     onSubmit: (values) => {
-      console.log("lấy được dữ liệu là", values);
-
-      UpdateProfile(values);
+      // console.log("lấy được dữ liệu là", values);
+      updateProfile(values);
     },
   });
 
-  const UpdateProfile = async (user_info: IUser) => {
+  const updateProfile = async (user_info: IUser) => {
     const newData: any = user_info;
     const keys = Object.keys(user_info);
 
     var formData: any = new FormData();
     keys.forEach((key) => {
-      formData.append(key, newData[key]);
+      newData[key] && formData.append(key, newData[key]);
     });
 
-    console.log("sadasdas", ...formData);
-
+    // console.log("sadasdas", ...formData);
+    dispatch(isPending());
     try {
-      const response = await usertApi.updateInfo(formData);
-      console.log("rẻwer", response);
+      await usertApi.updateInfo(formData);
+      setShowModal(false);
+      dispatch(isSuccess());
+      toast.success("Cập nhật thông tin thành công", {
+        position: "bottom-right",
+      });
     } catch (error) {
+      dispatch(isSuccess());
       console.log("lỗi rồi", { error });
     }
   };
 
   return (
-    <div>
+    <>
       <Button
         variant="contained"
         color="success"
@@ -67,11 +75,12 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
         open={showModal}
         onClose={() => setShowModal(false)}
       >
-        <form onSubmit={formik.handleSubmit}>
+        <form className="update-profile-form" onSubmit={formik.handleSubmit}>
           <InputFile
             label="Ảnh đại diện"
-            multiple
-            value={formik.values.avatar}
+            // multiple
+            // value={formik.values.avatar}
+            valueDefault={data.avatar}
             onChange={(value) => formik.setFieldValue("avatar", value)}
           />
           <Input label="Họ và tên" {...formik.getFieldProps("fullName")} />
@@ -81,20 +90,26 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
             {...formik.getFieldProps("birthday")}
           />
           <Input label="Số điện thoại" {...formik.getFieldProps("phone")} />
-          <Dropdown
+          <InputSelect
             label="Giới tính"
             list={genderTypes}
+            onChange={(e) =>
+              formik.setFieldValue(
+                "gender",
+                (e.target.value == true).toString()
+              )
+            }
             defaultValue={formik.values.gender}
           />
 
           <div>
             <Button type="submit" variant="contained" color="success">
-              Cập nhật
+              Thay đổi thông tin
             </Button>
           </div>
         </form>
       </ModalContainer>
-    </div>
+    </>
   );
 };
 
