@@ -23,7 +23,7 @@ const UnauthorizedPage = () => {
         <span>Cảnh báo đăng nhập</span>
         <p>
           Tài khoản của bạn đã bị đăng nhập từ một thiết bị khác. Nếu đó là bạn,
-          hay bỏ qua thông báo này. Còn nếu không phải là bạn, xin vui lòng hãy
+          hay bỏ qua thông báo này. Còn nếu không phải là bạn, xin vui lòng thay
           đổi mật khẩu.
           <br />
           Chỉ có thể đăng nhập duy nhất trên 1 thiết bị.
