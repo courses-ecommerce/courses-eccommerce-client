@@ -8,7 +8,7 @@ interface CourseModalProps {
 }
 
 const CourseModal: React.FC<CourseModalProps> = ({ title, course }) => {
-  console.log("đâs", course);
+  // console.log("đâs", course);
 
   return (
     <div className="course-modal">
