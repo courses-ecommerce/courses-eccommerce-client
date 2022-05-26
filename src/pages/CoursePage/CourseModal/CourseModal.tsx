@@ -15,7 +15,7 @@ const CourseModal: React.FC<CourseModalProps> = ({ title, course }) => {
       {title && <span className="title">{title}</span>}
       <div className="content">
         <span className="name">{course.name}</span>
-        <span className="description">{course.description}</span>
+        <span className="description">({course.description})</span>
         <span className="level">
           <b>Mức độ: </b>
           {course.level}

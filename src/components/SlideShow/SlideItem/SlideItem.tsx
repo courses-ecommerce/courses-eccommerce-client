@@ -2,8 +2,14 @@ import { Button } from "@mui/material";
 import React from "react";
 import "./SlideItem.scss";
 
+interface ImageContentProps {
+  name: string;
+  image: string;
+  description: string;
+}
+
 interface SlideItemProps {
-  imageContent: any;
+  imageContent: ImageContentProps;
 }
 
 const SlideItem: React.FC<SlideItemProps> = ({ imageContent }) => {

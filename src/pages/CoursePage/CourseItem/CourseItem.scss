@@ -27,4 +27,20 @@
       font-weight: 300;
     }
   }
+
+  //set product modal
+  &:nth-child(4n) {
+    > .img {
+      > .course-modal {
+        right: calc(100% + 10px);
+      }
+    }
+  }
+  &:not(:nth-child(4n)) {
+    > .img {
+      > .course-modal {
+        left: calc(100% + 10px);
+      }
+    }
+  }
 }
