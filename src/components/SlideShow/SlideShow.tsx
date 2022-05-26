@@ -15,7 +15,7 @@ interface SliderProps {
 }
 
 function NextArrow(props: any) {
-  const { className, style, onClick } = props;
+  const { onClick } = props;
   return (
     <div className="btn-left" onClick={onClick}>
       <KeyboardArrowLeftIcon />
@@ -24,7 +24,8 @@ function NextArrow(props: any) {
 }
 
 function PrevArrow(props: any) {
-  const { className, style, onClick } = props;
+  // const { className, style, onClick } = props;
+  const { onClick } = props;
   return (
     <div className="btn-right" onClick={onClick}>
       <KeyboardArrowRightIcon />
@@ -36,7 +37,6 @@ const SlideShow: React.FC<SliderProps> = ({ listSlideShow }) => {
   var settings = {
     // dots: true,
     speed: 500,
-
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplaySpeed: 3000,

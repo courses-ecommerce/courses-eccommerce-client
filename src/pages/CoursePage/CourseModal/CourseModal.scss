@@ -1,14 +1,11 @@
 .course-modal {
-  // width: 600px;
-  // height: 400px;
   width: fit-content;
   height: fit-content;
   position: absolute;
 
-  padding: 10px;
+  padding: 20px;
   border-radius: 12px;
   top: -50px;
-  right: -310px;
 
   background: rgb(255, 255, 255);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -22,7 +19,7 @@
   > .content {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
     > span {
       font-size: 14px;
       line-height: 22px;
@@ -31,6 +28,9 @@
     > .name {
       font-size: 18px;
       font-weight: 700;
+    }
+    .description {
+      font-weight: 300;
     }
     > .intended-learners {
       display: flex;
@@ -44,14 +44,31 @@
       > .list {
         display: flex;
         flex-direction: column;
-
+        gap: 2px;
         > span {
           padding-left: 20px;
+          font-size: 12px;
         }
         > .more {
           font-weight: 700;
         }
       }
     }
+  }
+
+  &::before {
+    width: 0;
+    height: 0;
+
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid rgb(255, 255, 255);
+
+    content: "";
+
+    position: absolute;
+    right: 100%;
+    top: 30%;
+    content: "";
   }
 }
