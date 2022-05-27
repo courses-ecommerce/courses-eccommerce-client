@@ -10,6 +10,7 @@ import { getHeaderColumns, setNewHeaderColumn } from "src/utils/table";
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
   const [headerColumns, setHeaderColumns] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
@@ -45,6 +46,7 @@ export default function UserList() {
   }, []);
 
   const getUsers = async () => {
+    setLoading(true);
     try {
       const response = await adminApi.getUsers();
 
@@ -53,19 +55,21 @@ export default function UserList() {
 
       const keys = getHeaderColumns(users[0], ["_id", "account"]);
       const res = setNewHeaderColumn(users, keys);
-      console.log(res);
+
+      setLoading(false);
       setUsers(res);
     } catch (error) {
       console.log("lỗi rồi", { error });
+      setLoading(false);
     }
   };
 
   return (
     <Table
-      columnsData={columsHeader}
-      // rowsData={users}
-      rowsData={users}
       title="Danh sách thông tin người dùng"
+      columnsData={columsHeader}
+      rowsData={users}
+      isLoading={loading}
     />
   );
 }

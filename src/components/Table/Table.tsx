@@ -107,6 +107,7 @@ interface TableProps {
   columnsData?: GridColDef[];
   rowsData?: any;
   className?: string;
+  isLoading?: boolean;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -114,6 +115,7 @@ const Table: React.FC<TableProps> = ({
   className,
   rowsData,
   columnsData = [],
+  isLoading = false,
 }) => {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
@@ -147,7 +149,7 @@ const Table: React.FC<TableProps> = ({
         // onRowClick={(e) => console.log(e)}
         // onSortModelChange={(e) => console.log(e)}
         // onSelectionModelChange={(e) => console.log(e)}
-        loading={false}
+        loading={isLoading}
         rowSpacingType="border"
         onPageChange={handleChangePage}
         onPageSizeChange={handlePageSizeChange}
