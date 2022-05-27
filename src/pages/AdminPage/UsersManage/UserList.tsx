@@ -8,14 +8,17 @@ import Table from "src/components/Table/Table";
 import { getHeaderColumns, setNewHeaderColumn } from "src/utils/table";
 
 export default function UserList() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<any>([]);
   const [headerColumns, setHeaderColumns] = useState<string[]>([]);
 
   const columsHeader: GridColDef[] = [
-    { field: "id", headerName: "STT", width: 150 },
+    { field: "id", headerName: "STT", width: 100 },
     { field: "fullName", headerName: "Họ và tên", width: 300 },
-    { field: "phone", headerName: "Số điện thoại", width: 300 },
+    { field: "phone", headerName: "Số điện thoại", width: 200 },
+    { field: "gender", headerName: "Giới tính", width: 100 },
     { field: "birthday", headerName: "Ngày sinh", width: 200 },
+    { field: "avatar", headerName: "Hình ảnh", hide: true },
+    { field: "updatedAt", headerName: "Ngày tạo", hide: true },
     {
       field: "actions",
       headerName: "Thao tác",
@@ -49,9 +52,9 @@ export default function UserList() {
       // console.log(response);
 
       const keys = getHeaderColumns(users[0], ["_id", "account"]);
-      setNewHeaderColumn(users, keys);
-
-      // setUsers(users);
+      const res = setNewHeaderColumn(users, keys);
+      console.log(res);
+      setUsers(res);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }

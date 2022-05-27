@@ -1,24 +1,23 @@
+import _ from "lodash";
+
+//get all keys to pass for header table
 export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
   const keys = Object.keys(data);
   const newColumns: string[] = [];
   keys.forEach((key) => {
     !excepts.includes(key) && newColumns.push(key);
   });
-
   return newColumns;
 };
 
+//get data  each of keys of table
 export const setNewHeaderColumn = (data: Object[], keys: string[]) => {
-  //   console.log(data);
-  // console.log(keys);
-
-  let obj = {};
-  const res = data.map((item: any, index) => {
-    return keys.map((key) => {
-      //   console.log("key nè", key);
-      var newData = { key: item[key] };
-      return { ...obj, ...newData };
+  const finalResult = data.map((item: any, index) => {
+    const values = keys.map((key: any) => {
+      return { [key]: item[key] };
     });
+    return _.merge({ id: index }, ...values);
   });
-  console.log("res", res);
+
+  return finalResult;
 };
