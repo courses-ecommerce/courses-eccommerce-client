@@ -39,7 +39,9 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
               key={route.name}
               to={
                 route.role === "account"
-                  ? `/${isRole}/${route.path}`
+                  ? isRole
+                    ? `/${isRole}/${route.path}`
+                    : "/login"
                   : `${route.path}`
               }
               component={RouterLink}

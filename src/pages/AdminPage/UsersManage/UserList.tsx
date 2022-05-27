@@ -1,11 +1,11 @@
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import { Tooltip } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
 import Table from "src/components/Table/Table";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
-import { getHeaderColums } from "src/utils/table";
-import { Tooltip } from "@mui/material";
+import { getHeaderColumns, setNewHeaderColumn } from "src/utils/table";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
@@ -46,12 +46,12 @@ export default function UserList() {
       const response = await adminApi.getUsers();
 
       const { users, totalCount }: any = response;
-      console.log(response);
+      // console.log(response);
 
-      const newArr = getHeaderColums(users[0], ["_id", "account"]);
-      console.log("sadas", newArr);
+      const keys = getHeaderColumns(users[0], ["_id", "account"]);
+      setNewHeaderColumn(users, keys);
 
-      setUsers(users);
+      // setUsers(users);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
