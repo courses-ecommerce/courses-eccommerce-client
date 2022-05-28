@@ -2,18 +2,34 @@ import React from "react";
 import "./LoadingSkeleton.scss";
 
 interface LoadingSkeletonProps {
-  width?: string;
-  height?: string;
-  borderRadius?: string;
+  amount?: number;
+  maxWidth?: number;
+  width?: number;
+  maxHeight?: number;
+  height?: number;
+  borderRadius?: number;
 }
 
 const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
-  width = "100%",
-  height = "200px",
-  borderRadius = "0",
+  amount = 4,
+  width = 300,
+  height = 250,
+  maxWidth,
+  maxHeight,
+  borderRadius = 0,
 }) => {
   return (
-    <div className="skeleton" style={{ width, height, borderRadius }}></div>
+    <>
+      {Array(amount)
+        .fill(null)
+        .map((_, index) => (
+          <div
+            key={index}
+            className="skeleton"
+            style={{ maxWidth, maxHeight, borderRadius, height, width }}
+          ></div>
+        ))}
+    </>
   );
 };
 

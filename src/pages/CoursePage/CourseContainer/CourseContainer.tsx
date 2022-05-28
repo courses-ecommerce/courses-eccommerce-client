@@ -1,4 +1,5 @@
 import React from "react";
+import LoadingSkeleton from "src/components/LoadingSkeleton/LoadingSkeleton";
 import { ICourse } from "src/types";
 import CourseItem from "../CourseItem/CourseItem";
 import "./CourseContainer.scss";
@@ -12,6 +13,8 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   title,
   courses,
 }) => {
+  // console.log("course", courses);
+
   const renderCourses = (courses: ICourse[]) => {
     return (
       courses.length > 0 &&
@@ -24,7 +27,15 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   return (
     <div className="course-container">
       <span className="title">{title}</span>
-      <div className="courses">{renderCourses(courses)}</div>
+      <div className="courses">
+        {renderCourses(courses) || (
+          <LoadingSkeleton
+            width={300}
+            height={160}
+            amount={courses.length || 4}
+          />
+        )}
+      </div>
     </div>
   );
 };

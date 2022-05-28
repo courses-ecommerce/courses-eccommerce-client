@@ -1,5 +1,7 @@
 .course-item {
-  width: 22%;
+  // width: 22%;
+  max-width: 300px;
+  width: 100%;
   > .img {
     position: relative;
     > img {

@@ -9,7 +9,6 @@ import { getHeaderColumns, setNewHeaderColumn } from "src/utils/table";
 
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
-  const [headerColumns, setHeaderColumns] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
@@ -54,6 +53,7 @@ export default function UserList() {
       // console.log(response);
 
       const keys = getHeaderColumns(users[0], ["_id", "account"]);
+      // const keys = getHeaderColumns(users[0]);
       const res = setNewHeaderColumn(users, keys);
 
       setLoading(false);
