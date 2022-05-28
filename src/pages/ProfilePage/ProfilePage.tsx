@@ -5,11 +5,12 @@ import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
 import formatDate from "src/utils/formatDay";
-import "./ProfilePage.scss";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import UserInfoItem from "./UserInfoItem/UserInfo";
 import _ from "lodash";
+import "./ProfilePage.scss";
+
 const ProfilePage = () => {
   const [info, setinfo] = useState<IUser>({});
 

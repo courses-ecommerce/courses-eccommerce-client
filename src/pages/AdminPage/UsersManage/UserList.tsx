@@ -5,7 +5,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
 import Table from "src/components/Table/Table";
-import { getHeaderColumns, setNewHeaderColumn } from "src/utils/table";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
@@ -53,8 +53,7 @@ export default function UserList() {
       // console.log(response);
 
       const keys = getHeaderColumns(users[0], ["_id", "account"]);
-      // const keys = getHeaderColumns(users[0]);
-      const res = setNewHeaderColumn(users, keys);
+      const res = getNewHeaderColumn(users, keys);
 
       setLoading(false);
       setUsers(res);

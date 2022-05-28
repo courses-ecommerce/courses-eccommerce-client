@@ -11,12 +11,12 @@ export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
 };
 
 //get data  each of keys of table
-export const setNewHeaderColumn = (data: Object[], keys: string[]) => {
+export const getNewHeaderColumn = (data: Object[], keys: string[]) => {
   const finalResult = data.map((item: any, index) => {
     const values = keys.map((key: any) => {
       return { [key]: item[key] };
     });
-    return _.merge({ id: index }, ...values);
+    return _.merge({ id: index + 1 }, ...values);
   });
 
   return finalResult;
