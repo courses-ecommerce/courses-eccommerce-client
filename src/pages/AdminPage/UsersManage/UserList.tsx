@@ -65,8 +65,10 @@ export default function UserList() {
 
   return (
     <Table
+      handleAddItem={() => console.log("oke bật modal add")}
       title="Danh sách thông tin người dùng"
       columnsData={columsHeader}
+      onDeleteSelectMultiItem={(items) => console.log("xoá items có id", items)}
       rowsData={users}
       isLoading={loading}
     />

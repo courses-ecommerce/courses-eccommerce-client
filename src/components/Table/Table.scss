@@ -11,4 +11,9 @@
     font-size: 24px;
     line-height: 30px;
   }
+  > .btns-handle {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
 }
