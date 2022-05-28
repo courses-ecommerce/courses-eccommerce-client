@@ -10,7 +10,6 @@ import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import UserInfoItem from "./UserInfoItem/UserInfo";
 import _ from "lodash";
-
 const ProfilePage = () => {
   const [info, setinfo] = useState<IUser>({});
 
@@ -22,6 +21,8 @@ const ProfilePage = () => {
     try {
       const response = await usertApi.getMe();
       const { user }: any = response;
+      console.log(user);
+
       setinfo(user);
     } catch (error) {
       console.log("lỗi r", { error });
