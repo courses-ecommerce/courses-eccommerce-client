@@ -15,7 +15,7 @@
   > .content {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 
     line-height: 25px;
 
@@ -26,6 +26,13 @@
     > .description {
       font-size: 14px;
       font-weight: 300;
+    }
+    > .free {
+      width: fit-content;
+      padding: 5px 10px;
+      background: red;
+      color: white;
+      user-select: none;
     }
   }
 

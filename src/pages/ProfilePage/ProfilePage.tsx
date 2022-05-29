@@ -1,14 +1,14 @@
 import { Avatar } from "@mui/material";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
 import formatDate from "src/utils/formatDay";
+import ItemInfo from "../../components/ItemInfo/ItemInfo";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
-import UserInfoItem from "./UserInfoItem/UserInfo";
-import _ from "lodash";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
@@ -44,12 +44,12 @@ const ProfilePage = () => {
             />
           </div>
           <div className="content">
-            <UserInfoItem title="Tên:" value={info.fullName} />
-            <UserInfoItem title="Chức vụ:" value={info.account?.role} />
-            <UserInfoItem title="Email:" value={info.account?.email} />
-            <UserInfoItem title="Giới tính:" value={checkGender(info.gender)} />
-            <UserInfoItem title="Số điện thoại:" value={info.phone} />
-            <UserInfoItem
+            <ItemInfo title="Tên:" value={info.fullName} />
+            <ItemInfo title="Chức vụ:" value={info.account?.role} />
+            <ItemInfo title="Email:" value={info.account?.email} />
+            <ItemInfo title="Giới tính:" value={checkGender(info.gender)} />
+            <ItemInfo title="Số điện thoại:" value={info.phone} />
+            <ItemInfo
               title="Ngày sinh:"
               value={formatDate(info.birthday, "dd-MM-yyyy")}
             />
