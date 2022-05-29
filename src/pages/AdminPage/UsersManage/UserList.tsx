@@ -1,6 +1,3 @@
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
-import { Tooltip } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
@@ -13,31 +10,12 @@ export default function UserList() {
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
-    { field: "fullName", headerName: "Họ và tên", width: 300 },
+    { field: "fullName", headerName: "Họ và tên", width: 200 },
     { field: "phone", headerName: "Số điện thoại", width: 200 },
-    { field: "gender", headerName: "Giới tính", width: 100 },
+    { field: "gender", headerName: "Giới tính", width: 120 },
     { field: "birthday", headerName: "Ngày sinh", width: 200 },
     { field: "avatar", headerName: "Hình ảnh", hide: true },
     { field: "updatedAt", headerName: "Ngày tạo", hide: true },
-    {
-      field: "actions",
-      headerName: "Thao tác",
-      width: 300,
-      sortable: false,
-      type: "actions",
-      renderCell: ({ id }) => {
-        return (
-          <div onClick={() => console.log("id là", id)}>
-            <Tooltip title="Xoá">
-              <DeleteForeverIcon sx={{ cursor: "pointer" }} />
-            </Tooltip>
-            <Tooltip title="Cập nhật thông tin" sx={{ cursor: "pointer" }}>
-              <EditIcon />
-            </Tooltip>
-          </div>
-        );
-      },
-    },
   ];
 
   useEffect(() => {

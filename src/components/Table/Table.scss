@@ -16,4 +16,10 @@
     justify-content: flex-end;
     gap: 10px;
   }
+  > .data-grid {
+    .MuiDataGrid-columnHeaderTitleContainer {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }

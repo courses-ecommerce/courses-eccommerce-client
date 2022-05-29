@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
-import AccessDenied from "src/pages/MainPage/AcessDenied/AccessDenied";
+import AccessDenied from "src/pages/MainPage/ErrorPage/AccessDenied";
 import { selectAuthorization } from "src/reducers/authSlice";
 
 /**

@@ -16,6 +16,7 @@ import * as Yup from "yup";
 import "./UpdateProfile.scss";
 
 interface UpdateProfileProps {
+  onDeleteSelectMultiItem?: (multiSelect: any) => any;
   data: IUser;
 }
 const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {

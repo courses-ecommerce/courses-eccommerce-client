@@ -22,7 +22,7 @@ const ProfilePage = () => {
     try {
       const response = await usertApi.getMe();
       const { user }: any = response;
-      console.log(user);
+      // console.log(user);
 
       setinfo(user);
     } catch (error) {

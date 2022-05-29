@@ -25,7 +25,6 @@ const CoursePage = () => {
     <div className="course-page">
       <span className="title">Danh sách các khoá học</span>
       <CourseContainer title="Khoá Học Thông Thường" courses={courses} />
-      <CourseContainer title="Khoá Học Siêu Nhân" courses={courses} />
     </div>
   );
 };

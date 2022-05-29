@@ -2,34 +2,12 @@ import { Button } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import classNames from "classnames";
 import React, { ReactNode, useState } from "react";
-import "./Table.scss";
 import TableNone from "./TableNone/TableNone";
-
-// function CustomToolbar() {
-//   return (
-//     <GridToolbarContainer>
-//       <GridToolbarColumnsButton />
-//       <GridToolbarFilterButton />
-//       <GridToolbarDensitySelector />
-//       <GridToolbarExport />
-//     </GridToolbarContainer>
-//   );
-// }
-
-// function CustomPagination() {
-//   const apiRef = useGridApiContext();
-//   const page = useGridSelector(apiRef, gridPageSelector);
-//   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
-
-//   return (
-//     <Pagination
-//       color="primary"
-//       count={pageCount}
-//       page={page + 1}
-//       onChange={(event, value) => apiRef.current.setPage(value - 1)}
-//     />
-//   );
-// }
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import { Tooltip } from "@mui/material";
+import _ from "lodash";
+import "./Table.scss";
 
 interface TableProps {
   title?: string;
@@ -39,7 +17,9 @@ interface TableProps {
   isLoading?: boolean;
   btns?: ReactNode;
   handleAddItem?: () => void;
+  onModifyItem?: () => void;
   onDeleteSelectMultiItem?: (multiSelect: any) => any;
+  onDeleteItem?: (item: any) => any;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -51,10 +31,38 @@ const Table: React.FC<TableProps> = ({
   isLoading = false,
   handleAddItem,
   onDeleteSelectMultiItem,
+  onDeleteItem,
 }) => {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [multiSelect, setMultiSelect] = useState<string[] | number[]>([]);
+
+  const actions: GridColDef = {
+    field: "actions",
+    headerName: "Thao tác",
+    sortable: false,
+    type: "actions",
+    flex: 1,
+    renderCell: ({ id }) => {
+      return (
+        <div style={{ display: "flex", gap: 20 }}>
+          <Tooltip
+            onClick={() => console.log("xoá item có id là", id)}
+            title="Xoá"
+          >
+            <DeleteForeverIcon sx={{ cursor: "pointer" }} />
+          </Tooltip>
+
+          <Tooltip
+            title="Cập nhật thông tin"
+            onClick={() => console.log("cập nhật item có id là", id)}
+          >
+            <EditIcon sx={{ cursor: "pointer" }} />
+          </Tooltip>
+        </div>
+      );
+    },
+  };
 
   const handleChangePage = (newPage: number) => {
     // console.log("newPage", newPage);
@@ -89,10 +97,11 @@ const Table: React.FC<TableProps> = ({
         )}
       </div>
       <DataGrid
+        className="data-grid"
         autoHeight
         components={{
-          //   Toolbar: CustomToolbar,
-          //   Pagination: CustomPagination,
+          // Toolbar: TableToolBar,
+          // Pagination: TablePagination,
           NoRowsOverlay: TableNone,
         }}
         componentsProps={{
@@ -110,11 +119,12 @@ const Table: React.FC<TableProps> = ({
         // rowHeight={50}
         rows={rowsData}
         page={page}
-        columns={columnsData}
+        columns={[...columnsData, actions]}
         pageSize={pageSize}
         rowsPerPageOptions={[5, 10, 15]}
         checkboxSelection
         density="standard"
+        disableColumnMenu
       />
     </div>
   );
