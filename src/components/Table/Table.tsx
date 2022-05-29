@@ -6,7 +6,6 @@ import TableNone from "./TableNone/TableNone";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import { Tooltip } from "@mui/material";
-import _ from "lodash";
 import "./Table.scss";
 
 interface TableProps {
@@ -17,9 +16,10 @@ interface TableProps {
   isLoading?: boolean;
   btns?: ReactNode;
   handleAddItem?: () => void;
-  onModifyItem?: () => void;
-  onDeleteSelectMultiItem?: (multiSelect: any) => any;
-  onDeleteItem?: (item: any) => any;
+  onModifyItem?: (id: string | number) => void;
+  onDeleteSelectMultiItem?: (multiSelect: string[] | number[]) => void;
+  onDeleteItem?: (id: string | number) => void;
+  total?: number;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -29,9 +29,11 @@ const Table: React.FC<TableProps> = ({
   rowsData,
   columnsData = [],
   isLoading = false,
+  total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
   onDeleteItem,
+  onModifyItem,
 }) => {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
@@ -46,16 +48,13 @@ const Table: React.FC<TableProps> = ({
     renderCell: ({ id }) => {
       return (
         <div style={{ display: "flex", gap: 20 }}>
-          <Tooltip
-            onClick={() => console.log("xoá item có id là", id)}
-            title="Xoá"
-          >
+          <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
             <DeleteForeverIcon sx={{ cursor: "pointer" }} />
           </Tooltip>
 
           <Tooltip
             title="Cập nhật thông tin"
-            onClick={() => console.log("cập nhật item có id là", id)}
+            onClick={() => onModifyItem?.(id)}
           >
             <EditIcon sx={{ cursor: "pointer" }} />
           </Tooltip>
@@ -99,6 +98,8 @@ const Table: React.FC<TableProps> = ({
       <DataGrid
         className="data-grid"
         autoHeight
+        checkboxSelection
+        disableColumnMenu
         components={{
           // Toolbar: TableToolBar,
           // Pagination: TablePagination,
@@ -116,15 +117,12 @@ const Table: React.FC<TableProps> = ({
         rowSpacingType="border"
         onPageChange={handleChangePage}
         onPageSizeChange={handlePageSizeChange}
-        // rowHeight={50}
         rows={rowsData}
         page={page}
         columns={[...columnsData, actions]}
         pageSize={pageSize}
         rowsPerPageOptions={[5, 10, 15]}
-        checkboxSelection
         density="standard"
-        disableColumnMenu
       />
     </div>
   );

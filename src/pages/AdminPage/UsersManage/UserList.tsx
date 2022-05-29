@@ -7,6 +7,8 @@ import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [total, setTotal] = useState<number>(0);
+  // const [showModify, setShowModify] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
@@ -26,29 +28,47 @@ export default function UserList() {
     setLoading(true);
     try {
       const response = await adminApi.getUsers();
-
       const { users, totalCount }: any = response;
       // console.log(response);
-
       const keys = getHeaderColumns(users[0], ["_id", "account"]);
       const res = getNewHeaderColumn(users, keys);
 
       setLoading(false);
       setUsers(res);
+      setTotal(totalCount);
     } catch (error) {
       console.log("lỗi rồi", { error });
       setLoading(false);
     }
   };
 
+  const handleAddItem = () => {
+    console.log("add nek");
+  };
+
+  const handleModifyItem = (id: string | number) => {
+    console.log("chỉnh sửa thông tin có id", id);
+  };
+  const handleDelete = (id: string | number) => {
+    console.log("xoá thông tin có id", id);
+  };
+  const handleMultiDeleted = (ids: string[] | number[]) => {
+    console.log("xoá những items có id là", ids);
+  };
+
   return (
-    <Table
-      handleAddItem={() => console.log("oke bật modal add")}
-      title="Danh sách thông tin người dùng"
-      columnsData={columsHeader}
-      onDeleteSelectMultiItem={(items) => console.log("xoá items có id", items)}
-      rowsData={users}
-      isLoading={loading}
-    />
+    <>
+      <Table
+        isLoading={loading}
+        title="Danh sách thông tin người dùng"
+        columnsData={columsHeader}
+        rowsData={users}
+        total={total}
+        handleAddItem={handleAddItem}
+        onDeleteItem={handleDelete}
+        onModifyItem={handleModifyItem}
+        onDeleteSelectMultiItem={handleMultiDeleted}
+      />
+    </>
   );
 }

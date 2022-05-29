@@ -1,16 +1,15 @@
 import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import useClickOutSide from "src/hooks/useClickOutSide";
-
-// import { IMessage, INotify } from "src/types";
-import MenuPopover from "../MenuPopover/MenuPopover";
 import Icon from "../Icon/Icon";
+import "./Notification.scss";
 
 interface NotificationProps {
   type: "notify" | "message";
   sticky?: boolean;
   // notifications?: INotify[];
   // messages?: IMessage[];
+  unRead_total?: number;
 }
 
 const Notification: React.FC<NotificationProps> = ({
@@ -18,42 +17,44 @@ const Notification: React.FC<NotificationProps> = ({
   // notifications,
   // messages,
   sticky = false,
+  unRead_total = 0,
 }) => {
-  const { nodeRef, show, setShow } = useClickOutSide();
+  const { nodeRef, show, setShow } = useClickOutSide("p");
   return (
-    <div>
+    <>
       {type === "notify" ? (
-        <div>
+        <div className="notification">
           <Tooltip title="Thông báo">
-            <IconButton ref={nodeRef} onClick={() => setShow(true)}>
+            <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
               <Icon icon="envelope-open" size={28} color="#3265b7" />
             </IconButton>
           </Tooltip>
-          <MenuPopover
-            open={Boolean(show)}
-            // anchorEl={show}
-            onClose={() => setShow(false)}
-          >
-            <div>Hệ thống sẽ cập nhật thêm chức năng notify</div>
-          </MenuPopover>
+          <span className="unread_amount">9</span>
+
+          {show && (
+            <p className="notification-popover">
+              Hệ thống sẽ cập nhật thêm chức năng notify
+            </p>
+          )}
         </div>
       ) : (
-        <div>
+        <div className="notification">
           <Tooltip title="Tin nhắn">
-            <IconButton ref={nodeRef} onClick={() => setShow(true)}>
+            <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
               <Icon icon="commenting-o" size={28} color="#3265b7" />
             </IconButton>
           </Tooltip>
-          <MenuPopover
-            open={Boolean(show)}
-            // anchorEl={show}
-            onClose={() => setShow(false)}
-          >
-            <div>Hệ thống sẽ cập nhật thêm chức năng message</div>
-          </MenuPopover>
+          {unRead_total > 0 && (
+            <span className="unread_amount">{unRead_total}</span>
+          )}
+          {show && (
+            <p className="notification-popover">
+              Hệ thống sẽ cập nhật thêm chức năng message
+            </p>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default Notification;
