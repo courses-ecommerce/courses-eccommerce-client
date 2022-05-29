@@ -15,6 +15,8 @@ const CoursePage = () => {
     try {
       const response = await courseApi.getCourses();
       const { courses, total }: any = response;
+      // console.log(courses);
+
       setCourses(courses);
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -25,7 +27,6 @@ const CoursePage = () => {
     <div className="course-page">
       <span className="title">Danh sách các khoá học</span>
       <CourseContainer title="Khoá Học Thông Thường" courses={courses} />
-      <CourseContainer title="Khoá Học Siêu Nhân" courses={courses} />
     </div>
   );
 };

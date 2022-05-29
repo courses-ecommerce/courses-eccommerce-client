@@ -16,19 +16,6 @@
       flex-direction: column;
       gap: 10px;
       width: 100%;
-      > .item {
-        display: flex;
-        > .title {
-          font-weight: 500;
-          max-width: 120px;
-          width: 100%;
-
-          font-size: 16px;
-        }
-        > .value {
-          font-size: 14px;
-        }
-      }
     }
   }
   > .btns {

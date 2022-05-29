@@ -7,10 +7,10 @@ import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
 import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
-import CoursePage from "src/pages/CoursePage/CoursePage";
+// import CoursePage from "src/pages/CoursePage/CoursePage";
 import MainPage from "src/pages/MainPage/MainPage";
-import NotFound from "src/pages/MainPage/NotFound/NotFound";
-import UnauthorizedPage from "src/pages/MainPage/UnauthorizedPage/UnauthorizedPage";
+import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
+import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import RegisterInstructor from "src/pages/ProfilePage/RegisterInstructor/RegisterInstructor";
@@ -25,11 +25,11 @@ const MAIN_ROUTE = [
     element: <MainPage />,
   },
 
-  {
-    role: "page",
-    path: "/courses",
-    element: <CoursePage />,
-  },
+  // {
+  //   role: "page",
+  //   path: "/courses",
+  //   element: <CoursePage />,
+  // },
   {
     role: "page",
     path: "/courses/:id",

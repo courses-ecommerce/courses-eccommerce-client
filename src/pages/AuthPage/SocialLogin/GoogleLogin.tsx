@@ -22,6 +22,7 @@ const GoogleLoginBtn = () => {
       const response = await authApi.postLoginGoogle(params);
       console.log(response);
       const { refreshToken, token, role }: any = response;
+      localStorage.setItem("access_token", JSON.stringify(token));
       dispatch(isLogin(role));
     } catch (error) {
       console.log("lỗi rồi", error);

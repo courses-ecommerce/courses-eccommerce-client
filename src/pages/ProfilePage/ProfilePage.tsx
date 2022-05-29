@@ -1,35 +1,35 @@
 import { Avatar } from "@mui/material";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IUser } from "src/types";
 import { checkGender } from "src/utils";
 import formatDate from "src/utils/formatDay";
+import ItemInfo from "../../components/ItemInfo/ItemInfo";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
-import UserInfoItem from "./UserInfoItem/UserInfo";
 import "./ProfilePage.scss";
-import { useSelector } from "react-redux";
-import { selectAuthorization } from "src/reducers/authSlice";
 
 const ProfilePage = () => {
   const [info, setinfo] = useState<IUser>({});
-  const { isLoading } = useSelector(selectAuthorization);
 
   useEffect(() => {
     getMe();
-  }, [isLoading]);
+  }, []);
 
   const getMe = async () => {
     try {
       const response = await usertApi.getMe();
       const { user }: any = response;
+      // console.log(user);
+
       setinfo(user);
     } catch (error) {
       console.log("lỗi r", { error });
     }
   };
-  if (Object.keys(info).length === 0 && info.constructor === Object) {
+  if (_.isEmpty(info)) {
     return <Loading />;
   } else {
     return (
@@ -44,12 +44,12 @@ const ProfilePage = () => {
             />
           </div>
           <div className="content">
-            <UserInfoItem title="Tên:" value={info.fullName} />
-            <UserInfoItem title="Chức vụ:" value={info.account?.role} />
-            <UserInfoItem title="Email:" value={info.account?.email} />
-            <UserInfoItem title="Giới tính:" value={checkGender(info.gender)} />
-            <UserInfoItem title="Số điện thoại:" value={info.phone} />
-            <UserInfoItem
+            <ItemInfo title="Tên:" value={info.fullName} />
+            <ItemInfo title="Chức vụ:" value={info.account?.role} />
+            <ItemInfo title="Email:" value={info.account?.email} />
+            <ItemInfo title="Giới tính:" value={checkGender(info.gender)} />
+            <ItemInfo title="Số điện thoại:" value={info.phone} />
+            <ItemInfo
               title="Ngày sinh:"
               value={formatDate(info.birthday, "dd-MM-yyyy")}
             />

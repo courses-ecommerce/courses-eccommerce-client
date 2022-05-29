@@ -1,0 +1,25 @@
+.table-container {
+  min-height: 400px;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  > .title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+  }
+  > .btns-handle {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  > .data-grid {
+    .MuiDataGrid-columnHeaderTitleContainer {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

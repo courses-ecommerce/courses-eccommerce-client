@@ -20,7 +20,7 @@ const courseApi = {
     const url = COURSE_API + id + "/related";
     return axiosClient.get(url);
   },
-  getCourseDetail: (id: string) => {
+  getCourseDetail: (id?: string) => {
     const url = COURSE_API + "/" + id;
     return axiosClient.get(url);
   },

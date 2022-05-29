@@ -1,11 +1,10 @@
-import { Avatar, Divider, IconButton, MenuItem, Tooltip } from "@mui/material";
+import { Avatar, IconButton, MenuItem, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { IRoute } from "src/types";
-import MenuPopover from "../MenuPopover/MenuPopover";
 import "./AccountPopover.scss";
 
 interface AccountPopoverProps {
@@ -18,9 +17,9 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
   const { isRole } = useSelector(selectAuthorization);
 
   return (
-    <div className="account-popover">
+    <div className="account-popup">
       <Tooltip title="Thông tin cá nhân">
-        <IconButton ref={nodeRef} onClick={() => setShow(true)}>
+        <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
           <Avatar
             src="https://th.bing.com/th/id/OIP.8t1WtYLAPVB189hu7pCP3gHaHa?pid=ImgDet&rs=1"
             alt="photoURL"
@@ -28,34 +27,32 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
         </IconButton>
       </Tooltip>
 
-      <MenuPopover
-        open={Boolean(show)}
-        // anchorEl={show}
-        onClose={() => setShow(false)}
-      >
-        <div className="account-popover-menu">
-          {routes?.map((route: IRoute) => (
-            <MenuItem
-              key={route.name}
-              to={
-                route.role === "account"
-                  ? `/${isRole}/${route.path}`
-                  : `${route.path}`
-              }
-              component={RouterLink}
-              onClick={() => setShow(false)}
-            >
-              {route.name}
-            </MenuItem>
-          ))}
+      {show && (
+        <div className="account-popover">
+          <div className="menu-list">
+            {routes?.map((route: IRoute) => (
+              <MenuItem
+                key={route.name}
+                to={
+                  route.role === "account"
+                    ? isRole
+                      ? `/${isRole}/${route.path}`
+                      : "/login"
+                    : `${route.path}`
+                }
+                component={RouterLink}
+                onClick={() => setShow(false)}
+              >
+                {route.name}
+              </MenuItem>
+            ))}
+          </div>
+          <div className="devider" />
+          <div className="btns">
+            <Logout />
+          </div>
         </div>
-
-        <Divider sx={{ borderStyle: "groove" }} />
-
-        <div className="account-popover-handle">
-          <Logout />
-        </div>
-      </MenuPopover>
+      )}
     </div>
   );
 };

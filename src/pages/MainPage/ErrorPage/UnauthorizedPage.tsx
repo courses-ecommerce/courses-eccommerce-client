@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { isLogout } from "src/reducers/authSlice";
-import "./UnauthorizedPage.scss";
+import "./ErrorPage.scss";
 
 const UnauthorizedPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const UnauthorizedPage = () => {
   };
 
   return (
-    <div className="unauthorized-page">
+    <div className="error-page">
       <div className="warning">
         <span>Cảnh báo đăng nhập</span>
         <p>

@@ -1,22 +1,22 @@
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import userApi from "src/apis/userApi";
-import InputSelect from "src/components/InputSelect";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
+import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data";
-import { IUser } from "src/types";
-import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import * as Yup from "yup";
-
-import "./UpdateProfile.scss";
+import { IUser } from "src/types";
 import { phoneRegExp } from "src/utils";
+import * as Yup from "yup";
+import "./UpdateProfile.scss";
 
 interface UpdateProfileProps {
+  onDeleteSelectMultiItem?: (multiSelect: any) => any;
   data: IUser;
 }
 const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
@@ -32,7 +32,10 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
       avatar: null,
     },
     validationSchema: Yup.object({
-      phone: Yup.string().matches(phoneRegExp, "Định dạng số điện thoại sai"),
+      phone: Yup.string()
+        .matches(phoneRegExp, "Định dạng số điện thoại sai")
+        .max(10, "Định dạng số điện thoại sai")
+        .min(10, "Định dạng số điện thoại sai"),
     }),
     onSubmit: (values) => {
       // console.log("lấy được dữ liệu là", values);
@@ -45,14 +48,17 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
     const keys = Object.keys(user_info);
 
     var formData: any = new FormData();
+
     keys.forEach((key) => {
       newData[key] && formData.append(key, newData[key]);
     });
-
+    console.log(...formData);
     // console.log("sadasdas", ...formData);
     dispatch(isPending());
     try {
-      await userApi.updateInfo(formData);
+      const response = await userApi.updateInfo(formData);
+      console.log("response", response);
+
       setShowModal(false);
       dispatch(isSuccess());
       toast.success("Cập nhật thông tin thành công", {

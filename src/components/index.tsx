@@ -5,7 +5,6 @@ export * from "./Icon";
 export * from "./Input";
 export * from "./LayoutContainer";
 export * from "./LoadingSkeleton";
-export * from "./MenuPopover";
 export * from "./NavLinks";
 export * from "./Notification";
 export * from "./SlideShow";
