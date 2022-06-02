@@ -36,7 +36,7 @@ const CourseModal: React.FC<CourseModalProps> = ({ title, course }) => {
             ))}
           </div>
         </span>
-        <span className="course-summary">
+        <span className="course-summary-content">
           <b>Bạn sẽ học được: </b>
           <div className="list">
             {course.targets?.map(

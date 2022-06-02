@@ -40,7 +40,7 @@
         flex-direction: column;
       }
     }
-    > .course-summary {
+    > .course-summary-content {
       > .list {
         display: flex;
         flex-direction: column;
@@ -55,20 +55,4 @@
       }
     }
   }
-
-  // &::before {
-  //   width: 0;
-  //   height: 0;
-
-  //   border-top: 15px solid transparent;
-  //   border-bottom: 15px solid transparent;
-  //   border-right: 15px solid rgb(255, 255, 255);
-
-  //   content: "";
-
-  //   position: absolute;
-  //   right: 100%;
-  //   top: 30%;
-  //   content: "";
-  // }
 }

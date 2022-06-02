@@ -1,5 +1,6 @@
 .course-container {
-  margin: 50px 100px;
+  margin-top: 50px;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -10,8 +11,10 @@
   }
 
   > .courses {
+    max-width: 1300px;
     display: flex;
     flex-direction: row;
+
     gap: 60px 30px;
     flex-wrap: wrap;
   }

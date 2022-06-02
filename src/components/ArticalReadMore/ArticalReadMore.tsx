@@ -5,20 +5,26 @@ import Image from "../Image/Image";
 import "./ArticalReadMore.scss";
 
 interface ArticalReadMoreProps {
+  title?: string;
   className?: string;
   short_description?: string;
   content?: string | any;
 }
 
 const ArticalReadMore: FC<ArticalReadMoreProps> = (props) => {
-  const { className, content, short_description } = props;
+  const {
+    className,
+    content,
+    short_description,
+    title = "Chưa đặt title",
+  } = props;
   const [isShowContent, setIsShowContent] = useState<boolean>(false);
 
   return (
     <div className={classNames(className)}>
       <div>
         <Image src={quotes} width={18} />
-        <span className="description-readmore">Mô tả khoá học</span>
+        <span className="description-readmore">{title}</span>
         <hr style={{ marginTop: 5, marginBottom: 2 }} />
       </div>
       <div className="short-description">
@@ -41,7 +47,7 @@ const ArticalReadMore: FC<ArticalReadMoreProps> = (props) => {
         className={classNames("btn-seeMore", isShowContent && "more")}
         onClick={() => setIsShowContent(!isShowContent)}
       >
-        {isShowContent ? "ẨN BÀI VIẾT" : "ĐỌC TIẾP"}
+        {isShowContent ? "THU GỌN" : "ĐỌC TIẾP"}
       </div>
     </div>
   );
