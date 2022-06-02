@@ -1,18 +1,18 @@
-import { Button } from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import { Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import classNames from "classnames";
 import React, { ReactNode, useState } from "react";
-import TableNone from "./TableNone/TableNone";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
-import { Tooltip } from "@mui/material";
 import "./Table.scss";
+import TableNone from "./TableNone/TableNone";
 
 interface TableProps {
   title?: string;
   columnsData?: GridColDef[];
   rowsData?: any;
   className?: string;
+  titleBtnAdd?: string;
   isLoading?: boolean;
   btns?: ReactNode;
   handleAddItem?: () => void;
@@ -26,6 +26,7 @@ const Table: React.FC<TableProps> = ({
   title,
   className,
   btns,
+  titleBtnAdd = "Thêm mới",
   rowsData,
   columnsData = [],
   isLoading = false,
@@ -82,7 +83,7 @@ const Table: React.FC<TableProps> = ({
       <span className="title">{title}</span>
       <div className="btns-handle">
         <Button variant="contained" color="secondary" onClick={handleAddItem}>
-          Thêm thông tin
+          {titleBtnAdd}
         </Button>
         {btns}
         {multiSelect.length > 0 && (
@@ -96,6 +97,7 @@ const Table: React.FC<TableProps> = ({
         )}
       </div>
       <DataGrid
+        getRowId={(row) => row._id}
         className="data-grid"
         autoHeight
         checkboxSelection
@@ -110,8 +112,7 @@ const Table: React.FC<TableProps> = ({
             labelRowsPerPage: "Số lượng hiển thị",
           },
         }}
-        // onRowClick={(e) => console.log(e)}
-        // onSortModelChange={(e) => console.log(e)}
+        // onRowClick={(e) => console.log("row click", e)}
         onSelectionModelChange={(id: any) => setMultiSelect(id)}
         loading={isLoading}
         rowSpacingType="border"
@@ -123,6 +124,7 @@ const Table: React.FC<TableProps> = ({
         pageSize={pageSize}
         rowsPerPageOptions={[5, 10, 15]}
         density="standard"
+        pagination
       />
     </div>
   );

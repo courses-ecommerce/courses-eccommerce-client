@@ -20,7 +20,7 @@ const adminApi = {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.post(url, userInfo);
   },
-  deleteUser: (id: string) => {
+  deleteUser: (id: string | number) => {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.delete(url);
   },

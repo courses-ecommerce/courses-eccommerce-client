@@ -14,16 +14,13 @@ interface AccountPopoverProps {
 const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
   const { nodeRef, show, setShow } = useClickOutSide();
 
-  const { isRole } = useSelector(selectAuthorization);
+  const { isRole, userInfo } = useSelector(selectAuthorization);
 
   return (
     <div className="account-popup">
       <Tooltip title="Thông tin cá nhân">
         <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-          <Avatar
-            src="https://th.bing.com/th/id/OIP.8t1WtYLAPVB189hu7pCP3gHaHa?pid=ImgDet&rs=1"
-            alt="photoURL"
-          />
+          <Avatar src={userInfo.avatar} alt="photoURL" />
         </IconButton>
       </Tooltip>
 

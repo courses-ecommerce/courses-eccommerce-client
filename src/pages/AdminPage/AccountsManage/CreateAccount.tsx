@@ -1,0 +1,152 @@
+import { Button } from "@mui/material";
+import { useFormik } from "formik";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import adminApi from "src/apis/adminApi";
+import Input from "src/components/Input";
+import InputSelect from "src/components/InputSelect";
+import ModalContainer from "src/components/ModalContainer";
+import { genderTypes } from "src/data";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import { ICreateNewUser } from "src/types/user";
+import * as Yup from "yup";
+
+interface CreateAccountProps {
+  show?: boolean;
+  onCreate?: (createComplete: boolean) => void;
+  onClose?: () => void;
+}
+
+const CreateAccount: React.FC<CreateAccountProps> = ({
+  show = false,
+  onClose,
+  onCreate,
+}) => {
+  const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      birthday: "",
+      gender: "",
+      phone: "",
+    },
+    validationSchema: Yup.object({
+      fullName: Yup.string().required("Vui lòng nhập họ tên"),
+      email: Yup.string()
+        .email("Phải là email")
+        .required("Vui lòng nhập gmail"),
+      password: Yup.string()
+        .min(8, "Mật khẩu ít nhất 8 kí tự")
+        .required("Vui lòng nhập mật khẩu"),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      console.log("lấy được dữ liệu là", values);
+      await handleCreateAccount(values);
+      resetForm({
+        values: {
+          birthday: "",
+          email: "",
+          fullName: "",
+          gender: "",
+          password: "",
+          phone: "",
+        },
+      });
+    },
+  });
+
+  const handleCreateAccount = async (values: ICreateNewUser) => {
+    dispatch(isPending());
+    onCreate?.(false);
+    try {
+      const response = await adminApi.createNewUser(values);
+      console.log(response);
+
+      dispatch(isSuccess());
+      toast.success("Tạo tài khoản thành công", { position: "bottom-right" });
+      onCreate?.(true);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+      dispatch(isSuccess());
+      toast.warning("Tạo tài khoản thất bại", { position: "bottom-right" });
+      onCreate?.(true);
+    }
+  };
+
+  return (
+    <ModalContainer
+      width={600}
+      title="Tạo tài khoản mới"
+      open={show}
+      onClose={onClose}
+    >
+      <form
+        style={{ display: "flex", flexDirection: "column", gap: 10 }}
+        onSubmit={formik.handleSubmit}
+      >
+        <Input
+          required
+          label="Địa chỉ email"
+          placeholder="Nhập địa chỉ email"
+          errorMessage={formik.touched.email ? formik.errors.email : ""}
+          {...formik.getFieldProps("email")}
+        />
+
+        <Input
+          required
+          type="password"
+          label="Mật khẩu"
+          placeholder="Nhập mật khẩu"
+          errorMessage={formik.touched.password ? formik.errors.password : ""}
+          {...formik.getFieldProps("password")}
+        />
+
+        <Input
+          required
+          label="Họ và tên"
+          placeholder="Nhập họ và tên"
+          errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
+          {...formik.getFieldProps("fullName")}
+        />
+        <Input
+          label="Số điện thoại"
+          placeholder="Nhập số điện thoại"
+          errorMessage={formik.touched.phone ? formik.errors.phone : ""}
+          {...formik.getFieldProps("phone")}
+        />
+        <Input
+          type="date"
+          label="Ngày sinh nhật"
+          {...formik.getFieldProps("birthday")}
+        />
+        <InputSelect
+          label="Giới tính"
+          list={genderTypes}
+          onChange={(e) =>
+            formik.setFieldValue("gender", (e.target.value == true).toString())
+          }
+          defaultValue={formik.values.gender}
+        />
+        <div>
+          <Button variant="contained" color="primary" type="submit">
+            Tạo tài khoản mới
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={onClose}
+            sx={{ marginLeft: 1 }}
+          >
+            Huỷ bỏ
+          </Button>
+        </div>
+      </form>
+    </ModalContainer>
+  );
+};
+
+export default CreateAccount;

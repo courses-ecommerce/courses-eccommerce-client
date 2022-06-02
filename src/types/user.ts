@@ -10,6 +10,6 @@ export interface ICreateNewUser {
   password: string;
   fullName: string;
   birthday?: string;
-  gender?: boolean;
+  gender?: boolean | string;
   phone?: string;
 }

@@ -38,8 +38,14 @@ axiosClient.interceptors.response.use(
       //Call request token, access token expires
       if (error.request.status === 401) {
         try {
+          const { accessToken }: IAccesstoken = JSON.parse(
+            localStorage.getItem("access_token") ||
+              JSON.stringify({ accessToken: "" })
+          );
           const url = window.location.origin + "/unauthorized";
-          window.location.href = url;
+          if (accessToken) {
+            window.location.href = url;
+          }
         } catch (error: any) {
           if (error.response && error.response.data) {
             return Promise.reject(error.response.data);
@@ -49,27 +55,8 @@ axiosClient.interceptors.response.use(
       }
     }
     return Promise.reject(
-      error.response.data.message || {
-        error: "Response Error sever dont correct",
-      }
+      error.response.data.message || "Phản hồi từ sever trả về không chính xác"
     );
   }
-  // async (error) => {
-  //   // Handle errors
-
-  //   if (error.response) {
-  //     //Call request token, access token expires
-  //     if (error.request.status === 401) {
-  //       try {
-  //       } catch (error: any) {
-  //         if (error.response && error.response.data) {
-  //           return Promise.reject(error.response.data);
-  //         }
-  //         return Promise.reject(error);
-  //       }
-  //     }
-  //   }
-  //   return Promise.reject(error);
-  // }
 );
 export default axiosClient;

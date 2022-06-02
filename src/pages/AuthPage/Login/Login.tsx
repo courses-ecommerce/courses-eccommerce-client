@@ -6,7 +6,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
-import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
+import {
+  isLogin,
+  isPending,
+  isSuccess,
+  getUserInfo,
+} from "src/reducers/authSlice";
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
@@ -21,13 +26,14 @@ const Login = () => {
     try {
       const response = await authApi.postLogin(data);
       console.log(response);
-      const { refreshToken, role, token }: any = response;
-      // console.log("token", token, "refreshtoken", refreshToken);
+      const { refreshToken, user, role, token }: any = response;
+
       localStorage.setItem("access_token", JSON.stringify(token));
 
-      //get role
+      //get role,user_info
       dispatch(isLogin(role));
-      // dispatch(isLogin(response));
+      dispatch(getUserInfo(user));
+
       toast.success("Đăng nhập thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });

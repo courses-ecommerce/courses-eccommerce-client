@@ -16,10 +16,10 @@ import * as Yup from "yup";
 import "./UpdateProfile.scss";
 
 interface UpdateProfileProps {
-  onDeleteSelectMultiItem?: (multiSelect: any) => any;
+  onUpdate?: (isComplete: boolean) => void;
   data: IUser;
 }
-const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
+const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -52,18 +52,21 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
     keys.forEach((key) => {
       newData[key] && formData.append(key, newData[key]);
     });
-    console.log(...formData);
-    // console.log("sadasdas", ...formData);
+
+    // console.log("form-data là", ...formData);
     dispatch(isPending());
+    onUpdate?.(false);
     try {
-      const response = await userApi.updateInfo(formData);
-      console.log("response", response);
+      await userApi.updateInfo(formData);
+      // const response = await userApi.updateInfo(formData);
+      // console.log("response", response);
 
       setShowModal(false);
       dispatch(isSuccess());
       toast.success("Cập nhật thông tin thành công", {
         position: "bottom-right",
       });
+      onUpdate?.(true);
     } catch (error) {
       dispatch(isSuccess());
       console.log("lỗi rồi", { error });

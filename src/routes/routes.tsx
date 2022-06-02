@@ -2,7 +2,7 @@ import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import UserList from "src/pages/AdminPage/UsersManage/UserList";
+import UserList from "src/pages/AdminPage/AccountsManage/UserList";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
@@ -16,6 +16,7 @@ import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import RegisterInstructor from "src/pages/ProfilePage/RegisterInstructor/RegisterInstructor";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
+import TeacherList from "src/pages/AdminPage/AccountsManage/TeacherList";
 
 // main route
 const MAIN_ROUTE = [
@@ -87,6 +88,13 @@ const DASHBOARD_ROUTE = [
         //     // icon: "info",
         //   },
         // ],
+      },
+      {
+        path: "dashboard/teacher",
+        title: "Quản lý giáo viên",
+        href: "/admin/dashboard/teacher",
+        element: <TeacherList />,
+        icon: "user-o",
       },
       {
         path: "dashboard/course",

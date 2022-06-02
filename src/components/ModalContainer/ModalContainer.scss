@@ -1,11 +1,4 @@
 .modal-container {
-  // position: relative;
-  // height: 100%;
-  // width: 100%;
-  // margin: auto;
-  // background: #ffffff;
-  // border-radius: 160px !important;
-
   padding: 15px;
 
   &-header {
@@ -13,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 
     & > .title {
       font-size: 22px;

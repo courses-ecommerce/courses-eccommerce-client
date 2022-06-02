@@ -4,7 +4,7 @@ import adminApi from "src/apis/adminApi";
 import Table from "src/components/Table/Table";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 
-export default function UserList() {
+export default function TeacherList() {
   const [users, setUsers] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
@@ -26,8 +26,11 @@ export default function UserList() {
 
   const getUsers = async () => {
     setLoading(true);
+    const params = { role: "teacher" };
+    console.log(params);
+
     try {
-      const response = await adminApi.getUsers();
+      const response = await adminApi.getUsers(params);
       const { users, totalCount }: any = response;
       // console.log(response);
       const keys = getHeaderColumns(users[0], ["_id", "account"]);
@@ -57,18 +60,16 @@ export default function UserList() {
   };
 
   return (
-    <>
-      <Table
-        isLoading={loading}
-        title="Danh sách thông tin người dùng"
-        columnsData={columsHeader}
-        rowsData={users}
-        total={total}
-        handleAddItem={handleAddItem}
-        onDeleteItem={handleDelete}
-        onModifyItem={handleModifyItem}
-        onDeleteSelectMultiItem={handleMultiDeleted}
-      />
-    </>
+    <Table
+      isLoading={loading}
+      title="Danh sách thông tin giáo viên"
+      columnsData={columsHeader}
+      rowsData={users}
+      total={total}
+      handleAddItem={handleAddItem}
+      onDeleteItem={handleDelete}
+      onModifyItem={handleModifyItem}
+      onDeleteSelectMultiItem={handleMultiDeleted}
+    />
   );
 }

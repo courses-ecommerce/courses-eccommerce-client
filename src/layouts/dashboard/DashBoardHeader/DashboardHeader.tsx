@@ -1,8 +1,6 @@
 import AccountPopover from "src/components/AccountPopover/AccountPopover";
-import Icon from "src/components/Icon/Icon";
 import Notification from "src/components/Notification/Notification";
 import { linkUserProfile } from "src/data/sidebar";
-
 import "./DashboardHeader.scss";
 
 const DashboardHeader = () => {
