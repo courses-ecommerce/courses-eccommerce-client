@@ -27,9 +27,26 @@ export interface ICategory {
   slug?: string;
 }
 
+export interface RatingProps {
+  numOfRate?: number;
+  rate?: number;
+}
+export interface LessonProps {
+  _id?: string;
+  description?: string;
+  number?: number;
+  title?: number;
+}
+export interface ChaptersProps {
+  _id?: string;
+  name?: string;
+  number?: number;
+  lessons?: LessonProps[];
+}
 export interface ICourse {
   _id?: string;
   author?: IUser;
+  chapters?: ChaptersProps[];
   name?: string;
   thumbnail?: string;
   category?: ICategory;
@@ -39,7 +56,7 @@ export interface ICourse {
   hashtags?: string[];
   intendedLearners?: string[];
   requirements?: string[];
-  rating?: string[];
+  rating?: RatingProps;
   language?: string;
   level?: string;
   saleOff?: string;
