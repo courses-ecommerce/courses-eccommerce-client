@@ -6,5 +6,5 @@ import { IComponent } from "src/types";
 export const homePageElements: IComponent[] = [
   { id: "", component: <HomePage /> },
   { id: "course", component: <CoursePage /> },
-  { id: "contact", component: <Contact /> },
+  // { id: "contact", component: <Contact /> },
 ];
