@@ -22,12 +22,11 @@ export default function UserList() {
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
-    { field: "fullName", headerName: "Họ và tên", width: 200 },
-    { field: "phone", headerName: "Số điện thoại", width: 200 },
+    { field: "fullName", headerName: "Họ và tên", width: 150 },
+    { field: "phone", headerName: "Số điện thoại", width: 150 },
     { field: "gender", headerName: "Giới tính", width: 120 },
-    { field: "birthday", headerName: "Ngày sinh", width: 200 },
-    { field: "avatar", headerName: "Hình ảnh", hide: true },
-    { field: "updatedAt", headerName: "Ngày tạo", hide: true },
+    { field: "birthday", headerName: "Ngày sinh", width: 150 },
+    { field: "email", headerName: "Địa chỉ email", width: 200 },
     {
       field: "_id",
       headerName: "STT",
@@ -54,12 +53,19 @@ export default function UserList() {
     try {
       const response = await adminApi.getUsers(params);
       const { users, totalCount }: any = response;
-      console.log(response);
-      const keys = getHeaderColumns(users[0], ["account"]);
-      const res = getNewHeaderColumn(users, keys);
 
+      // console.log(users);
+      // console.log(account);
+
+      const keys = getHeaderColumns(users[0], ["account"]);
+      const data = getNewHeaderColumn(users, keys);
+
+      const userData = data.map((data, index) => {
+        return { ...data, email: users[index].account.email };
+      });
+
+      setUsers(userData);
       setLoading(false);
-      setUsers(res);
       setTotal(totalCount);
     } catch (error) {
       console.log("lỗi rồi", { error });

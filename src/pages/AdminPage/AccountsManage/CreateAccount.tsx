@@ -27,13 +27,13 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
   const formik = useFormik({
     initialValues: {
+      role: "student",
       fullName: "",
       email: "",
       password: "",
       birthday: "",
-      gender: true,
+      gender: "true",
       phone: "",
-      role: "student",
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required("Vui lòng nhập họ tên"),
@@ -45,15 +45,15 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         .required("Vui lòng nhập mật khẩu"),
     }),
     onSubmit: async (values, { resetForm }) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
       await handleCreateAccount(values);
       resetForm({
         values: {
-          role: "",
+          role: "student",
           birthday: "",
           email: "",
           fullName: "",
-          gender: true,
+          gender: "true",
           password: "",
           phone: "",
         },
@@ -117,7 +117,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           label="Giới tính"
           list={genderTypes}
           onChange={(e) =>
-            formik.setFieldValue("gender", (e.target.value == true).toString())
+            formik.setFieldValue("gender", e.target.value.toString())
           }
           defaultValue={formik.values.gender}
         />
