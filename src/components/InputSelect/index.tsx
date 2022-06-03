@@ -22,7 +22,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     ...rest
   } = props;
 
-  const [value, setValue] = React.useState(defaultValue ? "1" : "0");
+  const [value, setValue] = React.useState<any>(defaultValue);
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);
@@ -72,9 +72,9 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
           {...rest}
           value={value}
         >
-          {list.map((item, index) => (
+          {list.map((item: any, index) => (
             <MenuItem
-              value={item.id}
+              value={item.value}
               key={index}
               sx={{
                 fontSize: "14px",

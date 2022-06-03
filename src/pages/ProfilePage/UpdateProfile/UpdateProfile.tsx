@@ -44,6 +44,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
   });
 
   const updateProfile = async (user_info: IUser) => {
+    console.log("info", user_info);
+
     const newData: any = user_info;
     const keys = Object.keys(user_info);
 
@@ -54,6 +56,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
     });
 
     // console.log("form-data là", ...formData);
+
     dispatch(isPending());
     onUpdate?.(false);
     try {
@@ -113,10 +116,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
             label="Giới tính"
             list={genderTypes}
             onChange={(e) =>
-              formik.setFieldValue(
-                "gender",
-                (e.target.value == true).toString()
-              )
+              formik.setFieldValue("gender", e.target.value.toString())
             }
             defaultValue={formik.values.gender}
           />
