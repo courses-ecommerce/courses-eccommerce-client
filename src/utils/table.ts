@@ -14,6 +14,9 @@ export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
 export const getNewHeaderColumn = (data: Object[], keys: string[]) => {
   const finalResult = data.map((item: any, index) => {
     const values = keys.map((key: any) => {
+      if (key === "gender") {
+        return { [key]: item[key] ? "Nam" : "Nữ" };
+      }
       return { [key]: item[key] };
     });
     return _.merge({ id: index + 1 }, ...values);

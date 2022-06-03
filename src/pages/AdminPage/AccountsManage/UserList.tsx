@@ -38,7 +38,7 @@ export default function UserList() {
 
   useEffect(() => {
     getUsers();
-  }, [isDeleted]);
+  }, [isDeleted, isCreated]);
 
   useEffect(() => {
     setShowDelete(false);
@@ -51,11 +51,10 @@ export default function UserList() {
   const getUsers = async () => {
     setLoading(true);
     const params = { role: "student", isActive: true };
-    // console.log(params);
     try {
       const response = await adminApi.getUsers(params);
       const { users, totalCount }: any = response;
-      // console.log(response);
+      console.log(response);
       const keys = getHeaderColumns(users[0], ["account"]);
       const res = getNewHeaderColumn(users, keys);
 

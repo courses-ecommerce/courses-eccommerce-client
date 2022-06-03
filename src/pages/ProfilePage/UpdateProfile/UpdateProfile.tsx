@@ -44,8 +44,6 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
   });
 
   const updateProfile = async (user_info: IUser) => {
-    console.log("info", user_info);
-
     const newData: any = user_info;
     const keys = Object.keys(user_info);
 

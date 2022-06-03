@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -31,8 +31,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
       email: "",
       password: "",
       birthday: "",
-      gender: "",
+      gender: true,
       phone: "",
+      role: "student",
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required("Vui lòng nhập họ tên"),
@@ -48,10 +49,11 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
       await handleCreateAccount(values);
       resetForm({
         values: {
+          role: "",
           birthday: "",
           email: "",
           fullName: "",
-          gender: "",
+          gender: true,
           password: "",
           phone: "",
         },
@@ -65,7 +67,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     try {
       const response = await adminApi.createNewUser(values);
       console.log(response);
-
       dispatch(isSuccess());
       toast.success("Tạo tài khoản thành công", { position: "bottom-right" });
       onCreate?.(true);
@@ -112,6 +113,14 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
           {...formik.getFieldProps("fullName")}
         />
+        <InputSelect
+          label="Giới tính"
+          list={genderTypes}
+          onChange={(e) =>
+            formik.setFieldValue("gender", (e.target.value == true).toString())
+          }
+          defaultValue={formik.values.gender}
+        />
         <Input
           label="Số điện thoại"
           placeholder="Nhập số điện thoại"
@@ -123,15 +132,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           label="Ngày sinh nhật"
           {...formik.getFieldProps("birthday")}
         />
-        <InputSelect
-          label="Giới tính"
-          list={genderTypes}
-          onChange={(e) =>
-            formik.setFieldValue("gender", (e.target.value == true).toString())
-          }
-          defaultValue={formik.values.gender}
-        />
-        <div>
+        <Box sx={{ marginTop: 1 }}>
           <Button variant="contained" color="primary" type="submit">
             Tạo tài khoản mới
           </Button>
@@ -143,7 +144,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           >
             Huỷ bỏ
           </Button>
-        </div>
+        </Box>
       </form>
     </ModalContainer>
   );
