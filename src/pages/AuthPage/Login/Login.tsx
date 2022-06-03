@@ -25,7 +25,7 @@ const Login = () => {
     dispatch(isPending());
     try {
       const response = await authApi.postLogin(data);
-      console.log(response);
+      // console.log(response);
       const { refreshToken, user, role, token }: any = response;
 
       localStorage.setItem("access_token", JSON.stringify(token));

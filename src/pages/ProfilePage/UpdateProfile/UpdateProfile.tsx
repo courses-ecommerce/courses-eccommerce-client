@@ -9,7 +9,7 @@ import InputFile from "src/components/InputFile";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data";
-import { isPending, isSuccess } from "src/reducers/authSlice";
+import { getUserInfo, isPending, isSuccess } from "src/reducers/authSlice";
 import { IUser } from "src/types";
 import { phoneRegExp } from "src/utils";
 import * as Yup from "yup";
@@ -57,12 +57,13 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
     dispatch(isPending());
     onUpdate?.(false);
     try {
-      await userApi.updateInfo(formData);
-      // const response = await userApi.updateInfo(formData);
+      // await userApi.updateInfo(formData);
+      const response = await userApi.updateInfo(formData);
       // console.log("response", response);
+      const { user }: any = response;
 
       setShowModal(false);
-      dispatch(isSuccess());
+      dispatch(getUserInfo(user));
       toast.success("Cập nhật thông tin thành công", {
         position: "bottom-right",
       });

@@ -37,6 +37,7 @@ const authSlice = createSlice({
       state.isRole = action.payload;
     },
     getUserInfo(state, action) {
+      state.isLoading = false;
       state.userInfo = action.payload;
     },
     isSuccess(state) {

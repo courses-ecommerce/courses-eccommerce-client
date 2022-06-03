@@ -50,7 +50,7 @@ export default function UserList() {
 
   const getUsers = async () => {
     setLoading(true);
-    const params = { role: "student" };
+    const params = { role: "student", isActive: true };
     // console.log(params);
     try {
       const response = await adminApi.getUsers(params);
