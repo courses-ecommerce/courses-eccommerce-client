@@ -14,12 +14,13 @@ interface TableProps {
   className?: string;
   titleBtnAdd?: string;
   isLoading?: boolean;
+  isCheckBoxSelection?: boolean;
   btns?: ReactNode;
+  total?: number;
   handleAddItem?: () => void;
   onModifyItem?: (id: string | number) => void;
   onDeleteSelectMultiItem?: (multiSelect: string[] | number[]) => void;
   onDeleteItem?: (id: string | number) => void;
-  total?: number;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -30,6 +31,7 @@ const Table: React.FC<TableProps> = ({
   rowsData,
   columnsData = [],
   isLoading = false,
+  isCheckBoxSelection = false,
   total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
@@ -100,7 +102,7 @@ const Table: React.FC<TableProps> = ({
         getRowId={(row) => row._id}
         className="data-grid"
         autoHeight
-        checkboxSelection
+        checkboxSelection={isCheckBoxSelection}
         disableColumnMenu
         components={{
           // Toolbar: TableToolBar,

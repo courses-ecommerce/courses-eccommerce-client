@@ -33,11 +33,15 @@ export default function TeacherList() {
       const response = await adminApi.getUsers(params);
       const { users, totalCount }: any = response;
       // console.log(response);
-      const keys = getHeaderColumns(users[0], ["_id", "account"]);
-      const res = getNewHeaderColumn(users, keys);
+      const keys = getHeaderColumns(users[0], ["account"]);
+      const data = getNewHeaderColumn(users, keys);
 
+      const userData = data.map((data, index) => {
+        return { ...data, email: users[index].account.email };
+      });
+
+      setUsers(userData);
       setLoading(false);
-      setUsers(res);
       setTotal(totalCount);
     } catch (error) {
       console.log("lỗi rồi", { error });

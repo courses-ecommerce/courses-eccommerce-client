@@ -2,6 +2,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
 import Table from "src/components/Table/Table";
+import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
@@ -9,6 +10,7 @@ import DeleteAccount from "./DeleteUser";
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
   const [userId, setUserId] = useState<string | number>(0);
+  const [isRole, setIsRole] = useState<string>("student");
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -21,7 +23,8 @@ export default function UserList() {
   const [isCreated, setIsCreated] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
-    { field: "id", headerName: "STT", width: 100 },
+    { field: "id", headerName: "STT", width: 60 },
+    { field: "role", headerName: "Chức vụ", width: 120 },
     { field: "fullName", headerName: "Họ và tên", width: 150 },
     { field: "phone", headerName: "Số điện thoại", width: 150 },
     { field: "gender", headerName: "Giới tính", width: 120 },
@@ -37,7 +40,7 @@ export default function UserList() {
 
   useEffect(() => {
     getUsers();
-  }, [isDeleted, isCreated]);
+  }, [isDeleted, isCreated, isRole]);
 
   useEffect(() => {
     setShowDelete(false);
@@ -49,19 +52,23 @@ export default function UserList() {
 
   const getUsers = async () => {
     setLoading(true);
-    const params = { role: "student", isActive: true };
+    const params = { role: isRole, isActive: true };
     try {
       const response = await adminApi.getUsers(params);
       const { users, totalCount }: any = response;
 
-      // console.log(users);
-      // console.log(account);
+      console.log(users);
 
       const keys = getHeaderColumns(users[0], ["account"]);
       const data = getNewHeaderColumn(users, keys);
 
+      // role: users[index].account.role,
       const userData = data.map((data, index) => {
-        return { ...data, email: users[index].account.email };
+        return {
+          ...data,
+          email: users[index].account.email,
+          role: translateVi(users[index].account.role),
+        };
       });
 
       setUsers(userData);

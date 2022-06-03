@@ -88,13 +88,13 @@ const DASHBOARD_ROUTE = [
         //   },
         // ],
       },
-      {
-        path: "dashboard/teacher",
-        title: "Quản lý giáo viên",
-        href: "/admin/dashboard/teacher",
-        element: <TeacherList />,
-        icon: "user-o",
-      },
+      // {
+      //   path: "dashboard/teacher",
+      //   title: "Quản lý giáo viên",
+      //   href: "/admin/dashboard/teacher",
+      //   element: <TeacherList />,
+      //   icon: "user-o",
+      // },
       {
         path: "dashboard/course",
         title: "Quản lý khoá học",
