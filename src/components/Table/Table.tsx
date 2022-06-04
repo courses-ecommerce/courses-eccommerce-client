@@ -44,7 +44,7 @@ const Table: React.FC<TableProps> = ({
   onDeleteItem,
   onModifyItem,
 }) => {
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [multiSelect, setMultiSelect] = useState<string[] | number[]>([]);
 
@@ -74,14 +74,14 @@ const Table: React.FC<TableProps> = ({
   const handleChangePage = (newPage: number) => {
     // console.log("newPage", newPage);
     onPage?.(newPage + 1);
-    setPage(newPage + 1);
+    // setPage(newPage + 1);
   };
 
   const handlePageSizeChange = (pageSize: number) => {
     // console.log("size page", pageSize);
     onPageSize?.(pageSize);
     setPageSize(pageSize);
-    setPage(1);
+    // setPage(1);
   };
   const handleDeleteMultiSelectItem = () => {
     onDeleteSelectMultiItem?.(multiSelect);
