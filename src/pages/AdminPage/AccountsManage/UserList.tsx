@@ -12,7 +12,7 @@ import DeleteAccount from "./DeleteUser";
 
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
-  const [userId, setUserId] = useState<string | number>(0);
+  const [userId, setUserId] = useState<any>();
   const [role, setRole] = useState<string>("student");
   const [isActive, setIsActive] = useState<boolean>(true);
   const [total, setTotal] = useState<number>(0);
@@ -83,9 +83,9 @@ export default function UserList() {
     setShowCreate(false);
   }, [isCreated]);
 
-  const getUsers = async (role: string, isActive: boolean) => {
+  const getUsers = async (role: string, active: boolean) => {
     setLoading(true);
-    const params = { role, isActive };
+    const params = { role, active };
     console.log("params nè", params);
 
     try {
@@ -129,7 +129,9 @@ export default function UserList() {
     setShowDelete(true);
   };
   const handleMultiDeleted = (ids: string[] | number[]) => {
-    console.log("xoá những items có id là", ids);
+    // console.log("xoá những items có id là", ids);
+    setUserId(ids);
+    setShowDelete(true);
   };
 
   return (
