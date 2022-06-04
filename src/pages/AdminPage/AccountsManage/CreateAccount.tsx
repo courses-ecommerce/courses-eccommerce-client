@@ -7,7 +7,7 @@ import adminApi from "src/apis/adminApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { genderTypes } from "src/data";
+import { accountTypes, genderTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { ICreateNewUser } from "src/types/user";
 import * as Yup from "yup";
@@ -112,6 +112,12 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Nhập họ và tên"
           errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
           {...formik.getFieldProps("fullName")}
+        />
+        <InputSelect
+          label="Chức vụ"
+          list={accountTypes}
+          onChange={(e) => formik.setFieldValue("role", e.target.value)}
+          defaultValue={formik.values.role}
         />
         <InputSelect
           label="Giới tính"

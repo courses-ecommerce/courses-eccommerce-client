@@ -1,7 +1,10 @@
+import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
+import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
+import { accountTypes, statusTypes } from "src/data";
 import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
@@ -10,7 +13,8 @@ import DeleteAccount from "./DeleteUser";
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
   const [userId, setUserId] = useState<string | number>(0);
-  const [isRole, setIsRole] = useState<string>("student");
+  const [role, setRole] = useState<string>("student");
+  const [isActive, setIsActive] = useState<boolean>(true);
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -23,24 +27,53 @@ export default function UserList() {
   const [isCreated, setIsCreated] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
-    { field: "id", headerName: "STT", width: 60 },
-    { field: "role", headerName: "Chức vụ", width: 120 },
-    { field: "fullName", headerName: "Họ và tên", width: 150 },
-    { field: "phone", headerName: "Số điện thoại", width: 150 },
-    { field: "gender", headerName: "Giới tính", width: 120 },
-    { field: "birthday", headerName: "Ngày sinh", width: 150 },
-    { field: "email", headerName: "Địa chỉ email", width: 200 },
     {
       field: "_id",
       headerName: "STT",
       width: 100,
       hide: true,
     },
+    {
+      field: "id",
+      headerName: "STT",
+      width: 60,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "status",
+      headerName: "Trang thái",
+      width: 120,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "role",
+      headerName: "Chức vụ",
+      width: 120,
+    },
+    {
+      field: "fullName",
+      headerName: "Họ và tên",
+      width: 150,
+    },
+    {
+      field: "gender",
+      headerName: "Giới tính",
+      width: 120,
+    },
+    {
+      field: "email",
+      headerName: "Địa chỉ email",
+      width: 200,
+    },
+    { field: "phone", headerName: "Số điện thoại", width: 200 },
+    // { field: "birthday", headerName: "Ngày sinh", width: 150 },
   ];
 
   useEffect(() => {
-    getUsers();
-  }, [isDeleted, isCreated, isRole]);
+    getUsers(role, isActive);
+  }, [isDeleted, isCreated, role, isActive]);
 
   useEffect(() => {
     setShowDelete(false);
@@ -50,9 +83,11 @@ export default function UserList() {
     setShowCreate(false);
   }, [isCreated]);
 
-  const getUsers = async () => {
+  const getUsers = async (role: string, isActive: boolean) => {
     setLoading(true);
-    const params = { role: isRole, isActive: true };
+    const params = { role, isActive };
+    console.log("params nè", params);
+
     try {
       const response = await adminApi.getUsers(params);
       const { users, totalCount }: any = response;
@@ -62,12 +97,12 @@ export default function UserList() {
       const keys = getHeaderColumns(users[0], ["account"]);
       const data = getNewHeaderColumn(users, keys);
 
-      // role: users[index].account.role,
       const userData = data.map((data, index) => {
         return {
           ...data,
           email: users[index].account.email,
           role: translateVi(users[index].account.role),
+          status: users[index].account.isActive ? "Hoạt động" : "Đang khoá",
         };
       });
 
@@ -100,6 +135,20 @@ export default function UserList() {
   return (
     <>
       <Table
+        btnSearch={
+          <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+            <InputSelect
+              defaultValue={role}
+              list={accountTypes}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            <InputSelect
+              defaultValue={isActive}
+              list={statusTypes}
+              onChange={(e) => setIsActive(e.target.value)}
+            />
+          </Box>
+        }
         titleBtnAdd="Tạo tài khoản mới"
         isLoading={loading}
         title="Danh sách thông tin người dùng"

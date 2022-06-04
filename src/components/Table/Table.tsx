@@ -1,6 +1,6 @@
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, Tooltip } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import classNames from "classnames";
 import React, { ReactNode, useState } from "react";
@@ -15,7 +15,8 @@ interface TableProps {
   titleBtnAdd?: string;
   isLoading?: boolean;
   isCheckBoxSelection?: boolean;
-  btns?: ReactNode;
+  btnHandle?: ReactNode;
+  btnSearch?: ReactNode;
   total?: number;
   handleAddItem?: () => void;
   onModifyItem?: (id: string | number) => void;
@@ -26,7 +27,8 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({
   title,
   className,
-  btns,
+  btnHandle,
+  btnSearch,
   titleBtnAdd = "Thêm mới",
   rowsData,
   columnsData = [],
@@ -54,7 +56,6 @@ const Table: React.FC<TableProps> = ({
           <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
             <DeleteForeverIcon sx={{ cursor: "pointer" }} />
           </Tooltip>
-
           <Tooltip
             title="Cập nhật thông tin"
             onClick={() => onModifyItem?.(id)}
@@ -83,20 +84,25 @@ const Table: React.FC<TableProps> = ({
   return (
     <div className={classNames(className, "table-container")}>
       <span className="title">{title}</span>
-      <div className="btns-handle">
-        <Button variant="contained" color="secondary" onClick={handleAddItem}>
-          {titleBtnAdd}
-        </Button>
-        {btns}
-        {multiSelect.length > 0 && (
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={handleDeleteMultiSelectItem}
-          >
-            Xoá thông tin
+
+      <div className="btns">
+        <Box className="search">{btnSearch}</Box>
+        <Box className="handle">
+          <Button variant="contained" color="secondary" onClick={handleAddItem}>
+            {titleBtnAdd}
           </Button>
-        )}
+          {btnHandle}
+
+          {multiSelect.length > 0 && (
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={handleDeleteMultiSelectItem}
+            >
+              Xoá thông tin
+            </Button>
+          )}
+        </Box>
       </div>
       <DataGrid
         getRowId={(row) => row._id}
