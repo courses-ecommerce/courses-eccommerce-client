@@ -23,6 +23,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   onClose,
   onCreate,
 }) => {
+  document.title = "Quản lý người dùng";
   const dispatch = useDispatch();
 
   const formik = useFormik({

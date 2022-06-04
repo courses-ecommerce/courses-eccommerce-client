@@ -47,6 +47,7 @@ const columsHeader: GridColDef[] = [
 ];
 
 const CourseList = () => {
+  document.title = "Quản lý khoá học";
   const [loading, setLoading] = useState<boolean>(false);
 
   return (

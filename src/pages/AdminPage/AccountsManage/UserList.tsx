@@ -2,9 +2,12 @@ import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
+import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { accountTypes, statusTypes } from "src/data";
+import useTypingDebounce from "src/hooks/useTypingDebounce";
+// import { useTypingDebounce } from "src/hooks";
 import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
@@ -20,16 +23,14 @@ const columsHeader: GridColDef[] = [
   {
     field: "id",
     headerName: "STT",
-    width: 60,
+    width: 100,
     align: "center",
     headerAlign: "center",
   },
   {
     field: "status",
-    headerName: "Trang thái",
+    headerName: "Trạng thái",
     width: 120,
-    align: "center",
-    headerAlign: "center",
   },
   {
     field: "role",
@@ -70,10 +71,14 @@ export default function UserList() {
   //create account modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
+  //debounce
+  const [value, setValue] = useState<string>();
+  const debouncedValue = useTypingDebounce(value);
+  const [email, setEmail] = useState<string>();
 
   useEffect(() => {
-    getUsers(role, isActive);
-  }, [isDeleted, isCreated, role, isActive]);
+    getUsers(role, isActive, email);
+  }, [isDeleted, isCreated, role, isActive, email]);
 
   useEffect(() => {
     setShowDelete(false);
@@ -83,9 +88,13 @@ export default function UserList() {
     setShowCreate(false);
   }, [isCreated]);
 
-  const getUsers = async (role: string, active: boolean) => {
+  useEffect(() => {
+    setEmail(debouncedValue);
+  }, [debouncedValue]);
+
+  const getUsers = async (role: string, active: boolean, email?: string) => {
     setLoading(true);
-    const params = { role, active };
+    const params = { role, active, email };
     console.log("params nè", params);
 
     try {
@@ -137,11 +146,27 @@ export default function UserList() {
     setShowDelete(true);
   };
 
+  const handleSearchByEmail = (e: any) => {
+    setValue(e.target.value);
+  };
+
   return (
     <>
       <Table
         btnSearch={
-          <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Input
+              style={{ width: 250 }}
+              placeholder="Tìm kiếm bằng địa chỉ email"
+              onChange={handleSearchByEmail}
+            />
             <InputSelect
               defaultValue={role}
               list={accountTypes}

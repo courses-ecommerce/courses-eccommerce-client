@@ -12,6 +12,7 @@ import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
+  document.title = "Thông tin chi tiết cá nhân";
   const [info, setinfo] = useState<IUser>({});
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 

@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 
-export const useTypingDebounce = (initializeValue = "", delay = 1000) => {
-  const [debounceValue, setDebounceValue] = useState(initializeValue);
+function useTypingDebounce<T>(value: T, delay?: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounceValue(initializeValue);
-    }, delay);
+    const timer = setTimeout(() => setDebouncedValue(value), delay || 1000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [delay, initializeValue]);
+  }, [value, delay]);
 
-  return debounceValue;
-};
+  return debouncedValue;
+}
 
 export default useTypingDebounce;

@@ -15,7 +15,6 @@ import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment"
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
-import TeacherList from "src/pages/AdminPage/AccountsManage/TeacherList";
 
 // main route
 const MAIN_ROUTE = [
@@ -88,13 +87,6 @@ const DASHBOARD_ROUTE = [
         //   },
         // ],
       },
-      // {
-      //   path: "dashboard/teacher",
-      //   title: "Quản lý giáo viên",
-      //   href: "/admin/dashboard/teacher",
-      //   element: <TeacherList />,
-      //   icon: "user-o",
-      // },
       {
         path: "dashboard/course",
         title: "Quản lý khoá học",
