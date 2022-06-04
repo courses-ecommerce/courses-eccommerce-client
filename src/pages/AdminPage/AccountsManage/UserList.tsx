@@ -12,6 +12,7 @@ import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
+import UpdateAccount from "./UpdateAccount";
 
 const columsHeader: GridColDef[] = [
   {
@@ -38,21 +39,22 @@ const columsHeader: GridColDef[] = [
     width: 120,
   },
   {
+    field: "email",
+    headerName: "Địa chỉ email",
+    width: 200,
+  },
+  {
     field: "fullName",
     headerName: "Họ và tên",
     width: 150,
   },
+  { field: "phone", headerName: "Số điện thoại", width: 200 },
   {
     field: "gender",
     headerName: "Giới tính",
     width: 120,
   },
-  {
-    field: "email",
-    headerName: "Địa chỉ email",
-    width: 200,
-  },
-  { field: "phone", headerName: "Số điện thoại", width: 200 },
+
   // { field: "birthday", headerName: "Ngày sinh", width: 150 },
 ];
 
@@ -61,8 +63,16 @@ export default function UserList() {
   const [userId, setUserId] = useState<any>();
   const [role, setRole] = useState<string>("student");
   const [isActive, setIsActive] = useState<boolean>(true);
-  const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  //pagination
+  const [total, setTotal] = useState<number>(0);
+  const [pageSize, setPageSize] = useState<number>(5);
+  const [page, setPage] = useState<number>(1);
+
+  //debounce
+  const [value, setValue] = useState<string>();
+  const debouncedValue = useTypingDebounce(value);
+  const [email, setEmail] = useState<string>();
 
   //delete account modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -72,13 +82,14 @@ export default function UserList() {
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   //debounce
-  const [value, setValue] = useState<string>();
-  const debouncedValue = useTypingDebounce(value);
-  const [email, setEmail] = useState<string>();
+  //update account modal
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   useEffect(() => {
-    getUsers(role, isActive, email);
-  }, [isDeleted, isCreated, role, isActive, email]);
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleted, isCreated, isUpdated, role, isActive, email, page, pageSize]);
 
   useEffect(() => {
     setShowDelete(false);
@@ -89,19 +100,23 @@ export default function UserList() {
   }, [isCreated]);
 
   useEffect(() => {
+    setShowUpdate(false);
+  }, [isUpdated]);
+
+  useEffect(() => {
     setEmail(debouncedValue);
   }, [debouncedValue]);
 
-  const getUsers = async (role: string, active: boolean, email?: string) => {
+  const getUsers = async () => {
     setLoading(true);
-    const params = { role, active, email };
-    console.log("params nè", params);
+    const params = { role, active: isActive, email, page, limit: pageSize };
+    // console.log("params nè", params);
 
     try {
       const response = await adminApi.getUsers(params);
-      const { users, totalCount }: any = response;
+      const { users, total }: any = response;
+      console.log(users, total);
 
-      console.log(users);
       if (users.length > 0) {
         const keys = getHeaderColumns(users[0], ["account"]);
         const data = getNewHeaderColumn(users, keys);
@@ -120,7 +135,7 @@ export default function UserList() {
         setUsers(users);
       }
       setLoading(false);
-      setTotal(totalCount);
+      setTotal(total);
     } catch (error) {
       console.log("lỗi rồi", { error });
       setLoading(false);
@@ -128,20 +143,18 @@ export default function UserList() {
   };
 
   const handleCreate = () => {
-    // console.log("add nek");
     setShowCreate(true);
   };
 
   const handleModifyItem = (id: string | number) => {
-    console.log("chỉnh sửa thông tin có id", id);
+    setUserId(id);
+    setShowUpdate(true);
   };
   const handleDelete = (id: string | number) => {
-    // console.log("xoá thông tin có id", id);
     setUserId(id);
     setShowDelete(true);
   };
   const handleMultiDeleted = (ids: string[] | number[]) => {
-    // console.log("xoá những items có id là", ids);
     setUserId(ids);
     setShowDelete(true);
   };
@@ -179,6 +192,8 @@ export default function UserList() {
             />
           </Box>
         }
+        onPage={(page) => setPage(Number(page))}
+        onPageSize={(pageSize) => setPageSize(Number(pageSize))}
         titleBtnAdd="Tạo tài khoản mới"
         isLoading={loading}
         title="Danh sách thông tin người dùng"
@@ -201,6 +216,12 @@ export default function UserList() {
         show={showCreate}
         onClose={() => setShowCreate(false)}
         onCreate={(status) => setIsCreated(status)}
+      />
+      <UpdateAccount
+        id={userId}
+        show={showUpdate}
+        onClose={() => setShowUpdate(false)}
+        onUpdate={(status) => setIsUpdated(status)}
       />
     </>
   );

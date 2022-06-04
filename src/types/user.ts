@@ -1,6 +1,6 @@
 export interface IGetUser {
-  page?: string;
-  limit?: string;
+  page?: string | number;
+  limit?: string | number;
   email?: string;
   role?: string;
   sort?: string;

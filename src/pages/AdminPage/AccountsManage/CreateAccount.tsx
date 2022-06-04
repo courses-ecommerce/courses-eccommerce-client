@@ -45,22 +45,26 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         .min(8, "Mật khẩu ít nhất 8 kí tự")
         .required("Vui lòng nhập mật khẩu"),
     }),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       // console.log("lấy được dữ liệu là", values);
       await handleCreateAccount(values);
-      resetForm({
-        values: {
-          role: "student",
-          birthday: "",
-          email: "",
-          fullName: "",
-          gender: "true",
-          password: "",
-          phone: "",
-        },
-      });
+      resetDataForm();
     },
   });
+
+  const resetDataForm = () => {
+    formik.resetForm({
+      values: {
+        role: "student",
+        birthday: "",
+        email: "",
+        fullName: "",
+        gender: "true",
+        password: "",
+        phone: "",
+      },
+    });
+  };
 
   const handleCreateAccount = async (values: ICreateNewUser) => {
     dispatch(isPending());

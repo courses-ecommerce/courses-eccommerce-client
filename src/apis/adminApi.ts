@@ -8,7 +8,7 @@ const adminApi = {
     const url = ADMIN_API + "/users";
     return axiosClient.get(url, { params });
   },
-  getUserDetail: (id: string) => {
+  getUserDetail: (id: string | number) => {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.get(url);
   },

@@ -4,8 +4,8 @@ import { Box, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import classNames from "classnames";
 import React, { ReactNode, useState } from "react";
-import "./Table.scss";
 import TableNone from "./TableNone/TableNone";
+import "./Table.scss";
 
 interface TableProps {
   title?: string;
@@ -17,6 +17,8 @@ interface TableProps {
   isCheckBoxSelection?: boolean;
   btnHandle?: ReactNode;
   btnSearch?: ReactNode;
+  onPageSize?: (pageSize: string | number) => void;
+  onPage?: (page: string | number) => void;
   total?: number;
   handleAddItem?: () => void;
   onModifyItem?: (id: string | number) => void;
@@ -33,7 +35,9 @@ const Table: React.FC<TableProps> = ({
   rowsData,
   columnsData = [],
   isLoading = false,
-  isCheckBoxSelection = false,
+  isCheckBoxSelection = true,
+  onPageSize,
+  onPage,
   total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
@@ -69,13 +73,15 @@ const Table: React.FC<TableProps> = ({
 
   const handleChangePage = (newPage: number) => {
     // console.log("newPage", newPage);
-    setPage(newPage);
+    onPage?.(newPage + 1);
+    setPage(newPage + 1);
   };
 
   const handlePageSizeChange = (pageSize: number) => {
     // console.log("size page", pageSize);
+    onPageSize?.(pageSize);
     setPageSize(pageSize);
-    setPage(0);
+    setPage(1);
   };
   const handleDeleteMultiSelectItem = () => {
     onDeleteSelectMultiItem?.(multiSelect);
@@ -126,9 +132,11 @@ const Table: React.FC<TableProps> = ({
         onPageChange={handleChangePage}
         onPageSizeChange={handlePageSizeChange}
         rows={rowsData?.length > 0 ? rowsData : []}
-        page={page}
         columns={[...columnsData, actions]}
+        // page={page}
         pageSize={pageSize}
+        rowCount={total}
+        paginationMode="server"
         rowsPerPageOptions={[5, 10, 15]}
         density="standard"
         pagination
