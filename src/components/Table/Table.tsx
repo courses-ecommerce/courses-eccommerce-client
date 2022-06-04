@@ -105,8 +105,8 @@ const Table: React.FC<TableProps> = ({
         </Box>
       </div>
       <DataGrid
-        getRowId={(row) => row._id}
         className="data-grid"
+        getRowId={(row) => row._id}
         autoHeight
         checkboxSelection={isCheckBoxSelection}
         disableColumnMenu
@@ -120,13 +120,12 @@ const Table: React.FC<TableProps> = ({
             labelRowsPerPage: "Số lượng hiển thị",
           },
         }}
-        // onRowClick={(e) => console.log("row click", e)}
         onSelectionModelChange={(id: any) => setMultiSelect(id)}
         loading={isLoading}
         rowSpacingType="border"
         onPageChange={handleChangePage}
         onPageSizeChange={handlePageSizeChange}
-        rows={rowsData}
+        rows={rowsData?.length > 0 ? rowsData : []}
         page={page}
         columns={[...columnsData, actions]}
         pageSize={pageSize}

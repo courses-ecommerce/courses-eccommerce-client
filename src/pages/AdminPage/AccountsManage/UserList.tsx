@@ -10,6 +10,51 @@ import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
 
+const columsHeader: GridColDef[] = [
+  {
+    field: "_id",
+    headerName: "STT",
+    width: 100,
+    hide: true,
+  },
+  {
+    field: "id",
+    headerName: "STT",
+    width: 60,
+    align: "center",
+    headerAlign: "center",
+  },
+  {
+    field: "status",
+    headerName: "Trang thái",
+    width: 120,
+    align: "center",
+    headerAlign: "center",
+  },
+  {
+    field: "role",
+    headerName: "Chức vụ",
+    width: 120,
+  },
+  {
+    field: "fullName",
+    headerName: "Họ và tên",
+    width: 150,
+  },
+  {
+    field: "gender",
+    headerName: "Giới tính",
+    width: 120,
+  },
+  {
+    field: "email",
+    headerName: "Địa chỉ email",
+    width: 200,
+  },
+  { field: "phone", headerName: "Số điện thoại", width: 200 },
+  // { field: "birthday", headerName: "Ngày sinh", width: 150 },
+];
+
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
   const [userId, setUserId] = useState<any>();
@@ -25,51 +70,6 @@ export default function UserList() {
   //create account modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
-
-  const columsHeader: GridColDef[] = [
-    {
-      field: "_id",
-      headerName: "STT",
-      width: 100,
-      hide: true,
-    },
-    {
-      field: "id",
-      headerName: "STT",
-      width: 60,
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "status",
-      headerName: "Trang thái",
-      width: 120,
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "role",
-      headerName: "Chức vụ",
-      width: 120,
-    },
-    {
-      field: "fullName",
-      headerName: "Họ và tên",
-      width: 150,
-    },
-    {
-      field: "gender",
-      headerName: "Giới tính",
-      width: 120,
-    },
-    {
-      field: "email",
-      headerName: "Địa chỉ email",
-      width: 200,
-    },
-    { field: "phone", headerName: "Số điện thoại", width: 200 },
-    // { field: "birthday", headerName: "Ngày sinh", width: 150 },
-  ];
 
   useEffect(() => {
     getUsers(role, isActive);
@@ -93,20 +93,23 @@ export default function UserList() {
       const { users, totalCount }: any = response;
 
       console.log(users);
+      if (users.length > 0) {
+        const keys = getHeaderColumns(users[0], ["account"]);
+        const data = getNewHeaderColumn(users, keys);
 
-      const keys = getHeaderColumns(users[0], ["account"]);
-      const data = getNewHeaderColumn(users, keys);
+        const userData = data.map((data, index) => {
+          return {
+            ...data,
+            email: users[index].account.email,
+            role: translateVi(users[index].account.role),
+            status: users[index].account.isActive ? "Hoạt động" : "Đang khoá",
+          };
+        });
 
-      const userData = data.map((data, index) => {
-        return {
-          ...data,
-          email: users[index].account.email,
-          role: translateVi(users[index].account.role),
-          status: users[index].account.isActive ? "Hoạt động" : "Đang khoá",
-        };
-      });
-
-      setUsers(userData);
+        setUsers(userData);
+      } else {
+        setUsers(users);
+      }
       setLoading(false);
       setTotal(totalCount);
     } catch (error) {
