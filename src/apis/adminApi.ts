@@ -1,3 +1,4 @@
+import { IUser } from "src/types";
 import { ICreateNewUser, IGetUser } from "src/types/user";
 import axiosClient from "./axiosClient";
 
@@ -20,9 +21,9 @@ const adminApi = {
     const url = ADMIN_API + "/users/multiple";
     return axiosClient.post(url, file);
   },
-  updateUserInfo: (userInfo: ICreateNewUser, id: string) => {
+  updateUserInfo: (id: string | number, userInfo: IUser) => {
     const url = ADMIN_API + "/users/" + id;
-    return axiosClient.post(url, userInfo);
+    return axiosClient.put(url, userInfo);
   },
   deleteUser: (id: string | number) => {
     const url = ADMIN_API + "/users/" + id;

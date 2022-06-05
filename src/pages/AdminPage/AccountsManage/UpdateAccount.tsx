@@ -11,6 +11,8 @@ import { IUser } from "src/types";
 import InputSelect from "src/components/InputSelect";
 import Input from "src/components/Input";
 import { accountTypes, genderTypes, statusTypes } from "src/data";
+import { ICreateNewUser } from "src/types/user";
+import { phoneRegExp } from "src/utils";
 
 interface UpdateAccountProps {
   // userDetail: IUser;
@@ -37,7 +39,7 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
   const getUserDetail = async (id: any) => {
     try {
       const response = await adminApi.getUserDetail(id);
-      console.log("thông tin chi tiết", response);
+      // console.log("thông tin chi tiết", response);
       const { user }: any = response;
       setUserDetail(user);
     } catch (error) {
@@ -45,12 +47,12 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     }
   };
 
-  const handleUpdateAccount = async () => {
+  const handleUpdateAccount = async (params: IUser) => {
     onUpdate?.(false);
     dispatch(isPending());
     try {
-      // const response = await adminApi.deleteUser(id);
-      // console.log(response);
+      const response = await adminApi.updateUserInfo(id, params);
+      console.log(response);
       dispatch(isSuccess());
       onUpdate?.(true);
 
@@ -60,7 +62,9 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
-      toast.warning("Xoá tài khoản thất bại", { position: "bottom-right" });
+      toast.warning("Cập nhật thông tin tài khoản thất bại", {
+        position: "bottom-right",
+      });
     }
   };
 
@@ -81,12 +85,15 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
       email: Yup.string()
         .email("Phải là email")
         .required("Vui lòng nhập gmail"),
-      password: Yup.string()
-        .min(8, "Mật khẩu ít nhất 8 kí tự")
-        .required("Vui lòng nhập mật khẩu"),
+      password: Yup.string().min(8, "Mật khẩu ít nhất 8 kí tự"),
+      phone: Yup.string()
+        .matches(phoneRegExp, "Định dạng số điện thoại sai")
+        .max(10, "Định dạng số điện thoại sai")
+        .min(10, "Định dạng số điện thoại sai"),
     }),
     onSubmit: async (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
+      handleUpdateAccount(values);
     },
   });
 

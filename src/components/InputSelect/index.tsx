@@ -22,7 +22,11 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     ...rest
   } = props;
 
-  const [value, setValue] = React.useState<any>(defaultValue);
+  const [value, setValue] = React.useState<any>({});
+
+  React.useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);
