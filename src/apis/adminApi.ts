@@ -28,6 +28,10 @@ const adminApi = {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.delete(url);
   },
+  deleteMultiUser: (ids: any) => {
+    const url = ADMIN_API + "/users/multiple";
+    return axiosClient.delete(url, ids);
+  },
 };
 
 export default adminApi;

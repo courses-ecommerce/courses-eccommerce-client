@@ -92,7 +92,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
         variant="h2"
         fontSize={12}
         height={15}
-        marginTop={1}
+        marginTop={0.5}
         fontWeight={600}
         color={"#f52727"}
       >

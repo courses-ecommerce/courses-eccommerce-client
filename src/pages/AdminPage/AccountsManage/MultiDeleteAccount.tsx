@@ -6,31 +6,32 @@ import adminApi from "src/apis/adminApi";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
-interface DeleteAccountProps {
-  id: string | number;
+interface MultiDeleteAccountProps {
+  ids: string[] | number[];
   show?: boolean;
   onDelete?: (deleteComplete: boolean) => void;
   onClose?: () => void;
 }
 
-const DeleteAccount: React.FC<DeleteAccountProps> = ({
-  id,
+const MultiDeleteAccount: React.FC<MultiDeleteAccountProps> = ({
+  ids,
   onDelete,
   show = false,
   onClose,
 }) => {
   const dispatch = useDispatch();
-  const handleDeleteAccount = async () => {
-    // console.log("xoá user có id", id);
+
+  const handleMultiDeleteAccount = async () => {
+    const params = { ids };
+    // console.log("xoá multi", params);
+
     onDelete?.(false);
     dispatch(isPending());
     try {
-      await adminApi.deleteUser(id);
-      // const response = await adminApi.deleteUser(id);
-      // console.log(response);
+      const response = await adminApi.deleteMultiUser(params);
+      console.log(response);
       dispatch(isSuccess());
       onDelete?.(true);
-
       toast.success("Xoá tài khoản thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -41,11 +42,15 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({
 
   return (
     <ModalContainer
-      title="Bạn có chắc muốn xoá tài khoản này không?"
+      title="Bạn có chắc muốn xoá những tài khoản này không?"
       open={show}
       onClose={onClose}
     >
-      <Button variant="contained" color="warning" onClick={handleDeleteAccount}>
+      <Button
+        variant="contained"
+        color="warning"
+        onClick={handleMultiDeleteAccount}
+      >
         Xoá tài khoản
       </Button>
       <Button
@@ -60,4 +65,4 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({
   );
 };
 
-export default DeleteAccount;
+export default MultiDeleteAccount;

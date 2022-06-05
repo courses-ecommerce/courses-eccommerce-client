@@ -1,38 +1,58 @@
-import { Box, Button } from "@mui/material";
-import React from "react";
+import { Alert, Box, Button, Snackbar } from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import adminApi from "src/apis/adminApi";
 import ModalContainer from "src/components/ModalContainer";
+import { isPending, isSuccess } from "src/reducers/authSlice";
 
 interface UploadAccountByExcelProps {
   show?: boolean;
   onUpload?: (uploadComplete: boolean) => void;
   onClose?: () => void;
+  onError?: string;
 }
 
 const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   show,
   onClose,
   onUpload,
+  onError,
 }) => {
+  const [error, setError] = useState(onError);
+
+  const dispatch = useDispatch();
+
   const handleUpload = async (e: any) => {
     const formData: any = new FormData();
     formData.append("file", e.target.files[0]);
 
     // console.log("param là", ...formData);
     onUpload?.(false);
+    dispatch(isPending());
     try {
       const response = await adminApi.uploadUserByExcel(formData);
       const { message, urlLogs }: any = response;
       console.log("thành công", response);
 
-      toast.success(`${message}`, {
-        position: "bottom-right",
-      });
+      if (!urlLogs) {
+        onUpload?.(true);
+        toast.success(`${message}`, {
+          position: "bottom-right",
+        });
+      } else {
+        setError(urlLogs);
+      }
     } catch (error) {
       console.log("lỗi rồi", { error });
       toast.warning("Lỗi rồi", { position: "bottom-right" });
     }
+    dispatch(isSuccess());
+  };
+
+  const handleOpenNewLink = () => {
+    error && window.open(`https://hnam.works${error}`, "_blank");
+    setError("");
     onUpload?.(true);
   };
 
@@ -64,6 +84,19 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
           </Button>
         </label>
       </Box>
+      <Snackbar
+        open={!!error}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        autoHideDuration={6000}
+      >
+        <Alert
+          severity="error"
+          sx={{ width: "100%", cursor: "pointer" }}
+          onClick={handleOpenNewLink}
+        >
+          Upload không hoàn tất, xem thông tin lỗi
+        </Alert>
+      </Snackbar>
     </ModalContainer>
   );
 };

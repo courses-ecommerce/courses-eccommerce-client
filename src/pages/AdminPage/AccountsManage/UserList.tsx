@@ -7,11 +7,13 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { accountTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { IUser } from "src/types";
 // import { useTypingDebounce } from "src/hooks";
 import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
+import MultiDeleteAccount from "./MultiDeleteAccount";
 import UpdateAccount from "./UpdateAccount";
 import UploadAccountByExcel from "./UploadAccountByExcel";
 
@@ -62,6 +64,7 @@ const columsHeader: GridColDef[] = [
 export default function UserList() {
   const [users, setUsers] = useState<any>([]);
   const [userId, setUserId] = useState<any>();
+  const [userIds, setUserIds] = useState<any>();
   const [role, setRole] = useState<string>("student");
   const [isActive, setIsActive] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,6 +82,10 @@ export default function UserList() {
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
+  //multi delete account modal
+  const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
+  const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
+
   //create account modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
@@ -93,7 +100,18 @@ export default function UserList() {
   useEffect(() => {
     getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleted, isCreated, isUpdated, role, isActive, email, page, pageSize]);
+  }, [
+    isDeleted,
+    isMultiDeleted,
+    isCreated,
+    isUploaded,
+    isUpdated,
+    role,
+    isActive,
+    email,
+    page,
+    pageSize,
+  ]);
 
   useEffect(() => {
     setShowDelete(false);
@@ -112,6 +130,10 @@ export default function UserList() {
   }, [isUploaded]);
 
   useEffect(() => {
+    setShowMultiDelete(false);
+  }, [isMultiDeleted]);
+
+  useEffect(() => {
     setEmail(debouncedValue);
   }, [debouncedValue]);
 
@@ -119,15 +141,14 @@ export default function UserList() {
     setLoading(true);
     const params = { role, active: isActive, email, page, limit: pageSize };
     // console.log("params nè", params);
-
     try {
       const response = await adminApi.getUsers(params);
       const { users, total }: any = response;
-      console.log(users, total);
+      // console.log(users, total);
 
       if (users.length > 0) {
         const keys = getHeaderColumns(users[0], ["account"]);
-        const data = getNewHeaderColumn(users, keys);
+        const data = getNewHeaderColumn(users, keys, page, pageSize);
 
         const userData = data.map((data, index) => {
           return {
@@ -154,7 +175,7 @@ export default function UserList() {
     setShowCreate(true);
   };
 
-  const handleModifyItem = (id: string | number) => {
+  const handleModifyItem = async (id: string | number) => {
     setUserId(id);
     setShowUpdate(true);
   };
@@ -162,9 +183,10 @@ export default function UserList() {
     setUserId(id);
     setShowDelete(true);
   };
+
   const handleMultiDeleted = (ids: string[] | number[]) => {
-    setUserId(ids);
-    setShowDelete(true);
+    setUserIds(ids);
+    setShowMultiDelete(true);
   };
 
   const handleSearchByEmail = (e: any) => {
@@ -233,6 +255,12 @@ export default function UserList() {
         onClose={() => setShowDelete(false)}
         onDelete={(status) => setIsDeleted(status)}
       />
+      <MultiDeleteAccount
+        ids={userIds}
+        show={showMultiDelete}
+        onClose={() => setShowMultiDelete(false)}
+        onDelete={(status) => setIsMultiDeleted(status)}
+      />
 
       <CreateAccount
         show={showCreate}
@@ -241,6 +269,7 @@ export default function UserList() {
       />
       <UpdateAccount
         id={userId}
+        // userDetail={userDetail}
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
         onUpdate={(status) => setIsUpdated(status)}
