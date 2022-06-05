@@ -201,7 +201,7 @@ export default function UserList() {
           </Box>
         }
         btnHandle={
-          <Box>
+          <>
             <Button
               variant="contained"
               color="success"
@@ -209,7 +209,10 @@ export default function UserList() {
             >
               Upload file excel
             </Button>
-          </Box>
+            <Button variant="contained" color="info">
+              Sao lưu dữ liệu
+            </Button>
+          </>
         }
         onPage={(page) => setPage(Number(page))}
         onPageSize={(pageSize) => setPageSize(Number(pageSize))}

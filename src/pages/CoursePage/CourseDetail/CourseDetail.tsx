@@ -21,6 +21,7 @@ const CourseDetail = () => {
 
   useEffect(() => {
     getCourseDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getCourseDetail = async () => {

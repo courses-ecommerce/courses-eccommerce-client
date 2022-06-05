@@ -103,12 +103,18 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
           <Input
             required
+            label="Họ và tên"
+            placeholder="Nhập họ và tên"
+            errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
+            {...formik.getFieldProps("fullName")}
+          />
+          <Input
+            required
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
             errorMessage={formik.touched.email ? formik.errors.email : ""}
             {...formik.getFieldProps("email")}
           />
-
           <Input
             required
             type="password"
@@ -125,13 +131,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
-            required
-            label="Họ và tên"
-            placeholder="Nhập họ và tên"
-            errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
-            {...formik.getFieldProps("fullName")}
-          />
           <InputSelect
             label="Giới tính"
             list={genderTypes}
