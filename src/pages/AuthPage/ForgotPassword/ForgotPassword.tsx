@@ -1,3 +1,4 @@
+import SendIcon from "@mui/icons-material/Send";
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
@@ -5,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IForgotPassword } from "src/types/auth";
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
         .email("Phải là email")
         .required("Vui lòng nhập gmail"),
 
-      verifyCode: Yup.string().required("Vui lòng nhập mã xác thực email"),
+      verifyCode: Yup.string().required("Vui lòng nhập mã xác thực"),
       password: Yup.string()
         .min(8, "Mật khẩu ít nhất 8 kí tự")
         .required("Vui lòng nhập mật khẩu"),
@@ -107,9 +107,11 @@ const ForgotPassword = () => {
             {...formik.getFieldProps("verifyCode")}
           />
           <Tooltip title="Nhận mã xác thực gmail">
-            <span className="icon" onClick={handleVerifyEmail}>
-              <Icon icon="send" size={25} />
-            </span>
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={handleVerifyEmail}
+            ></Button>
           </Tooltip>
         </div>
         <Input

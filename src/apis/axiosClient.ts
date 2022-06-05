@@ -54,9 +54,10 @@ axiosClient.interceptors.response.use(
         }
       }
     }
-    return Promise.reject(
-      error.response.data.message || "Phản hồi từ sever trả về không chính xác"
-    );
+    return Promise.reject(error.response.data.message || error.response);
+    // return Promise.reject(
+    //   error.response.data.message || "Phản hồi từ sever trả về không chính xác"
+    // );
   }
 );
 export default axiosClient;

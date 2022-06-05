@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
@@ -13,6 +13,7 @@ import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
 import UpdateAccount from "./UpdateAccount";
+import UploadAccountByExcel from "./UploadAccountByExcel";
 
 const columsHeader: GridColDef[] = [
   {
@@ -81,10 +82,13 @@ export default function UserList() {
   //create account modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
-  //debounce
+
   //update account modal
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
+  //update account modal
+  const [showUpload, setShowUpload] = useState<boolean>(false);
+  const [isUploaded, setIsUploaded] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers();
@@ -102,6 +106,10 @@ export default function UserList() {
   useEffect(() => {
     setShowUpdate(false);
   }, [isUpdated]);
+
+  useEffect(() => {
+    setShowUpload(false);
+  }, [isUploaded]);
 
   useEffect(() => {
     setEmail(debouncedValue);
@@ -192,6 +200,17 @@ export default function UserList() {
             />
           </Box>
         }
+        btnHandle={
+          <Box>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => setShowUpload(true)}
+            >
+              Upload file excel
+            </Button>
+          </Box>
+        }
         onPage={(page) => setPage(Number(page))}
         onPageSize={(pageSize) => setPageSize(Number(pageSize))}
         titleBtnAdd="Tạo tài khoản mới"
@@ -222,6 +241,11 @@ export default function UserList() {
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
         onUpdate={(status) => setIsUpdated(status)}
+      />
+      <UploadAccountByExcel
+        show={showUpload}
+        onClose={() => setShowUpload(false)}
+        onUpload={(status) => setIsUploaded(status)}
       />
     </>
   );

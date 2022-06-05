@@ -16,6 +16,10 @@ const adminApi = {
     const url = ADMIN_API + "/users";
     return axiosClient.post(url, userInfo);
   },
+  uploadUserByExcel: (file: any) => {
+    const url = ADMIN_API + "/users/multiple";
+    return axiosClient.post(url, file);
+  },
   updateUserInfo: (userInfo: ICreateNewUser, id: string) => {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.post(url, userInfo);

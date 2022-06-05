@@ -34,14 +34,13 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
       <InputLabel
         sx={{
           fontSize: "14px",
-          color: "#64748b",
+          color: "#000",
           fontWeight: "bold",
           marginBottom: 0.4,
         }}
       >
         {label}
       </InputLabel>
-
       <FormControl fullWidth>
         <Select
           onChange={handleChange}
@@ -89,17 +88,16 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
           ))}
         </Select>
       </FormControl>
-      {errorMessage && (
-        <Typography
-          variant="h2"
-          fontSize={12}
-          marginTop={0.4}
-          fontWeight={600}
-          color={"#f52727"}
-        >
-          {errorMessage}
-        </Typography>
-      )}
+      <Typography
+        variant="h2"
+        fontSize={12}
+        height={15}
+        marginTop={1}
+        fontWeight={600}
+        color={"#f52727"}
+      >
+        {errorMessage}
+      </Typography>
     </Box>
   );
 };

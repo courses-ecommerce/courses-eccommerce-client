@@ -85,78 +85,92 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
   return (
     <ModalContainer
-      width={600}
+      width={700}
       title="Tạo tài khoản mới"
       open={show}
       onClose={onClose}
     >
       <form
-        style={{ display: "flex", flexDirection: "column", gap: 10 }}
+        id="create-account"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gap: 20,
+        }}
         onSubmit={formik.handleSubmit}
       >
-        <Input
-          required
-          label="Địa chỉ email"
-          placeholder="Nhập địa chỉ email"
-          errorMessage={formik.touched.email ? formik.errors.email : ""}
-          {...formik.getFieldProps("email")}
-        />
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
+          <Input
+            required
+            label="Địa chỉ email"
+            placeholder="Nhập địa chỉ email"
+            errorMessage={formik.touched.email ? formik.errors.email : ""}
+            {...formik.getFieldProps("email")}
+          />
 
-        <Input
-          required
-          type="password"
-          label="Mật khẩu"
-          placeholder="Nhập mật khẩu"
-          errorMessage={formik.touched.password ? formik.errors.password : ""}
-          {...formik.getFieldProps("password")}
-        />
-
-        <Input
-          required
-          label="Họ và tên"
-          placeholder="Nhập họ và tên"
-          errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
-          {...formik.getFieldProps("fullName")}
-        />
-        <InputSelect
-          label="Chức vụ"
-          list={accountTypes}
-          onChange={(e) => formik.setFieldValue("role", e.target.value)}
-          defaultValue={formik.values.role}
-        />
-        <InputSelect
-          label="Giới tính"
-          list={genderTypes}
-          onChange={(e) =>
-            formik.setFieldValue("gender", e.target.value.toString())
-          }
-          defaultValue={formik.values.gender}
-        />
-        <Input
-          label="Số điện thoại"
-          placeholder="Nhập số điện thoại"
-          errorMessage={formik.touched.phone ? formik.errors.phone : ""}
-          {...formik.getFieldProps("phone")}
-        />
-        <Input
-          type="date"
-          label="Ngày sinh nhật"
-          {...formik.getFieldProps("birthday")}
-        />
-        <Box sx={{ marginTop: 1 }}>
-          <Button variant="contained" color="primary" type="submit">
-            Tạo tài khoản mới
-          </Button>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={onClose}
-            sx={{ marginLeft: 1 }}
-          >
-            Huỷ bỏ
-          </Button>
+          <Input
+            required
+            type="password"
+            label="Mật khẩu"
+            placeholder="Nhập mật khẩu"
+            errorMessage={formik.touched.password ? formik.errors.password : ""}
+            {...formik.getFieldProps("password")}
+          />
+          <InputSelect
+            label="Chức vụ"
+            list={accountTypes}
+            onChange={(e) => formik.setFieldValue("role", e.target.value)}
+            defaultValue={formik.values.role}
+          />
+        </Box>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
+          <Input
+            required
+            label="Họ và tên"
+            placeholder="Nhập họ và tên"
+            errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
+            {...formik.getFieldProps("fullName")}
+          />
+          <InputSelect
+            label="Giới tính"
+            list={genderTypes}
+            onChange={(e) =>
+              formik.setFieldValue("gender", e.target.value.toString())
+            }
+            defaultValue={formik.values.gender}
+          />
+          <Input
+            label="Số điện thoại"
+            placeholder="Nhập số điện thoại"
+            errorMessage={formik.touched.phone ? formik.errors.phone : ""}
+            {...formik.getFieldProps("phone")}
+          />
+          <Input
+            type="date"
+            label="Ngày sinh nhật"
+            {...formik.getFieldProps("birthday")}
+          />
         </Box>
       </form>
+      <Box sx={{ marginTop: 4 }}>
+        <Button
+          form="create-account"
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          Tạo tài khoản mới
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={onClose}
+          sx={{ marginLeft: 1 }}
+        >
+          Huỷ bỏ
+        </Button>
+      </Box>
     </ModalContainer>
   );
 };
