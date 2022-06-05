@@ -72,8 +72,7 @@ const InputFile: React.FC<InputFileProps> = ({
           <img src={downloadIMG} alt="" />
         )}
       </label>
-
-      {errorMessage && <div className="error">{errorMessage}</div>}
+      <div className="error">{errorMessage}</div>
     </div>
   );
 };

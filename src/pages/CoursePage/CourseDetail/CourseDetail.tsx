@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
@@ -15,8 +15,13 @@ const CourseDetail = () => {
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
 
+  useLayoutEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   useEffect(() => {
     getCourseDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getCourseDetail = async () => {

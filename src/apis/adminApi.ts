@@ -1,3 +1,4 @@
+import { IUser } from "src/types";
 import { ICreateNewUser, IGetUser } from "src/types/user";
 import axiosClient from "./axiosClient";
 
@@ -8,7 +9,7 @@ const adminApi = {
     const url = ADMIN_API + "/users";
     return axiosClient.get(url, { params });
   },
-  getUserDetail: (id: string) => {
+  getUserDetail: (id: string | number) => {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.get(url);
   },
@@ -16,13 +17,21 @@ const adminApi = {
     const url = ADMIN_API + "/users";
     return axiosClient.post(url, userInfo);
   },
-  updateUserInfo: (userInfo: ICreateNewUser, id: string) => {
-    const url = ADMIN_API + "/users/" + id;
-    return axiosClient.post(url, userInfo);
+  uploadUserByExcel: (file: any) => {
+    const url = ADMIN_API + "/users/multiple";
+    return axiosClient.post(url, file);
   },
-  deleteUser: (id: string) => {
+  updateUserInfo: (id: string | number, userInfo: IUser) => {
+    const url = ADMIN_API + "/users/" + id;
+    return axiosClient.put(url, userInfo);
+  },
+  deleteUser: (id: string | number) => {
     const url = ADMIN_API + "/users/" + id;
     return axiosClient.delete(url);
+  },
+  deleteMultiUser: (ids: any) => {
+    const url = ADMIN_API + "/users/multiple";
+    return axiosClient.delete(url, ids);
   },
 };
 

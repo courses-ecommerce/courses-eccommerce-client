@@ -1,4 +1,4 @@
-.dashboard {
+.dashboard-layout {
   display: flex;
   flex-direction: column;
 
@@ -9,12 +9,18 @@
 
   > .body {
     display: flex;
-    gap: 250px;
-    padding: 20px;
+    flex-direction: row;
+    height: 100vh;
+    > .sidebar {
+      position: fixed;
+      height: 100%;
+    }
 
     > .content {
       flex: 1;
       margin-top: 80px;
+      margin-left: 240px;
+      padding: 0 30px;
     }
   }
 }

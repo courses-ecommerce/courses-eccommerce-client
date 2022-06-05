@@ -2,7 +2,7 @@ import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import UserList from "src/pages/AdminPage/UsersManage/UserList";
+import UserList from "src/pages/AdminPage/AccountsManage/UserList";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
@@ -13,7 +13,6 @@ import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
-import RegisterInstructor from "src/pages/ProfilePage/RegisterInstructor/RegisterInstructor";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
@@ -138,13 +137,6 @@ const DASHBOARD_ROUTE = [
         element: <HistoryPayment />,
         title: "Lịch sử thanh toán",
         icon: "file-text-o",
-      },
-      {
-        path: "register-instructor",
-        href: "/student/register-instructor",
-        element: <RegisterInstructor />,
-        title: "Đăng ký bán khoá học",
-        icon: "usd",
       },
     ],
   },

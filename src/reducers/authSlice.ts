@@ -17,6 +17,7 @@ const initialState: IAuthSlice = {
   isLoading: false,
   isAuth: false,
   isRole: "",
+  userInfo: {},
   // isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
   // isRole: JSON.parse(localStorage.getItem("role") || "{}")
   //   ? JSON.parse(localStorage.getItem("role") || "null")
@@ -35,6 +36,10 @@ const authSlice = createSlice({
       state.isAuth = true;
       state.isRole = action.payload;
     },
+    getUserInfo(state, action) {
+      state.isLoading = false;
+      state.userInfo = action.payload;
+    },
     isSuccess(state) {
       // state.isAuth = true;
       state.isLoading = false;
@@ -49,7 +54,7 @@ const authSlice = createSlice({
 
 const { actions, reducer } = authSlice;
 
-export const { isPending, isLogin, isSuccess, isLogout } = actions;
+export const { isPending, isLogin, getUserInfo, isSuccess, isLogout } = actions;
 
 export const selectAuthorization = (state: { auth: IAuthSlice }) => state.auth;
 

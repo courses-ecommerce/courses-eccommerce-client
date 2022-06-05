@@ -1,6 +1,6 @@
 export interface IGetUser {
-  page?: string;
-  limit?: string;
+  page?: string | number;
+  limit?: string | number;
   email?: string;
   role?: string;
   sort?: string;
@@ -10,6 +10,6 @@ export interface ICreateNewUser {
   password: string;
   fullName: string;
   birthday?: string;
-  gender?: boolean;
+  gender?: boolean | string;
   phone?: string;
 }

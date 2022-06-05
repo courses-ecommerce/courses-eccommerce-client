@@ -22,7 +22,11 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     ...rest
   } = props;
 
-  const [value, setValue] = React.useState(defaultValue ? "1" : "0");
+  const [value, setValue] = React.useState<any>({});
+
+  React.useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);
@@ -34,14 +38,13 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
       <InputLabel
         sx={{
           fontSize: "14px",
-          color: "#64748b",
+          color: "#000",
           fontWeight: "bold",
           marginBottom: 0.4,
         }}
       >
         {label}
       </InputLabel>
-
       <FormControl fullWidth>
         <Select
           onChange={handleChange}
@@ -72,9 +75,9 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
           {...rest}
           value={value}
         >
-          {list.map((item, index) => (
+          {list.map((item: any, index) => (
             <MenuItem
-              value={item.id}
+              value={item.value}
               key={index}
               sx={{
                 fontSize: "14px",
@@ -89,17 +92,16 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
           ))}
         </Select>
       </FormControl>
-      {errorMessage && (
-        <Typography
-          variant="h2"
-          fontSize={12}
-          marginTop={0.4}
-          fontWeight={600}
-          color={"#f52727"}
-        >
-          {errorMessage}
-        </Typography>
-      )}
+      <Typography
+        variant="h2"
+        fontSize={12}
+        height={15}
+        marginTop={0.5}
+        fontWeight={600}
+        color={"#f52727"}
+      >
+        {errorMessage}
+      </Typography>
     </Box>
   );
 };

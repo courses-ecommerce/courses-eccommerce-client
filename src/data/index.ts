@@ -1,4 +1,13 @@
 export const genderTypes = [
-  { id: 0, value: false, name: "Nữ" },
-  { id: 1, value: true, name: "Nam" },
+  { value: false, name: "Nữ" },
+  { value: true, name: "Nam" },
+];
+export const accountTypes = [
+  { value: "student", name: "Học sinh" },
+  { value: "teacher", name: "Giáo viên" },
+  { value: "admin", name: "Quản trị viên" },
+];
+export const statusTypes = [
+  { value: false, name: "Đang khoá" },
+  { value: true, name: "Hoạt động" },
 ];

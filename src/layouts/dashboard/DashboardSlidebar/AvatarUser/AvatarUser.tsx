@@ -7,18 +7,14 @@ import { translateVi } from "src/utils";
 import "./AvatarUser.scss";
 
 const AvatarUser = () => {
-  const { isRole } = useSelector(selectAuthorization);
+  const { isRole, userInfo } = useSelector(selectAuthorization);
 
   return (
     <Tooltip title="Trang chủ">
       <Link className="user" to="/">
-        <Avatar
-          className="user-avatar"
-          src="https://th.bing.com/th/id/OIP.8t1WtYLAPVB189hu7pCP3gHaHa?pid=ImgDet&rs=1"
-          alt="photoURL"
-        />
+        <Avatar className="user-avatar" src={userInfo.avatar} alt="photoURL" />
         <div className="user-info">
-          <span className="name">Nguyễn Thế Luân</span>
+          <span className="name">{userInfo.fullName}</span>
 
           <span className="role">
             Chức vụ:

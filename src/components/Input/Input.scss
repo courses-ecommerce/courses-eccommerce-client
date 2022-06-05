@@ -3,20 +3,15 @@
   display: flex;
   align-items: center;
   border-radius: 12px;
-  // border: 1px solid @gray-200;
   border: 1px solid rgb(224, 224, 224);
   overflow: hidden;
   transition: all 0.25s ease-in-out;
 
   &:hover {
-    // border: 1px solid @purple-500;
     border: 1px solid rgb(188, 127, 188);
   }
 
   &.focused {
-    // border-color: @purple-500;
-    // outline: 1px @purple-500;
-
     background-color: white;
     outline: 1px rgb(188, 127, 188);
     border-color: rgb(188, 127, 188);
@@ -24,14 +19,12 @@
 
   &.disabled {
     border: none;
-    // background-color: @gray-5;
   }
 
   &-label {
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;
-    // color: @gray-500;
     margin-bottom: 4px;
   }
 
@@ -49,7 +42,6 @@
       background-color: transparent;
 
       &::placeholder {
-        // color: @gray-400;
         font-size: 14px;
         line-height: 20px;
       }
@@ -67,15 +59,14 @@
   }
 
   &-require-mark {
-    // color: @red;
     color: red;
   }
 
   &-error {
     font-size: 12px;
+    height: 15px;
     margin-top: 4px;
     font-weight: 600;
-    // color: @red;
     color: red;
   }
 }

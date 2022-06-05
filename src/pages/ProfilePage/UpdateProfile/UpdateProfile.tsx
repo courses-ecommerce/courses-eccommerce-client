@@ -9,17 +9,17 @@ import InputFile from "src/components/InputFile";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data";
-import { isPending, isSuccess } from "src/reducers/authSlice";
+import { getUserInfo, isPending, isSuccess } from "src/reducers/authSlice";
 import { IUser } from "src/types";
 import { phoneRegExp } from "src/utils";
 import * as Yup from "yup";
 import "./UpdateProfile.scss";
 
 interface UpdateProfileProps {
-  onDeleteSelectMultiItem?: (multiSelect: any) => any;
+  onUpdate?: (isComplete: boolean) => void;
   data: IUser;
 }
-const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
+const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -52,18 +52,23 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
     keys.forEach((key) => {
       newData[key] && formData.append(key, newData[key]);
     });
-    console.log(...formData);
-    // console.log("sadasdas", ...formData);
+
+    // console.log("form-data là", ...formData);
+
     dispatch(isPending());
+    onUpdate?.(false);
     try {
+      // await userApi.updateInfo(formData);
       const response = await userApi.updateInfo(formData);
-      console.log("response", response);
+      // console.log("response", response);
+      const { user }: any = response;
 
       setShowModal(false);
-      dispatch(isSuccess());
+      dispatch(getUserInfo(user));
       toast.success("Cập nhật thông tin thành công", {
         position: "bottom-right",
       });
+      onUpdate?.(true);
     } catch (error) {
       dispatch(isSuccess());
       console.log("lỗi rồi", { error });
@@ -109,10 +114,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data }) => {
             label="Giới tính"
             list={genderTypes}
             onChange={(e) =>
-              formik.setFieldValue(
-                "gender",
-                (e.target.value == true).toString()
-              )
+              formik.setFieldValue("gender", e.target.value.toString())
             }
             defaultValue={formik.values.gender}
           />

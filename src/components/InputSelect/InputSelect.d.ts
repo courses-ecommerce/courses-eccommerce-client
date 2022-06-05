@@ -2,8 +2,7 @@ declare interface InputSelectProps {
   label?: string;
   icon?: string;
   list: {
-    id: number | string;
-    value: boolean;
+    value: boolean | string | number;
     name: string;
   }[];
   name?: string;

@@ -12,11 +12,13 @@ import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
+  document.title = "Thông tin chi tiết cá nhân";
   const [info, setinfo] = useState<IUser>({});
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
   useEffect(() => {
     getMe();
-  }, []);
+  }, [isUpdate]);
 
   const getMe = async () => {
     try {
@@ -57,7 +59,10 @@ const ProfilePage = () => {
         </div>
 
         <div className="btns">
-          <UpdateProfile data={info} />
+          <UpdateProfile
+            data={info}
+            onUpdate={(status) => setIsUpdate(status)}
+          />
           <UpdatePassword />
         </div>
       </div>

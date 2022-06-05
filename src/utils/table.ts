@@ -11,12 +11,21 @@ export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
 };
 
 //get data  each of keys of table
-export const getNewHeaderColumn = (data: Object[], keys: string[]) => {
+// index + 1 + (page - 1) * pageSize
+export const getNewHeaderColumn = (
+  data: Object[],
+  keys: string[],
+  page: number = 1,
+  pageSize: number = 5
+) => {
   const finalResult = data.map((item: any, index) => {
     const values = keys.map((key: any) => {
+      if (key === "gender") {
+        return { [key]: item[key] ? "Nam" : "Nữ" };
+      }
       return { [key]: item[key] };
     });
-    return _.merge({ id: index + 1 }, ...values);
+    return _.merge({ id: index + 1 + (page - 1) * pageSize }, ...values);
   });
 
   return finalResult;

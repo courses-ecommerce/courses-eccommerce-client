@@ -67,7 +67,7 @@ const TableNone = () => {
           </g>
         </g>
       </svg>
-      <Box sx={{ mt: 1 }}>Chưa có dữ liệu nào</Box>
+      <Box sx={{ mt: 1 }}>Không có dữ liệu nào</Box>
     </StyledGridOverlay>
   );
 };

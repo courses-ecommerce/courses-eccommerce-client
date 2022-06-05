@@ -74,7 +74,7 @@ const Input = React.forwardRef(
             </div>
           )}
         </div>
-        {errorMessage && <div className="input-error">{errorMessage}</div>}
+        <div className="input-error">{errorMessage}</div>
         {hint && <div className="input-hint">{hint}</div>}
       </div>
     );
