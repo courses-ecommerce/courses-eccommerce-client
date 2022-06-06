@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import adminApi from "src/apis/adminApi";
 import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import ModalContainer from "src/components/ModalContainer";

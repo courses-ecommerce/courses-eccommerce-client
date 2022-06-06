@@ -15,7 +15,7 @@ const categoryApi = {
     const url = CATEGORY_API + "/" + id;
     return axiosClient.put(url, category_info);
   },
-  deleteCategory: (id: string) => {
+  deleteCategory: (id: string | number) => {
     const url = CATEGORY_API + "/" + id;
     return axiosClient.delete(url);
   },

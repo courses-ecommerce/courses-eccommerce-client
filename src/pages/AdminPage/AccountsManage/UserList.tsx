@@ -67,6 +67,7 @@ export default function UserList() {
   const [role, setRole] = useState<string>("student");
   const [isActive, setIsActive] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+
   //pagination
   const [total, setTotal] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
@@ -77,22 +78,22 @@ export default function UserList() {
   const debouncedValue = useTypingDebounce(value);
   const [email, setEmail] = useState<string>();
 
-  //delete account modal
+  //delete modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-  //multi delete account modal
+  //multi delete modal
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
   const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
 
-  //create account modal
+  //create modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
 
-  //update account modal
+  //update modal
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
-  //update account modal
+  //update modal
   const [showUpload, setShowUpload] = useState<boolean>(false);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
 
@@ -186,10 +187,6 @@ export default function UserList() {
     setShowMultiDelete(true);
   };
 
-  const handleSearchByEmail = (e: any) => {
-    setValue(e.target.value);
-  };
-
   return (
     <>
       <Table
@@ -205,7 +202,7 @@ export default function UserList() {
             <Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng địa chỉ email"
-              onChange={handleSearchByEmail}
+              onChange={(e: any) => setValue(e.target.value)}
             />
             <InputSelect
               defaultValue={role}
