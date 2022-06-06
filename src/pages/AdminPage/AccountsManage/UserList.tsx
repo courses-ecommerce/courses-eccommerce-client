@@ -56,7 +56,6 @@ const columsHeader: GridColDef[] = [
     headerName: "Giới tính",
     width: 120,
   },
-
   // { field: "birthday", headerName: "Ngày sinh", width: 150 },
 ];
 

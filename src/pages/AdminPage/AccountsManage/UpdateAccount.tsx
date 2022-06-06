@@ -14,7 +14,6 @@ import { phoneRegExp } from "src/utils";
 import * as Yup from "yup";
 
 interface UpdateAccountProps {
-  // userDetail: IUser;
   id: string | number;
   show?: boolean;
   onUpdate?: (updateComplete: boolean) => void;
@@ -23,7 +22,6 @@ interface UpdateAccountProps {
 
 const UpdateAccount: React.FC<UpdateAccountProps> = ({
   id,
-  // userDetail,
   onUpdate,
   show = false,
   onClose,

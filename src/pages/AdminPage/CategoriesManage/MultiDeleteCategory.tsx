@@ -1,0 +1,68 @@
+import { Button } from "@mui/material";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import categoryApi from "src/apis/categoryApi";
+import ModalContainer from "src/components/ModalContainer";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+
+interface MultiDeleteCategoryProps {
+  ids: string[] | number[];
+  show?: boolean;
+  onDelete?: (deleteComplete: boolean) => void;
+  onClose?: () => void;
+}
+
+const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
+  ids,
+  onDelete,
+  show = false,
+  onClose,
+}) => {
+  const dispatch = useDispatch();
+
+  const handleMultiDeleteCategory = async () => {
+    const params = { ids };
+    console.log("xoá multi", params);
+
+    onDelete?.(false);
+    dispatch(isPending());
+    try {
+      const response = await categoryApi.deleteMultiCategory(params);
+      console.log(response);
+      dispatch(isSuccess());
+      onDelete?.(true);
+      toast.success("Xoá danh mục thành công", { position: "bottom-right" });
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+      dispatch(isSuccess());
+      toast.warning("Xoá danh mục thất bại", { position: "bottom-right" });
+    }
+  };
+
+  return (
+    <ModalContainer
+      title="Bạn có chắc muốn xoá những danh mục này không?"
+      open={show}
+      onClose={onClose}
+    >
+      <Button
+        variant="contained"
+        color="warning"
+        onClick={handleMultiDeleteCategory}
+      >
+        Xoá danh mục
+      </Button>
+      <Button
+        variant="contained"
+        color="success"
+        onClick={onClose}
+        sx={{ marginLeft: 1 }}
+      >
+        Huỷ bỏ
+      </Button>
+    </ModalContainer>
+  );
+};
+
+export default MultiDeleteCategory;

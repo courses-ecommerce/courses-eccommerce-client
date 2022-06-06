@@ -1,4 +1,3 @@
-import { IUser } from "src/types";
 import { ICreateNewUser, IGetUser } from "src/types/user";
 import axiosClient from "./axiosClient";
 

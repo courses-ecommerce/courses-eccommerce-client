@@ -10,12 +10,15 @@ import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateCategory from "./CreateCategory";
 import DeleteCatergory from "./DeleteCategory";
+import MultiDeleteCategory from "./MultiDeleteCategory";
+import UpdateCategory from "./UpdateCategory";
 
 const CategoryList = () => {
   document.title = "Quản lý danh mục";
 
   const [categories, setCategories] = useState<Object[]>([]);
   const [categoryId, setCategoryId] = useState<string | number>("");
+  const [categoryIds, setCategoryIds] = useState<string[] | number[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   //for search
@@ -37,6 +40,12 @@ const CategoryList = () => {
   //delete modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  //multi delete modal
+  const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
+  const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
+  //update modal
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
@@ -48,7 +57,15 @@ const CategoryList = () => {
   useEffect(() => {
     getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCreated, isDeleted, page, pageSize, categoryName, publish]);
+  }, [
+    isCreated,
+    isDeleted,
+    isMultiDeleted,
+    page,
+    pageSize,
+    categoryName,
+    publish,
+  ]);
 
   //debounce to search
   useEffect(() => {
@@ -59,9 +76,18 @@ const CategoryList = () => {
   useEffect(() => {
     setShowCreate(false);
   }, [isCreated]);
+
   useEffect(() => {
     setShowDelete(false);
   }, [isDeleted]);
+
+  useEffect(() => {
+    setShowMultiDelete(false);
+  }, [isMultiDeleted]);
+
+  useEffect(() => {
+    setShowUpdate(false);
+  }, [isUpdated]);
 
   const getCategories = async () => {
     setLoading(true);
@@ -90,6 +116,14 @@ const CategoryList = () => {
     setCategoryId(id);
     setShowDelete(true);
   };
+  const handleMultiDeleted = (ids: string[] | number[]) => {
+    setCategoryIds(ids);
+    setShowMultiDelete(true);
+  };
+  const handleModifyItem = async (id: string | number) => {
+    setCategoryId(id);
+    setShowUpdate(true);
+  };
 
   return (
     <>
@@ -116,8 +150,9 @@ const CategoryList = () => {
           </Box>
         }
         handleAddItem={() => setShowCreate(true)}
-        titleBtnAdd="Tạo danh mục mới"
         title="Danh sách thông tin danh mục"
+        titleBtnAdd="Tạo danh mục mới"
+        titleBtnMultiDelete="Xoá thông tin danh mục"
         columnsData={columsHeader}
         rowsData={categories}
         isLoading={loading}
@@ -125,6 +160,8 @@ const CategoryList = () => {
         onPage={(page) => setPage(Number(page))}
         onPageSize={(pageSize) => setPageSize(Number(pageSize))}
         onDeleteItem={handleDelete}
+        onModifyItem={handleModifyItem}
+        onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <CreateCategory
         show={showCreate}
@@ -136,6 +173,18 @@ const CategoryList = () => {
         show={showDelete}
         onClose={() => setShowDelete(false)}
         onDelete={(status) => setIsDeleted(status)}
+      />
+      <MultiDeleteCategory
+        ids={categoryIds}
+        show={showMultiDelete}
+        onClose={() => setShowMultiDelete(false)}
+        onDelete={(status) => setIsMultiDeleted(status)}
+      />
+      <UpdateCategory
+        id={categoryId}
+        show={showUpdate}
+        onClose={() => setShowUpdate(false)}
+        onUpdate={(status) => setIsUpdated(status)}
       />
     </>
   );

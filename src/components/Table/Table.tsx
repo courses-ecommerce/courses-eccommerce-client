@@ -9,10 +9,11 @@ import "./Table.scss";
 
 interface TableProps {
   title?: string;
+  titleBtnAdd?: string;
+  titleBtnMultiDelete?: string;
   columnsData?: GridColDef[];
   rowsData?: any;
   className?: string;
-  titleBtnAdd?: string;
   isLoading?: boolean;
   isCheckBoxSelection?: boolean;
   btnHandle?: ReactNode;
@@ -32,6 +33,7 @@ const Table: React.FC<TableProps> = ({
   btnHandle,
   btnSearch,
   titleBtnAdd = "Thêm mới",
+  titleBtnMultiDelete = "Xoá thông tin",
   rowsData,
   columnsData = [],
   isLoading = false,
@@ -105,7 +107,7 @@ const Table: React.FC<TableProps> = ({
               color="warning"
               onClick={handleDeleteMultiSelectItem}
             >
-              Xoá thông tin
+              {titleBtnMultiDelete}
             </Button>
           )}
         </Box>
