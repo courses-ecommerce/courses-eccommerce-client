@@ -14,14 +14,14 @@ import * as Yup from "yup";
 
 interface CreateAccountProps {
   show?: boolean;
-  onCreate?: (createComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const CreateAccount: React.FC<CreateAccountProps> = ({
   show = false,
   onClose,
-  onCreate,
+  setShow,
 }) => {
   document.title = "Quản lý người dùng";
   const dispatch = useDispatch();
@@ -68,18 +68,17 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
   const handleCreateAccount = async (values: ICreateNewUser) => {
     dispatch(isPending());
-    onCreate?.(false);
     try {
       const response = await adminApi.createNewUser(values);
       console.log(response);
       dispatch(isSuccess());
+      setShow?.(false);
       toast.success("Tạo tài khoản thành công", { position: "bottom-right" });
-      onCreate?.(true);
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Tạo tài khoản thất bại", { position: "bottom-right" });
-      onCreate?.(true);
     }
   };
 

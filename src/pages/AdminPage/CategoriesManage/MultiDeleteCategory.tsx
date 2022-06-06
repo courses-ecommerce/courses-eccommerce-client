@@ -9,13 +9,13 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 interface MultiDeleteCategoryProps {
   ids: string[] | number[];
   show?: boolean;
-  onDelete?: (deleteComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
   ids,
-  onDelete,
+  setShow,
   show = false,
   onClose,
 }) => {
@@ -25,17 +25,17 @@ const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
     const params = { ids };
     console.log("xoá multi", params);
 
-    onDelete?.(false);
     dispatch(isPending());
     try {
       const response = await categoryApi.deleteMultiCategory(params);
       console.log(response);
       dispatch(isSuccess());
-      onDelete?.(true);
+      setShow?.(false);
       toast.success("Xoá danh mục thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Xoá danh mục thất bại", { position: "bottom-right" });
     }
   };

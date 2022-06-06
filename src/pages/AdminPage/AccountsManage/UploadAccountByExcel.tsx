@@ -10,16 +10,14 @@ interface UploadAccountByExcelProps {
   show?: boolean;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
-  onError?: string;
 }
 
 const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   show,
   onClose,
   setShow,
-  onError,
 }) => {
-  const [error, setError] = useState(onError);
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -41,7 +39,6 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
         });
       } else {
         setError(urlLogs);
-        setShow?.(false);
       }
     } catch (error) {
       setShow?.(false);
@@ -53,7 +50,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   const handleOpenNewLink = () => {
     error && window.open(`https://hnam.works${error}`, "_blank");
     setError("");
-    setShow?.(true);
+    setShow?.(false);
   };
 
   return (

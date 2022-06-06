@@ -69,34 +69,20 @@ const CouponList = () => {
   const debouncedValue = useTypingDebounce(value);
   const [email, setEmail] = useState<string>();
 
-  //delete modal
+  // modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const [isDeleted, setIsDeleted] = useState<boolean>(false);
-
-  //multi delete modal
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
-  const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
-
-  //create modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
-  const [isCreated, setIsCreated] = useState<boolean>(false);
-
-  //update modal
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
-  const [isUpdated, setIsUpdated] = useState<boolean>(false);
-  //update modal
-  const [showUpload, setShowUpload] = useState<boolean>(false);
-  const [isUploaded, setIsUploaded] = useState<boolean>(false);
 
   useEffect(() => {
     getCoupons();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    isDeleted,
-    isMultiDeleted,
-    isCreated,
-    isUploaded,
-    isUpdated,
+    showDelete,
+    showMultiDelete,
+    showCreate,
+    showUpdate,
     isActive,
     email,
     page,

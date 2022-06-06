@@ -33,19 +33,11 @@ const CategoryList = () => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
 
-  //create modal
+  //modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
-  const [isCreated, setIsCreated] = useState<boolean>(false);
-
-  //delete modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const [isDeleted, setIsDeleted] = useState<boolean>(false);
-  //multi delete modal
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
-  const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
-  //update modal
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
-  const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
@@ -58,9 +50,10 @@ const CategoryList = () => {
     getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    isCreated,
-    isDeleted,
-    isMultiDeleted,
+    showCreate,
+    showDelete,
+    showMultiDelete,
+    showUpdate,
     page,
     pageSize,
     categoryName,
@@ -71,23 +64,6 @@ const CategoryList = () => {
   useEffect(() => {
     setCategoryName(debouncedValue);
   }, [debouncedValue]);
-
-  //for modal
-  useEffect(() => {
-    setShowCreate(false);
-  }, [isCreated]);
-
-  useEffect(() => {
-    setShowDelete(false);
-  }, [isDeleted]);
-
-  useEffect(() => {
-    setShowMultiDelete(false);
-  }, [isMultiDeleted]);
-
-  useEffect(() => {
-    setShowUpdate(false);
-  }, [isUpdated]);
 
   const getCategories = async () => {
     setLoading(true);
@@ -166,25 +142,25 @@ const CategoryList = () => {
       <CreateCategory
         show={showCreate}
         onClose={() => setShowCreate(false)}
-        onCreate={(status) => setIsCreated(status)}
+        setShow={setShowCreate}
       />
       <DeleteCatergory
         id={categoryId}
         show={showDelete}
         onClose={() => setShowDelete(false)}
-        onDelete={(status) => setIsDeleted(status)}
+        setShow={setShowDelete}
       />
       <MultiDeleteCategory
         ids={categoryIds}
         show={showMultiDelete}
         onClose={() => setShowMultiDelete(false)}
-        onDelete={(status) => setIsMultiDeleted(status)}
+        setShow={setShowMultiDelete}
       />
       <UpdateCategory
         id={categoryId}
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
-        onUpdate={(status) => setIsUpdated(status)}
+        setShow={setShowUpdate}
       />
     </>
   );

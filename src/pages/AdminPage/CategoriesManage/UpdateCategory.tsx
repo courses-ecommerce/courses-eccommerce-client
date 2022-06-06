@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import adminApi from "src/apis/adminApi";
 import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
@@ -15,13 +14,13 @@ import * as Yup from "yup";
 interface UpdateCategoryProps {
   id: string | number;
   show?: boolean;
-  onUpdate?: (updateComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const UpdateCategory: React.FC<UpdateCategoryProps> = ({
   id,
-  onUpdate,
+  setShow,
   show = false,
   onClose,
 }) => {
@@ -45,13 +44,12 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
   };
 
   const handleUpdateCategory = async (values: any) => {
-    onUpdate?.(false);
     dispatch(isPending());
 
     try {
       await categoryApi.updateCategory(id, values);
       dispatch(isSuccess());
-      onUpdate?.(true);
+      setShow?.(false);
 
       toast.success("Cập nhật thông tin danh mục thành công", {
         position: "bottom-right",
@@ -59,6 +57,7 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Cập nhật thông tin danh mục thất bại", {
         position: "bottom-right",
       });
