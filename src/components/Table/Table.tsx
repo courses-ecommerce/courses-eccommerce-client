@@ -1,4 +1,5 @@
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -23,6 +24,7 @@ interface TableProps {
   total?: number;
   handleAddItem?: () => void;
   onModifyItem?: (id: string | number) => void;
+  onViewItemDetail?: (id: string | number) => void;
   onDeleteSelectMultiItem?: (multiSelect: string[] | number[]) => void;
   onDeleteItem?: (id: string | number) => void;
 }
@@ -45,6 +47,7 @@ const Table: React.FC<TableProps> = ({
   onDeleteSelectMultiItem,
   onDeleteItem,
   onModifyItem,
+  onViewItemDetail,
 }) => {
   // const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
@@ -67,6 +70,12 @@ const Table: React.FC<TableProps> = ({
             onClick={() => onModifyItem?.(id)}
           >
             <EditIcon sx={{ cursor: "pointer" }} />
+          </Tooltip>
+          <Tooltip
+            title="Thông tin chi tiết"
+            onClick={() => onViewItemDetail?.(id)}
+          >
+            <InfoIcon sx={{ cursor: "pointer" }} />
           </Tooltip>
         </div>
       );

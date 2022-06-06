@@ -1,4 +1,5 @@
 declare interface InputSelectProps {
+  disabled?: true | false;
   label?: string;
   icon?: string;
   list: {

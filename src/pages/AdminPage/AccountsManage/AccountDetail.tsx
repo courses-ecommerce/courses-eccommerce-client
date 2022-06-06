@@ -1,0 +1,128 @@
+import { Box, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import adminApi from "src/apis/adminApi";
+import Input from "src/components/Input";
+import InputSelect from "src/components/InputSelect";
+import ModalContainer from "src/components/ModalContainer";
+import { accountTypes, genderTypes, statusTypes } from "src/data";
+import { IUser } from "src/types";
+import formatDate from "src/utils/formatDay";
+
+interface AccountDetailProps {
+  id: string | number;
+  show?: boolean;
+  onClose?: () => void;
+}
+
+const AccountDetail: React.FC<AccountDetailProps> = ({
+  id,
+  show = false,
+  onClose,
+}) => {
+  const [userDetail, setUserDetail] = useState<IUser>({});
+
+  useEffect(() => {
+    id && getUserDetail(id);
+  }, [id]);
+
+  const getUserDetail = async (id: any) => {
+    try {
+      const response = await adminApi.getUserDetail(id);
+      const { user }: any = response;
+      console.log(user);
+
+      setUserDetail(user);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
+
+  return (
+    <ModalContainer
+      width={700}
+      title="Xem thông tin chi tiết tài khoản"
+      open={show}
+      onClose={onClose}
+    >
+      <form
+        id="update-account"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gap: 20,
+        }}
+      >
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
+          <Input
+            label="Địa chỉ email"
+            placeholder="Nhập địa chỉ email"
+            value={userDetail.account?.email}
+            disabled
+          />
+          <Input
+            label="Họ và tên"
+            placeholder="Nhập họ và tên"
+            value={userDetail.fullName}
+            disabled
+          />
+          <InputSelect
+            label="Chức vụ"
+            list={accountTypes}
+            defaultValue={userDetail.account?.role}
+            disabled={true}
+          />
+          <Input
+            type="date"
+            label="Ngày tạo tài khoản"
+            value={formatDate(userDetail.createdAt, "yyyy-MM-dd")}
+          />
+        </Box>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
+          <InputSelect
+            label="Giới tính"
+            list={genderTypes}
+            disabled={true}
+            defaultValue={userDetail.gender}
+          />
+          <InputSelect
+            label="Trạng thái"
+            list={statusTypes}
+            disabled={true}
+            defaultValue={userDetail.account?.isActive}
+          />
+          <Input
+            label="Số điện thoại"
+            placeholder="Nhập số điện thoại"
+            disabled
+            value={userDetail.phone}
+          />
+          <Input
+            type="date"
+            label="Ngày sinh nhật"
+            placeholder="dd-mm-yyyy"
+            value={userDetail.birthday}
+          />
+        </Box>
+      </form>
+      <Button
+        form="update-account"
+        type="submit"
+        variant="contained"
+        color="warning"
+      >
+        Cập nhật thông tin
+      </Button>
+      <Button
+        variant="contained"
+        color="success"
+        onClick={onClose}
+        sx={{ marginLeft: 1 }}
+      >
+        Huỷ bỏ
+      </Button>
+    </ModalContainer>
+  );
+};
+
+export default AccountDetail;

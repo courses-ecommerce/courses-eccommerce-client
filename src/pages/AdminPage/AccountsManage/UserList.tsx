@@ -7,9 +7,11 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { accountTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { IUser } from "src/types";
 // import { useTypingDebounce } from "src/hooks";
 import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import AccountDetail from "./AccountDetail";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
 import MultiDeleteAccount from "./MultiDeleteAccount";
@@ -60,9 +62,9 @@ const columsHeader: GridColDef[] = [
 ];
 
 export default function UserList() {
-  const [users, setUsers] = useState<any>([]);
-  const [userId, setUserId] = useState<any>();
-  const [userIds, setUserIds] = useState<any>();
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [userId, setUserId] = useState<string | number>("");
+  const [userIds, setUserIds] = useState<string[] | number[]>([]);
   const [role, setRole] = useState<string>("student");
   const [isActive, setIsActive] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
@@ -95,6 +97,8 @@ export default function UserList() {
   //update modal
   const [showUpload, setShowUpload] = useState<boolean>(false);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  //detail modal
+  const [showDetail, setShowDetail] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers();
@@ -176,6 +180,10 @@ export default function UserList() {
     setUserId(id);
     setShowUpdate(true);
   };
+  const handleViewDetail = async (id: string | number) => {
+    setUserId(id);
+    setShowDetail(true);
+  };
   const handleDelete = (id: string | number) => {
     setUserId(id);
     setShowDelete(true);
@@ -239,6 +247,7 @@ export default function UserList() {
         total={total}
         handleAddItem={() => setShowCreate(true)}
         onDeleteItem={handleDelete}
+        onViewItemDetail={handleViewDetail}
         onModifyItem={handleModifyItem}
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
@@ -270,6 +279,11 @@ export default function UserList() {
         show={showUpload}
         onClose={() => setShowUpload(false)}
         onUpload={(status) => setIsUploaded(status)}
+      />
+      <AccountDetail
+        id={userId}
+        show={showDetail}
+        onClose={() => setShowDetail(false)}
       />
     </>
   );

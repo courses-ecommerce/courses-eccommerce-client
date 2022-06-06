@@ -83,10 +83,10 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     validationSchema: Yup.object({
       fullName: Yup.string().required("Vui lòng nhập họ tên"),
       password: Yup.string().min(8, "Mật khẩu ít nhất 8 kí tự"),
-      phone: Yup.string()
-        .matches(phoneRegExp, "Định dạng số điện thoại sai")
-        .max(10, "Định dạng số điện thoại sai")
-        .min(10, "Định dạng số điện thoại sai"),
+      // phone: Yup.string()
+      //   .matches(phoneRegExp, "Định dạng số điện thoại sai")
+      //   .max(10, "Định dạng số điện thoại sai")
+      //   .min(10, "Định dạng số điện thoại sai"),
     }),
     onSubmit: async (values) => {
       // console.log("lấy được dữ liệu là", values);

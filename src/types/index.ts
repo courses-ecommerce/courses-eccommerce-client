@@ -20,6 +20,8 @@ export interface IUser {
   gender?: boolean;
   phone?: string;
   avatar?: any;
+  createdAt?: string;
+  updatedAt?: string;
 }
 export interface ICategory {
   _id?: string;
