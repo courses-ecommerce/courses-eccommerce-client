@@ -7,7 +7,6 @@ import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
 import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
-// import CoursePage from "src/pages/CoursePage/CoursePage";
 import MainPage from "src/pages/MainPage/MainPage";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
@@ -15,6 +14,8 @@ import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment"
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
+import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticManage";
+import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 
 // main route
 const MAIN_ROUTE = [
@@ -104,7 +105,7 @@ const DASHBOARD_ROUTE = [
       {
         path: "dashboard/coupon",
         href: "/admin/dashboard/coupon",
-        element: () => "chưa lamf",
+        element: <CouponList />,
         title: "Quản lý khuyến mãi",
         icon: "barcode",
       },
@@ -112,7 +113,7 @@ const DASHBOARD_ROUTE = [
       {
         path: "dashboard/export",
         href: "/admin/dashboard/export",
-        element: () => "chưa lamf",
+        element: <StatisticManage />,
         title: "Thống kê",
         icon: "bar-chart",
       },

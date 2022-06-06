@@ -1,4 +1,5 @@
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -9,10 +10,11 @@ import "./Table.scss";
 
 interface TableProps {
   title?: string;
+  titleBtnAdd?: string;
+  titleBtnMultiDelete?: string;
   columnsData?: GridColDef[];
   rowsData?: any;
   className?: string;
-  titleBtnAdd?: string;
   isLoading?: boolean;
   isCheckBoxSelection?: boolean;
   btnHandle?: ReactNode;
@@ -22,6 +24,7 @@ interface TableProps {
   total?: number;
   handleAddItem?: () => void;
   onModifyItem?: (id: string | number) => void;
+  onViewItemDetail?: (id: string | number) => void;
   onDeleteSelectMultiItem?: (multiSelect: string[] | number[]) => void;
   onDeleteItem?: (id: string | number) => void;
 }
@@ -32,6 +35,7 @@ const Table: React.FC<TableProps> = ({
   btnHandle,
   btnSearch,
   titleBtnAdd = "Thêm mới",
+  titleBtnMultiDelete = "Xoá thông tin",
   rowsData,
   columnsData = [],
   isLoading = false,
@@ -43,6 +47,7 @@ const Table: React.FC<TableProps> = ({
   onDeleteSelectMultiItem,
   onDeleteItem,
   onModifyItem,
+  onViewItemDetail,
 }) => {
   // const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
@@ -65,6 +70,12 @@ const Table: React.FC<TableProps> = ({
             onClick={() => onModifyItem?.(id)}
           >
             <EditIcon sx={{ cursor: "pointer" }} />
+          </Tooltip>
+          <Tooltip
+            title="Thông tin chi tiết"
+            onClick={() => onViewItemDetail?.(id)}
+          >
+            <InfoIcon sx={{ cursor: "pointer" }} />
           </Tooltip>
         </div>
       );
@@ -105,7 +116,7 @@ const Table: React.FC<TableProps> = ({
               color="warning"
               onClick={handleDeleteMultiSelectItem}
             >
-              Xoá thông tin
+              {titleBtnMultiDelete}
             </Button>
           )}
         </Box>

@@ -19,6 +19,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     style,
     icon,
     border = true,
+    disabled = false,
     ...rest
   } = props;
 
@@ -47,6 +48,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
       </InputLabel>
       <FormControl fullWidth>
         <Select
+          disabled={disabled}
           onChange={handleChange}
           inputProps={{
             name,

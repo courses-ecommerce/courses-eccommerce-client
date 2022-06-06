@@ -1,4 +1,5 @@
 import _ from "lodash";
+import formatDate from "./formatDay";
 
 //get all keys to pass for header table
 export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
@@ -22,6 +23,15 @@ export const getNewHeaderColumn = (
     const values = keys.map((key: any) => {
       if (key === "gender") {
         return { [key]: item[key] ? "Nam" : "Nữ" };
+      }
+      if (key === "publish") {
+        return { [key]: item[key] ? "Hoạt động" : "Đang khoá" };
+      }
+      if (key === "isActive") {
+        return { [key]: item[key] ? "Đang mở" : "Hết hạn" };
+      }
+      if (key === "expireDate") {
+        return { [key]: formatDate(item[key], "dd-MM-yyyy") };
       }
       return { [key]: item[key] };
     });

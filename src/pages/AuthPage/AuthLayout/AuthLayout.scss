@@ -50,7 +50,8 @@
       > form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        column-gap: 20px;
+        row-gap: 10px;
       }
 
       > .extra-links {
@@ -64,11 +65,6 @@
           display: flex;
           gap: 20px;
         }
-        // > a {
-        //   flex: 1;
-        //   display: flex;
-        //   justify-content: center;
-        // }
       }
     }
   }

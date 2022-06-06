@@ -11,6 +11,7 @@ import { IUser } from "src/types";
 // import { useTypingDebounce } from "src/hooks";
 import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import AccountDetail from "./AccountDetail";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
 import MultiDeleteAccount from "./MultiDeleteAccount";
@@ -57,17 +58,17 @@ const columsHeader: GridColDef[] = [
     headerName: "Giới tính",
     width: 120,
   },
-
   // { field: "birthday", headerName: "Ngày sinh", width: 150 },
 ];
 
 export default function UserList() {
-  const [users, setUsers] = useState<any>([]);
-  const [userId, setUserId] = useState<any>();
-  const [userIds, setUserIds] = useState<any>();
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [userId, setUserId] = useState<string | number>("");
+  const [userIds, setUserIds] = useState<string[] | number[]>([]);
   const [role, setRole] = useState<string>("student");
   const [isActive, setIsActive] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+
   //pagination
   const [total, setTotal] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
@@ -78,24 +79,26 @@ export default function UserList() {
   const debouncedValue = useTypingDebounce(value);
   const [email, setEmail] = useState<string>();
 
-  //delete account modal
+  //delete modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-  //multi delete account modal
+  //multi delete modal
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
   const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
 
-  //create account modal
+  //create modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
 
-  //update account modal
+  //update modal
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
-  //update account modal
+  //update modal
   const [showUpload, setShowUpload] = useState<boolean>(false);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  //detail modal
+  const [showDetail, setShowDetail] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers();
@@ -113,6 +116,7 @@ export default function UserList() {
     pageSize,
   ]);
 
+  //for modal
   useEffect(() => {
     setShowDelete(false);
   }, [isDeleted]);
@@ -133,6 +137,7 @@ export default function UserList() {
     setShowMultiDelete(false);
   }, [isMultiDeleted]);
 
+  //debounce to search
   useEffect(() => {
     setEmail(debouncedValue);
   }, [debouncedValue]);
@@ -171,13 +176,13 @@ export default function UserList() {
     }
   };
 
-  const handleCreate = () => {
-    setShowCreate(true);
-  };
-
   const handleModifyItem = async (id: string | number) => {
     setUserId(id);
     setShowUpdate(true);
+  };
+  const handleViewDetail = async (id: string | number) => {
+    setUserId(id);
+    setShowDetail(true);
   };
   const handleDelete = (id: string | number) => {
     setUserId(id);
@@ -187,10 +192,6 @@ export default function UserList() {
   const handleMultiDeleted = (ids: string[] | number[]) => {
     setUserIds(ids);
     setShowMultiDelete(true);
-  };
-
-  const handleSearchByEmail = (e: any) => {
-    setValue(e.target.value);
   };
 
   return (
@@ -208,7 +209,7 @@ export default function UserList() {
             <Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng địa chỉ email"
-              onChange={handleSearchByEmail}
+              onChange={(e: any) => setValue(e.target.value)}
             />
             <InputSelect
               defaultValue={role}
@@ -244,8 +245,9 @@ export default function UserList() {
         columnsData={columsHeader}
         rowsData={users}
         total={total}
-        handleAddItem={handleCreate}
+        handleAddItem={() => setShowCreate(true)}
         onDeleteItem={handleDelete}
+        onViewItemDetail={handleViewDetail}
         onModifyItem={handleModifyItem}
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
@@ -269,7 +271,6 @@ export default function UserList() {
       />
       <UpdateAccount
         id={userId}
-        // userDetail={userDetail}
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
         onUpdate={(status) => setIsUpdated(status)}
@@ -278,6 +279,11 @@ export default function UserList() {
         show={showUpload}
         onClose={() => setShowUpload(false)}
         onUpload={(status) => setIsUploaded(status)}
+      />
+      <AccountDetail
+        id={userId}
+        show={showDetail}
+        onClose={() => setShowDetail(false)}
       />
     </>
   );

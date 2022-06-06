@@ -4,18 +4,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import adminApi from "src/apis/adminApi";
-import * as Yup from "yup";
+import Input from "src/components/Input";
+import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
+import { accountTypes, genderTypes, statusTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IUser } from "src/types";
-import InputSelect from "src/components/InputSelect";
-import Input from "src/components/Input";
-import { accountTypes, genderTypes, statusTypes } from "src/data";
-import { ICreateNewUser } from "src/types/user";
 import { phoneRegExp } from "src/utils";
+import * as Yup from "yup";
 
 interface UpdateAccountProps {
-  // userDetail: IUser;
   id: string | number;
   show?: boolean;
   onUpdate?: (updateComplete: boolean) => void;
@@ -24,7 +22,6 @@ interface UpdateAccountProps {
 
 const UpdateAccount: React.FC<UpdateAccountProps> = ({
   id,
-  // userDetail,
   onUpdate,
   show = false,
   onClose,
@@ -39,7 +36,6 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
   const getUserDetail = async (id: any) => {
     try {
       const response = await adminApi.getUserDetail(id);
-      // console.log("thông tin chi tiết", response);
       const { user }: any = response;
       setUserDetail(user);
     } catch (error) {
@@ -47,12 +43,17 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     }
   };
 
-  const handleUpdateAccount = async (params: IUser) => {
+  const handleUpdateAccount = async (values: any) => {
+    const { role, birthday, fullName, gender, isActive, password, phone } =
+      values;
     onUpdate?.(false);
     dispatch(isPending());
+    const params = {
+      account: { password: password ? password : null, isActive, role },
+      user: { fullName, birthday, gender, phone },
+    };
     try {
-      const response = await adminApi.updateUserInfo(id, params);
-      console.log(response);
+      await adminApi.updateUserInfo(id, params);
       dispatch(isSuccess());
       onUpdate?.(true);
 
@@ -73,7 +74,6 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     initialValues: {
       role: userDetail.account?.role,
       fullName: userDetail.fullName,
-      email: userDetail.account?.email,
       password: "",
       birthday: userDetail.birthday,
       gender: userDetail.gender,
@@ -82,14 +82,11 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required("Vui lòng nhập họ tên"),
-      email: Yup.string()
-        .email("Phải là email")
-        .required("Vui lòng nhập gmail"),
       password: Yup.string().min(8, "Mật khẩu ít nhất 8 kí tự"),
-      phone: Yup.string()
-        .matches(phoneRegExp, "Định dạng số điện thoại sai")
-        .max(10, "Định dạng số điện thoại sai")
-        .min(10, "Định dạng số điện thoại sai"),
+      // phone: Yup.string()
+      //   .matches(phoneRegExp, "Định dạng số điện thoại sai")
+      //   .max(10, "Định dạng số điện thoại sai")
+      //   .min(10, "Định dạng số điện thoại sai"),
     }),
     onSubmit: async (values) => {
       // console.log("lấy được dữ liệu là", values);
@@ -116,16 +113,16 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
           <Input
+            label="Địa chỉ email"
+            placeholder="Nhập địa chỉ email"
+            value={userDetail.account?.email}
+            disabled
+          />
+          <Input
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
             {...formik.getFieldProps("fullName")}
-          />
-          <Input
-            label="Địa chỉ email"
-            placeholder="Nhập địa chỉ email"
-            errorMessage={formik.touched.email ? formik.errors.email : ""}
-            {...formik.getFieldProps("email")}
           />
           <Input
             type="password"
