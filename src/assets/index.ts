@@ -7,10 +7,11 @@ import thumb5 from "../assets/images/thumb5.jpg";
 //icon
 import downloadIMG from "../assets/images/download.png";
 import defaultIMG from "../assets/images/image-default.gif";
+import avatarNone from "../assets/images/avt-none.png";
 import linearIMG from "../assets/images/linear.png";
 // hashtag
 import quotes from "../assets/images/quote.svg";
 
 export { thumb1, thumb2, thumb3, thumb4, thumb5 };
-export { downloadIMG, defaultIMG, linearIMG };
+export { downloadIMG, defaultIMG, linearIMG, avatarNone };
 export { quotes };

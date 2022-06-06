@@ -1,6 +1,7 @@
 import { Avatar, IconButton, MenuItem, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
+import { avatarNone } from "src/assets";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
@@ -20,7 +21,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
     <div className="account-popup">
       <Tooltip title="Thông tin cá nhân">
         <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-          <Avatar src={userInfo.avatar} alt="photoURL" />
+          <Avatar src={userInfo.avatar || avatarNone} alt="photoURL" />
         </IconButton>
       </Tooltip>
 

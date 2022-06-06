@@ -3,9 +3,9 @@ import axiosClient from "./axiosClient";
 const CATEGORY_API = "/categories";
 
 const categoryApi = {
-  getCategories: () => {
+  getCategories: (params: any) => {
     const url = CATEGORY_API;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   createNewCategory: (name: Object) => {
     const url = CATEGORY_API;

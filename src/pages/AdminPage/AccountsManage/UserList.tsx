@@ -7,7 +7,6 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { accountTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { IUser } from "src/types";
 // import { useTypingDebounce } from "src/hooks";
 import { translateVi } from "src/utils";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
@@ -113,6 +112,7 @@ export default function UserList() {
     pageSize,
   ]);
 
+  //for modal
   useEffect(() => {
     setShowDelete(false);
   }, [isDeleted]);
@@ -133,6 +133,7 @@ export default function UserList() {
     setShowMultiDelete(false);
   }, [isMultiDeleted]);
 
+  //debounce to search
   useEffect(() => {
     setEmail(debouncedValue);
   }, [debouncedValue]);
@@ -169,10 +170,6 @@ export default function UserList() {
       console.log("lỗi rồi", { error });
       setLoading(false);
     }
-  };
-
-  const handleCreate = () => {
-    setShowCreate(true);
   };
 
   const handleModifyItem = async (id: string | number) => {
@@ -244,7 +241,7 @@ export default function UserList() {
         columnsData={columsHeader}
         rowsData={users}
         total={total}
-        handleAddItem={handleCreate}
+        handleAddItem={() => setShowCreate(true)}
         onDeleteItem={handleDelete}
         onModifyItem={handleModifyItem}
         onDeleteSelectMultiItem={handleMultiDeleted}
@@ -269,7 +266,6 @@ export default function UserList() {
       />
       <UpdateAccount
         id={userId}
-        // userDetail={userDetail}
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
         onUpdate={(status) => setIsUpdated(status)}
