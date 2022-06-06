@@ -205,6 +205,7 @@ export default function UserList() {
         }
         onPage={(page) => setPage(Number(page))}
         onPageSize={(pageSize) => setPageSize(Number(pageSize))}
+        getRowId={(row) => row._id}
         titleBtnAdd="Tạo tài khoản mới"
         isLoading={loading}
         title="Danh sách thông tin người dùng"
