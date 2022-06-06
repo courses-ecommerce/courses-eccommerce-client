@@ -23,7 +23,7 @@ const MultiDeleteAccount: React.FC<MultiDeleteAccountProps> = ({
 
   const handleMultiDeleteAccount = async () => {
     const params = { ids };
-    console.log("xoá multi", params);
+    console.log(JSON.stringify(params));
 
     onDelete?.(false);
     dispatch(isPending());

@@ -96,7 +96,6 @@ export default function UserList() {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   //update modal
   const [showUpload, setShowUpload] = useState<boolean>(false);
-  const [isUploaded, setIsUploaded] = useState<boolean>(false);
   //detail modal
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
@@ -107,7 +106,6 @@ export default function UserList() {
     isDeleted,
     isMultiDeleted,
     isCreated,
-    isUploaded,
     isUpdated,
     role,
     isActive,
@@ -128,10 +126,6 @@ export default function UserList() {
   useEffect(() => {
     setShowUpdate(false);
   }, [isUpdated]);
-
-  useEffect(() => {
-    setShowUpload(false);
-  }, [isUploaded]);
 
   useEffect(() => {
     setShowMultiDelete(false);
@@ -278,7 +272,7 @@ export default function UserList() {
       <UploadAccountByExcel
         show={showUpload}
         onClose={() => setShowUpload(false)}
-        onUpload={(status) => setIsUploaded(status)}
+        setShow={setShowUpload}
       />
       <AccountDetail
         id={userId}
