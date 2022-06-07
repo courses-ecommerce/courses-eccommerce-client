@@ -14,7 +14,7 @@ import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment"
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
-import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticManage";
+import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 
 // main route
@@ -89,18 +89,18 @@ const DASHBOARD_ROUTE = [
         // ],
       },
       {
-        path: "dashboard/course",
-        title: "Quản lý khoá học",
-        href: "/admin/dashboard/course",
-        element: <CourseList />,
-        icon: "book",
-      },
-      {
         path: "dashboard/categories",
         href: "/admin/dashboard/categories",
         element: <CategoryList />,
         title: "Quản lý danh mục",
         icon: "newspaper-o",
+      },
+      {
+        path: "dashboard/course",
+        title: "Quản lý khoá học",
+        href: "/admin/dashboard/course",
+        element: <CourseList />,
+        icon: "book",
       },
       {
         path: "dashboard/coupon",

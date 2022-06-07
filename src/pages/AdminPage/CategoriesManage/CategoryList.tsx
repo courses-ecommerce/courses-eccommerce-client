@@ -7,16 +7,16 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { ICategory } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CreateCategory from "./CreateCategory";
-import DeleteCatergory from "./DeleteCategory";
 import MultiDeleteCategory from "./MultiDeleteCategory";
 import UpdateCategory from "./UpdateCategory";
 
 const CategoryList = () => {
   document.title = "Quản lý danh mục";
 
-  const [categories, setCategories] = useState<Object[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [categoryId, setCategoryId] = useState<string | number>("");
   const [categoryIds, setCategoryIds] = useState<string[] | number[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +35,6 @@ const CategoryList = () => {
 
   //modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
-  const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
 
@@ -51,7 +50,6 @@ const CategoryList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     showCreate,
-    showDelete,
     showMultiDelete,
     showUpdate,
     page,
@@ -88,10 +86,6 @@ const CategoryList = () => {
     }
   };
 
-  const handleDelete = (id: string | number) => {
-    setCategoryId(id);
-    setShowDelete(true);
-  };
   const handleMultiDeleted = (ids: string[] | number[]) => {
     setCategoryIds(ids);
     setShowMultiDelete(true);
@@ -135,7 +129,6 @@ const CategoryList = () => {
         columnsData={columsHeader}
         rowsData={categories}
         isLoading={loading}
-        onDeleteItem={handleDelete}
         onModifyItem={handleModifyItem}
         handleAddItem={() => setShowCreate(true)}
         onDeleteSelectMultiItem={handleMultiDeleted}
@@ -144,12 +137,6 @@ const CategoryList = () => {
         show={showCreate}
         onClose={() => setShowCreate(false)}
         setShow={setShowCreate}
-      />
-      <DeleteCatergory
-        id={categoryId}
-        show={showDelete}
-        onClose={() => setShowDelete(false)}
-        setShow={setShowDelete}
       />
       <MultiDeleteCategory
         slugs={categoryIds}

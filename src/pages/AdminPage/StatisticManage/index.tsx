@@ -1,1 +1,1 @@
-export * from "./StatisticManage";
+export * from "./StatisticViews";
