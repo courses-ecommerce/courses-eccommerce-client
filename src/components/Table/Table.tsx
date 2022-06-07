@@ -1,4 +1,4 @@
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Tooltip } from "@mui/material";
@@ -47,7 +47,7 @@ const Table: React.FC<TableProps> = ({
   total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
-  onDeleteItem,
+  // onDeleteItem,
   onModifyItem,
   onViewItemDetail,
 }) => {
