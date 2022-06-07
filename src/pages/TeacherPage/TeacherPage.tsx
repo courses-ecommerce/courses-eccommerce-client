@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 import "./TeacherPage.scss";
-// import LinearProgress from "@mui/material/LinearProgress";
 import Input from "src/components/Input";
 import { Button } from "@mui/material";
 import ModalContainer from "src/components/ModalContainer";
@@ -14,6 +13,8 @@ import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
 import { useNavigate } from "react-router-dom";
 import { ICourse } from "src/types";
+import { useDispatch } from "react-redux";
+import { isPending, isSuccess } from "src/reducers/authSlice";
 
 interface ICategories {
   name: string;
@@ -25,9 +26,13 @@ const TeacherPage: React.FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
   const nav = useNavigate();
+  const dispatch = useDispatch();
 
   const getListCourses = () => {
-    teacherApi.getCourses().then((res: any) => setCourses(res.courses));
+    teacherApi.getCourses().then((res: any) => {
+      dispatch(isSuccess());
+      setCourses(res.courses);
+    });
   };
 
   const formik = useFormik({
@@ -41,6 +46,7 @@ const TeacherPage: React.FC = () => {
       description: Yup.string().required("Vui lòng nhập mô tả khóa học"),
     }),
     onSubmit: async (values) => {
+      dispatch(isPending());
       courseApi.createNewCourse(values).then(() => {
         formik.resetForm({
           values: {
@@ -50,11 +56,13 @@ const TeacherPage: React.FC = () => {
           },
         });
         setShowModal(false);
+        getListCourses();
       });
     },
   });
 
   useEffect(() => {
+    dispatch(isPending());
     categoryApi.getCategories().then((res: any) => {
       setCategories(
         res.categories.map((category: any) => {
