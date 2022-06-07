@@ -19,6 +19,7 @@ interface TableProps {
   isCheckBoxSelection?: boolean;
   btnHandle?: ReactNode;
   btnSearch?: ReactNode;
+  getRowId?: (rowId: any) => any;
   onPageSize?: (pageSize: string | number) => void;
   onPage?: (page: string | number) => void;
   total?: number;
@@ -42,6 +43,7 @@ const Table: React.FC<TableProps> = ({
   isCheckBoxSelection = true,
   onPageSize,
   onPage,
+  getRowId,
   total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
@@ -49,7 +51,6 @@ const Table: React.FC<TableProps> = ({
   onModifyItem,
   onViewItemDetail,
 }) => {
-  // const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [multiSelect, setMultiSelect] = useState<string[] | number[]>([]);
 
@@ -123,7 +124,7 @@ const Table: React.FC<TableProps> = ({
       </div>
       <DataGrid
         className="data-grid"
-        getRowId={(row) => row._id}
+        getRowId={getRowId}
         autoHeight
         checkboxSelection={isCheckBoxSelection}
         disableColumnMenu

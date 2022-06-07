@@ -10,19 +10,19 @@ import ModalContainer from "src/components/ModalContainer";
 import { accountTypes, genderTypes, statusTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IUser } from "src/types";
-import { phoneRegExp } from "src/utils";
+// import { phoneRegExp } from "src/utils";
 import * as Yup from "yup";
 
 interface UpdateAccountProps {
   id: string | number;
   show?: boolean;
-  onUpdate?: (updateComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const UpdateAccount: React.FC<UpdateAccountProps> = ({
   id,
-  onUpdate,
+  setShow,
   show = false,
   onClose,
 }) => {
@@ -46,7 +46,6 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
   const handleUpdateAccount = async (values: any) => {
     const { role, birthday, fullName, gender, isActive, password, phone } =
       values;
-    onUpdate?.(false);
     dispatch(isPending());
     const params = {
       account: { password: password ? password : null, isActive, role },
@@ -55,7 +54,7 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     try {
       await adminApi.updateUserInfo(id, params);
       dispatch(isSuccess());
-      onUpdate?.(true);
+      setShow?.(false);
 
       toast.success("Cập nhật thông tin tài khoản thành công", {
         position: "bottom-right",
@@ -63,6 +62,7 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Cập nhật thông tin tài khoản thất bại", {
         position: "bottom-right",
       });

@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
 import Input from "src/components/Input";
@@ -105,22 +105,6 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
           />
         </Box>
       </form>
-      <Button
-        form="update-account"
-        type="submit"
-        variant="contained"
-        color="warning"
-      >
-        Cập nhật thông tin
-      </Button>
-      <Button
-        variant="contained"
-        color="success"
-        onClick={onClose}
-        sx={{ marginLeft: 1 }}
-      >
-        Huỷ bỏ
-      </Button>
     </ModalContainer>
   );
 };

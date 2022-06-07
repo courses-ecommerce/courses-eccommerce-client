@@ -21,7 +21,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
     <div className="account-popup">
       <Tooltip title="Thông tin cá nhân">
         <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-          <Avatar src={userInfo.avatar || avatarNone} alt="photoURL" />
+          <Avatar src={userInfo?.avatar || avatarNone} alt="photoURL" />
         </IconButton>
       </Tooltip>
 

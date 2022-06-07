@@ -8,18 +8,16 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 
 interface UploadAccountByExcelProps {
   show?: boolean;
-  onUpload?: (uploadComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
-  onError?: string;
 }
 
 const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   show,
   onClose,
-  onUpload,
-  onError,
+  setShow,
 }) => {
-  const [error, setError] = useState(onError);
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -28,7 +26,6 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
     formData.append("file", e.target.files[0]);
 
     // console.log("param là", ...formData);
-    onUpload?.(false);
     dispatch(isPending());
     try {
       const response = await adminApi.uploadUserByExcel(formData);
@@ -36,7 +33,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
       console.log("thành công", response);
 
       if (!urlLogs) {
-        onUpload?.(true);
+        setShow?.(true);
         toast.success(`${message}`, {
           position: "bottom-right",
         });
@@ -44,7 +41,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
         setError(urlLogs);
       }
     } catch (error) {
-      console.log("lỗi rồi", { error });
+      setShow?.(false);
       toast.warning("Lỗi rồi", { position: "bottom-right" });
     }
     dispatch(isSuccess());
@@ -53,7 +50,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   const handleOpenNewLink = () => {
     error && window.open(`https://hnam.works${error}`, "_blank");
     setError("");
-    onUpload?.(true);
+    setShow?.(false);
   };
 
   return (

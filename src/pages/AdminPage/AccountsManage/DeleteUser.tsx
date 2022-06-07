@@ -9,32 +9,33 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 interface DeleteAccountProps {
   id: string | number;
   show?: boolean;
-  onDelete?: (deleteComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const DeleteAccount: React.FC<DeleteAccountProps> = ({
   id,
-  onDelete,
+  setShow,
   show = false,
   onClose,
 }) => {
   const dispatch = useDispatch();
   const handleDeleteAccount = async () => {
     // console.log("xoá user có id", id);
-    onDelete?.(false);
+
     dispatch(isPending());
     try {
       await adminApi.deleteUser(id);
       // const response = await adminApi.deleteUser(id);
       // console.log(response);
       dispatch(isSuccess());
-      onDelete?.(true);
+      setShow?.(false);
 
       toast.success("Xoá tài khoản thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Xoá tài khoản thất bại", { position: "bottom-right" });
     }
   };

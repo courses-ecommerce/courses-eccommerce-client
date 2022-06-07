@@ -9,28 +9,28 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 interface DeleteCatergoryProps {
   id: string | number;
   show?: boolean;
-  onDelete?: (deleteComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const DeleteCatergory: React.FC<DeleteCatergoryProps> = ({
   id,
-  onDelete,
+  setShow,
   show = false,
   onClose,
 }) => {
   const dispatch = useDispatch();
   const handleDeleteCatergory = async () => {
-    onDelete?.(false);
     dispatch(isPending());
     try {
       await categoryApi.deleteCategory(id);
       dispatch(isSuccess());
-      onDelete?.(true);
+      setShow?.(false);
       toast.success("Xoá danh mục thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Xoá danh mục thất bại", { position: "bottom-right" });
     }
   };

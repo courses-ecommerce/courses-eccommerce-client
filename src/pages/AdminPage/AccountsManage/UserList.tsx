@@ -79,63 +79,29 @@ export default function UserList() {
   const debouncedValue = useTypingDebounce(value);
   const [email, setEmail] = useState<string>();
 
-  //delete modal
+  //modal
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const [isDeleted, setIsDeleted] = useState<boolean>(false);
-
-  //multi delete modal
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
-  const [isMultiDeleted, setIsMultiDeleted] = useState<boolean>(false);
-
-  //create modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
-  const [isCreated, setIsCreated] = useState<boolean>(false);
-
-  //update modal
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
-  const [isUpdated, setIsUpdated] = useState<boolean>(false);
-  //update modal
   const [showUpload, setShowUpload] = useState<boolean>(false);
-  const [isUploaded, setIsUploaded] = useState<boolean>(false);
-  //detail modal
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    isDeleted,
-    isMultiDeleted,
-    isCreated,
-    isUploaded,
-    isUpdated,
+    showCreate,
+    showUpdate,
+    showDelete,
+    showMultiDelete,
+    showUpload,
     role,
     isActive,
     email,
     page,
     pageSize,
   ]);
-
-  //for modal
-  useEffect(() => {
-    setShowDelete(false);
-  }, [isDeleted]);
-
-  useEffect(() => {
-    setShowCreate(false);
-  }, [isCreated]);
-
-  useEffect(() => {
-    setShowUpdate(false);
-  }, [isUpdated]);
-
-  useEffect(() => {
-    setShowUpload(false);
-  }, [isUploaded]);
-
-  useEffect(() => {
-    setShowMultiDelete(false);
-  }, [isMultiDeleted]);
 
   //debounce to search
   useEffect(() => {
@@ -239,6 +205,7 @@ export default function UserList() {
         }
         onPage={(page) => setPage(Number(page))}
         onPageSize={(pageSize) => setPageSize(Number(pageSize))}
+        getRowId={(row) => row._id}
         titleBtnAdd="Tạo tài khoản mới"
         isLoading={loading}
         title="Danh sách thông tin người dùng"
@@ -255,30 +222,30 @@ export default function UserList() {
         id={userId}
         show={showDelete}
         onClose={() => setShowDelete(false)}
-        onDelete={(status) => setIsDeleted(status)}
+        setShow={setShowDelete}
       />
       <MultiDeleteAccount
         ids={userIds}
         show={showMultiDelete}
         onClose={() => setShowMultiDelete(false)}
-        onDelete={(status) => setIsMultiDeleted(status)}
+        setShow={setShowMultiDelete}
       />
 
       <CreateAccount
         show={showCreate}
         onClose={() => setShowCreate(false)}
-        onCreate={(status) => setIsCreated(status)}
+        setShow={setShowCreate}
       />
       <UpdateAccount
         id={userId}
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
-        onUpdate={(status) => setIsUpdated(status)}
+        setShow={setShowUpdate}
       />
       <UploadAccountByExcel
         show={showUpload}
         onClose={() => setShowUpload(false)}
-        onUpload={(status) => setIsUploaded(status)}
+        setShow={setShowUpload}
       />
       <AccountDetail
         id={userId}

@@ -9,13 +9,13 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 interface MultiDeleteAccountProps {
   ids: string[] | number[];
   show?: boolean;
-  onDelete?: (deleteComplete: boolean) => void;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const MultiDeleteAccount: React.FC<MultiDeleteAccountProps> = ({
   ids,
-  onDelete,
+  setShow,
   show = false,
   onClose,
 }) => {
@@ -23,19 +23,18 @@ const MultiDeleteAccount: React.FC<MultiDeleteAccountProps> = ({
 
   const handleMultiDeleteAccount = async () => {
     const params = { ids };
-    console.log("xoá multi", params);
 
-    onDelete?.(false);
     dispatch(isPending());
     try {
       const response = await adminApi.deleteMultiUser(params);
       console.log(response);
       dispatch(isSuccess());
-      onDelete?.(true);
+      setShow?.(false);
       toast.success("Xoá tài khoản thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
+      setShow?.(false);
       toast.warning("Xoá tài khoản thất bại", { position: "bottom-right" });
     }
   };
