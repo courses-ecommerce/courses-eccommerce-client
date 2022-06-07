@@ -1,0 +1,13 @@
+.teacher-course-detail {
+  width: 1440px;
+  margin: 0 auto;
+  padding-top: 60px;
+
+  & > form {
+    padding: 24px;
+    border-radius: 16px;
+    background-color: white;
+    margin-top: 40px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+}

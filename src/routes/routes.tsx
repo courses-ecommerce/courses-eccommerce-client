@@ -26,6 +26,9 @@ import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
 import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCourseDetail";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
+import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticManage";
+import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
+import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourseDetail";
 
 // main route
 const MAIN_ROUTE = [
@@ -81,7 +84,16 @@ const STUDENT_ROUTE = [
 
 // Teacher route
 const TEACHER_ROUTE = [
-  { role: "teacher", path: "/teacher", element: <TeacherPage /> },
+  {
+    role: "teacher",
+    path: "/teacher/info",
+    element: <TeacherPage />,
+  },
+  {
+    role: "teacher",
+    path: "/teacher/course/:id",
+    element: <TeacherCourseDetail />,
+  },
 ];
 
 //Dash board routes
