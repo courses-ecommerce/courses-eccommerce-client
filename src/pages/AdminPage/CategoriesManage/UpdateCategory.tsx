@@ -9,6 +9,7 @@ import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { statusTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
+import { ICategory } from "src/types";
 import * as Yup from "yup";
 
 interface UpdateCategoryProps {
@@ -25,17 +26,16 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
   onClose,
 }) => {
   const dispatch = useDispatch();
-  const [categoryDetail, setCategoryDetail] = useState<any>({});
+  const [categoryDetail, setCategoryDetail] = useState<ICategory>({});
 
   useEffect(() => {
     id && getCategoryDetail(id);
-    console.log("id là", id);
   }, [id]);
 
   const getCategoryDetail = async (id: any) => {
     try {
       const response = await categoryApi.getCategoryDetail(id);
-      console.log("áádasd", response);
+      // console.log("áádasd", response);
       const { category }: any = response;
       setCategoryDetail(category);
     } catch (error) {
@@ -75,7 +75,7 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
     }),
     onSubmit: async (values) => {
       console.log("lấy được dữ liệu là", values);
-      // handleUpdateCategory(values);
+      handleUpdateCategory(values);
     },
   });
 
@@ -90,14 +90,15 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
         <Input
           label="Địa chỉ email"
           placeholder="Nhập địa chỉ email"
-          // errorMessage={formik.touched.name ? formik.errors.name : ""}
+          errorMessage={formik.touched.name ? formik.errors.name : ""}
           {...formik.getFieldProps("name")}
         />
 
         <InputSelect
           label="Xuất bản"
           list={statusTypes}
-          // errorMessage={formik.touched.publish ? formik.errors.publish : ""}
+          defaultValue={formik.values.publish}
+          errorMessage={formik.touched.publish ? formik.errors.publish : ""}
           {...formik.getFieldProps("publish")}
         />
       </form>

@@ -63,9 +63,9 @@ const Table: React.FC<TableProps> = ({
     renderCell: ({ id }) => {
       return (
         <div style={{ display: "flex", gap: 20 }}>
-          <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
+          {/* <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
             <DeleteForeverIcon sx={{ cursor: "pointer" }} />
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip
             title="Cập nhật thông tin"
             onClick={() => onModifyItem?.(id)}

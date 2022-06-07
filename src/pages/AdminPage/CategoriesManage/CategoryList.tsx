@@ -70,12 +70,12 @@ const CategoryList = () => {
     const params = { name: categoryName, publish, page, limit: pageSize };
     try {
       const response = await categoryApi.getCategories(params);
-      console.log(response);
+      // console.log(response);
       const { categories, total }: any = response;
 
       if (categories.length > 0) {
         const keys = getHeaderColumns(categories[0]);
-        const res = getNewHeaderColumn(categories, keys);
+        const res = getNewHeaderColumn(categories, keys, page, pageSize);
         setCategories(res);
       } else {
         setCategories(categories);
@@ -126,18 +126,18 @@ const CategoryList = () => {
           </Box>
         }
         getRowId={(row) => row.slug}
-        handleAddItem={() => setShowCreate(true)}
+        onPage={(page) => setPage(Number(page))}
+        onPageSize={(pageSize) => setPageSize(Number(pageSize))}
+        total={total}
         title="Danh sách thông tin danh mục"
         titleBtnAdd="Tạo danh mục mới"
         titleBtnMultiDelete="Xoá thông tin danh mục"
         columnsData={columsHeader}
         rowsData={categories}
         isLoading={loading}
-        total={total}
-        onPage={(page) => setPage(Number(page))}
-        onPageSize={(pageSize) => setPageSize(Number(pageSize))}
         onDeleteItem={handleDelete}
         onModifyItem={handleModifyItem}
+        handleAddItem={() => setShowCreate(true)}
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <CreateCategory
@@ -152,7 +152,7 @@ const CategoryList = () => {
         setShow={setShowDelete}
       />
       <MultiDeleteCategory
-        ids={categoryIds}
+        slugs={categoryIds}
         show={showMultiDelete}
         onClose={() => setShowMultiDelete(false)}
         setShow={setShowMultiDelete}

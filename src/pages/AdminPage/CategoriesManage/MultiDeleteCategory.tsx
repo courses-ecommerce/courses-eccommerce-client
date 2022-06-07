@@ -7,14 +7,14 @@ import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
 interface MultiDeleteCategoryProps {
-  ids: string[] | number[];
+  slugs: string[] | number[];
   show?: boolean;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
-  ids,
+  slugs,
   setShow,
   show = false,
   onClose,
@@ -22,7 +22,7 @@ const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
   const dispatch = useDispatch();
 
   const handleMultiDeleteCategory = async () => {
-    const params = { ids };
+    const params = { slugs };
     console.log("xoá multi", params);
 
     dispatch(isPending());

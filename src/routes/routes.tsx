@@ -100,7 +100,7 @@ const DASHBOARD_ROUTE = [
         href: "/admin/dashboard/categories",
         element: <CategoryList />,
         title: "Quản lý danh mục",
-        icon: "user",
+        icon: "newspaper-o",
       },
       {
         path: "dashboard/coupon",
