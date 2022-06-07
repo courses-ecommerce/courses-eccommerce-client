@@ -36,8 +36,8 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
     try {
       const response = await categoryApi.getCategoryDetail(id);
       console.log("áádasd", response);
-      // const { user }: any = response;
-      // setCategoryDetail(user);
+      const { category }: any = response;
+      setCategoryDetail(category);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }

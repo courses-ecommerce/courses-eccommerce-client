@@ -125,6 +125,7 @@ const CategoryList = () => {
             />
           </Box>
         }
+        getRowId={(row) => row.slug}
         handleAddItem={() => setShowCreate(true)}
         title="Danh sách thông tin danh mục"
         titleBtnAdd="Tạo danh mục mới"
