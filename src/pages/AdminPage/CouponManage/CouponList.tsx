@@ -46,6 +46,11 @@ const columsHeader: GridColDef[] = [
     headerAlign: "center",
   },
   {
+    field: "startDate",
+    headerName: "Ngày bắt đầu",
+    width: 200,
+  },
+  {
     field: "expireDate",
     headerName: "Ngày hết hạn",
     width: 200,

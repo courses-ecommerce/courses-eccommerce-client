@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import adminApi from "src/apis/adminApi";
+import couponApi from "src/apis/couponApi";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
@@ -23,22 +23,21 @@ const MultiDeleteCoupon: React.FC<MultiDeleteCouponProps> = ({
 
   const handleMultiDeleteCoupon = async () => {
     const params = { ids };
-
-    console.log("xoá mã khuyến mãi có ids", ids);
-
-    // dispatch(isPending());
-    // try {
-    //   const response = await adminApi.deleteMultiUser(params);
-    //   console.log(response);
-    //   dispatch(isSuccess());
-    //   setShow?.(false);
-    //   toast.success("Xoá tài khoản thành công", { position: "bottom-right" });
-    // } catch (error) {
-    //   console.log("lỗi rồi", { error });
-    //   dispatch(isSuccess());
-    //   setShow?.(false);
-    //   toast.warning("Xoá tài khoản thất bại", { position: "bottom-right" });
-    // }
+    dispatch(isPending());
+    try {
+      const response = await couponApi.multiDeleteCoupon(params);
+      console.log(response);
+      dispatch(isSuccess());
+      setShow?.(false);
+      toast.success("Xoá mã khuyến mãi thành công", {
+        position: "bottom-right",
+      });
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+      dispatch(isSuccess());
+      setShow?.(false);
+      toast.warning("Xoá mã khuyến mãi thất bại", { position: "bottom-right" });
+    }
   };
 
   return (

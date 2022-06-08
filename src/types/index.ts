@@ -43,8 +43,8 @@ export interface ICounpon {
   author?: IUser;
   expireDate?: string;
   startDate?: string;
-  type?: "percent" | "money";
-  apply?: "author" | "all" | "category" | "new user";
+  type: "percent" | "money";
+  apply: "author" | "all" | "category" | "new user";
 }
 export interface RatingProps {
   numOfRate?: number;
