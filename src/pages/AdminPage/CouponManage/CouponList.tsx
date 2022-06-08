@@ -12,6 +12,7 @@ import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CouponDetail from "./CouponDetail";
 import CreateCoupon from "./CreateCoupon";
 import MultiDeleteCoupon from "./MultiDeleteCoupon";
+import UpdateCoupon from "./UpdateCoupon";
 
 const columsHeader: GridColDef[] = [
   {
@@ -48,12 +49,12 @@ const columsHeader: GridColDef[] = [
   {
     field: "startDate",
     headerName: "Ngày bắt đầu",
-    width: 200,
+    width: 160,
   },
   {
     field: "expireDate",
     headerName: "Ngày hết hạn",
-    width: 200,
+    width: 160,
   },
   {
     field: "apply",
@@ -110,7 +111,7 @@ const CouponList = () => {
     try {
       const response = await couponApi.getCoupons(params);
       const { coupons, total }: any = response;
-      console.log("coupon", response);
+      // console.log("coupon", response);
 
       if (coupons.length > 0) {
         const keys = getHeaderColumns(coupons[0]);
@@ -142,6 +143,10 @@ const CouponList = () => {
   const handleViewDetail = (id: string | number) => {
     setCouponId(id);
     setShowDetail(true);
+  };
+  const handleModifyItem = (id: string | number) => {
+    setCouponId(id);
+    setShowUpdate(true);
   };
 
   return (
@@ -181,7 +186,7 @@ const CouponList = () => {
         rowsData={coupons}
         handleAddItem={() => setShowCreate(true)}
         onViewItemDetail={handleViewDetail}
-        // onModifyItem={handleModifyItem}
+        onModifyItem={handleModifyItem}
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <CreateCoupon
@@ -199,6 +204,12 @@ const CouponList = () => {
         id={couponId}
         show={showDetail}
         onClose={() => setShowDetail(false)}
+      />
+      <UpdateCoupon
+        id={couponId}
+        show={showUpdate}
+        onClose={() => setShowUpdate(false)}
+        setShow={setShowUpdate}
       />
     </>
   );
