@@ -16,6 +16,8 @@ import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
+import StatisticUser from "src/pages/AdminPage/StatisticManage/StatisticUser";
+import StatisticRevenue from "src/pages/AdminPage/StatisticManage/StatisticRevenue";
 
 // main route
 const MAIN_ROUTE = [
@@ -79,14 +81,6 @@ const DASHBOARD_ROUTE = [
         element: <UserList />,
         title: "Quản lý người dùng",
         icon: "user",
-        // children: [
-        //   {
-        //     title: "Xem người dùng",
-        //     path: "/admin/dashboard/user",
-        //     element: <UserList />,
-        //     // icon: "info",
-        //   },
-        // ],
       },
       {
         path: "dashboard/categories",
@@ -111,11 +105,27 @@ const DASHBOARD_ROUTE = [
       },
 
       {
-        path: "dashboard/export",
-        href: "/admin/dashboard/export",
+        path: "dashboard/statistic/",
+        href: "/admin/dashboard/statistic",
         element: <StatisticManage />,
-        title: "Thống kê",
+        title: "Biểu đồ thống kê",
         icon: "bar-chart",
+        children: [
+          {
+            path: "user",
+            href: "/admin/dashboard/statistic/user",
+            title: "Thống kê người dùng",
+            element: <StatisticUser />,
+            // icon: "info",
+          },
+          {
+            path: "revenue",
+            href: "/admin/dashboard/statistic/revenue",
+            title: "Thống kê doanh thu",
+            element: <StatisticRevenue />,
+            // icon: "money",
+          },
+        ],
       },
     ],
   },

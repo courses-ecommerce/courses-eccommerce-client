@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Outlet, Route } from "react-router-dom";
 import { AuthRoute } from "./AuthRoute";
 import { NonAuthRoute } from "./NonAuthRoute";
 
@@ -31,8 +31,17 @@ const privateRoute = (routes: Array<any>) => {
             <Route
               key={index}
               path={subLink.path}
-              element={subLink.element}
-            ></Route>
+              element={subLink.children ? <Outlet /> : subLink.element}
+            >
+              {subLink.children &&
+                subLink.children.map((subLinkItem: any, index: number) => (
+                  <Route
+                    key={index}
+                    path={subLinkItem.path}
+                    element={subLinkItem.element}
+                  ></Route>
+                ))}
+            </Route>
           ))}
       </Route>
     );

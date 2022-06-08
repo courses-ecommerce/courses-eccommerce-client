@@ -7,15 +7,12 @@ import "./Notification.scss";
 interface NotificationProps {
   type: "notify" | "message";
   sticky?: boolean;
-  // notifications?: INotify[];
-  // messages?: IMessage[];
+
   unRead_total?: number;
 }
 
 const Notification: React.FC<NotificationProps> = ({
   type,
-  // notifications,
-  // messages,
   sticky = false,
   unRead_total = 0,
 }) => {

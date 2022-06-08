@@ -1,10 +1,10 @@
-import ContentInfo from "./ContentInfo/ContentInfo";
+import SidebarContent from "./SidebarContent/SidebarContent";
 import "./DashboardSidebar.scss";
 
 const DashboardSidebar = () => {
   return (
     <div className="dashboard-sidebar">
-      <ContentInfo />
+      <SidebarContent />
     </div>
   );
 };

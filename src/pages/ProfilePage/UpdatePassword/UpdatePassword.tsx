@@ -9,7 +9,6 @@ import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IUpdatePassword } from "src/types/auth";
 import * as Yup from "yup";
-import "./UpdatePassword.scss";
 
 const UpdatePassword = () => {
   const [showModal, setShowModal] = useState(false);
@@ -89,12 +88,15 @@ const UpdatePassword = () => {
         Đổi mật khẩu
       </Button>
       <ModalContainer
-        width={400}
+        width={500}
         title="Thay đổi mật khẩu"
         open={showModal}
         onClose={() => setShowModal(false)}
       >
-        <form className="update-password-form" onSubmit={formik.handleSubmit}>
+        <form
+          style={{ display: "flex", flexDirection: "column", gap: 20 }}
+          onSubmit={formik.handleSubmit}
+        >
           <Input
             label="Nhập mật khẩu hiện tại"
             type="password"

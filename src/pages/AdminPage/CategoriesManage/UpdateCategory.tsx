@@ -88,8 +88,8 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
     >
       <form id="update-account" onSubmit={formik.handleSubmit}>
         <Input
-          label="Địa chỉ email"
-          placeholder="Nhập địa chỉ email"
+          label="Tên danh mục"
+          placeholder="Nhập tên danh mục"
           errorMessage={formik.touched.name ? formik.errors.name : ""}
           {...formik.getFieldProps("name")}
         />
