@@ -1,12 +1,11 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import categoryApi from "src/apis/categoryApi";
 import couponApi from "src/apis/couponApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { discountApplyTypes, discountTypes, statusTypes } from "src/data";
-import { ICategory, ICounpon } from "src/types";
+import { discountApplyTypes, discountTypes } from "src/data";
+import { ICounpon } from "src/types";
 import formatDate from "src/utils/formatDay";
 
 interface CouponDetailProps {
