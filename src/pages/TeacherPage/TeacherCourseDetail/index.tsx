@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 import "./TeacherCourseDetail.scss";
 import * as Yup from "yup";
@@ -11,11 +11,17 @@ import Input from "src/components/Input";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
+import Chapter, { IChapter } from "./Chapter";
+import Icon from "src/components/Icon/Icon";
+import { v4 as uuidv4 } from "uuid";
+import chapterApi from "src/apis/chapterApi";
 
 const TeacherCourseDetail: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [navbar, setNavbar] = useState(0);
+  const [chapters, setChapters] = useState<IChapter[]>([]);
+  const nav = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -39,10 +45,54 @@ const TeacherCourseDetail: React.FC = () => {
   });
 
   useEffect(() => {
-    courseApi.getCourseDetail(id).then((res: any) => {
-      formik.setValues(res.course);
-    });
+    dispatch(isPending());
+
+    courseApi
+      .getCourseDetail(id)
+      .then((res: any) => {
+        dispatch(isSuccess());
+        formik.setValues(res.course);
+      })
+      .catch(() => {
+        dispatch(isSuccess());
+        nav("/teacher/info");
+      });
   }, [id]);
+
+  useEffect(() => {
+    chapterApi.getChapters(id).then((res) => setChapters(res.data));
+  }, []);
+
+  const handleAddChapter = (index: number, type: "first" | "last") => {
+    const newChapter: IChapter = {
+      id: uuidv4(),
+      name: "",
+      lessons: [],
+    };
+    const _chapters = [...chapters];
+
+    let newArrayChapter: IChapter[] = [];
+
+    for (let i = 0; i < _chapters.length; i++) {
+      index === i
+        ? (newArrayChapter = [...newArrayChapter, newChapter, _chapters[i]])
+        : (newArrayChapter = [...newArrayChapter, _chapters[i]]);
+    }
+
+    if (type === "last") {
+      setChapters([..._chapters, newChapter]);
+    } else if (index === 0) {
+      setChapters([newChapter, ..._chapters]);
+    } else {
+      setChapters(newArrayChapter);
+    }
+  };
+
+  const handleDeleteChapter = (id: string) => {
+    const _chapters = [...chapters];
+
+    setChapters(_chapters.filter((item) => item.id !== id));
+  };
 
   return (
     <LayoutContainer>
@@ -112,7 +162,35 @@ const TeacherCourseDetail: React.FC = () => {
               </Box>
             </form>
           ) : (
-            <div className=""></div>
+            <div className="chapter-list">
+              {chapters.map((chapter, index) => (
+                <>
+                  <div className="new">
+                    <div
+                      className="icon"
+                      onClick={() => handleAddChapter(index, "first")}
+                    >
+                      <Icon icon="plus" color="black" size={20} />
+                    </div>
+                  </div>
+                  <Chapter
+                    courseId={id}
+                    chapter={chapter}
+                    key={index}
+                    index={index}
+                    handleDeleteChapter={handleDeleteChapter}
+                  />
+                </>
+              ))}
+              <div className="new">
+                <div
+                  className="icon"
+                  onClick={() => handleAddChapter(0, "last")}
+                >
+                  <Icon icon="plus" color="black" size={20} />
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>

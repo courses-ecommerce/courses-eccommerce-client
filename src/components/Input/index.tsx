@@ -17,6 +17,7 @@ const Input = React.forwardRef(
       hint,
       required,
       autoComplete,
+      accept,
       ...rest
     } = props;
 
@@ -47,6 +48,7 @@ const Input = React.forwardRef(
               disabled={disabled}
               autoComplete={autoComplete}
               ref={ref}
+              accept={accept}
               {...rest}
             />
           </div>

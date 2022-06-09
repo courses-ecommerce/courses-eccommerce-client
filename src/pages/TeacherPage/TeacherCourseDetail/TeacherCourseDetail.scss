@@ -17,6 +17,9 @@
       margin-bottom: 24px;
       border-bottom: 1px solid #d1d7dc;
     }
+
+    & > .chapter-list {
+    }
   }
 
   & > .sidebar {
@@ -37,6 +40,25 @@
       &.active {
         border-color: #1c1d1f;
       }
+    }
+  }
+
+  .new {
+    height: 32px;
+    padding: 8px;
+    position: relative;
+
+    &:hover {
+      & > .icon {
+        visibility: visible;
+      }
+    }
+
+    & > .icon {
+      cursor: pointer;
+      position: absolute;
+      left: 20px;
+      visibility: hidden;
     }
   }
 }
