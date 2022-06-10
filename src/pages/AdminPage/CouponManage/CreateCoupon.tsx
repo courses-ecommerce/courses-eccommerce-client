@@ -64,16 +64,16 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
           number: "Số lượng mã phải lớn hơn 0",
         };
       }
-      if (values.maxDiscount <= 0) {
+      if (values.maxDiscount < 0) {
         errors = {
           ...errors,
-          maxDiscount: "Giá phải lớn hơn 0",
+          maxDiscount: "Giá không được âm",
         };
       }
-      if (values.minPrice <= 0) {
+      if (values.minPrice < 0) {
         errors = {
           ...errors,
-          minPrice: "Giá phải lớn hơn 0",
+          minPrice: "Giá không được âm",
         };
       }
       if (Date.parse(values.startDate) <= Date.parse(Date())) {

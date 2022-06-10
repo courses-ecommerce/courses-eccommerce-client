@@ -31,7 +31,7 @@ export const getNewHeaderColumn = (
         return { [key]: item[key] ? "Đang mở" : "Hết hạn" };
       }
       if (key === "expireDate" || key === "startDate") {
-        return { [key]: formatDate(item[key], "dd-MM-yyyy") };
+        return { [key]: formatDate(item[key], "dd-MM-yyyy hh:mm") };
       }
       return { [key]: item[key] };
     });

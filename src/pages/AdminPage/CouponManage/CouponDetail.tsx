@@ -30,11 +30,29 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
       const response = await couponApi.getCouponDetail(id);
       console.log("details laf", response);
       const { coupon }: any = response;
+      // const { codes } = coupon;
+      // if (codes) {
+      //   postAllCouponCodes(codes);
+      // }
       setCouponDetail(coupon);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
   };
+
+  // const postAllCouponCodes = async (codes: any[]) => {
+  //   const data =
+  //     codes.length > 0 &&
+  //     codes.map((code) => {
+  //       return { code: code.code, isActive: code.isActive };
+  //     });
+  //   try {
+  //     await couponApi.postAllCouponCodes(JSON.stringify(data));
+  //     console.log("thành công", JSON.stringify(data));
+  //   } catch (error) {
+  //     console.log("lỗi rồi", { error });
+  //   }
+  // };
 
   return (
     <ModalContainer
@@ -80,13 +98,13 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
             disabled
             label="Ngày bắt đầu"
             // type="datetime-local"
-            value={formatDate(couponDetail.startDate, "dd-MM-yyyy")}
+            value={formatDate(couponDetail.startDate, "dd-MM-yyyy hh:mm")}
           />
           <Input
             disabled
             label="Ngày hết hạn"
             // type="datetime-local"
-            value={formatDate(couponDetail.expireDate, "dd-MM-yyyy")}
+            value={formatDate(couponDetail.expireDate, "dd-MM-yyyy hh:mm")}
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>

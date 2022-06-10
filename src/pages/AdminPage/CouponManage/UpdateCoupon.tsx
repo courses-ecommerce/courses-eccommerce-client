@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import categoryApi from "src/apis/categoryApi";
 import couponApi from "src/apis/couponApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
@@ -48,18 +47,18 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
     dispatch(isPending());
 
     try {
-      await categoryApi.updateCategory(id, values);
+      await couponApi.updateCoupon(id, values);
       dispatch(isSuccess());
       setShow?.(false);
 
-      toast.success("Cập nhật thông tin danh mục thành công", {
+      toast.success("Cập nhật mã khuyến mãi thành công", {
         position: "bottom-right",
       });
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
       setShow?.(false);
-      toast.warning("Cập nhật thông tin danh mục thất bại", {
+      toast.warning("Cập nhật mã khuyến mãi thất bại", {
         position: "bottom-right",
       });
     }
@@ -110,15 +109,6 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
         errors = {
           ...errors,
           minPrice: "Giá phải lớn hơn 0",
-        };
-      }
-      if (
-        values.startDate &&
-        Date.parse(values.startDate) <= Date.parse(Date())
-      ) {
-        errors = {
-          ...errors,
-          startDate: "Ngày bắt đầu phải ở tương lai",
         };
       }
       if (
