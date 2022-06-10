@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ICounpon } from "src/types";
 import axiosClient from "./axiosClient";
 
