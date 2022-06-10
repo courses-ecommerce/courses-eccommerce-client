@@ -1,6 +1,6 @@
+import IcomoonReact from "icomoon-react";
 import React from "react";
 import iconSet from "./selection.json";
-import IcomoonReact from "icomoon-react";
 
 interface IconProps {
   icon: string;
