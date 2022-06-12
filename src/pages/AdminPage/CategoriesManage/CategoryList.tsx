@@ -70,7 +70,7 @@ const CategoryList = () => {
     const params = { name: categoryName, publish, page, limit: pageSize };
     try {
       const response = await categoryApi.getCategories(params);
-      // console.log(response);
+      console.log(response);
       const { categories, total }: any = response;
 
       if (categories.length > 0) {

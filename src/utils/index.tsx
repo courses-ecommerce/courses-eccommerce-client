@@ -36,6 +36,11 @@ export const translateVi = (name: string) => {
       return "Tên";
     case "publish":
       return "Xuất bản";
+    //statistic, chart
+    case "publishCourse":
+      return "Khoá học đang được công bố";
+    case "pendingCourse":
+      return "Khoá học đang chờ duyệt";
     default:
       return name;
   }
