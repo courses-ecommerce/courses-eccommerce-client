@@ -27,11 +27,12 @@ export default function StatisticCourses() {
   return (
     <Box
       sx={{
+        marginTop: 5,
         height: 450,
         width: 450,
         display: "flex",
         flexDirection: "column",
-        gap: 1,
+        gap: 3,
         justifyContent: "center",
         alignItems: "center",
       }}
