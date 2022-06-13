@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { DASHBOARD_ROUTE } from "src/routes/routes";
 import { selectAuthorization } from "src/reducers/authSlice";
-import NavSection from "../../NavSection/NavSection";
-import AvatarUser from "../AvatarUser/AvatarUser";
-import "./ContentInfo.scss";
 
-const ContentInfo = () => {
+import AvatarUser from "../AvatarUser/AvatarUser";
+import NavSection from "../NavSection/NavSection";
+import "./SidebarContent.scss";
+
+const SidebarContent = () => {
   const { isRole } = useSelector(selectAuthorization);
 
   const renderDashBoard = (dashboards: Array<any>) => {
@@ -31,4 +32,4 @@ const ContentInfo = () => {
   );
 };
 
-export default ContentInfo;
+export default SidebarContent;

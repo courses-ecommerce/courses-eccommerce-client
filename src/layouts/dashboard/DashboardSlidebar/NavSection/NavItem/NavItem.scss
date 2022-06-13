@@ -13,8 +13,12 @@ a {
   &-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
     > span {
-      margin: 0 40px 0 20px;
+      text-align: left;
+      flex: 1;
+      margin-left: 20px;
     }
   }
 }
@@ -24,7 +28,9 @@ a {
   flex-direction: column;
   gap: 2px;
   > a {
-    padding: 8px 50px;
+    width: 100%;
+
+    padding: 8px 30px;
     margin: 0 4px;
 
     font-size: 14px;

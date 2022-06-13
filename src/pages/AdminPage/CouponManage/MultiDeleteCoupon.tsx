@@ -2,56 +2,56 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import categoryApi from "src/apis/categoryApi";
+import couponApi from "src/apis/couponApi";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
-interface MultiDeleteCategoryProps {
-  slugs: string[] | number[];
+interface MultiDeleteCouponProps {
+  ids: string[] | number[];
   show?: boolean;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
-const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
-  slugs,
+const MultiDeleteCoupon: React.FC<MultiDeleteCouponProps> = ({
+  ids,
   setShow,
   show = false,
   onClose,
 }) => {
   const dispatch = useDispatch();
 
-  const handleMultiDeleteCategory = async () => {
-    const params = { slugs };
-    console.log("xoá multi", params);
-
+  const handleMultiDeleteCoupon = async () => {
+    const params = { ids };
     dispatch(isPending());
     try {
-      const response = await categoryApi.deleteMultiCategory(params);
+      const response = await couponApi.multiDeleteCoupon(params);
       console.log(response);
       dispatch(isSuccess());
       setShow?.(false);
-      toast.success("Xoá danh mục thành công", { position: "bottom-right" });
+      toast.success("Xoá mã khuyến mãi thành công", {
+        position: "bottom-right",
+      });
     } catch (error) {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
       setShow?.(false);
-      toast.warning("Xoá danh mục thất bại", { position: "bottom-right" });
+      toast.warning("Xoá mã khuyến mãi thất bại", { position: "bottom-right" });
     }
   };
 
   return (
     <ModalContainer
-      title="Bạn có chắc muốn xoá những danh mục này không?"
+      title="Bạn có chắc muốn xoá những mã khuyến mãi này không?"
       open={show}
       onClose={onClose}
     >
       <Button
         variant="contained"
         color="warning"
-        onClick={handleMultiDeleteCategory}
+        onClick={handleMultiDeleteCoupon}
       >
-        Xoá danh mục
+        Xoá mã khuyến mãi
       </Button>
       <Button
         variant="contained"
@@ -65,4 +65,4 @@ const MultiDeleteCategory: React.FC<MultiDeleteCategoryProps> = ({
   );
 };
 
-export default MultiDeleteCategory;
+export default MultiDeleteCoupon;

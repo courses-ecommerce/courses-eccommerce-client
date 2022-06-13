@@ -7,7 +7,7 @@ declare interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   outline?: boolean;
   name?: string;
   type?: string;
-  value?: string;
+  value?: string | number;
   required?: boolean;
   maxLength?: number;
   checked?: boolean;

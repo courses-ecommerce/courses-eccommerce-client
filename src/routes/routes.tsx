@@ -1,21 +1,25 @@
 import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
+import UserList from "src/pages/AdminPage/AccountsManage/UserList";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
+import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import UserList from "src/pages/AdminPage/AccountsManage/UserList";
+import StatisticCoupons from "src/pages/AdminPage/StatisticManage/StatisticCoupons";
+import StatisticCourses from "src/pages/AdminPage/StatisticManage/StatisticCourses";
+import StatisticRevenues from "src/pages/AdminPage/StatisticManage/StatisticRevenues";
+import StatisticUsers from "src/pages/AdminPage/StatisticManage/StatisticUsers";
+import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
 import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
-import MainPage from "src/pages/MainPage/MainPage";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
+import MainPage from "src/pages/MainPage/MainPage";
 import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
-import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticManage";
-import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 
 // main route
 const MAIN_ROUTE = [
@@ -79,14 +83,13 @@ const DASHBOARD_ROUTE = [
         element: <UserList />,
         title: "Quản lý người dùng",
         icon: "user",
-        // children: [
-        //   {
-        //     title: "Xem người dùng",
-        //     path: "/admin/dashboard/user",
-        //     element: <UserList />,
-        //     // icon: "info",
-        //   },
-        // ],
+      },
+      {
+        path: "dashboard/categories",
+        href: "/admin/dashboard/categories",
+        element: <CategoryList />,
+        title: "Quản lý danh mục",
+        icon: "newspaper-o",
       },
       {
         path: "dashboard/course",
@@ -94,13 +97,6 @@ const DASHBOARD_ROUTE = [
         href: "/admin/dashboard/course",
         element: <CourseList />,
         icon: "book",
-      },
-      {
-        path: "dashboard/categories",
-        href: "/admin/dashboard/categories",
-        element: <CategoryList />,
-        title: "Quản lý danh mục",
-        icon: "user",
       },
       {
         path: "dashboard/coupon",
@@ -111,11 +107,41 @@ const DASHBOARD_ROUTE = [
       },
 
       {
-        path: "dashboard/export",
-        href: "/admin/dashboard/export",
+        path: "dashboard/statistic/",
+        href: "/admin/dashboard/statistic",
         element: <StatisticManage />,
-        title: "Thống kê",
+        title: "Biểu đồ thống kê",
         icon: "bar-chart",
+        children: [
+          {
+            path: "users",
+            href: "/admin/dashboard/statistic/users",
+            title: "Thống kê người dùng",
+            element: <StatisticUsers />,
+            // icon: "info",
+          },
+          {
+            path: "revenues",
+            href: "/admin/dashboard/statistic/revenues",
+            title: "Thống kê doanh thu",
+            element: <StatisticRevenues />,
+            // icon: "money",
+          },
+          {
+            path: "courses",
+            href: "/admin/dashboard/statistic/courses",
+            title: "Thống kê khoá học",
+            element: <StatisticCourses />,
+            // icon: "money",
+          },
+          {
+            path: "coupons",
+            href: "/admin/dashboard/statistic/coupons",
+            title: "Thống kê mã khuyến mãi",
+            element: <StatisticCoupons />,
+            // icon: "money",
+          },
+        ],
       },
     ],
   },

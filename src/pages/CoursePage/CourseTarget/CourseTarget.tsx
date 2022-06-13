@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "src/components/Image/Image";
 import "./CourseTarget.scss";
 
 interface CourseTargetProps {
@@ -17,11 +16,8 @@ const CourseTarget: React.FC<CourseTargetProps> = ({
     <div className="course-target">
       <span className="title-target">{title}</span>
       <div className="content-target">
-        {content.length > 0 ? (
-          content?.map((target, index) => <span key={index}>- {target}</span>)
-        ) : (
-          <Image height={100} />
-        )}
+        {content.length > 0 &&
+          content?.map((target, index) => <span key={index}>- {target}</span>)}
       </div>
     </div>
   );

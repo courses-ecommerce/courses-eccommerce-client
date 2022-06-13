@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "src/components/Image/Image";
 import { ChaptersProps } from "src/types";
 import CourseChapters from "./CourseChapters/CourseChapters";
 import "./CourseSummary.scss";
@@ -19,7 +18,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
     <div className="course-summary">
       <span className="title-summary">{title}</span>
       <div className="content-summary">
-        {chapters.length > 0 ? (
+        {chapters.length > 0 &&
           chapters.map((chapter, index) => (
             <CourseChapters
               chapters={chapter}
@@ -28,10 +27,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
               onPanelActive={(e: any) => setPanelActive(e)}
               panelActive={panelActive}
             />
-          ))
-        ) : (
-          <Image height={80} />
-        )}
+          ))}
       </div>
     </div>
   );

@@ -73,9 +73,11 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
             disabled={true}
           />
           <Input
-            type="date"
+            // type="date"
+            disabled
+            placeholder="ngày-tháng-năm"
             label="Ngày tạo tài khoản"
-            value={formatDate(userDetail.createdAt, "yyyy-MM-dd")}
+            value={formatDate(userDetail.createdAt, "dd-MM-yyyy")}
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
@@ -98,10 +100,11 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
             value={userDetail.phone}
           />
           <Input
-            type="date"
+            // type="date"
+            disabled
             label="Ngày sinh nhật"
-            placeholder="dd-mm-yyyy"
-            value={userDetail.birthday}
+            placeholder="ngày-tháng-năm"
+            value={formatDate(userDetail.birthday, "dd-MM-yyyy")}
           />
         </Box>
       </form>

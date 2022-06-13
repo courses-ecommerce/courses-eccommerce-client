@@ -2,6 +2,7 @@ declare interface InputSelectProps {
   disabled?: true | false;
   label?: string;
   icon?: string;
+  required?: boolean;
   list: {
     value: boolean | string | number;
     name: string;

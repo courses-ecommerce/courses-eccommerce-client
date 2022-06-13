@@ -30,8 +30,8 @@ export const getNewHeaderColumn = (
       if (key === "isActive") {
         return { [key]: item[key] ? "Đang mở" : "Hết hạn" };
       }
-      if (key === "expireDate") {
-        return { [key]: formatDate(item[key], "dd-MM-yyyy") };
+      if (key === "expireDate" || key === "startDate") {
+        return { [key]: formatDate(item[key], "dd-MM-yyyy hh:mm") };
       }
       return { [key]: item[key] };
     });

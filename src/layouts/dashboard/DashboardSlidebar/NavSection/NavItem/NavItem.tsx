@@ -1,7 +1,7 @@
 import classNames from "classnames";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "src/components/Icon/Icon";
-import useClickOutSide from "src/hooks/useClickOutSide";
 import useHover from "src/hooks/useHover";
 import "./NavItem.scss";
 
@@ -11,36 +11,44 @@ interface ItemProps {
   icon: string;
   info: string;
   href: string;
-  children?: Array<any>;
+  children?: ItemProps[];
 }
 
 interface NavItemProps {
   item: ItemProps;
-  active: any;
+  active: (path: any) => boolean;
 }
 
 const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
-  const { title, path, href, icon, info, children } = item;
+  const [show, setShow] = useState<boolean>(false);
+  const { title, href, icon, children } = item;
   const { pathname } = useLocation();
 
-  const { nodeRef, show, setShow } = useClickOutSide();
+  // console.log("adas", pathname, active(pathname));
+
+  // const { nodeRef, show, setShow } = useClickOutSide();
   const { nodeRef: hoverRef, show: showHover } = useHover();
 
   const renderChildrenNav = (navs: ItemProps[]) => {
     return (
       navs.length > 0 &&
       navs.map((nav: ItemProps, index) => {
-        const { title, path, icon, info, children } = nav;
+        const {
+          title,
+          href,
+          icon,
+          // children
+        } = nav;
 
         return (
           <Link
             key={index}
-            className={path === pathname ? "active" : ""}
-            to={path}
+            className={href === pathname ? "active" : ""}
+            to={href}
           >
             {icon && (
               <Icon
-                color={path === pathname || showHover ? "#2065d1" : "#637381"}
+                color={href === pathname || showHover ? "#2065d1" : "#637381"}
                 size={14}
                 icon={icon}
               />

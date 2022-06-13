@@ -7,7 +7,12 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { ICounpon } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import CouponDetail from "./CouponDetail";
+import CreateCoupon from "./CreateCoupon";
+import MultiDeleteCoupon from "./MultiDeleteCoupon";
+import UpdateCoupon from "./UpdateCoupon";
 
 const columsHeader: GridColDef[] = [
   {
@@ -42,9 +47,14 @@ const columsHeader: GridColDef[] = [
     headerAlign: "center",
   },
   {
+    field: "startDate",
+    headerName: "Ngày bắt đầu",
+    width: 160,
+  },
+  {
     field: "expireDate",
     headerName: "Ngày hết hạn",
-    width: 200,
+    width: 160,
   },
   {
     field: "apply",
@@ -56,7 +66,9 @@ const columsHeader: GridColDef[] = [
 const CouponList = () => {
   document.title = "Quản lý mã giảm giá";
   const [loading, setLoading] = useState<boolean>(false);
-  const [coupons, setCoupons] = useState<any>([]);
+  const [coupons, setCoupons] = useState<ICounpon[]>([]);
+  const [couponIds, setCouponIds] = useState<string[] | number[]>([]);
+  const [couponId, setCouponId] = useState<string | number>("");
   const [isActive, setIsActive] = useState<boolean>(true);
 
   //pagination
@@ -67,31 +79,34 @@ const CouponList = () => {
   //debounce
   const [value, setValue] = useState<string>();
   const debouncedValue = useTypingDebounce(value);
-  const [email, setEmail] = useState<string>();
+  const [title, setTitle] = useState<string>();
 
   // modal
-  const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
   const [showCreate, setShowCreate] = useState<boolean>(false);
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
+  const [showDetail, setShowDetail] = useState<boolean>(false);
 
   useEffect(() => {
     getCoupons();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    showDelete,
     showMultiDelete,
     showCreate,
     showUpdate,
     isActive,
-    email,
+    title,
     page,
     pageSize,
   ]);
 
+  useEffect(() => {
+    setTitle(debouncedValue);
+  }, [debouncedValue]);
+
   const getCoupons = async () => {
     setLoading(true);
-    const params = { page, limit: pageSize, active: isActive };
+    const params = { page, limit: pageSize, active: isActive, title };
 
     try {
       const response = await couponApi.getCoupons(params);
@@ -121,41 +136,82 @@ const CouponList = () => {
     }
   };
 
-  return (
-    <Table
-      btnSearch={
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 1,
-          }}
-        >
-          <Input
-            style={{ width: 250 }}
-            placeholder="Tìm kiếm bằng địa chỉ email"
-            onChange={(e: any) => setValue(e.target.value)}
-          />
+  const handleMultiDeleted = (ids: string[] | number[]) => {
+    setCouponIds(ids);
+    setShowMultiDelete(true);
+  };
+  const handleViewDetail = (id: string | number) => {
+    setCouponId(id);
+    setShowDetail(true);
+  };
+  const handleModifyItem = (id: string | number) => {
+    setCouponId(id);
+    setShowUpdate(true);
+  };
 
-          <InputSelect
-            defaultValue={isActive}
-            list={statusTypes}
-            onChange={(e) => setIsActive(e.target.value)}
-          />
-        </Box>
-      }
-      titleBtnAdd="Tạo mã giảm giá mới"
-      isLoading={loading}
-      title="Danh sách thông tin mã giảm giá"
-      columnsData={columsHeader}
-      rowsData={coupons}
-      total={total}
-      // handleAddItem={handleCreate}
-      // onDeleteItem={handleDelete}
-      // onModifyItem={handleModifyItem}
-      // onDeleteSelectMultiItem={handleMultiDeleted}
-    />
+  return (
+    <>
+      <Table
+        btnSearch={
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Input
+              style={{ width: 250 }}
+              placeholder="Nhập tên mã giảm giá"
+              onChange={(e: any) => setValue(e.target.value)}
+            />
+
+            <InputSelect
+              defaultValue={isActive}
+              list={statusTypes}
+              onChange={(e) => setIsActive(e.target.value)}
+            />
+          </Box>
+        }
+        getRowId={(row) => row._id}
+        onPage={(page) => setPage(Number(page))}
+        onPageSize={(pageSize) => setPageSize(Number(pageSize))}
+        total={total}
+        titleBtnMultiDelete="Xoá mã khuyến mãi"
+        titleBtnAdd="Tạo mã giảm giá mới"
+        isLoading={loading}
+        title="Danh sách thông tin mã giảm giá"
+        columnsData={columsHeader}
+        rowsData={coupons}
+        handleAddItem={() => setShowCreate(true)}
+        onViewItemDetail={handleViewDetail}
+        onModifyItem={handleModifyItem}
+        onDeleteSelectMultiItem={handleMultiDeleted}
+      />
+      <CreateCoupon
+        show={showCreate}
+        onClose={() => setShowCreate(false)}
+        setShow={setShowCreate}
+      />
+      <MultiDeleteCoupon
+        ids={couponIds}
+        show={showMultiDelete}
+        onClose={() => setShowMultiDelete(false)}
+        setShow={setShowMultiDelete}
+      />
+      <CouponDetail
+        id={couponId}
+        show={showDetail}
+        onClose={() => setShowDetail(false)}
+      />
+      <UpdateCoupon
+        id={couponId}
+        show={showUpdate}
+        onClose={() => setShowUpdate(false)}
+        setShow={setShowUpdate}
+      />
+    </>
   );
 };
 

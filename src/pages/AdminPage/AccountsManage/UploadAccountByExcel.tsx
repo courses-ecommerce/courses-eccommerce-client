@@ -33,7 +33,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
       console.log("thành công", response);
 
       if (!urlLogs) {
-        setShow?.(true);
+        setShow?.(false);
         toast.success(`${message}`, {
           position: "bottom-right",
         });

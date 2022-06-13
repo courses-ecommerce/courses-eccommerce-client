@@ -1,4 +1,4 @@
 export * from "./DashboardSidebar";
 export * from "./AvatarUser";
-export * from "./ContentInfo";
+export * from "./SidebarContent";
 export * from "./DashboardSidebar";

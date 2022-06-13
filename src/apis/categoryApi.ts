@@ -25,7 +25,7 @@ const categoryApi = {
   },
   deleteMultiCategory: (ids: any) => {
     const url = CATEGORY_API;
-    return axiosClient.delete(url, ids);
+    return axiosClient.delete(url, { data: ids });
   },
 };
 

@@ -1,4 +1,4 @@
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Tooltip } from "@mui/material";
@@ -47,7 +47,7 @@ const Table: React.FC<TableProps> = ({
   total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
-  onDeleteItem,
+  // onDeleteItem,
   onModifyItem,
   onViewItemDetail,
 }) => {
@@ -63,9 +63,9 @@ const Table: React.FC<TableProps> = ({
     renderCell: ({ id }) => {
       return (
         <div style={{ display: "flex", gap: 20 }}>
-          <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
+          {/* <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
             <DeleteForeverIcon sx={{ cursor: "pointer" }} />
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip
             title="Cập nhật thông tin"
             onClick={() => onModifyItem?.(id)}

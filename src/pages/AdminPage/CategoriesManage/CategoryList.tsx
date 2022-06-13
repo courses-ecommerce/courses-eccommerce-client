@@ -7,16 +7,17 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { ICategory } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import CategoryDetail from "./CategoryDetail";
 import CreateCategory from "./CreateCategory";
-import DeleteCatergory from "./DeleteCategory";
 import MultiDeleteCategory from "./MultiDeleteCategory";
 import UpdateCategory from "./UpdateCategory";
 
 const CategoryList = () => {
   document.title = "Quản lý danh mục";
 
-  const [categories, setCategories] = useState<Object[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [categoryId, setCategoryId] = useState<string | number>("");
   const [categoryIds, setCategoryIds] = useState<string[] | number[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,15 +36,15 @@ const CategoryList = () => {
 
   //modal
   const [showCreate, setShowCreate] = useState<boolean>(false);
-  const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
+  const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
     { field: "name", headerName: "Tên danh mục", width: 300 },
     { field: "publish", headerName: "Xuất bản", width: 200 },
-    { field: "slug", headerName: "Thể loại", width: 300 },
+    { field: "slug", headerName: "slug", width: 300 },
   ];
 
   useEffect(() => {
@@ -51,7 +52,6 @@ const CategoryList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     showCreate,
-    showDelete,
     showMultiDelete,
     showUpdate,
     page,
@@ -75,7 +75,7 @@ const CategoryList = () => {
 
       if (categories.length > 0) {
         const keys = getHeaderColumns(categories[0]);
-        const res = getNewHeaderColumn(categories, keys);
+        const res = getNewHeaderColumn(categories, keys, page, pageSize);
         setCategories(res);
       } else {
         setCategories(categories);
@@ -88,10 +88,6 @@ const CategoryList = () => {
     }
   };
 
-  const handleDelete = (id: string | number) => {
-    setCategoryId(id);
-    setShowDelete(true);
-  };
   const handleMultiDeleted = (ids: string[] | number[]) => {
     setCategoryIds(ids);
     setShowMultiDelete(true);
@@ -99,6 +95,10 @@ const CategoryList = () => {
   const handleModifyItem = async (id: string | number) => {
     setCategoryId(id);
     setShowUpdate(true);
+  };
+  const handleViewDetail = async (id: string | number) => {
+    setCategoryId(id);
+    setShowDetail(true);
   };
 
   return (
@@ -126,18 +126,18 @@ const CategoryList = () => {
           </Box>
         }
         getRowId={(row) => row.slug}
-        handleAddItem={() => setShowCreate(true)}
+        onPage={(page) => setPage(Number(page))}
+        onPageSize={(pageSize) => setPageSize(Number(pageSize))}
+        total={total}
         title="Danh sách thông tin danh mục"
         titleBtnAdd="Tạo danh mục mới"
         titleBtnMultiDelete="Xoá thông tin danh mục"
         columnsData={columsHeader}
         rowsData={categories}
         isLoading={loading}
-        total={total}
-        onPage={(page) => setPage(Number(page))}
-        onPageSize={(pageSize) => setPageSize(Number(pageSize))}
-        onDeleteItem={handleDelete}
+        onViewItemDetail={handleViewDetail}
         onModifyItem={handleModifyItem}
+        handleAddItem={() => setShowCreate(true)}
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <CreateCategory
@@ -145,14 +145,8 @@ const CategoryList = () => {
         onClose={() => setShowCreate(false)}
         setShow={setShowCreate}
       />
-      <DeleteCatergory
-        id={categoryId}
-        show={showDelete}
-        onClose={() => setShowDelete(false)}
-        setShow={setShowDelete}
-      />
       <MultiDeleteCategory
-        ids={categoryIds}
+        slugs={categoryIds}
         show={showMultiDelete}
         onClose={() => setShowMultiDelete(false)}
         setShow={setShowMultiDelete}
@@ -162,6 +156,11 @@ const CategoryList = () => {
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
         setShow={setShowUpdate}
+      />
+      <CategoryDetail
+        id={categoryId}
+        show={showDetail}
+        onClose={() => setShowDetail(false)}
       />
     </>
   );

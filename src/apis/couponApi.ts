@@ -1,3 +1,4 @@
+import { ICounpon } from "src/types";
 import axiosClient from "./axiosClient";
 
 const COUPON_API = "/coupons";
@@ -11,17 +12,24 @@ const couponApi = {
     const url = COUPON_API + "/" + id;
     return axiosClient.get(url);
   },
-  createNewCoupon: (params: any) => {
+
+  createNewCoupon: (params: ICounpon) => {
     const url = COUPON_API;
     return axiosClient.post(url, params);
   },
-  updateCoupon: (id: string, params: any) => {
+  updateCoupon: (id: string | number, params: any) => {
     const url = COUPON_API + "/" + id;
     return axiosClient.put(url, params);
   },
-  deleteCoupon: (id: string) => {
-    const url = COUPON_API + "/" + id;
-    return axiosClient.delete(url);
+  multiDeleteCoupon: (ids: any) => {
+    const url = COUPON_API;
+    return axiosClient.delete(url, { data: ids });
   },
+  // postAllCouponCodes: (data: any) => {
+  //   return axios.post(
+  //     "https://sheet.best/api/sheets/c556a984-9703-4956-bfaf-5decb4ed3fd9?",
+  //     { data, Headers: { "Content-Type": "application/json" } }
+  //   );
+  // },
 };
 export default couponApi;

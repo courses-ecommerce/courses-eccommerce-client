@@ -27,8 +27,25 @@ export interface ICategory {
   _id?: string;
   name?: string;
   slug?: string;
+  publish?: boolean;
+  isPending?: boolean;
 }
 
+export interface ICounpon {
+  _id?: string;
+  title?: string;
+  isActive?: boolean;
+  amount?: number;
+  maxDiscount?: number;
+  minPrice?: number;
+  number?: number;
+  remain?: number;
+  author?: IUser;
+  expireDate?: string;
+  startDate?: string;
+  type?: "percent" | "money";
+  apply?: "author" | "all" | "category" | "new user";
+}
 export interface RatingProps {
   numOfRate?: number;
   rate?: number;
@@ -76,20 +93,3 @@ export interface IAccount {
   accessToken: string;
   isActive: boolean;
 }
-
-// // for popover
-// export interface INotify {
-//   image: string;
-//   title?: string;
-//   isRead?: boolean;
-//   content: string;
-//   time: string;
-// }
-
-// export interface IMessage {
-//   image: string;
-//   title?: string;
-//   isRead?: boolean;
-//   content: string;
-//   time: string;
-// }

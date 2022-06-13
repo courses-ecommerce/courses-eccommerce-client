@@ -14,6 +14,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     list,
     name,
     errorMessage,
+    required,
     onChange,
     defaultValue,
     style,
@@ -44,7 +45,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
           marginBottom: 0.4,
         }}
       >
-        {label}
+        {label} {required && <span style={{ color: "red" }}>*</span>}
       </InputLabel>
       <FormControl fullWidth>
         <Select
