@@ -28,31 +28,14 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
   const getCategoryDetail = async (id: any) => {
     try {
       const response = await couponApi.getCouponDetail(id);
-      console.log("details laf", response);
       const { coupon }: any = response;
-      // const { codes } = coupon;
-      // if (codes) {
-      //   postAllCouponCodes(codes);
-      // }
+      console.log("details laf", response);
+
       setCouponDetail(coupon);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
   };
-
-  // const postAllCouponCodes = async (codes: any[]) => {
-  //   const data =
-  //     codes.length > 0 &&
-  //     codes.map((code) => {
-  //       return { code: code.code, isActive: code.isActive };
-  //     });
-  //   try {
-  //     await couponApi.postAllCouponCodes(JSON.stringify(data));
-  //     console.log("thành công", JSON.stringify(data));
-  //   } catch (error) {
-  //     console.log("lỗi rồi", { error });
-  //   }
-  // };
 
   return (
     <ModalContainer

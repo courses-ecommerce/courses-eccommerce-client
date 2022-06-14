@@ -28,3 +28,34 @@ export const listSlideShow = [
     image: thumb5,
   },
 ];
+
+export const listFooter = {
+  comunication: [
+    {
+      name: "Fanpage",
+      href: "#",
+    },
+    {
+      name: "Website",
+      href: "#",
+    },
+    {
+      name: "Website",
+      href: "#",
+    },
+  ],
+  contact: [
+    {
+      name: "Email",
+      href: "#",
+    },
+    {
+      name: "Số điện thoại",
+      href: "#",
+    },
+    {
+      name: "Số điện thoại",
+      href: "#",
+    },
+  ],
+};

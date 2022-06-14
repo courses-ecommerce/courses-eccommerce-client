@@ -23,7 +23,7 @@ const CreateCatergory: React.FC<CreateCatergoryProps> = ({
   const dispatch = useDispatch();
 
   const formik = useFormik({
-    initialValues: { name: "" },
+    initialValues: { name: "", isPending: false },
     validationSchema: Yup.object({
       name: Yup.string().required("Vui lòng nhập tên danh mục mới"),
     }),
@@ -38,15 +38,16 @@ const CreateCatergory: React.FC<CreateCatergoryProps> = ({
     formik.resetForm({
       values: {
         name: "",
+        isPending: false,
       },
     });
   };
 
-  const handleCreateCatergory = async (name: Object) => {
+  const handleCreateCatergory = async (values: Object) => {
     dispatch(isPending());
 
     try {
-      const response = await categoryApi.createNewCategory(name);
+      const response = await categoryApi.createNewCategory(values);
       console.log(response);
       dispatch(isSuccess());
       setShow?.(false);

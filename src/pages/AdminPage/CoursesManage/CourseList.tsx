@@ -104,13 +104,14 @@ const CourseList = () => {
     <Table
       titleBtnAdd="Tạo tài khoản mới"
       isLoading={loading}
-      title="Danh sách thông tin người dùng"
+      title="Danh sách thông tin khoá học"
       columnsData={columsHeader}
       getRowId={(row) => row._id}
       onPage={(page) => setPage(Number(page))}
       onPageSize={(pageSize) => setPageSize(Number(pageSize))}
       total={total}
       rowsData={courses}
+      btnAdd={false}
       // handleAddItem={handleCreate}
       // onDeleteItem={handleDelete}
       // onModifyItem={handleModifyItem}

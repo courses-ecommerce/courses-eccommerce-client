@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Rating from "src/components/Rating/Rating";
@@ -46,14 +47,16 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
             total_rating={data.rating?.numOfRate}
           />
         </span>
-
         {(data.currentPrice || 0) > 0 ? (
           <span className="current_price">
-            <b>Giá: </b>: {data.currentPrice}
+            <b>Giá: </b> {data.currentPrice}
           </span>
         ) : (
           <span className="free">Miễn phí</span>
         )}
+        <Button variant="contained" color="warning">
+          Mua ngay
+        </Button>
       </div>
     </div>
   );

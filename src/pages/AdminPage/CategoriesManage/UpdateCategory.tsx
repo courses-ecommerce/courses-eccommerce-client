@@ -7,7 +7,7 @@ import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { statusTypes } from "src/data";
+import { categoryTypes, statusTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { ICategory } from "src/types";
 import * as Yup from "yup";
@@ -69,6 +69,7 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
     initialValues: {
       name: categoryDetail.name,
       publish: categoryDetail.publish,
+      isPending: categoryDetail.isPending,
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Tên danh mục không được để trống"),
@@ -100,6 +101,13 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
           defaultValue={formik.values.publish}
           errorMessage={formik.touched.publish ? formik.errors.publish : ""}
           {...formik.getFieldProps("publish")}
+        />
+        <InputSelect
+          label="Trạng thái"
+          list={categoryTypes}
+          defaultValue={formik.values.isPending}
+          errorMessage={formik.touched.isPending ? formik.errors.isPending : ""}
+          {...formik.getFieldProps("isPending")}
         />
       </form>
       <Button
