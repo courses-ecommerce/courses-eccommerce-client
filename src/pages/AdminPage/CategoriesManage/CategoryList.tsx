@@ -5,7 +5,7 @@ import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
-import { statusTypes } from "src/data";
+import { categoryStatusTypes, categoryTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { ICategory } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
@@ -25,6 +25,8 @@ const CategoryList = () => {
   //for search
   //for debounce
   const [publish, setPublish] = useState<boolean>(true);
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [used, setUsed] = useState<boolean>(true);
   const [value, setValue] = useState<string>();
   const debouncedValue = useTypingDebounce(value);
   const [categoryName, setCategoryName] = useState<string>();
@@ -44,7 +46,7 @@ const CategoryList = () => {
     { field: "id", headerName: "STT", width: 100 },
     { field: "name", headerName: "Tên danh mục", width: 300 },
     { field: "publish", headerName: "Xuất bản", width: 200 },
-    { field: "slug", headerName: "slug", width: 300 },
+    { field: "used", headerName: "Trạng thái", width: 150 },
   ];
 
   useEffect(() => {
@@ -58,6 +60,8 @@ const CategoryList = () => {
     pageSize,
     categoryName,
     publish,
+    used,
+    isPending,
   ]);
 
   //debounce to search
@@ -67,7 +71,14 @@ const CategoryList = () => {
 
   const getCategories = async () => {
     setLoading(true);
-    const params = { name: categoryName, publish, page, limit: pageSize };
+    const params = {
+      name: categoryName,
+      isPending,
+      used,
+      publish,
+      page,
+      limit: pageSize,
+    };
     try {
       const response = await categoryApi.getCategories(params);
       console.log(response);
@@ -122,6 +133,16 @@ const CategoryList = () => {
               defaultValue={publish}
               list={statusTypes}
               onChange={(e) => setPublish(e.target.value)}
+            />
+            <InputSelect
+              defaultValue={used}
+              list={categoryStatusTypes}
+              onChange={(e) => setUsed(e.target.value)}
+            />
+            <InputSelect
+              defaultValue={isPending}
+              list={categoryTypes}
+              onChange={(e) => setIsPending(e.target.value)}
             />
           </Box>
         }

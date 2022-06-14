@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 interface LayoutContainerProps {
@@ -10,6 +11,7 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({ children }) => {
     <div>
       <Header />
       <div>{children}</div>
+      <Footer />
     </div>
   );
 };

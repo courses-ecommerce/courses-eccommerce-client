@@ -17,6 +17,8 @@ interface TableProps {
   className?: string;
   isLoading?: boolean;
   isCheckBoxSelection?: boolean;
+  btnAdd?: boolean;
+  btnMultiDeleted?: boolean;
   btnHandle?: ReactNode;
   btnSearch?: ReactNode;
   getRowId?: (rowId: any) => any;
@@ -33,6 +35,8 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({
   title,
   className,
+  btnAdd = true,
+  btnMultiDeleted = true,
   btnHandle,
   btnSearch,
   titleBtnAdd = "Thêm mới",
@@ -106,12 +110,18 @@ const Table: React.FC<TableProps> = ({
       <div className="btns">
         <Box className="search">{btnSearch}</Box>
         <Box className="handle">
-          <Button variant="contained" color="secondary" onClick={handleAddItem}>
-            {titleBtnAdd}
-          </Button>
+          {btnAdd && (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleAddItem}
+            >
+              {titleBtnAdd}
+            </Button>
+          )}
           {btnHandle}
 
-          {multiSelect.length > 0 && (
+          {btnMultiDeleted && multiSelect.length > 0 && (
             <Button
               variant="contained"
               color="warning"

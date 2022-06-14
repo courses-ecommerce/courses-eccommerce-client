@@ -10,6 +10,7 @@ export const accountTypes = [
 export const statusTypes = [
   { value: false, name: "Đang khoá" },
   { value: true, name: "Hoạt động" },
+  // { value: , name: "Tất cả" },
 ];
 
 export const discountTypes = [
@@ -21,4 +22,12 @@ export const discountApplyTypes = [
   { value: "author", name: "Tác giả" },
   { value: "category", name: "Mã danh mục" },
   { value: "new user", name: "Người dùng mới" },
+];
+export const categoryTypes = [
+  { value: false, name: "Đã duyệt" },
+  { value: true, name: "Đang chờ duyệt" },
+];
+export const categoryStatusTypes = [
+  { value: true, name: "Đang sử dụng" },
+  { value: false, name: "Đang trống" },
 ];

@@ -1,5 +1,5 @@
 import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
-import UserList from "src/pages/AdminPage/AccountsManage/UserList";
+import UserList from "src/pages/AdminPage/AccountsManage/AccountList";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";

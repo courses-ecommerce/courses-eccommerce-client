@@ -13,8 +13,6 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   title,
   courses,
 }) => {
-  // console.log("course", courses);
-
   const renderCourses = (courses: ICourse[]) => {
     return (
       courses.length > 0 &&

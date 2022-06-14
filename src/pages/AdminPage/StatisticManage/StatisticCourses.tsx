@@ -1,11 +1,10 @@
+import { Box } from "@mui/material";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
-
 import { Pie } from "react-chartjs-2";
 import statisticApi from "src/apis/statisticApi";
-import _ from "lodash";
-import { Box } from "@mui/material";
-import { getValueCharts } from "src/utils/chart";
 import Loading from "src/components/Loading/Loading";
+import { getValueCharts } from "src/utils/chart";
 
 export default function StatisticCourses() {
   const [data, setData] = useState<any>({});

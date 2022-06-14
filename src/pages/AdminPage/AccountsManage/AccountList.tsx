@@ -61,7 +61,7 @@ const columsHeader: GridColDef[] = [
   // { field: "birthday", headerName: "Ngày sinh", width: 150 },
 ];
 
-export default function UserList() {
+export default function AccountList() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [userId, setUserId] = useState<string | number>("");
   const [userIds, setUserIds] = useState<string[] | number[]>([]);

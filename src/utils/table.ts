@@ -27,6 +27,9 @@ export const getNewHeaderColumn = (
       if (key === "publish") {
         return { [key]: item[key] ? "Hoạt động" : "Đang khoá" };
       }
+      if (key === "used") {
+        return { [key]: item[key] ? "Đang sử dụng" : "Đang trống" };
+      }
       if (key === "isActive") {
         return { [key]: item[key] ? "Đang mở" : "Hết hạn" };
       }

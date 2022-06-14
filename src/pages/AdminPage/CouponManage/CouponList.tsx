@@ -111,7 +111,7 @@ const CouponList = () => {
     try {
       const response = await couponApi.getCoupons(params);
       const { coupons, total }: any = response;
-      console.log("coupon", response);
+      // console.log("coupon", response);
 
       if (coupons.length > 0) {
         const keys = getHeaderColumns(coupons[0]);

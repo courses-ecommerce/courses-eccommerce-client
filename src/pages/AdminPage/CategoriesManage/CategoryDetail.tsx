@@ -3,7 +3,7 @@ import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { statusTypes } from "src/data";
+import { categoryTypes, statusTypes } from "src/data";
 import { ICategory } from "src/types";
 
 interface CategoryDetailProps {
@@ -48,6 +48,12 @@ const CategoryDetail: React.FC<CategoryDetailProps> = ({
           label="Xuất bản"
           list={statusTypes}
           defaultValue={categoryDetail.publish}
+          disabled
+        />
+        <InputSelect
+          label="Trạng thái"
+          list={categoryTypes}
+          defaultValue={categoryDetail.isPending}
           disabled
         />
       </form>

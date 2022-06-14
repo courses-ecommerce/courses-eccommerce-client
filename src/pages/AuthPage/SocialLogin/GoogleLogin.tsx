@@ -9,7 +9,7 @@ const GoogleLoginBtn = () => {
 
   const responseGoogle = (response: any) => {
     const { accessToken } = response;
-    // console.log("đã lấy được access token là", { accessToken });
+    console.log("đã lấy được access token là", { accessToken });
 
     if (!accessToken) return;
     postLoginGoogle(accessToken);
@@ -35,7 +35,7 @@ const GoogleLoginBtn = () => {
 
   return (
     <GoogleLogin
-      clientId="294692584033-tf9mp1jfvpbrv59ih98q8nf6ol12qabi.apps.googleusercontent.com"
+      clientId="72783105646-cipflukf562b889osbe6ceip05gul94p.apps.googleusercontent.com"
       buttonText="Đăng nhập bằng google"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
