@@ -1,0 +1,24 @@
+import axiosClient from "./axiosClient";
+
+const CART_API = "/carts";
+
+const cartApi = {
+  getCart: () => {
+    const url = CART_API;
+    return axiosClient.get(url);
+  },
+  addItemToCart: () => {
+    const url = CART_API;
+    return axiosClient.post(url);
+  },
+  removeItemFromCart: () => {
+    const url = CART_API;
+    return axiosClient.delete(url);
+  },
+  addCouponToCart: () => {
+    const url = CART_API;
+    return axiosClient.put(url);
+  },
+};
+
+export default cartApi;

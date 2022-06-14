@@ -9,6 +9,7 @@ const GoogleLoginBtn = () => {
 
   const responseGoogle = (response: any) => {
     const { accessToken } = response;
+    console.log("đã lấy được response của gg là", response);
     console.log("đã lấy được access token là", { accessToken });
 
     if (!accessToken) return;

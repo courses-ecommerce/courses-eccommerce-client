@@ -1,8 +1,10 @@
 import { Button } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import CourseModal from "../CourseModal/CourseModal";
 import "./CourseItem.scss";
@@ -12,10 +14,19 @@ interface CourseItemProps {
 }
 const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   const navigate = useNavigate();
+  const { isAuth } = useSelector(selectAuthorization);
 
   // console.log(data);
 
   const { nodeRef, show } = useHover();
+
+  const handleAddCart = () => {
+    if (!isAuth) {
+      navigate("/login");
+    } else {
+      console.log("add cart", data._id);
+    }
+  };
 
   return (
     <div className="course-item">
@@ -52,9 +63,11 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
             <b>Giá: </b> {data.currentPrice}
           </span>
         ) : (
-          <span className="free">Miễn phí</span>
+          <span className="current_price">
+            <b>Giá:</b> <span className="free">Miễn phí</span>
+          </span>
         )}
-        <Button variant="contained" color="warning">
+        <Button variant="contained" color="warning" onClick={handleAddCart}>
           Mua ngay
         </Button>
       </div>
