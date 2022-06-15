@@ -7,9 +7,9 @@ const cartApi = {
     const url = CART_API;
     return axiosClient.get(url);
   },
-  addItemToCart: () => {
+  addItemToCart: (course: Object) => {
     const url = CART_API;
-    return axiosClient.post(url);
+    return axiosClient.post(url, course);
   },
   removeItemFromCart: () => {
     const url = CART_API;

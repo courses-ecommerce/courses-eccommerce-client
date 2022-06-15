@@ -172,7 +172,7 @@ const DASHBOARD_ROUTE = [
         href: "/student/my-course",
         element: <MyCourse />,
         title: "Khoá học của tôi",
-        icon: "photo",
+        icon: "film",
       },
       {
         path: "history-payment",

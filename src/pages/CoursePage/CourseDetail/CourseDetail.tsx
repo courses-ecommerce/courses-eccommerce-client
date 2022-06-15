@@ -1,10 +1,14 @@
 import { Button } from "@mui/material";
-import React, { useEffect, useState, useLayoutEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import cartApi from "src/apis/cartApi";
 import courseApi from "src/apis/courseApi";
 import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
 import Image from "src/components/Image/Image";
 import Rating from "src/components/Rating/Rating";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import CourseSummary from "../CourseSummary/CourseSummary";
 import CourseTarget from "../CourseTarget/CourseTarget";
@@ -12,6 +16,8 @@ import "./CourseDetail.scss";
 
 const CourseDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { isAuth } = useSelector(selectAuthorization);
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
 
@@ -32,6 +38,27 @@ const CourseDetail = () => {
       console.log(response);
     } catch (error) {
       console.log("lỗi", { error });
+    }
+  };
+
+  const handleAddCart = async () => {
+    if (!isAuth) {
+      navigate("/login");
+    } else {
+      const params = { course: id };
+      console.log("params", params);
+
+      try {
+        await cartApi.addItemToCart(params);
+        toast.success("Thêm vào giỏ hàng thành công", {
+          position: "bottom-right",
+        });
+      } catch (error) {
+        console.log("lỗi rồi", { error });
+        toast.warning(`${error}`, {
+          position: "bottom-right",
+        });
+      }
     }
   };
 
@@ -84,8 +111,12 @@ const CourseDetail = () => {
                   total_rating={courseDetail.rating?.numOfRate}
                 />
               </span>
-              <Button variant="contained" color="warning">
-                Mua khoá học ngay
+              <Button
+                variant="contained"
+                color="warning"
+                onClick={handleAddCart}
+              >
+                Mua ngay
               </Button>
             </div>
 

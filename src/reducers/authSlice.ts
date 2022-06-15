@@ -1,27 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IAuthSlice } from "src/types/slice";
 
-// export const postLogin = createAsyncThunk(
-//   "auth/login",
-//   async (params: ILogin, thunkApi) => {
-//     // thunkAPI.dispatch(...)
-
-//     console.log("ádasdas", params);
-
-//     const response = await authApi.postLogin(params);
-//     return response;
-//   }
-// );
-
 const initialState: IAuthSlice = {
   isLoading: false,
   isAuth: false,
   isRole: "",
+  amount_cart: 0,
   userInfo: {},
-  // isAuth: JSON.parse(localStorage.getItem("role") || "false") ? true : false,
-  // isRole: JSON.parse(localStorage.getItem("role") || "{}")
-  //   ? JSON.parse(localStorage.getItem("role") || "null")
-  //   : "",
 };
 
 const authSlice = createSlice({
@@ -40,6 +25,9 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.userInfo = action.payload;
     },
+    getTotalCart(state, action) {
+      state.amount_cart = action.payload;
+    },
     isSuccess(state) {
       // state.isAuth = true;
       state.isLoading = false;
@@ -54,7 +42,14 @@ const authSlice = createSlice({
 
 const { actions, reducer } = authSlice;
 
-export const { isPending, isLogin, getUserInfo, isSuccess, isLogout } = actions;
+export const {
+  getTotalCart,
+  isPending,
+  isLogin,
+  getUserInfo,
+  isSuccess,
+  isLogout,
+} = actions;
 
 export const selectAuthorization = (state: { auth: IAuthSlice }) => state.auth;
 

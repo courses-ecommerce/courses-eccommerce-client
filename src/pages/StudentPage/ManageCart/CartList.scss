@@ -1,0 +1,13 @@
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  > .cart-items {
+    display: flex;
+    flex-direction: column;
+    // gap: 20px;
+    gap: 2px;
+    box-shadow: 0 0 2px #d1d7dc;
+  }
+}

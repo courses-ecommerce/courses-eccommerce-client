@@ -7,7 +7,8 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICounpon } from "src/types";
+import { ICounpon } from "src/types/cart";
+
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CouponDetail from "./CouponDetail";
 import CreateCoupon from "./CreateCoupon";

@@ -20,8 +20,8 @@ export const discountTypes = [
 export const discountApplyTypes = [
   { value: "all", name: "Tất cả" },
   { value: "author", name: "Tác giả" },
-  { value: "category", name: "Mã danh mục" },
-  { value: "new user", name: "Người dùng mới" },
+  // { value: "category", name: "Mã danh mục" },
+  // { value: "new user", name: "Người dùng mới" },
 ];
 export const categoryTypes = [
   { value: false, name: "Đã duyệt" },

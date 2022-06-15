@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import cartApi from "src/apis/cartApi";
 import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
 import { selectAuthorization } from "src/reducers/authSlice";
@@ -20,11 +22,24 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
 
   const { nodeRef, show } = useHover();
 
-  const handleAddCart = () => {
+  const handleAddCart = async () => {
     if (!isAuth) {
       navigate("/login");
     } else {
-      console.log("add cart", data._id);
+      const params = { course: data._id };
+      console.log("params", params);
+
+      try {
+        await cartApi.addItemToCart(params);
+        toast.success("Thêm vào giỏ hàng thành công", {
+          position: "bottom-right",
+        });
+      } catch (error) {
+        console.log("lỗi rồi", { error });
+        toast.warning(`${error}`, {
+          position: "bottom-right",
+        });
+      }
     }
   };
 

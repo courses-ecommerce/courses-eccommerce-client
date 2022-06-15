@@ -1,0 +1,18 @@
+.cart-item {
+  max-height: 150px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  border: 1px solid rgb(224, 223, 223);
+  padding: 10px;
+
+  > .info {
+    > .title {
+      font-size: 18px;
+      line-height: 22px;
+      font-weight: 600;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import { linkHeader, linkUserProfile } from "src/data/sidebar";
 import { IRoute } from "src/types";
 import AccountPopover from "../AccountPopover/AccountPopover";
+import CartIcon from "../CartIcon/CartIcon";
 import Notification from "../Notification/Notification";
 import "./Header.scss";
 
@@ -36,6 +37,7 @@ const Header = () => {
       <div className="header-profile">
         <Notification type="message" />
         <Notification type="notify" />
+        <CartIcon />
         <AccountPopover routes={linkUserProfile} />
       </div>
     </div>

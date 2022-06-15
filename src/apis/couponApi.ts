@@ -1,4 +1,4 @@
-import { ICounpon } from "src/types";
+import { ICounpon } from "src/types/cart";
 import axiosClient from "./axiosClient";
 
 const COUPON_API = "/coupons";

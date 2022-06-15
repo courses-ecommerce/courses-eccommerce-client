@@ -37,7 +37,7 @@ const Login = () => {
       toast.success("Đăng nhập thành công", { position: "bottom-right" });
     } catch (error: any) {
       console.log("lỗi rồi", { error });
-      toast.warning(`${error.data.messagee}`, {
+      toast.warning(`${error}`, {
         position: "bottom-right",
       });
       dispatch(isSuccess());
