@@ -1,13 +1,15 @@
 import { Button } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
+import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
-import { selectAuthorization } from "src/reducers/authSlice";
+import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
+import { numberLocale } from "src/utils";
 import CourseModal from "../CourseModal/CourseModal";
 import "./CourseItem.scss";
 
@@ -17,6 +19,9 @@ interface CourseItemProps {
 const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   const navigate = useNavigate();
   const { isAuth } = useSelector(selectAuthorization);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   // console.log(data);
 
@@ -27,15 +32,20 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
       navigate("/login");
     } else {
       const params = { course: data._id };
-      console.log("params", params);
-
+      // console.log("params", params);
+      setIsLoading(true);
       try {
-        await cartApi.addItemToCart(params);
+        const response = await cartApi.addItemToCart(params);
+        setIsLoading(false);
+        const { carts }: any = response;
+        // console.log("carts", carts.length);
+        dispatch(getTotalCart(carts.length));
         toast.success("Thêm vào giỏ hàng thành công", {
           position: "bottom-right",
         });
       } catch (error) {
         console.log("lỗi rồi", { error });
+        setIsLoading(false);
         toast.warning(`${error}`, {
           position: "bottom-right",
         });
@@ -75,15 +85,20 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
         </span>
         {(data.currentPrice || 0) > 0 ? (
           <span className="current_price">
-            <b>Giá: </b> {data.currentPrice}
+            <b>Giá: </b> {numberLocale(data.currentPrice)} đồng
           </span>
         ) : (
           <span className="current_price">
             <b>Giá:</b> <span className="free">Miễn phí</span>
           </span>
         )}
-        <Button variant="contained" color="warning" onClick={handleAddCart}>
-          Mua ngay
+        <Button
+          variant="contained"
+          color="warning"
+          onClick={handleAddCart}
+          disabled={isLoading}
+        >
+          {!isLoading ? "Mua ngay" : <Loading />}
         </Button>
       </div>
     </div>

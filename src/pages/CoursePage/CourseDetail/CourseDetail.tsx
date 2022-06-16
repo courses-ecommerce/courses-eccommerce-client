@@ -1,25 +1,30 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
 import courseApi from "src/apis/courseApi";
 import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
 import Image from "src/components/Image/Image";
+import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
-import { selectAuthorization } from "src/reducers/authSlice";
+import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
+import { numberLocale } from "src/utils";
 import CourseSummary from "../CourseSummary/CourseSummary";
 import CourseTarget from "../CourseTarget/CourseTarget";
 import "./CourseDetail.scss";
 
 const CourseDetail = () => {
+  document.title = "Thông tin chi tiết khoá học";
   const { id } = useParams();
   const navigate = useNavigate();
   const { isAuth } = useSelector(selectAuthorization);
+  const dispatch = useDispatch();
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
     window.scroll(0, 0);
@@ -35,7 +40,7 @@ const CourseDetail = () => {
       const response = await courseApi.getCourseDetail(id);
       const { course }: any = response;
       setCourseDetail(course);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log("lỗi", { error });
     }
@@ -46,15 +51,21 @@ const CourseDetail = () => {
       navigate("/login");
     } else {
       const params = { course: id };
-      console.log("params", params);
-
+      // console.log("params", params);
+      setIsLoading(true);
       try {
-        await cartApi.addItemToCart(params);
+        const response = await cartApi.addItemToCart(params);
+        const { carts }: any = response;
+        // console.log("carts", carts.length);
+        dispatch(getTotalCart(carts.length));
+
+        setIsLoading(false);
         toast.success("Thêm vào giỏ hàng thành công", {
           position: "bottom-right",
         });
       } catch (error) {
         console.log("lỗi rồi", { error });
+        setIsLoading(false);
         toast.warning(`${error}`, {
           position: "bottom-right",
         });
@@ -84,28 +95,28 @@ const CourseDetail = () => {
             <div className="detail-info">
               <h3>Sơ lược thông tin khoá học</h3>
               <span>
-                <b>Tác giả </b>
+                <b>Tác giả: </b>
                 {courseDetail.author?.fullName}
               </span>
 
               <span>
-                <b>Giá hiện tại </b>
-                {courseDetail.currentPrice}
+                <b>Giá hiện tại: </b>
+                {numberLocale(courseDetail.currentPrice)} đồng
               </span>
 
               <span>
-                <b>Mức độ</b>
+                <b>Mức độ: </b>
                 {courseDetail.level}
               </span>
               <span>
-                <b>Đối tượng học </b>
+                <b>Đối tượng học: </b>
                 {courseDetail.intendedLearners &&
                   courseDetail.intendedLearners.map((name, index) => (
                     <span key={index}>{name}</span>
                   ))}
               </span>
               <span style={{ display: "flex", flexDirection: "row" }}>
-                <b>Đánh giá </b>
+                <b>Đánh giá: </b>
                 <Rating
                   average_rating={courseDetail.rating?.rate}
                   total_rating={courseDetail.rating?.numOfRate}
@@ -115,8 +126,9 @@ const CourseDetail = () => {
                 variant="contained"
                 color="warning"
                 onClick={handleAddCart}
+                disabled={isLoading}
               >
-                Mua ngay
+                {!isLoading ? "Mua ngay" : <Loading />}
               </Button>
             </div>
 

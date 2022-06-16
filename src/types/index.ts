@@ -67,6 +67,7 @@ export interface ICourse {
   sellNumber?: string;
   slug?: string;
   targets?: string[];
+  discount?: number;
 }
 
 export interface IAccount {

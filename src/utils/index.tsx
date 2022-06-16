@@ -48,3 +48,7 @@ export const translateVi = (name: string) => {
 
 //check value
 export const checkGender = (name: any) => (name ? "Nam" : "Nữ");
+//number locale
+export const numberLocale = (number?: Number) => {
+  return number?.toLocaleString();
+};

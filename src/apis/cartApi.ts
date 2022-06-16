@@ -11,8 +11,8 @@ const cartApi = {
     const url = CART_API;
     return axiosClient.post(url, course);
   },
-  removeItemFromCart: () => {
-    const url = CART_API;
+  removeItemFromCart: (id?: string) => {
+    const url = CART_API + "/" + id;
     return axiosClient.delete(url);
   },
   addCouponToCart: () => {
