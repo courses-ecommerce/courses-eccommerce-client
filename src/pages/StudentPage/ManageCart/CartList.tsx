@@ -1,10 +1,12 @@
 import { Button, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
 import Loading from "src/components/Loading/Loading";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICart, ICartInfo } from "src/types/cart";
+import paymentApi from "src/apis/paymentApi";
 import { numberLocale } from "src/utils";
 import CartItem from "./CartItem/CartItem";
 import "./CartList.scss";
@@ -12,8 +14,9 @@ import "./CartList.scss";
 const CartList = () => {
   document.title = "Quản lý giỏ hàng";
   const [cart, setCart] = useState<ICart[]>([]);
-  // const [wishlist, setWishlist] = useState<ICart[]>([]);
+  const [wishlist, setWishlist] = useState<ICart[]>([]);
   const [cartInfo, setCartInfo] = useState<ICartInfo>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { amount_cart } = useSelector(selectAuthorization);
 
@@ -21,18 +24,24 @@ const CartList = () => {
     getCart();
   }, [amount_cart]);
 
-  useEffect(() => {
-    console.log("cartInfo", cartInfo);
-  }, [cartInfo]);
+  // useEffect(() => {
+  //   console.log("cartInfo", cartInfo);
+  // }, [cartInfo]);
 
   const getCart = async () => {
     try {
       const response = await cartApi.getCart();
-      console.log(response);
-      const { carts, estimatedPrice, totalDiscount, totalPrice }: any =
-        response;
+      const {
+        carts,
+        estimatedPrice,
+        totalDiscount,
+        totalPrice,
+        wishlist,
+      }: any = response;
+      console.log("carts", carts, "wish-list", wishlist);
 
       setCart(carts);
+      setWishlist(wishlist);
       setCartInfo({ estimatedPrice, totalDiscount, totalPrice });
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -46,6 +55,22 @@ const CartList = () => {
         <CartItem key={index} cartItem={cart} />
       ))
     );
+  };
+
+  const handlePayment = async () => {
+    setIsLoading(true);
+    const params = { paymentMethod: "vnPay" };
+    try {
+      const response = await paymentApi.postCheckout(params);
+      const { location }: any = response;
+      // console.log(location);
+      window.location.href = location;
+      setIsLoading(false);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+      toast.warning("Thanh toán lỗi", { position: "bottom-right" });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -75,8 +100,13 @@ const CartList = () => {
             <span className="note">
               Lưu ý: suy nghĩ kỹ trước khi mua, không hoàn trả lại sau khi mua
             </span>
-            <Button variant="contained" color="success">
-              Thanh toán
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handlePayment}
+              disabled={isLoading}
+            >
+              {!isLoading ? "Thanh toán" : <Loading />}
             </Button>
           </div>
         )}

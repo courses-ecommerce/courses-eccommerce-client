@@ -15,7 +15,7 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
-  console.log(cartItem);
+  // console.log(cartItem);
   const dispatch = useDispatch();
 
   const handleDeleteCart = async () => {
@@ -32,6 +32,20 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
       console.log("lỗi rồi", { error });
       dispatch(isSuccess());
       toast.warning("Xoá khoá học thất bại", { position: "bottom-right" });
+    }
+  };
+
+  const handleBuyLater = async () => {
+    const params = { wishlist: true, coupon: "" };
+    try {
+      const response = await cartApi.addCouponToCart(
+        cartItem?.course?._id,
+        params
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
     }
   };
 
@@ -66,7 +80,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
         </span>
       </div>
       <div className="handle">
-        <span>Mua sau</span>
+        <span onClick={handleBuyLater}>Mua sau</span>
         <span onClick={handleDeleteCart}>Loại bỏ</span>
       </div>
     </div>

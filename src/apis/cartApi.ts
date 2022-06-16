@@ -15,9 +15,9 @@ const cartApi = {
     const url = CART_API + "/" + id;
     return axiosClient.delete(url);
   },
-  addCouponToCart: () => {
-    const url = CART_API;
-    return axiosClient.put(url);
+  addCouponToCart: (id?: string, params?: any) => {
+    const url = CART_API + "/" + id;
+    return axiosClient.put(url, params);
   },
 };
 
