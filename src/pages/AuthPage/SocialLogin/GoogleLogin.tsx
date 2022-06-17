@@ -1,3 +1,5 @@
+import { gapi } from "gapi-script";
+import { useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -7,10 +9,22 @@ import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
 const GoogleLoginBtn = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId:
+          "72783105646-0j3u484s6rmteh96oucfvgu8oucp9g9o.apps.googleusercontent.com",
+        scope: "email",
+      });
+    }
+
+    gapi.load("client:auth2", start);
+  }, []);
+
   const responseGoogle = (response: any) => {
     const { accessToken } = response;
-    console.log("đã lấy được response của gg là", response);
-    console.log("đã lấy được access token là", { accessToken });
+    // console.log("đã lấy được response của gg là", response);
+    // console.log("đã lấy được access token là", { accessToken });
 
     if (!accessToken) return;
     postLoginGoogle(accessToken);
