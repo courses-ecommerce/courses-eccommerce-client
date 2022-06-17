@@ -18,15 +18,12 @@ const CartList = () => {
   const [cartInfo, setCartInfo] = useState<ICartInfo>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const { amount_cart } = useSelector(selectAuthorization);
 
   useEffect(() => {
     getCart();
-  }, [amount_cart]);
-
-  // useEffect(() => {
-  //   console.log("cartInfo", cartInfo);
-  // }, [cartInfo]);
+  }, [amount_cart, isUpdate]);
 
   const getCart = async () => {
     try {
@@ -38,8 +35,7 @@ const CartList = () => {
         totalPrice,
         wishlist,
       }: any = response;
-      console.log("carts", carts, "wish-list", wishlist);
-
+      // console.log("carts", carts, "wish-list", wishlist);
       setCart(carts);
       setWishlist(wishlist);
       setCartInfo({ estimatedPrice, totalDiscount, totalPrice });
@@ -49,10 +45,18 @@ const CartList = () => {
   };
 
   const renderCartItem = (carts: ICart[]) => {
+    if (carts.length === 0) {
+      return "Không có khoá nào";
+    }
+
     return (
       carts.length > 0 &&
       carts.map((cart: ICart, index) => (
-        <CartItem key={index} cartItem={cart} />
+        <CartItem
+          onUpdate={(status) => setIsUpdate(status)}
+          key={index}
+          cartItem={cart}
+        />
       ))
     );
   };
@@ -110,6 +114,13 @@ const CartList = () => {
             </Button>
           </div>
         )}
+      </div>
+      <Divider />
+      <h3>Danh sách mua sau</h3>
+      <div className="cart-content">
+        <div className="cart-items">
+          {renderCartItem(wishlist) || <Loading />}
+        </div>
       </div>
     </div>
   );

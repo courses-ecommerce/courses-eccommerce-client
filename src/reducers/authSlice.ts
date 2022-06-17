@@ -35,6 +35,7 @@ const authSlice = createSlice({
     isLogout(state) {
       state.isAuth = false;
       state.amount_cart = 0;
+      state.userInfo = {};
       state.isRole = "";
     },
   },

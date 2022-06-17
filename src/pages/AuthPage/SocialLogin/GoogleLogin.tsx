@@ -36,7 +36,7 @@ const GoogleLoginBtn = () => {
 
   return (
     <GoogleLogin
-      clientId="72783105646-cipflukf562b889osbe6ceip05gul94p.apps.googleusercontent.com"
+      clientId="72783105646-0j3u484s6rmteh96oucfvgu8oucp9g9o.apps.googleusercontent.com"
       buttonText="Đăng nhập bằng google"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}

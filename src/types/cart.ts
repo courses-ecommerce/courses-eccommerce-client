@@ -25,9 +25,9 @@ export interface ICart {
 
 export interface ICartInfo {
   carts?: ICart[];
+  wishlist?: ICart[];
   estimatedPrice?: number;
   totalDiscount?: number;
   totalPrice?: number;
-  numOfCarts?: any;
-  wishlist?: any;
+  numOfCarts?: number;
 }

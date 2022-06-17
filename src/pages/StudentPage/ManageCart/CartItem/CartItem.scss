@@ -1,9 +1,11 @@
 .cart-item {
   max-height: 180px;
+  max-width: 900px;
+  width: 100%;
 
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  gap: 30px;
 
   border: 1px solid rgb(215, 215, 215);
   padding: 10px;
@@ -23,8 +25,6 @@
   }
 
   > .handle {
-    width: 60px;
-
     display: flex;
     flex-direction: column;
     gap: 5px;
