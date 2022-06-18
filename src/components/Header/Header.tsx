@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
 import { linkHeader, linkUserProfile } from "src/data/sidebar";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { IRoute } from "src/types";
 import AccountPopover from "../AccountPopover/AccountPopover";
 import CartIcon from "../CartIcon/CartIcon";
@@ -8,6 +10,8 @@ import Notification from "../Notification/Notification";
 import "./Header.scss";
 
 const Header = () => {
+  const { isRole } = useSelector(selectAuthorization);
+
   const renderSmoothLinks = (links: IRoute[]) => {
     return (
       links.length > 0 &&
@@ -37,7 +41,7 @@ const Header = () => {
       <div className="header-profile">
         <Notification type="message" />
         <Notification type="notify" />
-        <CartIcon />
+        {isRole === "user" && <CartIcon />}
         <AccountPopover routes={linkUserProfile} />
       </div>
     </div>
