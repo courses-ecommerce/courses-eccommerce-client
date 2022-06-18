@@ -49,11 +49,12 @@ export const translateVi = (name: string) => {
 //check value
 export const checkGender = (name: any) => (name ? "Nam" : "Nữ");
 //number locale
-export const numberLocale = (number?: Number) => {
+export const numberLocale = (number?: number, unit_name: string = "") => {
   if (!number) return 0;
-  return number?.toLocaleString();
+  return number?.toLocaleString() + unit_name;
 };
 export const numberRound = (number?: number) => {
   if (!number) return 0;
-  return Math.round(number);
+  // return Math.round(number);
+  return number.toString().substring(0, 5);
 };
