@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -64,11 +64,14 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
         {show && <CourseModal course={data} />}
       </div>
       <div className="content">
-        <span className="name">{data.name}</span>
+        <Tooltip title={data.name || ""}>
+          <span className="name">{data.name}</span>
+        </Tooltip>
         <span className="author">
           <b>Tác giả: </b>
           {data.author?.fullName}
         </span>
+
         <span className="level">
           <b>Mức độ: </b>
           {data.level}
