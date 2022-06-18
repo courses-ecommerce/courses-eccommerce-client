@@ -9,7 +9,7 @@ import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
 import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { numberLocale } from "src/utils";
+import { numberLocale, numberRound } from "src/utils";
 import CourseModal from "../CourseModal/CourseModal";
 import "./CourseItem.scss";
 
@@ -18,6 +18,8 @@ interface CourseItemProps {
 }
 const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   const navigate = useNavigate();
+
+  const { isRole } = useSelector(selectAuthorization);
   const { isAuth } = useSelector(selectAuthorization);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +34,6 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
       navigate("/login");
     } else {
       const params = { course: data._id };
-      // console.log("params", params);
       setIsLoading(true);
       try {
         const response = await cartApi.addItemToCart(params);
@@ -56,6 +57,7 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   return (
     <div className="course-item">
       <div className="img" ref={nodeRef}>
+        <span className="sale-off">-{numberRound(data.saleOff)}%</span>
         <img
           src={data.thumbnail}
           alt="img"
@@ -89,6 +91,9 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
         {(data.currentPrice || 0) > 0 ? (
           <span className="current_price">
             <b>Giá: </b> {numberLocale(data.currentPrice)} đồng
+            <span className="original_price">
+              {numberLocale(data.originalPrice)} đồng
+            </span>
           </span>
         ) : (
           <span className="current_price">
@@ -99,9 +104,17 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
           variant="contained"
           color="warning"
           onClick={handleAddCart}
-          disabled={isLoading}
+          disabled={isLoading || (isRole !== "student" && isRole !== "")}
         >
-          {!isLoading ? "Mua ngay" : <Loading />}
+          {!isLoading ? (
+            isRole === "student" ? (
+              "Mua ngay"
+            ) : (
+              "Học sinh mới được mua"
+            )
+          ) : (
+            <Loading />
+          )}
         </Button>
       </div>
     </div>

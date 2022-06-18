@@ -8,7 +8,7 @@ const courseApi = {
     const url = COURSE_API;
     return axiosClient.get(url, { params });
   },
-  getCoursesHot: (params?: any) => {
+  getCoursesHot: (params?: IGetCourse) => {
     const url = COURSE_API + "/hot";
     return axiosClient.get(url, { params });
   },

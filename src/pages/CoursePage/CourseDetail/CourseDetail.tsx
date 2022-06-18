@@ -19,6 +19,8 @@ import "./CourseDetail.scss";
 const CourseDetail = () => {
   document.title = "Thông tin chi tiết khoá học";
   const { id } = useParams();
+  const { isRole } = useSelector(selectAuthorization);
+
   const navigate = useNavigate();
   const { isAuth } = useSelector(selectAuthorization);
   const dispatch = useDispatch();
@@ -126,9 +128,17 @@ const CourseDetail = () => {
                 variant="contained"
                 color="warning"
                 onClick={handleAddCart}
-                disabled={isLoading}
+                disabled={isLoading || (isRole !== "student" && isRole !== "")}
               >
-                {!isLoading ? "Mua ngay" : <Loading />}
+                {!isLoading ? (
+                  isRole === "student" ? (
+                    "Mua ngay"
+                  ) : (
+                    "Học sinh mới được mua"
+                  )
+                ) : (
+                  <Loading />
+                )}
               </Button>
             </div>
 

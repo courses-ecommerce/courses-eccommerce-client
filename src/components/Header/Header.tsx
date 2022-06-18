@@ -41,7 +41,7 @@ const Header = () => {
       <div className="header-profile">
         <Notification type="message" />
         <Notification type="notify" />
-        {isRole === "user" && <CartIcon />}
+        {isRole === "student" && <CartIcon />}
         <AccountPopover routes={linkUserProfile} />
       </div>
     </div>

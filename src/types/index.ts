@@ -63,7 +63,7 @@ export interface ICourse {
   rating?: RatingProps;
   language?: string;
   level?: string;
-  saleOff?: string;
+  saleOff?: number;
   sellNumber?: string;
   slug?: string;
   targets?: string[];
