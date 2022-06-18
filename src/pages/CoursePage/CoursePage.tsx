@@ -21,7 +21,7 @@ const CoursePage = () => {
     try {
       const response = await courseApi.getCourses(params);
       const { courses, total }: any = response;
-      // console.log(courses);
+      console.log("courses", courses);
       setCourses(courses);
     } catch (error) {
       console.log("lỗi rồi", { error });
