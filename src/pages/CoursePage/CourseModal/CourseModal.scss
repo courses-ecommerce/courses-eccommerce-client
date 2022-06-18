@@ -34,10 +34,15 @@
     }
     > .intended-learners {
       display: flex;
+      flex-direction: column;
       gap: 2px;
       > .list {
         display: flex;
         flex-direction: column;
+        > span {
+          padding-left: 20px;
+          font-size: 12px;
+        }
       }
     }
     > .course-summary-content {

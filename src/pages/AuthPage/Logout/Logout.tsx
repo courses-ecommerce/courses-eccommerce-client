@@ -11,6 +11,7 @@ const Logout = () => {
 
   const handleLogout = () => {
     dispatch(isLogout());
+
     // toast.success("Đăng xuất thành công, quay lại trang đăng nhập", {
     //   position: "bottom-right",
     // });

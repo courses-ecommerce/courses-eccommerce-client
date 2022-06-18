@@ -1,5 +1,5 @@
 export interface IGetCourse {
-  page: number;
+  page?: number;
   limit: number;
   sort?: string;
   name?: string;

@@ -16,8 +16,10 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
-import HistoryPayment from "src/pages/ProfilePage/HistoryPayment/HistoryPayment";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
+import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
+import CartList from "src/pages/StudentPage/ManageCart/CartList";
+import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
@@ -157,6 +159,20 @@ const DASHBOARD_ROUTE = [
         element: <ProfilePage />,
         title: "Thông tin cá nhân",
         icon: "info-circle",
+      },
+      {
+        path: "cart",
+        href: "/student/cart",
+        element: <CartList />,
+        title: "Quản lý giỏ hàng",
+        icon: "shopping-cart",
+      },
+      {
+        path: "my-course",
+        href: "/student/my-course",
+        element: <MyCourse />,
+        title: "Khoá học của tôi",
+        icon: "film",
       },
       {
         path: "history-payment",

@@ -1,4 +1,4 @@
-import { ICounpon } from "src/types";
+import { ICounpon } from "src/types/cart";
 import axiosClient from "./axiosClient";
 
 const COUPON_API = "/coupons";
@@ -25,11 +25,17 @@ const couponApi = {
     const url = COUPON_API;
     return axiosClient.delete(url, { data: ids });
   },
-  // postAllCouponCodes: (data: any) => {
-  //   return axios.post(
-  //     "https://sheet.best/api/sheets/c556a984-9703-4956-bfaf-5decb4ed3fd9?",
-  //     { data, Headers: { "Content-Type": "application/json" } }
-  //   );
+  // couponLoginGoogle: () => {
+  //   const url = COUPON_API + "/login-with-google";
+  //   return axiosClient.get(url);
   // },
+  // couponGoogleCallBack: (code: any) => {
+  //   const url = COUPON_API + "/google/callback";
+  //   return axiosClient.get(url, { params: code });
+  // },
+  postCouponToGoogleSheet: (data: any) => {
+    const url = COUPON_API + "/export-sheet";
+    return axiosClient.post(url, data);
+  },
 };
 export default couponApi;

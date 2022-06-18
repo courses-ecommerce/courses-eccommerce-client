@@ -9,7 +9,7 @@ import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { discountTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { ICounpon } from "src/types";
+import { ICounpon } from "src/types/cart";
 import * as Yup from "yup";
 
 interface UpdateCouponProps {

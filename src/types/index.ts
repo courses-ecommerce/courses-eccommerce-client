@@ -31,21 +31,6 @@ export interface ICategory {
   isPending?: boolean;
 }
 
-export interface ICounpon {
-  _id?: string;
-  title?: string;
-  isActive?: boolean;
-  amount?: number;
-  maxDiscount?: number;
-  minPrice?: number;
-  number?: number;
-  remain?: number;
-  author?: IUser;
-  expireDate?: string;
-  startDate?: string;
-  type?: "percent" | "money";
-  apply?: "author" | "all" | "category" | "new user";
-}
 export interface RatingProps {
   numOfRate?: number;
   rate?: number;
@@ -78,10 +63,11 @@ export interface ICourse {
   rating?: RatingProps;
   language?: string;
   level?: string;
-  saleOff?: string;
+  saleOff?: number;
   sellNumber?: string;
   slug?: string;
   targets?: string[];
+  discount?: number;
 }
 
 export interface IAccount {

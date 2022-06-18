@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { numberLocale } from ".";
 import formatDate from "./formatDay";
 
 //get all keys to pass for header table
@@ -29,6 +30,9 @@ export const getNewHeaderColumn = (
       }
       if (key === "used") {
         return { [key]: item[key] ? "Đang sử dụng" : "Đang trống" };
+      }
+      if (key === "currentPrice" || key === "originalPrice") {
+        return { [key]: numberLocale(item[key]) + " đ" };
       }
       if (key === "isActive") {
         return { [key]: item[key] ? "Đang mở" : "Hết hạn" };

@@ -7,12 +7,14 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICounpon } from "src/types";
+import { ICounpon } from "src/types/cart";
+
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CouponDetail from "./CouponDetail";
 import CreateCoupon from "./CreateCoupon";
 import MultiDeleteCoupon from "./MultiDeleteCoupon";
 import UpdateCoupon from "./UpdateCoupon";
+import ViewCouponCode from "./ViewCouponCode";
 
 const columsHeader: GridColDef[] = [
   {
@@ -32,12 +34,12 @@ const columsHeader: GridColDef[] = [
   {
     field: "title",
     headerName: "Mã khuyến mãi",
-    width: 200,
+    width: 150,
   },
   {
     field: "author",
     headerName: "Người tạo",
-    width: 200,
+    width: 150,
   },
   {
     field: "isActive",
@@ -60,6 +62,15 @@ const columsHeader: GridColDef[] = [
     field: "apply",
     headerName: "Áp dụng",
     width: 100,
+  },
+  {
+    field: "view",
+    type: "actions",
+    headerName: "Coupons",
+    sortable: false,
+    renderCell: ({ id }) => {
+      return <ViewCouponCode couponId={id} />;
+    },
   },
 ];
 

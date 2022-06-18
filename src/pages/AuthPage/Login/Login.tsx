@@ -35,7 +35,7 @@ const Login = () => {
       dispatch(getUserInfo(user));
 
       toast.success("Đăng nhập thành công", { position: "bottom-right" });
-    } catch (error) {
+    } catch (error: any) {
       console.log("lỗi rồi", { error });
       toast.warning(`${error}`, {
         position: "bottom-right",

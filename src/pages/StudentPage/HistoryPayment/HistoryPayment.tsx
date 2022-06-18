@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import usertApi from "src/apis/userApi";
 
 const HistoryPayment = () => {
+  document.title = "Lịch sử thanh toán";
   useEffect(() => {
     getHistoryPayment();
   }, []);
