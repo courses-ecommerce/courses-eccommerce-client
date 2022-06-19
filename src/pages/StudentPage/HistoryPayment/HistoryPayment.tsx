@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import usertApi from "src/apis/userApi";
+import userApi from "src/apis/userApi";
 
 const HistoryPayment = () => {
   document.title = "Lịch sử thanh toán";
@@ -9,14 +9,18 @@ const HistoryPayment = () => {
 
   const getHistoryPayment = async () => {
     try {
-      const response = await usertApi.getHistoryPayment();
+      const response = await userApi.getHistoryPayment();
       console.log("ádadas", response);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
   };
 
-  return <div>HistoryPayment</div>;
+  return (
+    <div className="history-payment">
+      <h3>Lịch sử thanh toán</h3>
+    </div>
+  );
 };
 
 export default HistoryPayment;
