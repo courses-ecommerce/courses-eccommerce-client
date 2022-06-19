@@ -21,7 +21,7 @@ const CoursePage = () => {
     try {
       const response = await courseApi.getCourses(params);
       const { courses, total }: any = response;
-      console.log("courses", courses);
+      // console.log("courses", courses);
       setCourses(courses);
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -33,7 +33,7 @@ const CoursePage = () => {
     try {
       const response = await courseApi.getCoursesHot(params);
       const { courses, total }: any = response;
-      console.log("courses hot", courses);
+      // console.log("courses hot", courses);
       setCoursesHot(courses);
     } catch (error) {
       console.log("lỗi rồi", { error });

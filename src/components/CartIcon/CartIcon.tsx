@@ -17,11 +17,13 @@ const CartIcon: React.FC<CartIconProps> = ({
   unRead_total = 0,
 }) => {
   const { amount_cart, isAuth, isRole } = useSelector(selectAuthorization);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     isAuth && getCart();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount_cart]);
 

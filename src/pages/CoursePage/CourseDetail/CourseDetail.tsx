@@ -42,7 +42,7 @@ const CourseDetail = () => {
       const response = await courseApi.getCourseDetail(id);
       const { course }: any = response;
       setCourseDetail(course);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log("lỗi", { error });
     }
