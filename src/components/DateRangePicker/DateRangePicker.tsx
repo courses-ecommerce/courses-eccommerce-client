@@ -29,14 +29,14 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       toast.warning("Ngày bắt đầu phải bé hớn ngày kết thúc", {
         position: "bottom-right",
       });
-      setStartDay("");
-      setEndDay("");
+      setStartDay(0);
+      setEndDay(0);
       return;
     }
 
     onChange?.({
-      startDay: dateGetTime(startDay),
-      endDay: dateGetTime(endDay),
+      start: dateGetTime(startDay),
+      end: dateGetTime(endDay),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDay, endDay]);

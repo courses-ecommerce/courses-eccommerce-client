@@ -8,7 +8,6 @@ import { getValueChartPie } from "src/utils/chart";
 
 export default function CourseTotal() {
   const [data, setData] = useState<any>({});
-
   useEffect(() => {
     getStatisticCourses();
   }, []);
@@ -16,6 +15,7 @@ export default function CourseTotal() {
   const getStatisticCourses = async () => {
     try {
       const response = await statisticApi.getCourses();
+      // console.log(response);
       const values = getValueChartPie(response);
       setData(values);
     } catch (error) {
@@ -25,6 +25,7 @@ export default function CourseTotal() {
   return (
     <Box
       sx={{
+        width: 350,
         display: "flex",
         flexDirection: "column",
         gap: 3,

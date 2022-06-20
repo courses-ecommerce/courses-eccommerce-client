@@ -38,3 +38,8 @@ export const topAmountTypes = [
   { value: 10, name: "10 khoá hot nhất" },
   { value: 15, name: "15 khoá hot nhất" },
 ];
+export const dateTypes = [
+  { value: "day", name: "Theo ngày" },
+  { value: "month", name: "Theo tháng" },
+  // { value: "year", name: "Theo năm" },
+];

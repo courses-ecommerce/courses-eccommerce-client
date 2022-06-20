@@ -7,8 +7,10 @@ export default function CoursesStatistic() {
   return (
     <Box
       sx={{
+        marginTop: 5,
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
+        alignItems: "center",
         gap: 10,
       }}
     >

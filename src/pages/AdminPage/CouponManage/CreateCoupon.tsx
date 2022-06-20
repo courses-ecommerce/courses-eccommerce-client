@@ -7,7 +7,7 @@ import couponApi from "src/apis/couponApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { discountApplyTypes, discountTypes } from "src/data";
+// import { discountApplyTypes, discountTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import * as Yup from "yup";
 
@@ -28,7 +28,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
     initialValues: {
       title: "",
       type: "money",
-      apply: "author",
+      // apply: "author",
       startDate: "",
       expireDate: "",
       amount: 0,
@@ -102,7 +102,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
       values: {
         title: "",
         type: "money",
-        apply: "author",
+        // apply: "author",
         amount: 0,
         startDate: "",
         expireDate: "",
@@ -166,13 +166,13 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
             defaultValue={formik.values.type}
             onChange={(e) => formik.setFieldValue("type", e.target.value)}
           />
-          <InputSelect
+          {/* <InputSelect
             required
             label="Phạm vi áp dụng"
             list={discountApplyTypes}
             onChange={(e) => formik.setFieldValue("apply", e.target.value)}
             defaultValue={formik.values.apply}
-          />
+          /> */}
           <Input
             required
             label="Ngày bắt đầu"
