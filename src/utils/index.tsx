@@ -31,6 +31,9 @@ export const translateVi = (name: string) => {
       return "Số điện thoại";
     case "avatar":
       return "Ảnh đại diện";
+    //payment
+    case "Paid":
+      return "Đã thanh toán";
     // category
     case "name":
       return "Tên";
@@ -41,6 +44,7 @@ export const translateVi = (name: string) => {
       return "Được công bố";
     case "pendingCourse":
       return "Đang chờ duyệt";
+
     default:
       return name;
   }

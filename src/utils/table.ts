@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { numberLocale } from ".";
 import formatDate from "./formatDay";
+import { translateVi } from ".";
 
 //get all keys to pass for header table
 export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
@@ -31,7 +32,12 @@ export const getNewHeaderColumn = (
       if (key === "used") {
         return { [key]: item[key] ? "Đang sử dụng" : "Đang trống" };
       }
-      if (key === "currentPrice" || key === "originalPrice") {
+      if (
+        key === "currentPrice" ||
+        key === "originalPrice" ||
+        key === "paymentPrice" ||
+        key === "totalDiscount"
+      ) {
         return { [key]: numberLocale(item[key]) + " đ" };
       }
       if (key === "isActive") {
@@ -40,7 +46,7 @@ export const getNewHeaderColumn = (
       if (key === "expireDate" || key === "startDate") {
         return { [key]: formatDate(item[key], "dd-MM-yyyy hh:mm") };
       }
-      return { [key]: item[key] };
+      return { [key]: translateVi(item[key]) };
     });
     return _.merge({ id: index + 1 + (page - 1) * pageSize }, ...values);
   });

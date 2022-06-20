@@ -17,6 +17,8 @@ interface TableProps {
   className?: string;
   isLoading?: boolean;
   isCheckBoxSelection?: boolean;
+  isModify?: boolean;
+  isViewDetail?: boolean;
   btnAdd?: boolean;
   btnMultiDeleted?: boolean;
   btnHandle?: ReactNode;
@@ -45,6 +47,8 @@ const Table: React.FC<TableProps> = ({
   columnsData = [],
   isLoading = false,
   isCheckBoxSelection = true,
+  isModify = true,
+  isViewDetail = true,
   onPageSize,
   onPage,
   getRowId,
@@ -70,18 +74,22 @@ const Table: React.FC<TableProps> = ({
           {/* <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
             <DeleteForeverIcon sx={{ cursor: "pointer" }} />
           </Tooltip> */}
-          <Tooltip
-            title="Cập nhật thông tin"
-            onClick={() => onModifyItem?.(id)}
-          >
-            <EditIcon sx={{ cursor: "pointer" }} />
-          </Tooltip>
-          <Tooltip
-            title="Thông tin chi tiết"
-            onClick={() => onViewItemDetail?.(id)}
-          >
-            <InfoIcon sx={{ cursor: "pointer" }} />
-          </Tooltip>
+          {isModify && (
+            <Tooltip
+              title="Cập nhật thông tin"
+              onClick={() => onModifyItem?.(id)}
+            >
+              <EditIcon sx={{ cursor: "pointer" }} />
+            </Tooltip>
+          )}
+          {isViewDetail && (
+            <Tooltip
+              title="Thông tin chi tiết"
+              onClick={() => onViewItemDetail?.(id)}
+            >
+              <InfoIcon sx={{ cursor: "pointer" }} />
+            </Tooltip>
+          )}
         </div>
       );
     },

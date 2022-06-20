@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function StatisticCoupons() {
+export default function CouponStatistic() {
   return <div>StatistisdsacUser</div>;
 }
