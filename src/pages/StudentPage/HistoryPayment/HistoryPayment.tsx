@@ -1,5 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import userApi from "src/apis/userApi";
 import Table from "src/components/Table/Table";
 import { IInvoice } from "src/types/invoice";
@@ -66,6 +67,8 @@ const HistoryPayment = () => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getHistoryPayment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,6 +117,7 @@ const HistoryPayment = () => {
         isCheckBoxSelection={false}
         isModify={false}
         btnMultiDeleted={false}
+        onViewItemDetail={(id) => navigate(`${id}`)}
         // handleAddItem={handleCreate}
         // onDeleteItem={handleDelete}
         // onModifyItem={handleModifyItem}

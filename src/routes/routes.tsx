@@ -18,6 +18,7 @@ import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
+import PaymentDetail from "src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail";
 import CartList from "src/pages/StudentPage/ManageCart/CartList";
 import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
 import StudentPage from "src/pages/StudentPage/StudentPage";
@@ -58,6 +59,11 @@ const ADMIN_ROUTE = [{ role: "admin", path: "/admin", element: <AdminPage /> }];
 // Student route
 const STUDENT_ROUTE = [
   { role: "student", path: "/student", element: <StudentPage /> },
+  {
+    role: "student",
+    path: "/student/history-payment/:id",
+    element: <PaymentDetail />,
+  },
 ];
 
 // Teacher route
