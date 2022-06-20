@@ -107,8 +107,8 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
           disabled={isLoading || (isRole !== "student" && isRole !== "")}
         >
           {!isLoading ? (
-            isRole === "student" ? (
-              "Mua ngay"
+            isRole === "student" || !isRole ? (
+              "Mua khoá học ngay"
             ) : (
               "Học sinh mới được mua"
             )

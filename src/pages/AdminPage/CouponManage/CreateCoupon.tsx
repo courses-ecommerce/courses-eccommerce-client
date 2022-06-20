@@ -33,7 +33,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
       startDate: "",
       expireDate: "",
       amount: 0,
-      maxDiscount: 0,
+      maxDiscount: null,
       minPrice: 0,
       number: 100,
     },
@@ -65,7 +65,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
           number: "Số lượng mã phải lớn hơn 0",
         };
       }
-      if (values.maxDiscount < 0) {
+      if (values.maxDiscount && values.maxDiscount < 0) {
         errors = {
           ...errors,
           maxDiscount: "Giá không được âm",
@@ -107,7 +107,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
         amount: 0,
         startDate: "",
         expireDate: "",
-        maxDiscount: 0,
+        maxDiscount: null,
         minPrice: 0,
         number: 100,
       },
@@ -118,8 +118,8 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
     dispatch(isPending());
 
     try {
-      const response = await couponApi.createNewCoupon(values);
-      console.log(response);
+      await couponApi.createNewCoupon(values);
+      // console.log(response);
       dispatch(isSuccess());
       setShow?.(false);
       toast.success("Tạo mã khuyến mãi thành công", {
