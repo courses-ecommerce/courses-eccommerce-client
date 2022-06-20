@@ -3,7 +3,7 @@ import { getHeaderColumns } from "./table";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const getValueCharts = (values?: any) => {
+export const getValueChartPie = (values?: any) => {
   const keys = getHeaderColumns(values, ["message"]);
   const data: any[] = [];
 
@@ -11,7 +11,7 @@ export const getValueCharts = (values?: any) => {
     data.push(values[key]);
   });
 
-  console.log(keys);
+  // console.log(keys);
 
   return {
     labels: keys.map((key) => translateVi(key)),

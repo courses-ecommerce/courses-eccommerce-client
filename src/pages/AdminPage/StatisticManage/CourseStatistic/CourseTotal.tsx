@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 import { Pie } from "react-chartjs-2";
 import statisticApi from "src/apis/statisticApi";
 import Loading from "src/components/Loading/Loading";
-import { getValueCharts } from "src/utils/chart";
+import { getValueChartPie } from "src/utils/chart";
 
-export default function StatisticCourses() {
+export default function CourseTotal() {
   const [data, setData] = useState<any>({});
 
   useEffect(() => {
@@ -16,19 +16,15 @@ export default function StatisticCourses() {
   const getStatisticCourses = async () => {
     try {
       const response = await statisticApi.getCourses();
-      const values = getValueCharts(response);
+      const values = getValueChartPie(response);
       setData(values);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
   };
-
   return (
     <Box
       sx={{
-        marginTop: 5,
-        height: 450,
-        width: 450,
         display: "flex",
         flexDirection: "column",
         gap: 3,
@@ -36,7 +32,7 @@ export default function StatisticCourses() {
         alignItems: "center",
       }}
     >
-      <h4>Thống kê số lượng khoá học</h4>
+      <h4>Tổng số lượng khoá học hiện đang có</h4>
       {!_.isEmpty(data) ? <Pie data={data} /> : <Loading />}
     </Box>
   );
