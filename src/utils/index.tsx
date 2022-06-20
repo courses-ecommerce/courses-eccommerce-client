@@ -12,7 +12,7 @@ export const isEmail = (email: string) => {
     );
 };
 
-export const translateVi = (name: string) => {
+export const translateVi = (name?: string) => {
   switch (name) {
     //role
     case "student":
