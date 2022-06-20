@@ -4,7 +4,12 @@ import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import { isLogin, isPending, isSuccess } from "src/reducers/authSlice";
+import {
+  getUserInfo,
+  isLogin,
+  isPending,
+  isSuccess,
+} from "src/reducers/authSlice";
 
 const GoogleLoginBtn = () => {
   const dispatch = useDispatch();
@@ -36,8 +41,9 @@ const GoogleLoginBtn = () => {
     try {
       const response = await authApi.postLoginGoogle(params);
       // console.log(response);
-      const { refreshToken, token, role }: any = response;
+      const { refreshToken, user, token, role }: any = response;
       localStorage.setItem("access_token", JSON.stringify(token));
+      dispatch(getUserInfo(user));
       dispatch(isLogin(role));
     } catch (error) {
       console.log("lỗi rồi", error);
