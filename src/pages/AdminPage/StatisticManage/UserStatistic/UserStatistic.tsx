@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function StatisticUsers() {
+export default function UserStatistic() {
   return <div>StatisticUser</div>;
 }

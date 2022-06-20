@@ -4,11 +4,11 @@ import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import StatisticCoupons from "src/pages/AdminPage/StatisticManage/StatisticCoupons";
-import StatisticCourses from "src/pages/AdminPage/StatisticManage/StatisticCourses";
-import StatisticRevenues from "src/pages/AdminPage/StatisticManage/StatisticRevenues";
-import StatisticUsers from "src/pages/AdminPage/StatisticManage/StatisticUsers";
+import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
+import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
+import StatisticRevenues from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenuesDate";
 import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
+import UserStatistic from "src/pages/AdminPage/StatisticManage/UserStatistic/UserStatistic";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
@@ -119,7 +119,7 @@ const DASHBOARD_ROUTE = [
             path: "users",
             href: "/admin/dashboard/statistic/users",
             title: "Thống kê người dùng",
-            element: <StatisticUsers />,
+            element: <UserStatistic />,
             // icon: "info",
           },
           {
@@ -140,7 +140,7 @@ const DASHBOARD_ROUTE = [
             path: "coupons",
             href: "/admin/dashboard/statistic/coupons",
             title: "Thống kê mã khuyến mãi",
-            element: <StatisticCoupons />,
+            element: <CouponStatistic />,
             // icon: "money",
           },
         ],

@@ -90,9 +90,9 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
         </span>
         {(data.currentPrice || 0) > 0 ? (
           <span className="current_price">
-            <b>Giá: </b> {numberLocale(data.currentPrice)} đồng
+            <b>Giá: </b> {numberLocale(data.currentPrice, " đồng")}
             <span className="original_price">
-              {numberLocale(data.originalPrice)} đồng
+              {numberLocale(data.originalPrice, " đồng")}
             </span>
           </span>
         ) : (

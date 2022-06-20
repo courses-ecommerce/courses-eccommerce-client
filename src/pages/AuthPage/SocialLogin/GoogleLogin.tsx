@@ -35,7 +35,7 @@ const GoogleLoginBtn = () => {
     dispatch(isPending());
     try {
       const response = await authApi.postLoginGoogle(params);
-      console.log(response);
+      // console.log(response);
       const { refreshToken, token, role }: any = response;
       localStorage.setItem("access_token", JSON.stringify(token));
       dispatch(isLogin(role));

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
@@ -18,6 +18,29 @@ interface CartItemProps {
 const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
   // console.log(cartItem);
   const dispatch = useDispatch();
+
+  const handleAddCoupon = async (e: any) => {
+    e.preventDefault();
+    const { coupon } = e.target;
+    if (!coupon.value) return;
+    const params = { coupon: coupon.value };
+    console.log("params", params);
+
+    try {
+      const response = await cartApi.addCouponToCart(
+        cartItem?.course?._id,
+        params
+      );
+
+      console.log(response);
+      toast.success("Nhập mã coupon thành công", { position: "bottom-right" });
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+      toast.warning(`${error}`, {
+        position: "bottom-right",
+      });
+    }
+  };
 
   const handleDeleteCart = async () => {
     onUpdate?.(false);
@@ -43,17 +66,20 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
     onUpdate?.(false);
     dispatch(isPending());
     try {
-      const response = await cartApi.addCouponToCart(
-        cartItem?.course?._id,
-        params
-      );
-      console.log(response);
+      await cartApi.addCouponToCart(cartItem?.course?._id, params);
+      // console.log(response);
       onUpdate?.(true);
       dispatch(isSuccess());
+      toast.success("Đã thêm vào danh sách mua sau", {
+        position: "bottom-right",
+      });
     } catch (error) {
       console.log("lỗi rồi", { error });
       onUpdate?.(true);
       dispatch(isSuccess());
+      toast.warning("Thêm vào danh sách mua sau thất bại", {
+        position: "bottom-right",
+      });
     }
   };
   const handleAddToBuy = async () => {
@@ -88,6 +114,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
         </span>
         {!cartItem?.wishlist && (
           <form
+            onSubmit={handleAddCoupon}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -95,10 +122,22 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
               height: 35,
             }}
           >
-            <Input placeholder="Nhập coupon" style={{ height: 35 }} />
-            <Button variant="contained" color="success">
-              Áp dụng mã
-            </Button>
+            <Input
+              placeholder="Nhập coupon"
+              value={cartItem?.coupon}
+              style={{ height: 35 }}
+              name="coupon"
+              // onChange={(e: any) => setCoupon(e.target.value)}
+            />
+            {!cartItem?.coupon ? (
+              <Button type="submit" variant="contained" color="success">
+                Áp dụng mã
+              </Button>
+            ) : (
+              <Button variant="contained" color="warning">
+                Gỡ mã
+              </Button>
+            )}
           </form>
         )}
       </div>

@@ -11,7 +11,7 @@ import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
 import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { numberLocale } from "src/utils";
+import { numberLocale, numberRound } from "src/utils";
 import CourseSummary from "../CourseSummary/CourseSummary";
 import CourseTarget from "../CourseTarget/CourseTarget";
 import "./CourseDetail.scss";
@@ -84,6 +84,11 @@ const CourseDetail = () => {
         <span className="title">Thông tin chi tiết khoá học</span>
         <div className="course-preview">
           <div className="info">
+            {courseDetail.saleOff && (
+              <span className="sale-off">
+                -{numberRound(courseDetail.saleOff)}%
+              </span>
+            )}
             <Image src={courseDetail.thumbnail} />
             <span className="name">{courseDetail.name}</span>
             <span className="description">
@@ -101,21 +106,20 @@ const CourseDetail = () => {
                 {courseDetail.author?.fullName}
               </span>
 
-              <span>
+              <span className="current_price">
                 <b>Giá hiện tại: </b>
-                {numberLocale(courseDetail.currentPrice)} đồng
+                {courseDetail.currentPrice &&
+                  numberLocale(courseDetail.currentPrice, " đồng")}
+
+                <span className="original_price">
+                  {courseDetail.originalPrice &&
+                    numberLocale(courseDetail.originalPrice, " đồng")}
+                </span>
               </span>
 
               <span>
                 <b>Mức độ: </b>
                 {courseDetail.level}
-              </span>
-              <span>
-                <b>Đối tượng học: </b>
-                {courseDetail.intendedLearners &&
-                  courseDetail.intendedLearners.map((name, index) => (
-                    <span key={index}>{name}</span>
-                  ))}
               </span>
               <span style={{ display: "flex", flexDirection: "row" }}>
                 <b>Đánh giá: </b>
@@ -124,6 +128,16 @@ const CourseDetail = () => {
                   total_rating={courseDetail.rating?.numOfRate}
                 />
               </span>
+              {/* <span className="intended-learners">
+                <b>Đối tượng học: </b>
+                {courseDetail.intendedLearners &&
+                  courseDetail.intendedLearners.map((name, index) => (
+                    <span key={index}>
+                      {index + 1}. {name}
+                    </span>
+                  ))}
+              </span> */}
+
               <Button
                 variant="contained"
                 color="warning"
@@ -141,10 +155,17 @@ const CourseDetail = () => {
                 )}
               </Button>
             </div>
-
             <CourseSummary
               title="Thông tin chi tiết khoá học"
               chapters={courseDetail.chapters}
+            />
+            <CourseTarget
+              title="Đối tượng nào nên học?"
+              content={courseDetail.intendedLearners}
+            />
+            <CourseTarget
+              title="Kiến thức bắt buộc cần có?"
+              content={courseDetail.requirements}
             />
             <CourseTarget
               title="Bạn sẽ học được gì?"

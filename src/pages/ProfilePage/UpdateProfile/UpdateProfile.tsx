@@ -31,12 +31,12 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
       phone: data.phone,
       avatar: null,
     },
-    validationSchema: Yup.object({
-      phone: Yup.string()
-        .matches(phoneRegExp, "Định dạng số điện thoại sai")
-        .max(10, "Định dạng số điện thoại sai")
-        .min(10, "Định dạng số điện thoại sai"),
-    }),
+    // validationSchema: Yup.object({
+    //   phone: Yup.string()
+    //     .matches(phoneRegExp, "Định dạng số điện thoại sai")
+    //     .max(10, "Định dạng số điện thoại sai")
+    //     .min(10, "Định dạng số điện thoại sai"),
+    // }),
     onSubmit: (values) => {
       // console.log("lấy được dữ liệu là", values);
       updateProfile(values);
@@ -108,7 +108,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
           <Input
             label="Số điện thoại"
             {...formik.getFieldProps("phone")}
-            errorMessage={formik.touched.phone ? formik.errors.phone : ""}
+            // errorMessage={formik.touched.phone ? formik.errors.phone : ""}
           />
           <InputSelect
             label="Giới tính"

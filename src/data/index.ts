@@ -31,3 +31,15 @@ export const categoryStatusTypes = [
   { value: true, name: "Đang sử dụng" },
   { value: false, name: "Đang trống" },
 ];
+
+// statistic
+export const topAmountTypes = [
+  { value: 5, name: "5 khoá hot nhất" },
+  { value: 10, name: "10 khoá hot nhất" },
+  { value: 15, name: "15 khoá hot nhất" },
+];
+export const dateTypes = [
+  { value: "day", name: "Theo ngày" },
+  { value: "month", name: "Theo tháng" },
+  // { value: "year", name: "Theo năm" },
+];
