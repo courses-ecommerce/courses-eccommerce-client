@@ -1,6 +1,11 @@
 import { Divider, Typography } from "@mui/material";
-import React from "react";
+import { useSelector } from "react-redux";
+import { selectAuthorization } from "src/reducers/authSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getVideoView } from "src/reducers/authSlice";
 import { LessonProps } from "src/types";
+import "./CourseChapterLesson.scss";
 
 interface CourseChapterLessonProps {
   lessons?: LessonProps[];
@@ -9,11 +14,32 @@ interface CourseChapterLessonProps {
 const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   lessons = [],
 }) => {
+  // console.log("leson", lessons);
+
+  const [lesson, setLesson] = useState<LessonProps>();
+
+  const dispatch = useDispatch();
+
+  const { videoView } = useSelector(selectAuthorization);
+
+  useEffect(() => {
+    dispatch(getVideoView(lesson));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson?._id]);
+
   return (
     <>
       {lessons.map((lesson: LessonProps, index) => {
+        // console.log("lessons", lesson);
         return (
-          <div key={index}>
+          <div
+            key={index}
+            className={
+              videoView?.title === lesson?.title ? "lesson-title-active" : ""
+            }
+            style={{ cursor: "pointer" }}
+            onClick={() => setLesson(lesson)}
+          >
             <Typography>
               <b>{index + 1}. </b>
               {lesson.title}

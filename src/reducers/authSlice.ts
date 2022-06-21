@@ -7,6 +7,7 @@ const initialState: IAuthSlice = {
   isRole: "",
   amount_cart: 0,
   userInfo: {},
+  videoView: {},
 };
 
 const authSlice = createSlice({
@@ -28,6 +29,9 @@ const authSlice = createSlice({
     getTotalCart(state, action) {
       state.amount_cart = action.payload;
     },
+    getVideoView(state, action) {
+      state.videoView = action.payload;
+    },
     isSuccess(state) {
       // state.isAuth = true;
       state.isLoading = false;
@@ -36,6 +40,7 @@ const authSlice = createSlice({
       state.isAuth = false;
       state.amount_cart = 0;
       state.userInfo = {};
+      state.videoView = {};
       state.isRole = "";
     },
   },
@@ -51,6 +56,7 @@ export const {
   getUserInfo,
   isSuccess,
   isLogout,
+  getVideoView,
 } = actions;
 
 export const selectAuthorization = (state: { auth: IAuthSlice }) => state.auth;

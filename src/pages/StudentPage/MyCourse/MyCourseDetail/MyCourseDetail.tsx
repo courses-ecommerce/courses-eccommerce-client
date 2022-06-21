@@ -1,10 +1,12 @@
-import { Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import myCourseApi from "src/apis/myCourseApi";
 import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
+import { IVideo } from "src/types/video";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
@@ -14,6 +16,14 @@ const MyCourseDetail = () => {
 
   const [course, setCourse] = useState<ICourse>({});
   const [chapter, setChapter] = useState();
+  const [video, setVideo] = useState<IVideo>();
+
+  const { videoView } = useSelector(selectAuthorization);
+
+  useEffect(() => {
+    setVideo(videoView);
+    console.log("lấy được video mới là", videoView);
+  }, [videoView]);
 
   useEffect(() => {
     getMyCourseDetail();
@@ -27,8 +37,8 @@ const MyCourseDetail = () => {
       const { myCourse }: any = response;
       // console.log("thông tin myCourse của tôi", myCourse);
       const { course, chapters }: any = myCourse;
-      console.log("thông tin course của tôi", course);
-      console.log("thông tin chapters của tôi", chapters);
+      // console.log("thông tin course của tôi", course);
+      // console.log("thông tin chapters của tôi", chapters);
       setCourse(course);
       setChapter(chapters);
     } catch (error) {
@@ -49,9 +59,8 @@ const MyCourseDetail = () => {
         <div className="my-course-video">
           <div className="stream">
             <Video
-              source={
-                "https://res.cloudinary.com/uthcmc/video/upload/v1655649599/videos/62af313b1ad5916fca2b4347-1655649572937.mp4"
-              }
+              poster={course.thumbnail}
+              source={(video?.video?.length && video?.video[0]) || ""}
             />
           </div>
           <div className="chapters">
