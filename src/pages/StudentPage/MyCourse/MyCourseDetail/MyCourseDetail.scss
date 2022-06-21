@@ -21,44 +21,43 @@
   }
 }
 
-.payments-detail {
+.my-course-detail {
   max-width: 1500px;
   margin: 0 auto;
   margin-top: 20px;
 
   padding-bottom: 100px;
 
-  > .title {
-    font-size: 24px;
-    font-weight: 600;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-  > .payment-preview {
-    margin-top: 20px;
-
+  > .info {
     display: flex;
     flex-direction: row;
-
-    gap: 200px;
-    > .detail-info {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      line-height: 22px;
+    align-items: center;
+    gap: 10px;
+    > .title {
+      font-size: 24px;
+      font-weight: 600;
     }
-    > .detail-cart {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      > .cart-title {
-        font-weight: 600;
-        font-size: 16px;
-      }
-      > .cart-content {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
+    > .author {
+      font-size: 18px;
+      font-weight: 300;
+    }
+  }
+  > .my-course-video {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    > .stream {
+      max-width: 900px;
+      max-height: 600px;
+      height: 100%;
+      width: 100%;
+    }
+    > .chapters {
+      flex: 1;
     }
   }
 }

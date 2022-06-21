@@ -2,6 +2,7 @@ import { Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import invoicesApi from "src/apis/invoicesApi";
+import userApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IDetailInvoice, IInvoice } from "src/types/invoice";
 import { numberLocale, translateVi } from "src/utils";
@@ -24,14 +25,14 @@ const PaymentDetail = () => {
 
   const getPaymenyDetail = async () => {
     try {
-      const response = await invoicesApi.getInvoiceDetail(id);
-      //   console.log("payment detail là", response);
+      const response = await userApi.getHistoryPaymentDetail(id);
+      console.log("payment detail là", response);
       const { invoice }: any = response;
-      const { detailInvoices }: any = invoice[0];
+      const { detailInvoices }: any = invoice;
       // console.log("invoice là", invoice[0]);
       // console.log("detailInvoices là", detailInvoices);
       setDetailInvoice(detailInvoices);
-      setInvoice(invoice[0]);
+      setInvoice(invoice);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -57,7 +58,7 @@ const PaymentDetail = () => {
       </div>
       <div className="payments-detail">
         <span className="title">
-          Thông tin chi tiết hoá đơn: <i>{invoice._id}</i>
+          Thông tin chi tiết hoá đơn: <i>{invoice?._id}</i>
         </span>
 
         <div className="invoice-info">
