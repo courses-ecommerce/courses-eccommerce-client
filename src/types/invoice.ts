@@ -3,6 +3,7 @@ import { IUser } from ".";
 export interface IDetailInvoice {
   _id?: string;
   amount?: number;
+  courseThumbnail?: string;
   couponCode?: string;
   courseAuthor?: string;
   courseCurrentPrice?: number;

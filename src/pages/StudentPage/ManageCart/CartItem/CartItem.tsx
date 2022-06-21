@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
@@ -22,7 +22,10 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
   const handleAddCoupon = async (e: any) => {
     e.preventDefault();
     const { coupon } = e.target;
-    if (!coupon.value) return;
+    if (!coupon.value) {
+      toast.warning("Vui lòng nhập coupon", { position: "bottom-right" });
+      return;
+    }
     onUpdate?.(false);
     const params = { coupon: coupon.value };
     // console.log("params", params);
@@ -43,7 +46,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
   const handleRemoveCoupon = async () => {
     onUpdate?.(false);
     const params = { coupon: "" };
-    console.log("params", params);
+    // console.log("params", params);
 
     try {
       const response = await cartApi.addCouponToCart(
@@ -172,7 +175,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
           <span>{numberLocale(cartItem?.course?.currentPrice)} đồng</span>
         </span>
         <span>
-          <b>Giá giảm: </b>
+          <b>Giảm: </b>
           {numberLocale(cartItem?.course?.discount)} đồng
         </span>
       </div>
