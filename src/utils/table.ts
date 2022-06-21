@@ -36,7 +36,8 @@ export const getNewHeaderColumn = (
         key === "currentPrice" ||
         key === "originalPrice" ||
         key === "paymentPrice" ||
-        key === "totalDiscount"
+        key === "totalDiscount" ||
+        key === "totalPrice"
       ) {
         return { [key]: numberLocale(item[key]) + " đ" };
       }
@@ -45,6 +46,9 @@ export const getNewHeaderColumn = (
       }
       if (key === "expireDate" || key === "startDate") {
         return { [key]: formatDate(item[key], "dd-MM-yyyy hh:mm") };
+      }
+      if (key === "percentProgress") {
+        return { [key]: !item[key] ? "Chưa xem" : item[key] };
       }
       return { [key]: translateVi(item[key]) };
     });

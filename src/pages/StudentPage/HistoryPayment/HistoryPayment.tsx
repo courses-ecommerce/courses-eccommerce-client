@@ -23,35 +23,42 @@ const columsHeader: GridColDef[] = [
   {
     field: "transactionId",
     headerName: "Mã giao dịch",
-    width: 150,
+    width: 120,
     align: "center",
     headerAlign: "center",
   },
   {
     field: "status",
     headerName: "Trạng thái",
-    width: 200,
+    width: 120,
     align: "center",
     headerAlign: "center",
   },
   {
     field: "paymentMethod",
     headerName: "Phương thức thanh toán",
-    width: 220,
+    width: 200,
     align: "center",
     headerAlign: "center",
   },
   {
-    field: "paymentPrice",
-    headerName: "Giá mua",
-    width: 200,
+    field: "totalPrice",
+    headerName: "Giá gốc",
+    width: 150,
     align: "center",
     headerAlign: "center",
   },
   {
     field: "totalDiscount",
     headerName: "Giảm giá",
-    width: 200,
+    width: 150,
+    align: "center",
+    headerAlign: "center",
+  },
+  {
+    field: "paymentPrice",
+    headerName: "Thành tiền",
+    width: 150,
     align: "center",
     headerAlign: "center",
   },
@@ -77,9 +84,9 @@ const HistoryPayment = () => {
   const getHistoryPayment = async () => {
     try {
       const response = await userApi.getHistoryPayment();
-      console.log("ádadas", response);
+      // console.log("ádadas", response);
       const { invoices, total }: any = response;
-      console.log("invoices", invoices);
+      // console.log("invoices", invoices);
       if (invoices.length > 0) {
         const keys = getHeaderColumns(invoices[0]);
         const data = getNewHeaderColumn(invoices, keys, page, pageSize);
@@ -104,8 +111,7 @@ const HistoryPayment = () => {
     <div className="history-payment">
       {/* <h3>Lịch sử thanh toán</h3> */}
       <Table
-        title="Danh sách thông tin lịch sử thanh toán"
-        titleBtnAdd="Tạo tài khoản mới"
+        title="Thông tin lịch sử thanh toán"
         isLoading={loading}
         columnsData={columsHeader}
         getRowId={(row) => row._id}

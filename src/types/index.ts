@@ -40,6 +40,7 @@ export interface LessonProps {
   description?: string;
   number?: number;
   title?: number;
+  video?: any;
 }
 export interface ChaptersProps {
   _id?: string;
