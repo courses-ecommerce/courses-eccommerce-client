@@ -21,6 +21,7 @@ import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment"
 import PaymentDetail from "src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail";
 import CartList from "src/pages/StudentPage/ManageCart/CartList";
 import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
+import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCourseDetail";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
@@ -63,6 +64,11 @@ const STUDENT_ROUTE = [
     role: "student",
     path: "/student/history-payment/:id",
     element: <PaymentDetail />,
+  },
+  {
+    role: "student",
+    path: "/student/my-course/:id",
+    element: <MyCourseDetail />,
   },
 ];
 

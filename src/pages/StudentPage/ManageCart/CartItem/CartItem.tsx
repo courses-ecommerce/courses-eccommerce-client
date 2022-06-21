@@ -23,7 +23,26 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
     e.preventDefault();
     const { coupon } = e.target;
     if (!coupon.value) return;
+    onUpdate?.(false);
     const params = { coupon: coupon.value };
+    // console.log("params", params);
+
+    try {
+      await cartApi.addCouponToCart(cartItem?.course?._id, params);
+      onUpdate?.(true);
+      toast.success("Nhập mã coupon thành công", { position: "bottom-right" });
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+      onUpdate?.(true);
+      toast.warning(`${error}`, {
+        position: "bottom-right",
+      });
+    }
+  };
+
+  const handleRemoveCoupon = async () => {
+    onUpdate?.(false);
+    const params = { coupon: "" };
     console.log("params", params);
 
     try {
@@ -31,11 +50,13 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
         cartItem?.course?._id,
         params
       );
+      onUpdate?.(true);
+      console.log("ưer", response);
 
-      console.log(response);
-      toast.success("Nhập mã coupon thành công", { position: "bottom-right" });
+      toast.success("Gỡ mã coupon thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
+      onUpdate?.(true);
       toast.warning(`${error}`, {
         position: "bottom-right",
       });
@@ -134,7 +155,11 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
                 Áp dụng mã
               </Button>
             ) : (
-              <Button variant="contained" color="warning">
+              <Button
+                variant="contained"
+                color="warning"
+                onClick={handleRemoveCoupon}
+              >
                 Gỡ mã
               </Button>
             )}

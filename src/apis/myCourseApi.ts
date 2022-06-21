@@ -3,9 +3,9 @@ import axiosClient from "./axiosClient";
 const MYCOURSE_APi = "/my-courses";
 
 const myCourseApi = {
-  getMyCourse: () => {
+  getMyCourse: (params?: any) => {
     const url = MYCOURSE_APi;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   getMyCourseDetail: (id: string) => {
     const url = MYCOURSE_APi + "/" + id;

@@ -88,17 +88,17 @@ const CartList = () => {
             <Divider sx={{ marginY: 1 }} />
             <span>
               <b>Giá ước tính: </b>
-              {numberLocale(cartInfo.estimatedPrice)} đồng
+              {numberLocale(cartInfo.totalPrice)} đồng
             </span>
             <span>
-              <b>Tổng giảm giá: </b>
+              <b>Tổng giảm: </b>
               {numberLocale(cartInfo.totalDiscount)} đồng
             </span>
             <Divider />
             <span>
               <b>Thành tiền: </b>
               <span style={{ color: "red", fontWeight: 700 }}>
-                {numberLocale(cartInfo.totalPrice)} đồng
+                {numberLocale(cartInfo.estimatedPrice)} đồng
               </span>
             </span>
             <span className="note">

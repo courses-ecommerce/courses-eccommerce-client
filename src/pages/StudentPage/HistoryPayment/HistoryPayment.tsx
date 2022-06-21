@@ -104,8 +104,7 @@ const HistoryPayment = () => {
     <div className="history-payment">
       {/* <h3>Lịch sử thanh toán</h3> */}
       <Table
-        title="Danh sách thông tin lịch sử thanh toán"
-        titleBtnAdd="Tạo tài khoản mới"
+        title="Thông tin lịch sử thanh toán"
         isLoading={loading}
         columnsData={columsHeader}
         getRowId={(row) => row._id}

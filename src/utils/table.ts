@@ -46,6 +46,9 @@ export const getNewHeaderColumn = (
       if (key === "expireDate" || key === "startDate") {
         return { [key]: formatDate(item[key], "dd-MM-yyyy hh:mm") };
       }
+      if (key === "percentProgress") {
+        return { [key]: !item[key] ? "Chưa xem" : item[key] };
+      }
       return { [key]: translateVi(item[key]) };
     });
     return _.merge({ id: index + 1 + (page - 1) * pageSize }, ...values);
