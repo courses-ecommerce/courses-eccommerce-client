@@ -16,7 +16,7 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   chapterNumber = 0,
   lessons = [],
 }) => {
-  console.log("leson", lessons);
+  // console.log("leson", lessons);
 
   const [lesson, setLesson] = useState<LessonProps>();
 

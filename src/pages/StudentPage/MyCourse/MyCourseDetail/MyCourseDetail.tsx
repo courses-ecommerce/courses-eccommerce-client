@@ -29,7 +29,7 @@ const MyCourseDetail = () => {
       const response = await myCourseApi.getMyCourseDetail(id);
       // console.log("thông tin khoá học của tôi", response);
       const { myCourse }: any = response;
-      // console.log("thông tin myCourse của tôi", myCourse);
+      console.log("thông tin myCourse của tôi", myCourse);
       const { course, chapters }: any = myCourse;
       // console.log("thông tin course của tôi", course);
       // console.log("thông tin chapters của tôi", chapters);
