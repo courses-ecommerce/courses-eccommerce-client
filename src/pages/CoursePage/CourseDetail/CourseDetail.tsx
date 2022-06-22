@@ -113,7 +113,6 @@ const CourseDetail = () => {
                 content={courseDetail.description}
               />
             </span>
-
             <div className="rating">
               <CourseRating ratingComents={ratingComents} />
             </div>
