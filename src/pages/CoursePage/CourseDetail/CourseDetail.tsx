@@ -34,6 +34,7 @@ const CourseDetail = () => {
 
   useEffect(() => {
     getCourseDetail();
+    getRatingComment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -45,6 +46,17 @@ const CourseDetail = () => {
       // console.log(response);
     } catch (error) {
       console.log("lỗi", { error });
+    }
+  };
+
+  const getRatingComment = async () => {
+    try {
+      const response = await courseApi.getCourseRatingList(id);
+      // console.log("response", response);
+      const { rates }: any = response;
+      console.log("rating", rates);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
     }
   };
 
