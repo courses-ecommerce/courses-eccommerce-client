@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { getPanelActive } from "src/reducers/authSlice";
 import { ChaptersProps } from "src/types";
 import CourseChapterLesson from "./CourseChapterLesson/CourseChapterLesson";
+import "./CourseChapters.scss";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -82,7 +83,9 @@ const CourseChapters: React.FC<CourseChaptersProps> = ({
         onChange={handleChange(`panel${index}`)}
         style={{ height, width }}
       >
-        <AccordionSummary>
+        <AccordionSummary
+          className={panelActive === `panel${index}` ? "panel-active" : ""}
+        >
           <Typography style={{ textTransform: "capitalize" }}>
             <b>Chương {index + 1}: </b>
             {chapters?.name}
