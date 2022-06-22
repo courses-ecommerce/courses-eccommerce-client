@@ -7,6 +7,7 @@ import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
+import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
@@ -18,6 +19,8 @@ const MyCourseDetail = () => {
   const [chapter, setChapter] = useState();
 
   const { videoView } = useSelector(selectAuthorization);
+
+  const [showRating, setShowRating] = useState<boolean>(false);
 
   useEffect(() => {
     getMyCourseDetail();
@@ -49,7 +52,11 @@ const MyCourseDetail = () => {
         <div className="info">
           <span className="title">{course.name}</span>
           {/* <span className="author"> {course.author?.fullName} </span> */}
-          <Button variant="contained">Đánh giá ngay</Button>
+          {course.name && (
+            <Button variant="contained" onClick={() => setShowRating(true)}>
+              Đánh giá ngay
+            </Button>
+          )}
         </div>
         <div className="my-course-video">
           <div className="stream">
@@ -70,6 +77,12 @@ const MyCourseDetail = () => {
           </div>
         </div>
       </div>
+      <RatingMyCourse
+        slug={course.slug}
+        show={showRating}
+        onClose={() => setShowRating(false)}
+        setShow={setShowRating}
+      />
     </>
   );
 };
