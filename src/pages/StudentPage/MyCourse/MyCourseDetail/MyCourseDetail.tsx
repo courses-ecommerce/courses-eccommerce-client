@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,14 +17,8 @@ const MyCourseDetail = () => {
 
   const [course, setCourse] = useState<ICourse>({});
   const [chapter, setChapter] = useState();
-  const [video, setVideo] = useState<IVideo>();
 
   const { videoView } = useSelector(selectAuthorization);
-
-  useEffect(() => {
-    setVideo(videoView);
-    console.log("lấy được video mới là", videoView);
-  }, [videoView]);
 
   useEffect(() => {
     getMyCourseDetail();
@@ -59,9 +54,11 @@ const MyCourseDetail = () => {
         <div className="my-course-video">
           <div className="stream">
             <Video
+              _id={videoView?._id}
               poster={course.thumbnail}
-              source={(video?.video?.length && video?.video[0]) || ""}
+              source={(videoView?.video?.length && videoView?.video[0]) || ""}
             />
+            <Button>Đánh giá ngay</Button>
           </div>
           <div className="chapters">
             <CourseSummary

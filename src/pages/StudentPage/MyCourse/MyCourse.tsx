@@ -61,7 +61,7 @@ export default function MyCourse() {
       const response = await myCourseApi.getMyCourse(params);
       // console.log("ádadas", response);
       const { myCourses, total }: any = response;
-      console.log("myCourses", myCourses);
+      // console.log("myCourses", myCourses);
       if (myCourses.length > 0) {
         const keys = getHeaderColumns(myCourses[0]);
         const data = getNewHeaderColumn(myCourses, keys, page, pageSize);

@@ -39,8 +39,8 @@ const Header = () => {
         {renderSmoothLinks(linkHeader)}
       </div>
       <div className="header-profile">
-        <Notification type="message" />
-        <Notification type="notify" />
+        <Notification type="message" unRead_total={5} />
+        {/* <Notification type="notify" /> */}
         {isRole === "student" && <CartIcon />}
         <AccountPopover routes={linkUserProfile} />
       </div>

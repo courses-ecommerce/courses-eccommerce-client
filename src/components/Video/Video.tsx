@@ -5,11 +5,12 @@ import "react-tuby/css/main.css";
 import { defaultIMG } from "src/assets";
 
 interface VideoProps {
+  _id?: string;
   source?: any;
   poster?: string;
 }
 
-const Video: React.FC<VideoProps> = ({ source, poster }) => {
+const Video: React.FC<VideoProps> = ({ _id, source, poster }) => {
   const TIME = 1000;
   const ref = useRef<any>(null);
   // const [timeline, setTimeline] = useState(0);
@@ -20,13 +21,13 @@ const Video: React.FC<VideoProps> = ({ source, poster }) => {
       timeline = ref.current?.currentTime;
     });
     setInterval(() => {
-      // console.log("đã lấy được time là", { timeline });
+      console.log("đã lấy được time là", { _id, timeline });
     }, 5 * TIME);
 
     // return () => {
     //   clearInterval(interval);
     // };
-  }, []);
+  }, [_id]);
 
   return (
     <Player

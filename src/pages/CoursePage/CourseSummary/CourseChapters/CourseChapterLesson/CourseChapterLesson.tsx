@@ -23,7 +23,8 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   const { videoView } = useSelector(selectAuthorization);
 
   useEffect(() => {
-    dispatch(getVideoView(lesson));
+    lesson && dispatch(getVideoView(lesson));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson?._id]);
 
