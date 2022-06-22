@@ -2,18 +2,35 @@ import React, { useEffect, useRef } from "react";
 import ReactHlsPlayer from "react-hls-player/dist";
 import { Player } from "react-tuby";
 import "react-tuby/css/main.css";
+import myCourseApi from "src/apis/myCourseApi";
 import { defaultIMG } from "src/assets";
 
 interface VideoProps {
-  _id?: string;
+  currentTime?: number;
+  duration?: any;
+  courseId?: string;
+  lessonId?: string;
   source?: any;
   poster?: string;
 }
 
-const Video: React.FC<VideoProps> = ({ _id, source, poster }) => {
+const Video: React.FC<VideoProps> = ({
+  courseId,
+  lessonId,
+  currentTime,
+  source,
+  poster,
+  duration,
+}) => {
   const TIME = 1000;
+  // console.log("currentTime", currentTime);
+
   const ref = useRef<any>(null);
   // const [timeline, setTimeline] = useState(0);
+
+  useEffect(() => {
+    ref.current.currentTime = currentTime;
+  }, [currentTime]);
 
   useEffect(() => {
     let timeline = 0;
@@ -21,13 +38,26 @@ const Video: React.FC<VideoProps> = ({ _id, source, poster }) => {
       timeline = ref.current?.currentTime;
     });
     setInterval(() => {
-      console.log("đã lấy được time là", { _id, timeline });
+      const data = { lessonId, timeline };
+      // console.log("đã lấy được time là", data);
+
+      uploadTimeVideo(data);
     }, 5 * TIME);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, [_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonId, courseId]);
+
+  const uploadTimeVideo = async (data?: any) => {
+    if (!courseId) return;
+    // console.log("courseId", courseId);
+    // console.log("đã lấy được time là", data);
+    try {
+      await myCourseApi.updateTimeLineVideoCourse(courseId, data);
+      // console.log(response);
+    } catch (error) {
+      console.log("lỗi rồi");
+    }
+  };
 
   return (
     <Player
@@ -48,9 +78,7 @@ const Video: React.FC<VideoProps> = ({ _id, source, poster }) => {
       poster={poster || defaultIMG}
       playerRef={ref}
     >
-      {(ref, props) => (
-        <ReactHlsPlayer autoPlay loop playerRef={ref} {...props} />
-      )}
+      {(ref, props) => <ReactHlsPlayer playerRef={ref} {...props} />}
     </Player>
   );
 };

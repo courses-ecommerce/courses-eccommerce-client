@@ -91,7 +91,7 @@ const CourseChapters: React.FC<CourseChaptersProps> = ({
             {chapters?.name}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={{ padding: 0 }}>
           <CourseChapterLesson
             chapterNumber={index}
             lessons={chapters?.lessons}

@@ -48,16 +48,19 @@ const MyCourseDetail = () => {
       <div className="my-course-detail">
         <div className="info">
           <span className="title">{course.name}</span>
-          <span className="author"> {course.author?.fullName} </span>
+          {/* <span className="author"> {course.author?.fullName} </span> */}
+          <Button variant="contained">Đánh giá ngay</Button>
         </div>
         <div className="my-course-video">
           <div className="stream">
             <Video
-              _id={videoView?._id}
+              courseId={id}
+              lessonId={videoView?._id}
               poster={course.thumbnail}
+              currentTime={videoView.timeline}
               source={(videoView?.video?.length && videoView?.video[0]) || ""}
+              duration={videoView.duration}
             />
-            <Button>Đánh giá ngay</Button>
           </div>
           <div className="chapters">
             <CourseSummary

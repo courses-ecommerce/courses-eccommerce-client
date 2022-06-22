@@ -16,7 +16,7 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   chapterNumber = 0,
   lessons = [],
 }) => {
-  // console.log("leson", lessons);
+  console.log("leson", lessons);
 
   const [lesson, setLesson] = useState<LessonProps>();
 
@@ -37,21 +37,21 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
         return (
           <div
             key={index}
-            className={
-              videoView?.title === lesson?.title ? "lesson-title-active" : ""
-            }
             style={{ cursor: "pointer" }}
             onClick={() => setLesson(lesson)}
           >
-            <Typography>
+            <Typography
+              sx={{ padding: 1.5 }}
+              className={
+                videoView?.title === lesson?.title ? "lesson-title-active" : ""
+              }
+            >
               <b>
                 {chapterNumber + 1}.{index + 1}{" "}
               </b>
               {lesson.title}
             </Typography>
-            {index < lessons.length - 1 && (
-              <Divider sx={{ marginTop: 2, marginBottom: 2 }} />
-            )}
+            {index < lessons.length - 1 && <Divider />}
           </div>
         );
       })}
