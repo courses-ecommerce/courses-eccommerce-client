@@ -43,7 +43,7 @@ const CourseDetail = () => {
       const response = await courseApi.getCourseDetail(id);
       const { course }: any = response;
       setCourseDetail(course);
-      // console.log(response);
+      // console.log("áddas", course);
     } catch (error) {
       console.log("lỗi", { error });
     }
@@ -86,6 +86,8 @@ const CourseDetail = () => {
       }
     }
   };
+
+  console.log("ádasdadasd", courseDetail.rating?.rate);
 
   return (
     <>

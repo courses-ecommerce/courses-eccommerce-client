@@ -21,7 +21,7 @@ const Rating: React.FC<RatingProps> = ({
   precision = 1,
   onChange,
 }) => {
-  console.log(average_rating);
+  // console.log(average_rating);
 
   return (
     <div className="rating-container">
@@ -30,7 +30,7 @@ const Rating: React.FC<RatingProps> = ({
         onChange={onChange}
         className="ratings"
         defaultValue={average_rating}
-        // value={average_rating}
+        value={average_rating}
         readOnly={isReadOnly}
         precision={precision}
       />
