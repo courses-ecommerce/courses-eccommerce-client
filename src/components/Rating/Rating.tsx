@@ -18,9 +18,11 @@ const Rating: React.FC<RatingProps> = ({
   isShowTotalRating = true,
   total_rating = 0,
   isReadOnly = true,
-  precision = 0.5,
+  precision = 1,
   onChange,
 }) => {
+  console.log(average_rating);
+
   return (
     <div className="rating-container">
       <MuiRating
@@ -28,7 +30,7 @@ const Rating: React.FC<RatingProps> = ({
         onChange={onChange}
         className="ratings"
         defaultValue={average_rating}
-        value={average_rating || null}
+        // value={average_rating}
         readOnly={isReadOnly}
         precision={precision}
       />
