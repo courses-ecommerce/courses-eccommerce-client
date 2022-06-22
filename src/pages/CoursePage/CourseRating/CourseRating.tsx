@@ -21,7 +21,9 @@ const CourseRating: React.FC<CourseRatingProps> = ({ ratingComents = [] }) => {
 
   return (
     <div className="course-rating">
-      <span className="title">Đánh giá của học viên</span>
+      <span className="title">
+        Đánh giá của học viên ({ratingComents.length} người)
+      </span>
       <div className="course-content">
         {redenderCourseRating(ratingComents)}
       </div>
