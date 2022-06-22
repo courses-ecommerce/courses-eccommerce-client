@@ -8,4 +8,5 @@ export interface IAuthSlice {
   amount_cart?: number;
   userInfo: IUser;
   videoView: IVideo;
+  panelActive?: string;
 }

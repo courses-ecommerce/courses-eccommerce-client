@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { ChaptersProps } from "src/types";
 import CourseChapters from "./CourseChapters/CourseChapters";
 import "./CourseSummary.scss";
@@ -12,7 +14,8 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
   title = "Không có tiêu đề",
   chapters = [],
 }) => {
-  const [panelActive, setPanelActive] = useState("");
+  // const [panelActive, setPanelActive] = useState("");
+  const { panelActive } = useSelector(selectAuthorization);
 
   return (
     <div className="course-summary">
@@ -24,7 +27,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
               chapters={chapter}
               key={index}
               index={index}
-              onPanelActive={(e: any) => setPanelActive(e)}
+              // onPanelActive={(e: any) => setPanelActive(e)}
               panelActive={panelActive}
             />
           ))}

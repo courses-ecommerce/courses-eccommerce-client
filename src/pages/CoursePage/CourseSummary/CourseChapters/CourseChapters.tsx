@@ -7,6 +7,8 @@ import MuiAccordionSummary, {
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { getPanelActive } from "src/reducers/authSlice";
 import { ChaptersProps } from "src/types";
 import CourseChapterLesson from "./CourseChapterLesson/CourseChapterLesson";
 
@@ -52,22 +54,25 @@ interface CourseChaptersProps {
   chapters?: ChaptersProps;
   index?: number;
   panelActive?: string;
-  onPanelActive?: (index: string | number | boolean) => void;
+  // onPanelActive?: (index: string | number | boolean) => void;
 }
 
 const CourseChapters: React.FC<CourseChaptersProps> = ({
   height,
   width,
   chapters,
-  index,
-  onPanelActive,
+  index = 0,
+  // onPanelActive,
   panelActive,
 }) => {
   // console.log("áddas", chapters);
 
+  const dispatch = useDispatch();
+
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      onPanelActive?.(newExpanded ? panel : false);
+      // onPanelActive?.(newExpanded ? panel : false);
+      dispatch(getPanelActive(newExpanded ? panel : false));
     };
 
   return (
@@ -79,11 +84,15 @@ const CourseChapters: React.FC<CourseChaptersProps> = ({
       >
         <AccordionSummary>
           <Typography style={{ textTransform: "capitalize" }}>
+            <b>Chương {index + 1}: </b>
             {chapters?.name}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <CourseChapterLesson lessons={chapters?.lessons} />
+          <CourseChapterLesson
+            chapterNumber={index}
+            lessons={chapters?.lessons}
+          />
         </AccordionDetails>
       </Accordion>
     </>

@@ -7,7 +7,6 @@ import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { IVideo } from "src/types/video";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {

@@ -8,10 +8,12 @@ import { LessonProps } from "src/types";
 import "./CourseChapterLesson.scss";
 
 interface CourseChapterLessonProps {
+  chapterNumber?: number;
   lessons?: LessonProps[];
 }
 
 const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
+  chapterNumber = 0,
   lessons = [],
 }) => {
   // console.log("leson", lessons);
@@ -42,7 +44,9 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
             onClick={() => setLesson(lesson)}
           >
             <Typography>
-              <b>{index + 1}. </b>
+              <b>
+                {chapterNumber + 1}.{index + 1}{" "}
+              </b>
               {lesson.title}
             </Typography>
             {index < lessons.length - 1 && (
