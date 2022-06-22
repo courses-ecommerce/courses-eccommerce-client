@@ -28,9 +28,9 @@ const Video: React.FC<VideoProps> = ({
   const ref = useRef<any>(null);
   // const [timeline, setTimeline] = useState(0);
 
-  useEffect(() => {
-    ref.current.currentTime = currentTime;
-  }, [currentTime]);
+  // useEffect(() => {
+  //   ref.current.currentTime = currentTime;
+  // }, [currentTime]);
 
   useEffect(() => {
     let timeline = 0;

@@ -28,6 +28,7 @@ const Rating: React.FC<RatingProps> = ({
         onChange={onChange}
         className="ratings"
         defaultValue={average_rating}
+        value={average_rating || null}
         readOnly={isReadOnly}
         precision={precision}
       />

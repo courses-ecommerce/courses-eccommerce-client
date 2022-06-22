@@ -1,6 +1,9 @@
 import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import useClickOutSide from "src/hooks/useClickOutSide";
+import { selectAuthorization } from "src/reducers/authSlice";
 import Icon from "../Icon/Icon";
 import "./Notification.scss";
 
@@ -17,6 +20,18 @@ const Notification: React.FC<NotificationProps> = ({
   unRead_total = 0,
 }) => {
   const { nodeRef, show, setShow } = useClickOutSide("p");
+
+  const navigate = useNavigate();
+  const { isRole, isAuth } = useSelector(selectAuthorization);
+
+  const goToMessage = () => {
+    if (!isAuth) {
+      navigate("/login");
+    } else {
+      navigate(`${isRole}/message`);
+    }
+  };
+
   return (
     <>
       {type === "notify" ? (
@@ -35,7 +50,7 @@ const Notification: React.FC<NotificationProps> = ({
           )}
         </div>
       ) : (
-        <div className="notification">
+        <div className="notification" onClick={goToMessage}>
           <Tooltip title="Tin nhắn">
             <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
               <Icon icon="commenting-o" size={28} color="#3265b7" />
