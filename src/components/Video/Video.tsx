@@ -77,6 +77,14 @@ const Video: React.FC<VideoProps> = ({
       ]}
       poster={poster || defaultIMG}
       playerRef={ref}
+      keyboardShortcut={{
+        pause: false,
+        forward: false,
+        rewind: false,
+        fullScreen: false,
+        mute: false,
+        subtitle: false,
+      }}
     >
       {(ref, props) => <ReactHlsPlayer playerRef={ref} {...props} />}
     </Player>

@@ -1,12 +1,11 @@
 import { Box, Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ratingApi from "src/apis/ratingApi";
 import ModalContainer from "src/components/ModalContainer";
 import Rating from "src/components/Rating/Rating";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-// import Rating from "@mui/material/Rating";
 
 interface RatingMyCourseProps {
   id?: string | number;
@@ -25,9 +24,17 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const [star, setStar] = useState();
+
   const handleRating = async (e: any) => {
     e.preventDefault();
     const { rating, content } = e.target;
+    if (!rating.value || rating.value === 0) {
+      toast.warning("Số sao rating phải lớn hơn 0", {
+        position: "bottom-right",
+      });
+      return;
+    }
 
     const params = { rate: rating.value * 1, content: content.value, slug };
     // console.log("params truyền là", params);
@@ -65,7 +72,12 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
         >
           <span style={{ display: "flex", flexDirection: "row", gap: 1 }}>
             <b>Đánh giá:</b>
-            <Rating isReadOnly={false} isShowTotalRating={false} />
+            <Rating
+              isReadOnly={false}
+              isShowTotalRating={false}
+              average_rating={star}
+              onChange={(e: any) => setStar(e.target.value)}
+            />
           </span>
           <TextField name="content" fullWidth label="Nhập nội dung đánh giá" />
           <Button type="submit" variant="contained">
