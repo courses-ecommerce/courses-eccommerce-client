@@ -8,10 +8,12 @@ import { LessonProps } from "src/types";
 import "./CourseChapterLesson.scss";
 
 interface CourseChapterLessonProps {
+  chapterNumber?: number;
   lessons?: LessonProps[];
 }
 
 const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
+  chapterNumber = 0,
   lessons = [],
 }) => {
   // console.log("leson", lessons);
@@ -23,7 +25,8 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   const { videoView } = useSelector(selectAuthorization);
 
   useEffect(() => {
-    dispatch(getVideoView(lesson));
+    lesson && dispatch(getVideoView(lesson));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson?._id]);
 
@@ -34,19 +37,21 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
         return (
           <div
             key={index}
-            className={
-              videoView?.title === lesson?.title ? "lesson-title-active" : ""
-            }
             style={{ cursor: "pointer" }}
             onClick={() => setLesson(lesson)}
           >
-            <Typography>
-              <b>{index + 1}. </b>
+            <Typography
+              sx={{ padding: 1.5 }}
+              className={
+                videoView?.title === lesson?.title ? "lesson-title-active" : ""
+              }
+            >
+              <b>
+                {chapterNumber + 1}.{index + 1}{" "}
+              </b>
               {lesson.title}
             </Typography>
-            {index < lessons.length - 1 && (
-              <Divider sx={{ marginTop: 2, marginBottom: 2 }} />
-            )}
+            {index < lessons.length - 1 && <Divider />}
           </div>
         );
       })}

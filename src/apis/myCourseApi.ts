@@ -11,9 +11,9 @@ const myCourseApi = {
     const url = MYCOURSE_APi + "/" + id;
     return axiosClient.get(url);
   },
-  updateTimeLineVideoCourse: (id?: string) => {
+  updateTimeLineVideoCourse: (id?: string, data?: any) => {
     const url = MYCOURSE_APi + "/" + id;
-    return axiosClient.put(url);
+    return axiosClient.put(url, data);
   },
 };
 

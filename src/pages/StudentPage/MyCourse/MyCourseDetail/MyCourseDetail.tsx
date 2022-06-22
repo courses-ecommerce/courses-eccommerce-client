@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,7 +7,7 @@ import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { IVideo } from "src/types/video";
+import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
@@ -16,14 +17,10 @@ const MyCourseDetail = () => {
 
   const [course, setCourse] = useState<ICourse>({});
   const [chapter, setChapter] = useState();
-  const [video, setVideo] = useState<IVideo>();
 
   const { videoView } = useSelector(selectAuthorization);
 
-  useEffect(() => {
-    setVideo(videoView);
-    console.log("lấy được video mới là", videoView);
-  }, [videoView]);
+  const [showRating, setShowRating] = useState<boolean>(false);
 
   useEffect(() => {
     getMyCourseDetail();
@@ -35,7 +32,7 @@ const MyCourseDetail = () => {
       const response = await myCourseApi.getMyCourseDetail(id);
       // console.log("thông tin khoá học của tôi", response);
       const { myCourse }: any = response;
-      // console.log("thông tin myCourse của tôi", myCourse);
+      console.log("thông tin myCourse của tôi", myCourse);
       const { course, chapters }: any = myCourse;
       // console.log("thông tin course của tôi", course);
       // console.log("thông tin chapters của tôi", chapters);
@@ -54,13 +51,22 @@ const MyCourseDetail = () => {
       <div className="my-course-detail">
         <div className="info">
           <span className="title">{course.name}</span>
-          <span className="author"> {course.author?.fullName} </span>
+          {/* <span className="author"> {course.author?.fullName} </span> */}
+          {course.name && (
+            <Button variant="contained" onClick={() => setShowRating(true)}>
+              Đánh giá ngay
+            </Button>
+          )}
         </div>
         <div className="my-course-video">
           <div className="stream">
             <Video
+              courseId={id}
+              lessonId={videoView?._id}
               poster={course.thumbnail}
-              source={(video?.video?.length && video?.video[0]) || ""}
+              currentTime={videoView.timeline}
+              source={(videoView?.video?.length && videoView?.video[0]) || ""}
+              duration={videoView.duration}
             />
           </div>
           <div className="chapters">
@@ -71,6 +77,12 @@ const MyCourseDetail = () => {
           </div>
         </div>
       </div>
+      <RatingMyCourse
+        slug={course.slug}
+        show={showRating}
+        onClose={() => setShowRating(false)}
+        setShow={setShowRating}
+      />
     </>
   );
 };

@@ -7,8 +7,11 @@ import MuiAccordionSummary, {
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { getPanelActive } from "src/reducers/authSlice";
 import { ChaptersProps } from "src/types";
 import CourseChapterLesson from "./CourseChapterLesson/CourseChapterLesson";
+import "./CourseChapters.scss";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,22 +55,25 @@ interface CourseChaptersProps {
   chapters?: ChaptersProps;
   index?: number;
   panelActive?: string;
-  onPanelActive?: (index: string | number | boolean) => void;
+  // onPanelActive?: (index: string | number | boolean) => void;
 }
 
 const CourseChapters: React.FC<CourseChaptersProps> = ({
   height,
   width,
   chapters,
-  index,
-  onPanelActive,
+  index = 0,
+  // onPanelActive,
   panelActive,
 }) => {
   // console.log("áddas", chapters);
 
+  const dispatch = useDispatch();
+
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      onPanelActive?.(newExpanded ? panel : false);
+      // onPanelActive?.(newExpanded ? panel : false);
+      dispatch(getPanelActive(newExpanded ? panel : false));
     };
 
   return (
@@ -77,13 +83,19 @@ const CourseChapters: React.FC<CourseChaptersProps> = ({
         onChange={handleChange(`panel${index}`)}
         style={{ height, width }}
       >
-        <AccordionSummary>
+        <AccordionSummary
+          className={panelActive === `panel${index}` ? "panel-active" : ""}
+        >
           <Typography style={{ textTransform: "capitalize" }}>
+            <b>Chương {index + 1}: </b>
             {chapters?.name}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <CourseChapterLesson lessons={chapters?.lessons} />
+        <AccordionDetails sx={{ padding: 0 }}>
+          <CourseChapterLesson
+            chapterNumber={index}
+            lessons={chapters?.lessons}
+          />
         </AccordionDetails>
       </Accordion>
     </>

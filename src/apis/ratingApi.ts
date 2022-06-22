@@ -2,15 +2,15 @@ import axiosClient from "./axiosClient";
 
 const RATE_API = "rate";
 
-const rateApi = {
-  postRate: () => {
+const ratingApi = {
+  postRate: (data?: any) => {
     const url = RATE_API;
-    return axiosClient.post(url);
+    return axiosClient.post(url, data);
   },
-  updateRate: (id: string) => {
+  updateRate: (id: string, data?: any) => {
     const url = RATE_API + "/" + id;
-    return axiosClient.put(url);
+    return axiosClient.put(url, data);
   },
 };
 
-export default rateApi;
+export default ratingApi;

@@ -16,6 +16,7 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
+import Message from "src/pages/Message/Message";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
 import PaymentDetail from "src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail";
@@ -157,6 +158,13 @@ const DASHBOARD_ROUTE = [
           },
         ],
       },
+      {
+        path: "message",
+        href: "/student/message",
+        element: <Message />,
+        title: "Trò chuyện trực tuyến",
+        icon: "wechat",
+      },
     ],
   },
 
@@ -192,6 +200,13 @@ const DASHBOARD_ROUTE = [
         element: <HistoryPayment />,
         title: "Lịch sử thanh toán",
         icon: "file-text-o",
+      },
+      {
+        path: "message",
+        href: "/student/message",
+        element: <Message />,
+        title: "Trò chuyện trực tuyến",
+        icon: "wechat",
       },
     ],
   },
