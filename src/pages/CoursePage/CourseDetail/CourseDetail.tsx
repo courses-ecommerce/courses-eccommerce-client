@@ -11,7 +11,9 @@ import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
 import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
+import { IRating } from "src/types/course";
 import { numberLocale, numberRound } from "src/utils";
+import CourseRating from "../CourseRating/CourseRating";
 import CourseSummary from "../CourseSummary/CourseSummary";
 import CourseTarget from "../CourseTarget/CourseTarget";
 import "./CourseDetail.scss";
@@ -26,6 +28,7 @@ const CourseDetail = () => {
   const dispatch = useDispatch();
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
+  const [ratingComents, setRatingComents] = useState<IRating[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
@@ -54,7 +57,8 @@ const CourseDetail = () => {
       const response = await courseApi.getCourseRatingList(id);
       // console.log("response", response);
       const { rates }: any = response;
-      console.log("rating", rates);
+      // console.log("rating", rates);
+      setRatingComents(rates);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -87,8 +91,6 @@ const CourseDetail = () => {
     }
   };
 
-  console.log("ádasdadasd", courseDetail.rating?.rate);
-
   return (
     <>
       <div className="navs">
@@ -111,6 +113,10 @@ const CourseDetail = () => {
                 content={courseDetail.description}
               />
             </span>
+
+            <div className="rating">
+              <CourseRating ratingComents={ratingComents} />
+            </div>
           </div>
           <div className="content-detail">
             <div className="detail-info">
