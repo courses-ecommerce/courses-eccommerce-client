@@ -160,7 +160,7 @@ const DASHBOARD_ROUTE = [
       },
       {
         path: "message",
-        href: "/student/message",
+        href: "/admin/message",
         element: <Message />,
         title: "Trò chuyện trực tuyến",
         icon: "wechat",
