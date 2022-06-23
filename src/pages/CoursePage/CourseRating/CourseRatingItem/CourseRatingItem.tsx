@@ -18,7 +18,7 @@ const CourseRatingItem: React.FC<CourseRatingItemProps> = ({ data }) => {
       <div className="info">
         <span className="name">Học viên: {data?.author?.fullName}</span>
         <span className="date">
-          {formatDate(data?.createdAt, "dd-MM-yyyy mm:HH")}
+          {formatDate(data?.createdAt, "dd-MM-yyyy HH:mm")}
         </span>
       </div>
       <Divider />
