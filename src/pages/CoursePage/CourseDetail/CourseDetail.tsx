@@ -11,7 +11,8 @@ import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
 import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { IRating } from "src/types/course";
+import { IRating } from "src/types/myCourse";
+
 import { numberLocale, numberRound } from "src/utils";
 import CourseRating from "../CourseRating/CourseRating";
 import CourseSummary from "../CourseSummary/CourseSummary";

@@ -7,7 +7,7 @@ const ratingApi = {
     const url = RATE_API;
     return axiosClient.post(url, data);
   },
-  updateRate: (id: string, data?: any) => {
+  updateRate: (id?: string, data?: any) => {
     const url = RATE_API + "/" + id;
     return axiosClient.put(url, data);
   },

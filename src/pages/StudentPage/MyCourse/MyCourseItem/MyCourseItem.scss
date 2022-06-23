@@ -1,0 +1,35 @@
+.my-course-item {
+  min-width: 300px;
+  max-height: 350px;
+  width: 22%;
+  height: 100%;
+  > .course-thumbnail {
+    max-width: 300px;
+    cursor: pointer;
+
+    &:hover {
+      > img {
+        opacity: 0.9;
+      }
+    }
+  }
+  > .course-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    line-height: 22px;
+    > .name {
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    > .rating {
+      //   padding: 0 10px 0 0;
+      display: flex;
+      gap: 5px;
+      //   justify-content: space-between;
+    }
+  }
+}

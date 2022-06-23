@@ -1,7 +1,8 @@
 import { Divider } from "@mui/material";
 import React from "react";
 import Rating from "src/components/Rating/Rating";
-import { IRating } from "src/types/course";
+import { IRating } from "src/types/myCourse";
+
 import formatDate from "src/utils/formatDay";
 import "./CourseRatingItem.scss";
 
