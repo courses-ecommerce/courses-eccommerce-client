@@ -37,7 +37,8 @@ export const getNewHeaderColumn = (
         key === "originalPrice" ||
         key === "paymentPrice" ||
         key === "totalDiscount" ||
-        key === "totalPrice"
+        key === "totalPrice" ||
+        key === "revenue"
       ) {
         return { [key]: numberLocale(item[key]) + " đ" };
       }

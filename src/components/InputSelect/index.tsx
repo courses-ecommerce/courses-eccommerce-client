@@ -19,6 +19,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     defaultValue,
     style,
     icon,
+    hideErrorMessage = false,
     border = true,
     disabled = false,
     ...rest
@@ -95,16 +96,18 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
           ))}
         </Select>
       </FormControl>
-      <Typography
-        variant="h2"
-        fontSize={12}
-        height={15}
-        marginTop={0.5}
-        fontWeight={600}
-        color={"#f52727"}
-      >
-        {errorMessage}
-      </Typography>
+      {!hideErrorMessage && (
+        <Typography
+          variant="h2"
+          fontSize={12}
+          height={15}
+          marginTop={0.5}
+          fontWeight={600}
+          color={"#f52727"}
+        >
+          {errorMessage}
+        </Typography>
+      )}
     </Box>
   );
 };
