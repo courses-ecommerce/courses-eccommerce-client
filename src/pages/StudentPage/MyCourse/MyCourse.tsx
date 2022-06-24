@@ -13,28 +13,30 @@ export default function MyCourse() {
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
-  //pagination
-  const [total, setTotal] = useState<number>(0);
-  const [pageSize, setPageSize] = useState<number>(5);
-  const [page, setPage] = useState<number>(1);
+  // //pagination
+  // const [total, setTotal] = useState<number>(0);
+  // const [pageSize, setPageSize] = useState<number>(5);
+  // const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     if (!isUpdate) {
       getMyCourse();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageSize, page, isUpdate]);
+  }, [isUpdate]);
 
   const getMyCourse = async () => {
-    const params = { limit: pageSize, page };
+    // const params = { limit: pageSize, page };
     try {
-      const response = await myCourseApi.getMyCourse(params);
+      // const response = await myCourseApi.getMyCourse(params);
+      const response = await myCourseApi.getMyCourse();
       // console.log("ádadas", response);
-      const { myCourses, total }: any = response;
+      // const { myCourses, total }: any = response;
+      const { myCourses }: any = response;
       // console.log("myCourses", myCourses);
       setCourses(myCourses);
 
-      setTotal(total);
+      // setTotal(total);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
