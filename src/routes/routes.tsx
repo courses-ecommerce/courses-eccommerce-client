@@ -7,6 +7,7 @@ import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
 import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
 import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
 import StatisticRevenues from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenuesDate";
+import RevenueTeacherStatistic from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherStatistic";
 import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
 import UserStatistic from "src/pages/AdminPage/StatisticManage/UserStatistic/UserStatistic";
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
@@ -43,6 +44,11 @@ const MAIN_ROUTE = [
     role: "page",
     path: "/courses/:id",
     element: <CourseDetail />,
+  },
+  {
+    role: "page",
+    path: "invoice/:id",
+    element: <PaymentDetail />,
   },
   { role: "page", path: "/unauthorized", element: <UnauthorizedPage /> },
   { role: "page", path: "/*", element: <NotFound /> },
@@ -140,6 +146,13 @@ const DASHBOARD_ROUTE = [
             href: "/admin/dashboard/statistic/revenues",
             title: "Thống kê doanh thu",
             element: <StatisticRevenues />,
+            // icon: "money",
+          },
+          {
+            path: "revenue-teachers",
+            href: "/admin/dashboard/statistic/revenue-teachers",
+            title: "Doanh thu giảng viên",
+            element: <RevenueTeacherStatistic />,
             // icon: "money",
           },
           {
