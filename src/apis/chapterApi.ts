@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const CHAPTER_API = "/chapter";
+const CHAPTER_API = "/chapters";
 
 const chapterApi = {
   getChapters: (idCourse?: string) => {

@@ -16,7 +16,7 @@ import { ICourse } from "src/types";
 import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
-interface ICategories {
+export interface ICategories {
   name: string;
   value: string;
 }
@@ -72,6 +72,8 @@ const TeacherPage: React.FC = () => {
       formik.setFieldValue("category", res.categories[0]._id);
     });
     getListCourses();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -99,7 +101,7 @@ const TeacherPage: React.FC = () => {
               <div className="left">
                 <img
                   src="https://s.udemycdn.com/course/200_H/placeholder.jpg"
-                  alt="image"
+                  alt="course"
                 />
               </div>
               <div className="right">

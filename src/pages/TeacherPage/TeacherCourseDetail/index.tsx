@@ -14,19 +14,26 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 import Chapter, { IChapter } from "./Chapter";
 import Icon from "src/components/Icon/Icon";
 import { v4 as uuidv4 } from "uuid";
-import chapterApi from "src/apis/chapterApi";
+import teacherApi from "src/apis/teacherApi";
+import InputSelect from "src/components/InputSelect";
+import categoryApi from "src/apis/categoryApi";
+import { ICategories } from "../TeacherPage";
+import { ILesson } from "./Lesson";
 
 const TeacherCourseDetail: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [navbar, setNavbar] = useState(0);
   const [chapters, setChapters] = useState<IChapter[]>([]);
+  const [categories, setCategories] = useState<ICategories[]>([]);
+  const [slug, setSlug] = useState("");
   const nav = useNavigate();
 
   const formik = useFormik({
     initialValues: {
       name: "",
       description: "",
+      category: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Vui lòng nhập khóa học"),
@@ -34,40 +41,61 @@ const TeacherCourseDetail: React.FC = () => {
     }),
     onSubmit: async (values) => {
       dispatch(isPending());
-      id &&
-        courseApi.updateCourse(id, values).then((res: any) => {
-          dispatch(isSuccess());
-          toast.success(res.message, {
-            position: "bottom-right",
-          });
+      courseApi.updateCourse(slug, values).then((res: any) => {
+        dispatch(isSuccess());
+        toast.success(res.message, {
+          position: "bottom-right",
         });
+      });
     },
   });
 
   useEffect(() => {
-    dispatch(isPending());
-
-    courseApi
-      .getCourseDetail(id)
-      .then((res: any) => {
-        dispatch(isSuccess());
-        formik.setValues(res.course);
-      })
-      .catch(() => {
-        dispatch(isSuccess());
-        nav("/teacher/info");
-      });
-  }, [id]);
+    categoryApi.getCategories().then((res: any) => {
+      setCategories(
+        res.categories.map((category: any) => {
+          return { value: category._id, name: category.name };
+        })
+      );
+    });
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
-    chapterApi.getChapters(id).then((res) => setChapters(res.data));
-  }, []);
+    dispatch(isPending());
+
+    id &&
+      teacherApi
+        .getCourseDetails(id)
+        .then((res: any) => {
+          const {
+            name,
+            description,
+            category,
+            slug: _slugCourse,
+            chapters: chapterCourse,
+          } = res.course;
+          dispatch(isSuccess());
+          setSlug(_slugCourse);
+          formik.setValues({ name, description, category: category._id });
+          setChapters([
+            { id: uuidv4(), name: "", lessons: [] },
+            ...chapterCourse,
+          ]);
+        })
+        .catch(() => {
+          dispatch(isSuccess());
+          nav("/teacher/info");
+        });
+    // eslint-disable-next-line
+  }, [id]);
 
   const handleAddChapter = (index: number, type: "first" | "last") => {
     const newChapter: IChapter = {
       id: uuidv4(),
       name: "",
       lessons: [],
+      number: index,
     };
     const _chapters = [...chapters];
 
@@ -82,9 +110,127 @@ const TeacherCourseDetail: React.FC = () => {
     if (type === "last") {
       setChapters([..._chapters, newChapter]);
     } else if (index === 0) {
-      setChapters([newChapter, ..._chapters]);
+      setChapters([
+        newChapter,
+        ..._chapters.map((item, _index) => {
+          return { ...item, number: _index + 1 };
+        }),
+      ]);
     } else {
-      setChapters(newArrayChapter);
+      setChapters(
+        newArrayChapter.map((item, _index) => {
+          return { ...item, number: _index };
+        })
+      );
+    }
+  };
+
+  const handleChapter = (name: string, order: number, chapterId: string) => {
+    setChapters(
+      chapters.map((item) => {
+        if (item.id === chapterId) {
+          return { ...item, name };
+        }
+        return item;
+      })
+    );
+
+    // isUpdate
+    //   ? chapterApi.updateChapter(id, order, name).then(() => {
+    //       chapterApi
+    //         .getChapters(id)
+    //         .then((res: any) => setChapters(res.chapters));
+    //     })
+    //   : chapterApi.addChapter(id, order, name).then(() => {
+    //       chapterApi
+    //         .getChapters(id)
+    //         .then((res: any) => setChapters(res.chapters));
+    //     });
+  };
+
+  const handleLesson = (name: string, chapterId: string, lessonId: string) => {
+    setChapters(
+      chapters.map((chapter) => {
+        if (chapter.id === chapterId) {
+          return {
+            ...chapter,
+            lessons: chapter.lessons.map((lesson) => {
+              if (lesson.id === lessonId) {
+                return { ...lesson, name };
+              }
+
+              return lesson;
+            }),
+          };
+        }
+        return chapter;
+      })
+    );
+
+    // isUpdate
+    //   ? chapterApi.updateLesson(id, order, name).then(() => {
+    //       chapterApi
+    //         .getChapters(id)
+    //         .then((res: any) => setChapters(res.chapters));
+    //     })
+    //   : chapterApi.addLesson(id, order, name).then(() => {
+    //       chapterApi
+    //         .getChapters(id)
+    //         .then((res: any) => setChapters(res.chapters));
+    //     });
+  };
+
+  const handleAddLesson = (
+    chapterId: string,
+    index: number,
+    type: "last" | "first"
+  ) => {
+    const newLesson = {
+      id: uuidv4(),
+      name: "",
+    };
+    const _lessons = [
+      ...(chapters.find((chapter) => chapter.id === chapterId)?.lessons || []),
+    ];
+
+    let newArrayLesson: ILesson[] = [];
+
+    for (let i = 0; i < _lessons.length; i++) {
+      index === i
+        ? (newArrayLesson = [...newArrayLesson, newLesson, _lessons[i]])
+        : (newArrayLesson = [...newArrayLesson, _lessons[i]]);
+    }
+
+    if (type === "last") {
+      setChapters(
+        chapters.map((chapter) => {
+          if (chapter.id === chapterId) {
+            return { ...chapter, lessons: [..._lessons, newLesson] };
+          }
+
+          return chapter;
+        })
+      );
+    } else if (index === 0) {
+      setChapters(
+        chapters.map((chapter) => {
+          if (chapter.id === chapterId) {
+            return { ...chapter, lessons: [newLesson, ..._lessons] };
+          }
+
+          return chapter;
+        })
+      );
+    } else {
+      setChapters(
+        chapters.map((chapter) => {
+          if (chapter.id === chapterId) {
+            return { ...chapter, lessons: newArrayLesson };
+          }
+
+          return chapter;
+        })
+      );
     }
   };
 
@@ -142,6 +288,14 @@ const TeacherCourseDetail: React.FC = () => {
                   }
                   {...formik.getFieldProps("description")}
                 />
+                <InputSelect
+                  label="Loại khóa học"
+                  list={categories}
+                  onChange={(e) =>
+                    formik.setFieldValue("category", e.target.value)
+                  }
+                  defaultValue={formik.values.category}
+                />
               </Box>
               <Box
                 sx={{
@@ -164,7 +318,7 @@ const TeacherCourseDetail: React.FC = () => {
           ) : (
             <div className="chapter-list">
               {chapters.map((chapter, index) => (
-                <>
+                <React.Fragment key={index}>
                   <div className="new">
                     <div
                       className="icon"
@@ -174,18 +328,19 @@ const TeacherCourseDetail: React.FC = () => {
                     </div>
                   </div>
                   <Chapter
-                    courseId={id}
                     chapter={chapter}
-                    key={index}
                     index={index}
+                    handleChapter={handleChapter}
+                    handleLesson={handleLesson}
+                    handleAddLesson={handleAddLesson}
                     handleDeleteChapter={handleDeleteChapter}
                   />
-                </>
+                </React.Fragment>
               ))}
               <div className="new">
                 <div
                   className="icon"
-                  onClick={() => handleAddChapter(0, "last")}
+                  onClick={() => handleAddChapter(chapters.length, "last")}
                 >
                   <Icon icon="plus" color="black" size={20} />
                 </div>

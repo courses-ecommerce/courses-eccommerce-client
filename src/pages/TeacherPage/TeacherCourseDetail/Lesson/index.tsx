@@ -15,14 +15,18 @@ export interface ILesson {
 
 interface LessonProps {
   lesson: ILesson;
+  chapterId: string;
   index: number;
   handleDeleteLesson: (id: string) => void;
+  handleLesson: (name: string, chapterId: string, lessonId: string) => void;
 }
 
 const Lesson: React.FC<LessonProps> = ({
   lesson,
   index,
   handleDeleteLesson,
+  handleLesson,
+  chapterId,
 }) => {
   const [show, setShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
@@ -33,7 +37,6 @@ const Lesson: React.FC<LessonProps> = ({
   const [video, setVideo] = useState<File>();
   const [value, setValue] = useState("");
   const [editArticle, setEditArticle] = useState(false);
-  const [title, setTitle] = useState(lesson.name);
 
   const handleUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
@@ -46,7 +49,10 @@ const Lesson: React.FC<LessonProps> = ({
   };
 
   useEffect(() => {
-    !lesson.name && setEditTitle(true);
+    if (!lesson.name) {
+      setEditTitle(true);
+      setValue(lesson.name);
+    }
   }, [lesson]);
 
   return (
@@ -64,7 +70,7 @@ const Lesson: React.FC<LessonProps> = ({
           ) : (
             <>
               <Icon icon="file-text-o" size={15} />
-              <span>{title}</span>
+              <span>{lesson.name}</span>
 
               <div className="icons">
                 <Icon
@@ -73,7 +79,7 @@ const Lesson: React.FC<LessonProps> = ({
                   color="black"
                   className="icon"
                   onClick={() => {
-                    setValue(title);
+                    setValue(lesson.name);
                     setEditTitle(true);
                   }}
                 />
@@ -141,7 +147,7 @@ const Lesson: React.FC<LessonProps> = ({
               fontWeight: "bold",
             }}
             onClick={() => {
-              title
+              value
                 ? setEditTitle(false)
                 : toast.error("Vui lòng nhập tiêu đề bài học", {
                     position: "bottom-right",
@@ -160,8 +166,8 @@ const Lesson: React.FC<LessonProps> = ({
             }}
             onClick={() => {
               if (value) {
-                setTitle(value);
                 setEditTitle(false);
+                handleLesson(value, chapterId, lesson.id);
               } else {
                 toast.error("Vui lòng nhập tiêu đề bài học", {
                   position: "bottom-right",
@@ -347,6 +353,7 @@ const Lesson: React.FC<LessonProps> = ({
                 fontWeight: "bold",
                 backgroundColor: "black",
               }}
+              onClick={() => setShow(false)}
             >
               Save
             </Button>
