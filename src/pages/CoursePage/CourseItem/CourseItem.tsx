@@ -62,7 +62,7 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
           src={data.thumbnail}
           alt="img"
           // onClick={() => navigate(`/courses/${data._id}`)}
-          onClick={() => navigate(`/courses/${data._id}`)}
+          onClick={() => navigate(`/courses/${data.slug}`)}
         />
         {show && <CourseModal course={data} />}
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
-import { IRating } from "src/types/course";
+import { IRating } from "src/types/myCourse";
+
 import "./CourseRating.scss";
 import CourseRatingItem from "./CourseRatingItem/CourseRatingItem";
 

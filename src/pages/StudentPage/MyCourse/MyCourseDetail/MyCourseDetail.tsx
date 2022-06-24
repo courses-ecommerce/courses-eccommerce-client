@@ -1,18 +1,25 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import myCourseApi from "src/apis/myCourseApi";
 import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
-import { selectAuthorization } from "src/reducers/authSlice";
+import {
+  getPanelActive,
+  getVideoView,
+  selectAuthorization,
+} from "src/reducers/authSlice";
 import { ICourse } from "src/types";
+import { IRating } from "src/types/myCourse";
 import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
   document.title = "Khoá học của tôi";
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { id } = useParams();
 
   const [course, setCourse] = useState<ICourse>({});
@@ -20,6 +27,7 @@ const MyCourseDetail = () => {
 
   const { videoView } = useSelector(selectAuthorization);
 
+  const [rating, setRating] = useState<IRating>();
   const [showRating, setShowRating] = useState<boolean>(false);
 
   useEffect(() => {
@@ -32,12 +40,20 @@ const MyCourseDetail = () => {
       const response = await myCourseApi.getMyCourseDetail(id);
       // console.log("thông tin khoá học của tôi", response);
       const { myCourse }: any = response;
-      console.log("thông tin myCourse của tôi", myCourse);
-      const { course, chapters }: any = myCourse;
+      // console.log("thông tin myCourse của tôi", myCourse);
+      const { course, chapters, rating, chapterOfLastView, lastView }: any =
+        myCourse;
+      // const { course, chapters, rating }: any = myCourse;
       // console.log("thông tin course của tôi", course);
       // console.log("thông tin chapters của tôi", chapters);
+      console.log("lấy được lastview r", chapterOfLastView, lastView);
+
+      setRating(rating);
       setCourse(course);
       setChapter(chapters);
+      // save last view in redux
+      dispatch(getPanelActive("panel" + (chapterOfLastView?.number - 1)));
+      dispatch(getVideoView(lastView));
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -52,11 +68,20 @@ const MyCourseDetail = () => {
         <div className="info">
           <span className="title">{course.name}</span>
           {/* <span className="author"> {course.author?.fullName} </span> */}
-          {course.name && (
-            <Button variant="contained" onClick={() => setShowRating(true)}>
-              Đánh giá ngay
-            </Button>
-          )}
+          {course.name &&
+            (!rating ? (
+              <Button variant="contained" onClick={() => setShowRating(true)}>
+                Đánh giá ngay
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="warning"
+                onClick={() => setShowRating(true)}
+              >
+                Đánh giá lại
+              </Button>
+            ))}
         </div>
         <div className="my-course-video">
           <div className="stream">
@@ -80,6 +105,7 @@ const MyCourseDetail = () => {
       <RatingMyCourse
         slug={course.slug}
         show={showRating}
+        value={rating}
         onClose={() => setShowRating(false)}
         setShow={setShowRating}
       />
