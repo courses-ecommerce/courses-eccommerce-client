@@ -43,3 +43,8 @@ export const dateTypes = [
   { value: "month", name: "Theo tháng" },
   // { value: "year", name: "Theo năm" },
 ];
+
+export const revenueSortTypes = [
+  { value: "revenue-desc", name: "Lương giảm dần" },
+  { value: "revenue-asc", name: "Lương tăng dần" },
+];
