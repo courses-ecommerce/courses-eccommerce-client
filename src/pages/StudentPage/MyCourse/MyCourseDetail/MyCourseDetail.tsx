@@ -1,11 +1,15 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import myCourseApi from "src/apis/myCourseApi";
 import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
-import { selectAuthorization } from "src/reducers/authSlice";
+import {
+  getPanelActive,
+  getVideoView,
+  selectAuthorization,
+} from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { IRating } from "src/types/myCourse";
 import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
@@ -14,6 +18,7 @@ import "./MyCourseDetail.scss";
 const MyCourseDetail = () => {
   document.title = "Khoá học của tôi";
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { id } = useParams();
 
@@ -38,14 +43,17 @@ const MyCourseDetail = () => {
       // console.log("thông tin myCourse của tôi", myCourse);
       const { course, chapters, rating, chapterOfLastView, lastView }: any =
         myCourse;
+      // const { course, chapters, rating }: any = myCourse;
       // console.log("thông tin course của tôi", course);
       // console.log("thông tin chapters của tôi", chapters);
+      console.log("lấy được lastview r", chapterOfLastView, lastView);
+
       setRating(rating);
       setCourse(course);
       setChapter(chapters);
-      //save last view in redux
-      // dispatch(getPanelActive(chapterOfLastView?.number));
-      // dispatch(getVideoView(lastView));
+      // save last view in redux
+      dispatch(getPanelActive("panel" + (chapterOfLastView?.number - 1)));
+      dispatch(getVideoView(lastView));
     } catch (error) {
       console.log("lỗi rồi", { error });
     }

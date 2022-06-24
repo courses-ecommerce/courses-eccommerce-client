@@ -1,5 +1,5 @@
 .my-course-item {
-  min-width: 300px;
+  min-width: 310px;
   max-height: 350px;
   width: 22%;
   height: 100%;
@@ -16,8 +16,12 @@
   > .course-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     line-height: 22px;
+
+    padding: 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 6px;
     > .name {
       font-weight: 700;
       white-space: nowrap;
