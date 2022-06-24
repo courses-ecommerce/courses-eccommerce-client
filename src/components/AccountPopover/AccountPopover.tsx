@@ -28,22 +28,19 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
       {show && (
         <div className="account-popover">
           <div className="menu-list">
-            {routes?.map((route: IRoute) => (
-              <MenuItem
-                key={route.name}
-                to={
-                  route.role === "account"
-                    ? isRole
-                      ? `/${isRole}/${route.path}`
-                      : "/login"
-                    : `${route.path}`
-                }
-                component={RouterLink}
-                onClick={() => setShow(false)}
-              >
-                {route.name}
-              </MenuItem>
-            ))}
+            {routes?.map(
+              (route: IRoute) =>
+                (route.role === isRole || route.role === "user") && (
+                  <MenuItem
+                    key={route.name}
+                    to={route.path}
+                    component={RouterLink}
+                    onClick={() => setShow(false)}
+                  >
+                    {route.name}
+                  </MenuItem>
+                )
+            )}
           </div>
           <div className="devider" />
           <div className="btns">

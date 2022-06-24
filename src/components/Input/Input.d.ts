@@ -15,4 +15,5 @@ declare interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   hint?: string;
   ref?: React.LegacyRef<HTMLInputElement> | undefined;
   autoComplete?: string;
+  accept?: string;
 }
