@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import myCourseApi from "src/apis/myCourseApi";
+import Loading from "src/components/Loading/Loading";
 import { ICourse } from "src/types";
 import { IMyCourse } from "src/types/myCourse";
 import "./MyCourse.scss";
@@ -55,7 +56,9 @@ export default function MyCourse() {
   return (
     <div className="my-course">
       <h3>Danh sách khoá học của tôi</h3>
-      <div className="my-course-content">{renderMyCourses(courses)}</div>
+      <div className="my-course-content">
+        {renderMyCourses(courses) || <Loading />}
+      </div>
     </div>
   );
 }
