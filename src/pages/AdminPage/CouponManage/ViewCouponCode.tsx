@@ -25,9 +25,9 @@ const ViewCouponCode: React.FC<ViewCouponCodeProps> = ({ couponId }) => {
     dispatch(isPending());
     try {
       const response = await couponApi.postCouponToGoogleSheet(params);
-      // console.log("asd", response);
+      console.log("asd", response);
       const { link }: any = response;
-      // console.log("link", link);
+      console.log("link", link);
       dispatch(isSuccess());
       link && window.open(link, "_blank");
     } catch (error) {

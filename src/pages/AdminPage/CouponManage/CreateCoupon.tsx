@@ -92,7 +92,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
       return errors;
     },
     onSubmit: async (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
       await handleCreateCoupon(values);
       resetDataForm();
     },
@@ -212,6 +212,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
           <Input
             label="Giảm giá tối đa (VNĐ)"
             placeholder="Nhập giá tối đa"
+            disabled={formik.values.type !== "percent"}
             errorMessage={
               formik.touched.maxDiscount ? formik.errors.maxDiscount : ""
             }
