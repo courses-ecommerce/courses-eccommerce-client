@@ -1,7 +1,6 @@
 import { Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import invoicesApi from "src/apis/invoicesApi";
 import userApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { IDetailInvoice, IInvoice } from "src/types/invoice";

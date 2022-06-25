@@ -49,12 +49,12 @@ const statisticApi = {
     const url = STATISTIC_API + "/revenues/teachers/" + id;
     return axiosClient.get(url, { params });
   },
-  getTopTeacherRevenueByMonth: (params?: any) => {
-    const url = STATISTIC_API + "/revenues/top-teachers-of-months";
+  getTopTeacherRevenueByEveryMonth: (params?: any) => {
+    const url = STATISTIC_API + "/top-teachers-of-months";
     return axiosClient.get(url, { params });
   },
   getTopTeacherRevenueByYear: (params?: any) => {
-    const url = STATISTIC_API + "/revenues/top-teachers-of-year";
+    const url = STATISTIC_API + "/top-teachers-of-year";
     return axiosClient.get(url, { params });
   },
 };

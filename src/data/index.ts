@@ -48,3 +48,9 @@ export const revenueSortTypes = [
   { value: "revenue-desc", name: "Lương giảm dần" },
   { value: "revenue-asc", name: "Lương tăng dần" },
 ];
+
+export const numberRangeTypes = [
+  { value: 3, name: "Hiển thị 3" },
+  { value: 5, name: "Hiển thị 5" },
+  { value: 10, name: "Hiển thị 10" },
+];

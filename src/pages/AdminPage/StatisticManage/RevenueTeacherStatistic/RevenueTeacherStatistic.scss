@@ -1,0 +1,77 @@
+// teacher data column show
+.teacher-column-show {
+  display: flex;
+  flex-direction: column;
+  //   padding: 10px;
+
+  border: 1px solid rgb(202, 202, 202);
+
+  //data column
+  > .teacher-column-header {
+    display: flex;
+    flex-direction: row;
+
+    background: rgb(142, 112, 112);
+    font-weight: 600;
+    color: white;
+    > .month-name {
+      width: 120px;
+      padding: 4px;
+
+      border: 1px solid rgb(179, 179, 179);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    > .teacher-name {
+      flex: 1;
+      border: 1px solid rgb(179, 179, 179);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  //data row
+  > .teacher-row-show {
+    max-width: 1216px;
+
+    display: flex;
+    flex-direction: row;
+    cursor: default;
+    // border: 1px solid rgb(130, 130, 130);
+
+    &:nth-child(2n) {
+      background: rgb(227, 227, 227);
+    }
+    &:hover {
+      opacity: 0.8;
+    }
+
+    > .title-row {
+      width: 120px;
+      padding: 4px;
+      border: 1px solid rgb(179, 179, 179);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    > .data-row {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+
+      //   gap: 4px;
+
+      > .data-row-item {
+        padding: 10px;
+        flex: 1;
+        border: 1px solid rgb(179, 179, 179);
+      }
+    }
+  }
+}

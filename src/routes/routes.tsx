@@ -27,6 +27,7 @@ import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCour
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourseDetail";
+import RevenueTeacherDetail from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherDetail";
 
 // main route
 const MAIN_ROUTE = [
@@ -63,7 +64,14 @@ const AUTH_ROUTE = [
 ];
 
 // admin route
-const ADMIN_ROUTE = [{ role: "admin", path: "/admin", element: <AdminPage /> }];
+const ADMIN_ROUTE = [
+  { role: "admin", path: "/admin", element: <AdminPage /> },
+  {
+    role: "admin",
+    path: "/admin/dashboard/statistic/revenue-teachers/:id",
+    element: <RevenueTeacherDetail />,
+  },
+];
 
 // Student route
 const STUDENT_ROUTE = [

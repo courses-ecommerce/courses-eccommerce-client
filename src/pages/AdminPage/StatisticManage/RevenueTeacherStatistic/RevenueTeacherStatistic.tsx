@@ -11,6 +11,8 @@ import { revenueSortTypes } from "src/data";
 import { LINK_DOMAIN } from "src/data/link";
 import formatDate from "src/utils/formatDay";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import TopTeacherByEveryMonth from "./TopTeacherByEveryMonth";
+import TopTeacherByYear from "./TopTeacherByYear";
 
 const columsHeader: GridColDef[] = [
   {
@@ -64,7 +66,7 @@ const RevenueTeacherStatistic = () => {
   const [excelHref, setExcelHref] = useState<string>();
 
   //for search
-  const [sort, setSort] = useState<string>("revenue-desc");
+  const [sort, setSort] = useState<string>("revenue-asc");
   const [monthAndYear, setMonthAndYear] = useState<any>(new Date());
 
   //pagination
@@ -91,7 +93,7 @@ const RevenueTeacherStatistic = () => {
     setLoading(true);
     try {
       const response = await statisticApi.getTeacherRevenueByMonth(params);
-      //   console.log("lấy được dữ liệu là", response);
+      // console.log("lấy được dữ liệu là", response);
       const { file, result }: any = response;
       //   console.log("lấy được result là", result);
 
@@ -131,7 +133,25 @@ const RevenueTeacherStatistic = () => {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 5,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 4,
+          // justifyContent: "space-between",
+        }}
+      >
+        <TopTeacherByEveryMonth />
+        <TopTeacherByYear />
+      </Box>
+
       <Table
         btnSearch={
           <Box
@@ -146,7 +166,7 @@ const RevenueTeacherStatistic = () => {
               <DatePicker
                 views={["year", "month"]}
                 label="Chọn tháng năm"
-                minDate={new Date("2020-06-01")}
+                minDate={new Date("2018-06-01")}
                 maxDate={new Date()}
                 value={monthAndYear}
                 onChange={(newMonthAndYear) => {
@@ -190,7 +210,7 @@ const RevenueTeacherStatistic = () => {
         // onModifyItem={handleModifyItem}
         // onDeleteSelectMultiItem={handleMultiDeleted}
       />
-    </>
+    </Box>
   );
 };
 export default RevenueTeacherStatistic;
