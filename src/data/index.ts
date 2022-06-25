@@ -32,6 +32,13 @@ export const categoryStatusTypes = [
   { value: false, name: "Đang trống" },
 ];
 
+//course
+export const statusCourseTypes = [
+  { value: "draft", name: "Đang nháp" },
+  { value: "pending", name: "Đang chờ" },
+  { value: "approved", name: "Đã duyệt" },
+];
+
 // statistic
 export const topAmountTypes = [
   { value: 5, name: "5 khoá hot nhất" },

@@ -17,7 +17,7 @@ const statisticApi = {
     return axiosClient.get(url, { params });
   },
   //users
-  getUserByRangeMonths: (params: any) => {
+  getUserByMonth: (params: any) => {
     const url = STATISTIC_API + "/users/monthly";
     return axiosClient.get(url, { params });
   },

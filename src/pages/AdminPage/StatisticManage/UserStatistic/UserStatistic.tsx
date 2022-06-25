@@ -1,5 +1,11 @@
+import { Box } from "@mui/material";
 import React from "react";
+import UserStaticByRangeYear from "./UserStaticByRangeYear";
 
 export default function UserStatistic() {
-  return <div>StatisticUser</div>;
+  return (
+    <Box>
+      <UserStaticByRangeYear />
+    </Box>
+  );
 }
