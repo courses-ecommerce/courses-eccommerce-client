@@ -13,6 +13,7 @@ declare interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   disabled?: boolean;
   hint?: string;
+  hideErrorMessage?: booleanl;
   ref?: React.LegacyRef<HTMLInputElement> | undefined;
   autoComplete?: string;
   accept?: string;

@@ -15,6 +15,7 @@ const Input = React.forwardRef(
       disabled,
       sizeIcon = 18,
       hint,
+      hideErrorMessage = false,
       required,
       autoComplete,
       accept,
@@ -76,7 +77,8 @@ const Input = React.forwardRef(
             </div>
           )}
         </div>
-        <div className="input-error">{errorMessage}</div>
+        {!hideErrorMessage && <div className="input-error">{errorMessage}</div>}
+
         {hint && <div className="input-hint">{hint}</div>}
       </div>
     );

@@ -5,10 +5,12 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
+import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { revenueSortTypes } from "src/data";
 import { LINK_DOMAIN } from "src/data/link";
+import useTypingDebounce from "src/hooks/useTypingDebounce";
 import formatDate from "src/utils/formatDay";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import TopTeacherByEveryMonth from "./TopTeacherByEveryMonth";
@@ -74,6 +76,11 @@ const RevenueTeacherStatistic = () => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
 
+  //debounce
+  const [value, setValue] = useState<string>();
+  const debouncedValue = useTypingDebounce(value);
+  const [email, setEmail] = useState<string>();
+
   useEffect(() => {
     const params = {
       month: new Date(monthAndYear).getMonth() + 1,
@@ -82,12 +89,18 @@ const RevenueTeacherStatistic = () => {
       sort,
       page,
       pageSize,
+      email,
     };
 
     // console.log("params là", params);
     getRevenueTeacherByMonth(params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monthAndYear, sort, page, pageSize]);
+  }, [monthAndYear, sort, page, pageSize, email]);
+
+  //debounce to search
+  useEffect(() => {
+    setEmail(debouncedValue);
+  }, [debouncedValue]);
 
   const getRevenueTeacherByMonth = async (params: any) => {
     setLoading(true);
@@ -154,6 +167,18 @@ const RevenueTeacherStatistic = () => {
               gap: 1,
             }}
           >
+            <Input
+              style={{ width: 250 }}
+              placeholder="Tìm kiếm bằng địa chỉ email"
+              hideErrorMessage={true}
+              onChange={(e: any) => setValue(e.target.value)}
+            />
+            <InputSelect
+              hideErrorMessage={true}
+              list={revenueSortTypes}
+              defaultValue={sort}
+              onChange={(e) => setSort(e.target.value)}
+            />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 views={["year", "month"]}
@@ -169,12 +194,6 @@ const RevenueTeacherStatistic = () => {
                 )}
               />
             </LocalizationProvider>
-            <InputSelect
-              hideErrorMessage={true}
-              list={revenueSortTypes}
-              defaultValue={sort}
-              onChange={(e) => setSort(e.target.value)}
-            />
             <Button variant="contained" color="success" onClick={goToExcel}>
               Xuất excel
             </Button>
