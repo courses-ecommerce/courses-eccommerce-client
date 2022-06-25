@@ -81,7 +81,8 @@ export const getValueChartPie = (values?: any) => {
 export const getValueChartVertical = (
   values?: any,
   titleValue?: any,
-  dataValue?: any
+  dataValue?: any,
+  fieldName?: any
 ) => {
   // console.log("values là", values);
 
@@ -116,7 +117,7 @@ export const getValueChartVertical = (
   //set dataSet
   dataSet = [
     {
-      label: "Tiền lương theo tháng",
+      label: fieldName,
       data: valueColumn,
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },

@@ -30,8 +30,12 @@ const statisticApi = {
     const url = STATISTIC_API + "/courses";
     return axiosClient.get(url);
   },
-  getHotCourse: (params: any) => {
-    const url = STATISTIC_API + "/top-sale-courses";
+  getHotCourseByMonth: (params: any) => {
+    const url = STATISTIC_API + "/top-sale-courses/month";
+    return axiosClient.get(url, { params });
+  },
+  getHotCourseByYear: (params: any) => {
+    const url = STATISTIC_API + "/top-sale-courses/year";
     return axiosClient.get(url, { params });
   },
   //coupon

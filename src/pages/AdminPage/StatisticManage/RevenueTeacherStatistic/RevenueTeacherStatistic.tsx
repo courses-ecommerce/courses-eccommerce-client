@@ -151,6 +151,7 @@ const RevenueTeacherStatistic = () => {
         display: "flex",
         flexDirection: "column",
         gap: 10,
+        paddingBottom: 10,
       }}
     >
       <TopTeacherByEveryMonth />

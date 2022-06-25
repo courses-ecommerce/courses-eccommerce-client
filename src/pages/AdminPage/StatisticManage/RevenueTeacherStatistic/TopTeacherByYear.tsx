@@ -40,8 +40,13 @@ const TopTeacherByYear = () => {
       const { result }: any = response;
 
       // console.log("result", result);
-      const data = getValueChartVertical(result, "fullName", "total");
-      console.log("đã lấy được data là", data);
+      const data = getValueChartVertical(
+        result,
+        "fullName",
+        "total",
+        "Tiền lương theo tháng"
+      );
+      // console.log("đã lấy được data là", data);
 
       setTopTeacherByYear(data);
     } catch (error) {
