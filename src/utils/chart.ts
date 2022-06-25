@@ -1,7 +1,44 @@
 import { translateVi } from ".";
 import { getHeaderColumns } from "./table";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-ChartJS.register(ArcElement, Tooltip, Legend);
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  BarElement,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const getOptionsCharBar = (titleCharBar?: string) => {
+  return {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: titleCharBar,
+      },
+    },
+  };
+};
 
 export const getValueChartPie = (values?: any) => {
   const keys = getHeaderColumns(values, ["message"]);
@@ -38,5 +75,58 @@ export const getValueChartPie = (values?: any) => {
         borderWidth: 1,
       },
     ],
+  };
+};
+
+export const getValueChartVertical = (
+  values?: any,
+  titleValue?: any,
+  dataValue?: any
+) => {
+  // console.log("values là", values);
+
+  // const backgroundColor = [
+  //   "rgba(255, 99, 132, 0.2)",
+  //   "rgba(54, 162, 235, 0.2)",
+  //   "rgba(255, 206, 86, 0.2)",
+  //   "rgba(75, 192, 192, 0.2)",
+  //   "rgba(153, 102, 255, 0.2)",
+  //   "rgba(255, 159, 64, 0.2)",
+  //   //color bonus
+  //   "rgba(255, 99, 132, 1)",
+  //   "rgba(54, 162, 235, 1)",
+  //   "rgba(255, 206, 86, 1)",
+  //   "rgba(75, 192, 192, 1)",
+  //   "rgba(153, 102, 255, 1)",
+  //   "rgba(255, 159, 64, 1)",
+  // ];
+
+  let nameTitle: any[] = [];
+  let dataList: any[] = [];
+  let dataSet: any[] = [];
+  //name title
+  nameTitle = values.map((data: any) => data[titleValue]);
+  //data value
+  dataList = values.map((data: any) => data[dataValue]);
+
+  //value
+  const valueColumn = [...dataList];
+  //set label
+  const labels = nameTitle;
+  //set dataSet
+  dataSet = [
+    {
+      label: "Tiền lương theo tháng",
+      data: valueColumn,
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ];
+
+  // console.log("labels là", nameTitle);
+  // console.log("data list là", valueColumn);
+
+  return {
+    labels,
+    datasets: dataSet,
   };
 };

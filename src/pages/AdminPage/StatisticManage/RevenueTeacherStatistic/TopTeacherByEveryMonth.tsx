@@ -13,7 +13,7 @@ const TeacherShowColumn = (data: any) => {
   // console.log("data nek", data);
 
   const renderDataEachRow = (data: any[]) => {
-    console.log("saddas", data);
+    // console.log("saddas", data);
     return (
       data.length > 0 &&
       data.map((dataItem: any, index: number) => (

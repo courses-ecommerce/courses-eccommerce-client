@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Divider, TextField } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -94,7 +94,7 @@ const RevenueTeacherStatistic = () => {
     try {
       const response = await statisticApi.getTeacherRevenueByMonth(params);
       // console.log("lấy được dữ liệu là", response);
-      const { file, result }: any = response;
+      const { file, result, total }: any = response;
       //   console.log("lấy được result là", result);
 
       if (result.length > 0) {
@@ -137,21 +137,13 @@ const RevenueTeacherStatistic = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: 5,
+        gap: 10,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 4,
-          // justifyContent: "space-between",
-        }}
-      >
-        <TopTeacherByEveryMonth />
-        <TopTeacherByYear />
-      </Box>
-
+      <TopTeacherByEveryMonth />
+      <Divider />
+      <TopTeacherByYear />
+      <Divider />
       <Table
         btnSearch={
           <Box
@@ -188,7 +180,7 @@ const RevenueTeacherStatistic = () => {
             </Button>
           </Box>
         }
-        title={`Danh sách doanh thu của giảng viên tháng ${formatDate(
+        title={`Danh sách bảng lương của giảng viên tháng ${formatDate(
           monthAndYear,
           "MM-yyyy"
         )}`}
