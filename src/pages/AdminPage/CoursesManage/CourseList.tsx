@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
@@ -72,6 +73,8 @@ const CourseList = () => {
   const debouncedValue = useTypingDebounce(value);
   const [name, setName] = useState<string>();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getCourses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,6 +116,13 @@ const CourseList = () => {
     }
   };
 
+  const goToCourseDetail = (id: any) => {
+    let data: any;
+    data = courses.filter((course) => course._id === id);
+    // console.log("data nef", data[0].slug);
+    navigate(`/courses/${data[0].slug}`);
+  };
+
   return (
     <Table
       btnSearch={
@@ -152,6 +162,7 @@ const CourseList = () => {
       total={total}
       rowsData={courses}
       btnAdd={false}
+      onViewItemDetail={goToCourseDetail}
       // handleAddItem={handleCreate}
       // onDeleteItem={handleDelete}
       // onModifyItem={handleModifyItem}
