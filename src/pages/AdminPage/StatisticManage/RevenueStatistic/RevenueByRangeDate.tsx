@@ -7,7 +7,7 @@ import InputSelect from "src/components/InputSelect";
 import { dateTypes } from "src/data";
 import { LINK_DOMAIN } from "src/data/link";
 
-export default function RevenuesDate() {
+export default function RevenueByRangeDate() {
   const [dateType, setDateType] = useState<any>("day");
   const [dateRange, setDateRange] = useState<any>(5);
   const [excelHref, setExcelHref] = useState<string>();
@@ -21,7 +21,7 @@ export default function RevenuesDate() {
 
   const getRevenueByDateRange = async () => {
     const params = { ...dateRange, type: dateType, exports: true };
-    console.log("params nè", params);
+    // console.log("params nè", params);
 
     try {
       const response = await statisticApi.getRevenueByRangeDate(params);
