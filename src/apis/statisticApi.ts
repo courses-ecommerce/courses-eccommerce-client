@@ -8,7 +8,7 @@ const statisticApi = {
     const url = STATISTIC_API + "/revenues/daily";
     return axiosClient.get(url, { params });
   },
-  getRevenueByEveryMonth: (year: number | string, params: any) => {
+  getRevenueByRangeMonth: (year: number | string, params: any) => {
     const url = STATISTIC_API + "/revenues/monthly/" + year;
     return axiosClient.get(url, { params });
   },

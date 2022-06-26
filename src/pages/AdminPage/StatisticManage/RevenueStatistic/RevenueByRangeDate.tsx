@@ -47,7 +47,7 @@ export default function RevenueByRangeDate() {
         "Tổng doanh thu"
       );
       setData(data);
-      setExcelHref(LINK_DOMAIN + file);
+      setExcelHref(file);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -73,7 +73,7 @@ export default function RevenueByRangeDate() {
         alignItems: "center",
       }}
     >
-      <h4>Doanh thu bán khoá học của hệ thống</h4>
+      {/* <h4>Doanh thu bán khoá học của hệ thống</h4> */}
 
       {/* search input */}
       <Box

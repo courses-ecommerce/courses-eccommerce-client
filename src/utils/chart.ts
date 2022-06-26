@@ -132,7 +132,10 @@ export const getValueChartVertical = (
   };
 };
 
-export const getValueChartVerticalMultiColumn = (values?: any, year?: any) => {
+export const getValueChartVerticalMultiColumn = (
+  values?: any,
+  yearLabel?: any
+) => {
   // console.log("values là", values);
 
   const keys = getHeaderColumns(values, ["message", "file"]).reverse();
@@ -160,8 +163,6 @@ export const getValueChartVerticalMultiColumn = (values?: any, year?: any) => {
     "rgba(153, 102, 255, 1)",
     "rgba(255, 159, 64, 1)",
   ];
-
-  const yearLabel = [year - 1, year];
 
   let labels = [
     "Tháng 1",

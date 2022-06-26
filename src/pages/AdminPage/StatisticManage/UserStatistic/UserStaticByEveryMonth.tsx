@@ -48,10 +48,10 @@ export default function UserStaticByEveryMonth() {
       const { file }: any = response;
       // const { lastYear, thisYear, file }: any = response;
 
-      const data = getValueChartVerticalMultiColumn(
-        response,
-        new Date(year).getFullYear()
-      );
+      const data = getValueChartVerticalMultiColumn(response, [
+        new Date(year).getFullYear() - 1,
+        new Date(year).getFullYear(),
+      ]);
       // console.log("đã lấy được là", data);
       setUserData(data);
       setExcelHref(file);

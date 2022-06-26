@@ -62,3 +62,10 @@ export const numberRangeTypes = [
   // { value: 10, name: "Hiển thị 10" },
   // { value: 20, name: "Hiển thị 20" },
 ];
+export const yearNumberCompare = [
+  { value: 1, name: "1 năm" },
+  { value: 2, name: "2 năm" },
+  { value: 3, name: "3 năm" },
+  { value: 4, name: "4 năm" },
+  // { value: 4, name: "5 năm" },
+];

@@ -5,12 +5,19 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
+import statisticApi from "src/apis/statisticApi";
+import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
+import { yearNumberCompare } from "src/data";
 import { LINK_DOMAIN } from "src/data/link";
-import { getOptionsCharBar } from "src/utils/chart";
+import {
+  getOptionsCharBar,
+  getValueChartVerticalMultiColumn,
+} from "src/utils/chart";
 
 export default function RevenueByEveryMonth() {
   const [year, setYear] = useState<any>(new Date());
+  const [yearNumber, setYearNumber] = useState<number>(2);
   const [excelHref, setExcelHref] = useState<string>();
 
   const [options, setOptions] = useState<any>();
@@ -18,24 +25,64 @@ export default function RevenueByEveryMonth() {
 
   useEffect(() => {
     const params = {
-      year: new Date(year).getFullYear(),
       exports: true,
+      number: yearNumber,
     };
+    // console.log("params", params);
 
     const options = getOptionsCharBar(
-      `Biểu đồ thể hiện số lượng tài khoản mới trong năm ${new Date(
-        year
-      ).getFullYear()} so với năm ${new Date(year).getFullYear() - 1}
-        `
+      `Biểu đồ thể hiện doanh so với ${yearNumber} năm trước`
     );
 
     setOptions(options);
 
     // console.log("lấy được data là", params);
 
-    // getUserByRangeYear(params);
+    getRevenueByRangeYear(params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [year]);
+  }, [year, yearNumber]);
+
+  const getRevenueByRangeYear = async (params?: any) => {
+    // console.log("params", params);
+    try {
+      const response = await statisticApi.getRevenueByRangeMonth(
+        new Date(year).getFullYear(),
+        params
+      );
+      // console.log("response", response);
+      const { result, file }: any = response;
+      // console.log("result", result);
+
+      //combineData object
+      let newData: any[] = [];
+      let yearRange: any[] = [];
+
+      result.forEach((element: any) => {
+        // newData.push({ [element.year]: element.data });
+        newData.push(element.data);
+      });
+
+      yearRange = result.map(
+        (_: any, index: number) => new Date(year).getFullYear() - index
+      );
+
+      // console.log("yearRange", yearRange.reverse());
+
+      //const get year
+
+      const data = getValueChartVerticalMultiColumn(
+        newData,
+        yearRange.reverse()
+      );
+
+      // console.log("data", data);
+
+      setRevenueData(data);
+      setExcelHref(file);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
 
   const goToExcel = () => {
     if (!excelHref) {
@@ -87,6 +134,13 @@ export default function RevenueByEveryMonth() {
             )}
           />
         </LocalizationProvider>
+        <InputSelect
+          label="Phạm vi"
+          hideErrorMessage={true}
+          list={yearNumberCompare}
+          defaultValue={yearNumber}
+          onChange={(e) => setYearNumber(e.target.value)}
+        />
         <Button
           sx={{ height: 36 }}
           variant="contained"
