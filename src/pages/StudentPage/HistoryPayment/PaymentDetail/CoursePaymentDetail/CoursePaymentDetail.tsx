@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import { IDetailInvoice } from "src/types/invoice";
 import { numberLocale } from "src/utils";
@@ -10,10 +11,13 @@ interface CoursePaymentDetailProps {
 
 const CoursePaymentDetail: React.FC<CoursePaymentDetailProps> = ({ data }) => {
   // console.log("course detail là", data);
-
+  const navigate = useNavigate();
   return (
     <div className="course-payment-item">
-      <div className="thumbnail">
+      <div
+        className="thumbnail"
+        onClick={() => navigate(`/courses/${data?.courseSlug}`)}
+      >
         <Image width={300} src={data?.courseThumbnail} />
       </div>
       <div className="content">

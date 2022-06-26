@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import Rating from "src/components/Rating/Rating";
 import { IMyCourse } from "src/types/myCourse";
+import { numberRound } from "src/utils";
 import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseItem.scss";
 
@@ -14,7 +15,7 @@ interface MyCourseItemProps {
 }
 
 const MyCourseItem: React.FC<MyCourseItemProps> = ({ data, isUpdate }) => {
-  console.log("my course item", data);
+  // console.log("my course item", data);
   const navigate = useNavigate();
   const [showRating, setShowRating] = useState<boolean>(false);
 
@@ -52,7 +53,7 @@ const MyCourseItem: React.FC<MyCourseItemProps> = ({ data, isUpdate }) => {
             )}
           >
             {data?.percentProgress
-              ? data?.percentProgress + "/100"
+              ? numberRound(data?.percentProgress) + "/100"
               : "Chưa xem"}
             <span
               className="percent"

@@ -5,8 +5,14 @@
   display: flex;
   font-display: row;
   gap: 50px;
-  //   > .thumbnail {
-  //   }
+  > .thumbnail {
+    cursor: pointer;
+    &:hover {
+      > img {
+        opacity: 0.8;
+      }
+    }
+  }
 
   > .content {
     display: flex;

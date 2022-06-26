@@ -122,6 +122,11 @@
 
   > .thumbnail {
     cursor: pointer;
+    &:hover {
+      > img {
+        opacity: 0.8;
+      }
+    }
   }
 
   > .content {

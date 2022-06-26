@@ -7,6 +7,7 @@ interface ImageContentProps {
   name: string;
   image: string;
   description: string;
+  btn?: boolean;
 }
 
 interface SlideItemProps {
@@ -20,9 +21,11 @@ const SlideItem: React.FC<SlideItemProps> = ({ imageContent }) => {
       <div className="slide-item-content">
         <span className="name">{imageContent.name}</span>
         <span className="description">{imageContent.description}</span>
-        <Button variant="contained" color="success">
-          Mua ngay
-        </Button>
+        {imageContent.btn && (
+          <Button variant="contained" color="success">
+            Mua ngay
+          </Button>
+        )}
       </div>
     </div>
   );
