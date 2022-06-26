@@ -1,15 +1,25 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Divider, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
+import Loading from "src/components/Loading/Loading";
 import { LINK_DOMAIN } from "src/data/link";
+import { IUserStatistic } from "src/types/statistic";
+import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
 
 export default function UserStaticByRangeYear() {
   const [startYear, setStartYear] = useState(new Date("2021-06-01"));
   const [endYear, setEndYear] = useState<any>(new Date());
   const [excelHref, setExcelHref] = useState<string>();
+
+  const [userData, setUserData] = useState<any>([]);
+  const [options, setOptions] = useState<any>();
+  const [userStatisticByRangeYear, setUserStatisticByRangeYear] =
+    useState<IUserStatistic>();
 
   useEffect(() => {
     const params = {
@@ -17,6 +27,15 @@ export default function UserStaticByRangeYear() {
       end: new Date(endYear).getFullYear(),
       exports: true,
     };
+
+    const options = getOptionsCharBar(
+      `Biểu đồ thể hiện số lượng tài khoản mới từ năm ${new Date(
+        startYear
+      ).getFullYear()} đến năm ${new Date(endYear).getFullYear()}
+    `
+    );
+
+    setOptions(options);
 
     // console.log("lấy được data là", params);
 
@@ -26,8 +45,26 @@ export default function UserStaticByRangeYear() {
   const getUserByRangeYear = async (params?: any) => {
     try {
       const response = await statisticApi.getUserByRangeYears(params);
-      console.log("dá", response);
-      const { file }: any = response;
+      // console.log("dá", response);
+      const { newUsers, notActivating, raise, activating, file }: any =
+        response;
+      // console.log("newUsers", newUsers);
+
+      const data = getValueChartVertical(
+        newUsers,
+        "year",
+        "value",
+        "Số lượng tài khoản mới"
+      );
+
+      // console.log("đã nhận được data là", data);
+      setUserData(data);
+      setUserStatisticByRangeYear({
+        newUsers,
+        notActivating,
+        raise,
+        activating,
+      });
       setExcelHref(file);
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -54,10 +91,10 @@ export default function UserStaticByRangeYear() {
         alignItems: "center",
       }}
     >
-      <h4>
+      {/* <h4>
         Số lượng tài khoản từ năm {new Date(startYear).getFullYear()} đến năm{" "}
         {new Date(endYear).getFullYear()}
-      </h4>
+      </h4> */}
 
       {/* search input */}
       <Box
@@ -106,7 +143,36 @@ export default function UserStaticByRangeYear() {
         </Button>
       </Box>
 
-      {/* {!_.isEmpty(data) ? <Pie data={data} /> : <Loading />} */}
+      {!_.isEmpty(userData) ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 5,
+          }}
+        >
+          <Box sx={{ width: 900 }}>
+            <Bar options={options} data={userData} />
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <h3>Thông tin chi tiết tài khoản</h3>
+            <Divider />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <span>
+                Đang hoạt động: {userStatisticByRangeYear?.activating}
+              </span>
+              <span>Đang khoá: {userStatisticByRangeYear?.notActivating}</span>
+              <Divider />
+              <span>
+                <b>Tăng: </b>
+                {userStatisticByRangeYear?.raise}
+              </span>
+            </Box>
+          </Box>
+        </Box>
+      ) : (
+        <Loading />
+      )}
     </Box>
   );
 }
