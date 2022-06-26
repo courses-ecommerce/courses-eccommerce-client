@@ -85,19 +85,52 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .revenue-teacher-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    > .info {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px 10px;
+      > span {
+        width: 24%;
+      }
+    }
+  }
+  .revenue-teacher-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    > .content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}
 
-  > .info {
+// revenue invoice item
+.revenue-invoice-item {
+  border: 1px solid rgb(215, 215, 215);
+  padding: 10px;
+
+  display: flex;
+  font-display: row;
+  gap: 50px;
+
+  > .thumbnail {
+    cursor: pointer;
+  }
+
+  > .content {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    > .title {
-      font-size: 24px;
-      font-weight: 600;
-    }
-    > .author {
-      font-size: 18px;
-      font-weight: 300;
+    flex-wrap: wrap;
+    gap: 5px;
+    > span {
+      width: 35%;
     }
   }
 }

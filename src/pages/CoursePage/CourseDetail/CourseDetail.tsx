@@ -23,8 +23,8 @@ const CourseDetail = () => {
   document.title = "Thông tin chi tiết khoá học";
   const { id } = useParams();
   const { isRole } = useSelector(selectAuthorization);
-
   const navigate = useNavigate();
+
   const { isAuth } = useSelector(selectAuthorization);
   const dispatch = useDispatch();
 
@@ -95,13 +95,13 @@ const CourseDetail = () => {
   return (
     <>
       <div className="navs">
-        <Link to="/">Quay lại trang chủ</Link>
+        <span onClick={() => navigate(-1)}>Quay lại trang trước</span>
       </div>
       <div className="coures-detail">
         <span className="title">Thông tin chi tiết khoá học</span>
         <div className="course-preview">
           <div className="info">
-            {courseDetail.saleOff && (
+            {!!courseDetail.saleOff && (
               <span className="sale-off">
                 -{numberRound(courseDetail.saleOff)}%
               </span>

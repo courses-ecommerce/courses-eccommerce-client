@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Divider, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -6,8 +6,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
+import Loading from "src/components/Loading/Loading";
 import { LINK_DOMAIN } from "src/data/link";
+import { IInvoice } from "src/types/invoice";
+import { ITeacher } from "src/types/statistic";
+import { checkGender, numberLocale } from "src/utils";
 import formatDate from "src/utils/formatDay";
+import RevenueInvoiceItem from "./RevenueInvoiceItem";
 import "./RevenueTeacherStatistic.scss";
 
 const RevenueTeacherDetail = () => {
@@ -15,7 +20,7 @@ const RevenueTeacherDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [teacherRevenueDetail, setTeacherRevenueDetail] = useState<any[]>([]);
+  const [teacherRevenueDetail, setTeacherRevenueDetail] = useState<ITeacher>();
   const [excelHref, setExcelHref] = useState<string>();
   const [monthAndYear, setMonthAndYear] = useState<any>(new Date());
 
@@ -37,8 +42,8 @@ const RevenueTeacherDetail = () => {
       const response = await statisticApi.getTeacherRevenueById(id, params);
       // console.log("data là", response);
       const { file, teacher }: any = response;
-      console.log("teacher", teacher);
-
+      // console.log("teacher", teacher);
+      setTeacherRevenueDetail(teacher);
       setExcelHref(file);
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -54,6 +59,15 @@ const RevenueTeacherDetail = () => {
     }
     //go to excel
     window.location.href = LINK_DOMAIN + excelHref;
+  };
+
+  const renderRevenueInvoices = (invoices: IInvoice[] = []) => {
+    return (
+      invoices.length > 0 &&
+      invoices.map((invoice, index) => (
+        <RevenueInvoiceItem data={invoice} key={index} />
+      ))
+    );
   };
   return (
     <>
@@ -91,6 +105,54 @@ const RevenueTeacherDetail = () => {
           <Button variant="contained" color="success" onClick={goToExcel}>
             Xuất excel
           </Button>
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <div className="revenue-teacher-info">
+            <h3>Thông tin giản viên</h3>
+            <div className="info">
+              <span>
+                <b>Mã id teacher: </b>
+                {teacherRevenueDetail?._id}
+              </span>
+              <span>
+                <b>Địa chỉ email: </b>
+                {teacherRevenueDetail?.account?.email}
+              </span>
+              <span>
+                <b>Tên giảng viên: </b>
+                {teacherRevenueDetail?.fullName}
+              </span>
+              <span>
+                <b>Giới tính: </b>
+                {checkGender(teacherRevenueDetail?.gender)}
+              </span>
+              <span>
+                <b>Chức vụ: </b>
+                {teacherRevenueDetail?.account?.role}
+              </span>
+              <span>
+                <b>Số điện thoại: </b>
+                {teacherRevenueDetail?.phone}
+              </span>
+              <span>
+                <b>Tổng đã bán được trong tháng: </b>
+                {teacherRevenueDetail?.numOfDetailInvoice}
+              </span>
+              <span>
+                <b>Tổng tiền nhận được: </b>
+                {numberLocale(teacherRevenueDetail?.revenue, " đồng")}
+              </span>
+            </div>
+          </div>
+          <Divider />
+          <div className="revenue-teacher-content">
+            <h3>Thông tin các khoá học đã bán trong tháng</h3>
+            <div className="content">
+              {renderRevenueInvoices(teacherRevenueDetail?.detailInvoices) || (
+                <Loading />
+              )}
+            </div>
+          </div>
         </Box>
       </div>
     </>

@@ -71,7 +71,7 @@ export default function RevenueByEveryMonth() {
       //const get year
 
       const data = getValueChartVerticalMultiColumn(
-        newData,
+        newData.reverse(),
         yearRange.reverse()
       );
 

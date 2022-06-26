@@ -5,6 +5,7 @@ import RevenueByRangeDate from "./RevenueByRangeDate";
 import RevenueByRangeYear from "./RevenueByRangeYear";
 
 export default function RevenueStatistic() {
+  document.title = "Thống kê doanh thu";
   return (
     <Box
       sx={{
