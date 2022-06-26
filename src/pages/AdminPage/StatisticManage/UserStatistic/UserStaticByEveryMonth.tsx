@@ -47,7 +47,6 @@ export default function UserStaticByEveryMonth() {
       // console.log("dá", response);
       const { file }: any = response;
       // const { lastYear, thisYear, file }: any = response;
-      // console.log("newUsers", newUsers);
 
       const data = getValueChartVerticalMultiColumn(
         response,

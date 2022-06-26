@@ -1,20 +1,33 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import _ from "lodash";
+import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
 import DateRangePicker from "src/components/DateRangePicker/DateRangePicker";
 import InputSelect from "src/components/InputSelect";
+import Loading from "src/components/Loading/Loading";
 import { dateTypes } from "src/data";
 import { LINK_DOMAIN } from "src/data/link";
+import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
 
 export default function RevenueByRangeDate() {
   const [dateType, setDateType] = useState<any>("day");
-  const [dateRange, setDateRange] = useState<any>(5);
+  const [dateRange, setDateRange] = useState<any>();
   const [excelHref, setExcelHref] = useState<string>();
 
   const [data, setData] = useState<any>({});
+  const [options, setOptions] = useState<any>();
 
   useEffect(() => {
+    // console.log("dataRange", dateRange);
+
+    const options = getOptionsCharBar(
+      `Biểu đồ thể hiện doanh thu theo ${dateType === "day" ? "ngày" : "tháng"}`
+    );
+
+    setOptions(options);
+
     getRevenueByDateRange();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateType, dateRange]);
@@ -27,7 +40,13 @@ export default function RevenueByRangeDate() {
       const response = await statisticApi.getRevenueByRangeDate(params);
       const { result, file }: any = response;
       // console.log("ád", result);
-
+      const data = getValueChartVertical(
+        result,
+        "date",
+        "value",
+        "Tổng doanh thu"
+      );
+      setData(data);
       setExcelHref(LINK_DOMAIN + file);
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -82,7 +101,13 @@ export default function RevenueByRangeDate() {
         </Button>
       </Box>
 
-      {/* {!_.isEmpty(data) ? <Pie data={data} /> : <Loading />} */}
+      {!_.isEmpty(data) ? (
+        <Box sx={{ width: 900 }}>
+          <Bar options={options} data={data} />
+        </Box>
+      ) : (
+        <Loading />
+      )}
     </Box>
   );
 }
