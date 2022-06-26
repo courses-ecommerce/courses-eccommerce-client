@@ -1,5 +1,5 @@
 import { IAccount } from ".";
-import { IPayMent } from "./invoice";
+import { IDetailInvoice, IPayMent } from "./invoice";
 
 export interface IYearStatistic {
   value?: number;
@@ -19,12 +19,17 @@ export interface ITeacherInfo {
   payments?: IPayMent;
 }
 
-export interface ITopTeacher {
+export interface ITeacher {
   _id?: string;
   account?: IAccount;
   count?: number;
   fullName?: string;
+  birthday?: string;
   phone?: string;
   teacherInfo?: ITeacherInfo;
   total?: number;
+  revenue?: number;
+  numOfDetailInvoice?: number;
+  detailInvoices?: IDetailInvoice[];
+  gender?: boolean;
 }

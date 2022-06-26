@@ -3,6 +3,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
 import Input from "src/components/Input";
@@ -80,6 +81,8 @@ const RevenueTeacherStatistic = () => {
   const [value, setValue] = useState<string>();
   const debouncedValue = useTypingDebounce(value);
   const [email, setEmail] = useState<string>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = {
@@ -217,8 +220,8 @@ const RevenueTeacherStatistic = () => {
         isLoading={loading}
         columnsData={columsHeader}
         rowsData={teacherRevenues}
+        onViewItemDetail={(id) => navigate(`${id}`)}
         // handleAddItem={() => setShowCreate(true)}
-        // onViewItemDetail={handleViewDetail}
         // onModifyItem={handleModifyItem}
         // onDeleteSelectMultiItem={handleMultiDeleted}
       />

@@ -73,3 +73,31 @@
     }
   }
 }
+
+//teacher revenue detail
+.revenue-teacher-detail {
+  max-width: 1500px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  padding-bottom: 100px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  > .info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    > .title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    > .author {
+      font-size: 18px;
+      font-weight: 300;
+    }
+  }
+}

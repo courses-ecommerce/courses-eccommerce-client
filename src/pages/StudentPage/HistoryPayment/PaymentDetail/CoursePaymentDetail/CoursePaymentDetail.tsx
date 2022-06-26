@@ -9,7 +9,7 @@ interface CoursePaymentDetailProps {
 }
 
 const CoursePaymentDetail: React.FC<CoursePaymentDetailProps> = ({ data }) => {
-  console.log("course detail là", data);
+  // console.log("course detail là", data);
 
   return (
     <div className="course-payment-item">

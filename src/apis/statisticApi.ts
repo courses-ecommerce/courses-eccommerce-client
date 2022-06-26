@@ -49,7 +49,7 @@ const statisticApi = {
     const url = STATISTIC_API + "/revenues/teachers";
     return axiosClient.get(url, { params });
   },
-  getTeacherRevenueById: (id: string, params?: any) => {
+  getTeacherRevenueById: (id?: string, params?: any) => {
     const url = STATISTIC_API + "/revenues/teachers/" + id;
     return axiosClient.get(url, { params });
   },

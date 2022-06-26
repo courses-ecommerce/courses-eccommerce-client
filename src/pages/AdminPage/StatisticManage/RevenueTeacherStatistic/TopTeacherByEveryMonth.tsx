@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import statisticApi from "src/apis/statisticApi";
 import InputSelect from "src/components/InputSelect";
 import { numberRangeTypes } from "src/data";
-import { ITopTeacher } from "src/types/statistic";
+import { ITeacher } from "src/types/statistic";
 import formatDay from "src/utils/formatDay";
 import "./RevenueTeacherStatistic.scss";
 
@@ -28,7 +28,7 @@ const TeacherShowColumn = (data: any) => {
 };
 
 const TopTeacherByEveryMonth = () => {
-  const [topTeachers, setTopTeachers] = useState<ITopTeacher[]>([]);
+  const [topTeachers, setTopTeachers] = useState<ITeacher[]>([]);
 
   //for search
   const [year, setYear] = useState(new Date());
@@ -56,7 +56,7 @@ const TopTeacherByEveryMonth = () => {
     }
   };
 
-  const renderInfoTopTeacher = (topTeachers: ITopTeacher[]) => {
+  const renderInfoTopTeacher = (topTeachers: ITeacher[]) => {
     return (
       topTeachers.length > 0 &&
       topTeachers.map((topTeacher, index) => (
