@@ -4,7 +4,7 @@ import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
+// import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
 import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
 import StatisticRevenues from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenuesDate";
 import RevenueTeacherStatistic from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherStatistic";
@@ -180,13 +180,13 @@ const DASHBOARD_ROUTE = [
             element: <StatisticCourses />,
             // icon: "money",
           },
-          {
-            path: "coupons",
-            href: "/admin/dashboard/statistic/coupons",
-            title: "Thống kê mã khuyến mãi",
-            element: <CouponStatistic />,
-            // icon: "money",
-          },
+          // {
+          //   path: "coupons",
+          //   href: "/admin/dashboard/statistic/coupons",
+          //   title: "Thống kê mã khuyến mãi",
+          //   element: <CouponStatistic />,
+          //   // icon: "money",
+          // },
         ],
       },
       {

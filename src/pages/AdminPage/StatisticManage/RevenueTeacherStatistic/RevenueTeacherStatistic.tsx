@@ -13,7 +13,7 @@ import { LINK_DOMAIN } from "src/data/link";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import formatDate from "src/utils/formatDay";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
-import TopTeacherByEveryMonth from "./TopTeacherByEveryMonth";
+// import TopTeacherByEveryMonth from "./TopTeacherByEveryMonth";
 import TopTeacherByYear from "./TopTeacherByYear";
 
 const columsHeader: GridColDef[] = [
@@ -154,8 +154,8 @@ const RevenueTeacherStatistic = () => {
         paddingBottom: 10,
       }}
     >
-      <TopTeacherByEveryMonth />
-      <Divider />
+      {/* <TopTeacherByEveryMonth />
+      <Divider /> */}
       <TopTeacherByYear />
       <Divider />
       <Table
