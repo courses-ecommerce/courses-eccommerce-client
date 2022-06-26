@@ -49,7 +49,7 @@ export default function RevenueByRangeYear() {
       const data = getValueChartVertical(
         result,
         "year",
-        "value",
+        "data",
         "Tổng doanh thu"
       );
 

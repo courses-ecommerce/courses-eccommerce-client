@@ -26,7 +26,7 @@ export default function RevenueByRangeDate() {
     try {
       const response = await statisticApi.getRevenueByRangeDate(params);
       const { result, file }: any = response;
-      console.log("ád", result);
+      // console.log("ád", result);
 
       setExcelHref(LINK_DOMAIN + file);
     } catch (error) {
