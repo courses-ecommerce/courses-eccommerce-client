@@ -4,7 +4,7 @@ import { downloadIMG } from "src/assets";
 import "./InputFile.scss";
 
 interface InputFileProps {
-  label: string;
+  label?: string;
   value?: string | string[];
   valueDefault?: string;
   onChange: (value: any) => void;
@@ -56,7 +56,7 @@ const InputFile: React.FC<InputFileProps> = ({
 
   return (
     <div className="input-file">
-      <span>{label}</span>
+      {label && <span>{label}</span>}
       <input
         id="file_input"
         type="file"

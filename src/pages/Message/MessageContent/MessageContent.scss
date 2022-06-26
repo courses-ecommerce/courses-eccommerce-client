@@ -1,0 +1,28 @@
+.mesage-content {
+  display: flex;
+  flex-direction: column;
+
+  > .chat-content {
+    height: 450px;
+  }
+  > .chat-handle {
+    padding: 0 10px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    > .input-text {
+      flex: 1;
+    }
+    > div {
+      > label {
+        cursor: pointer;
+        > img {
+          height: 50px;
+          width: 50px;
+          border: 1px solid rgb(220, 220, 220);
+        }
+      }
+    }
+  }
+}
