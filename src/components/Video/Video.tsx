@@ -37,13 +37,16 @@ const Video: React.FC<VideoProps> = ({
     ref.current?.addEventListener("timeupdate", () => {
       timeline = ref.current?.currentTime;
     });
-    setInterval(() => {
+    const interval = setInterval(() => {
       const data = { lessonId, timeline };
       // console.log("đã lấy được time là", data);
 
       uploadTimeVideo(data);
     }, 5 * TIME);
 
+    return () => {
+      clearInterval(interval);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lessonId, courseId]);
 

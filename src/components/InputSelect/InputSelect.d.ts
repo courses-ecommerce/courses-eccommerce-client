@@ -9,6 +9,7 @@ declare interface InputSelectProps {
   }[];
   name?: string;
   defaultValue?: string | number | boolean;
+  hideErrorMessage?: boolean;
   errorMessage?: string;
   style?: CSSProperties;
   border?: boolean;

@@ -1,7 +1,12 @@
+import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
+import Input from "src/components/Input";
+import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
+import { statusCourseTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { ICourse } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
@@ -30,7 +35,7 @@ const columsHeader: GridColDef[] = [
   {
     field: "name",
     headerName: "Tên khoá học",
-    width: 500,
+    width: 400,
   },
   {
     field: "author",
@@ -38,14 +43,14 @@ const columsHeader: GridColDef[] = [
     width: 150,
   },
   {
-    field: "currentPrice",
-    headerName: "Giá hiện tại",
-    width: 100,
-  },
-  {
     field: "originalPrice",
     headerName: "Giá gốc",
-    width: 100,
+    width: 150,
+  },
+  {
+    field: "currentPrice",
+    headerName: "Giá hiện tại",
+    width: 150,
   },
 ];
 
@@ -53,7 +58,10 @@ const CourseList = () => {
   document.title = "Quản lý khoá học";
   const [loading, setLoading] = useState<boolean>(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
-  const [isActive, setIsActive] = useState<boolean>(true);
+  const [publish, setPublish] = useState<boolean>(true);
+
+  //for search
+  const [status, setStatus] = useState<string>("approved");
 
   //pagination
   const [total, setTotal] = useState<number>(0);
@@ -65,14 +73,20 @@ const CourseList = () => {
   const debouncedValue = useTypingDebounce(value);
   const [name, setName] = useState<string>();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getCourses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, pageSize, name]);
+  }, [page, pageSize, name, publish, status]);
+
+  useEffect(() => {
+    setName(debouncedValue);
+  }, [debouncedValue]);
 
   const getCourses = async () => {
     setLoading(true);
-    const params = { page, limit: pageSize, active: isActive, name };
+    const params = { page, limit: pageSize, publish, name, status };
 
     try {
       const response = await courseApi.getCourses(params);
@@ -88,10 +102,12 @@ const CourseList = () => {
             author: courses[index].author.fullName,
           };
         });
+        console.log("courseData", courseData);
         setCourses(courseData);
       } else {
         setCourses(courses);
       }
+
       setLoading(false);
       setTotal(total);
     } catch (error) {
@@ -100,8 +116,42 @@ const CourseList = () => {
     }
   };
 
+  const goToCourseDetail = (id: any) => {
+    let data: any;
+    data = courses.filter((course) => course._id === id);
+    // console.log("data nef", data[0].slug);
+    navigate(`/courses/${data[0].slug}`);
+  };
+
   return (
     <Table
+      btnSearch={
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <Input
+            style={{ width: 250 }}
+            placeholder="Nhập tên khoá học"
+            onChange={(e: any) => setValue(e.target.value)}
+          />
+
+          <InputSelect
+            defaultValue={publish}
+            list={statusTypes}
+            onChange={(e) => setPublish(e.target.value)}
+          />
+          <InputSelect
+            defaultValue={status}
+            list={statusCourseTypes}
+            onChange={(e) => setStatus(e.target.value)}
+          />
+        </Box>
+      }
       titleBtnAdd="Tạo tài khoản mới"
       isLoading={loading}
       title="Danh sách thông tin khoá học"
@@ -112,6 +162,7 @@ const CourseList = () => {
       total={total}
       rowsData={courses}
       btnAdd={false}
+      onViewItemDetail={goToCourseDetail}
       // handleAddItem={handleCreate}
       // onDeleteItem={handleDelete}
       // onModifyItem={handleModifyItem}

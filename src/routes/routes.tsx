@@ -4,9 +4,10 @@ import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
+// import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
 import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
-import StatisticRevenues from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenuesDate";
+import RevenueStatistic from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenueStatistic";
+import RevenueTeacherDetail from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherDetail";
 import RevenueTeacherStatistic from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherStatistic";
 import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
 import UserStatistic from "src/pages/AdminPage/StatisticManage/UserStatistic/UserStatistic";
@@ -25,8 +26,8 @@ import CartList from "src/pages/StudentPage/ManageCart/CartList";
 import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
 import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCourseDetail";
 import StudentPage from "src/pages/StudentPage/StudentPage";
-import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourseDetail";
+import TeacherPage from "src/pages/TeacherPage/TeacherPage";
 
 // main route
 const MAIN_ROUTE = [
@@ -63,7 +64,14 @@ const AUTH_ROUTE = [
 ];
 
 // admin route
-const ADMIN_ROUTE = [{ role: "admin", path: "/admin", element: <AdminPage /> }];
+const ADMIN_ROUTE = [
+  { role: "admin", path: "/admin", element: <AdminPage /> },
+  {
+    role: "admin",
+    path: "/admin/dashboard/statistic/revenue-teachers/:id",
+    element: <RevenueTeacherDetail />,
+  },
+];
 
 // Student route
 const STUDENT_ROUTE = [
@@ -155,7 +163,7 @@ const DASHBOARD_ROUTE = [
             path: "revenues",
             href: "/admin/dashboard/statistic/revenues",
             title: "Thống kê doanh thu",
-            element: <StatisticRevenues />,
+            element: <RevenueStatistic />,
             // icon: "money",
           },
           {
@@ -172,13 +180,13 @@ const DASHBOARD_ROUTE = [
             element: <StatisticCourses />,
             // icon: "money",
           },
-          {
-            path: "coupons",
-            href: "/admin/dashboard/statistic/coupons",
-            title: "Thống kê mã khuyến mãi",
-            element: <CouponStatistic />,
-            // icon: "money",
-          },
+          // {
+          //   path: "coupons",
+          //   href: "/admin/dashboard/statistic/coupons",
+          //   title: "Thống kê mã khuyến mãi",
+          //   element: <CouponStatistic />,
+          //   // icon: "money",
+          // },
         ],
       },
       {

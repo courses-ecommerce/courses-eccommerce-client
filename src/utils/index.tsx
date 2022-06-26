@@ -34,6 +34,13 @@ export const translateVi = (name?: string) => {
     //payment
     case "Paid":
       return "Đã thanh toán";
+    //status course
+    case "draft":
+      return "Đang nháp";
+    case "pending":
+      return "Đang chờ";
+    case "approved":
+      return "Đã duyệt";
     // category
     case "name":
       return "Tên";

@@ -3,47 +3,50 @@ import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import { IDetailInvoice } from "src/types/invoice";
 import { numberLocale } from "src/utils";
-import "./CoursePaymentDetail.scss";
-
-interface CoursePaymentDetailProps {
+import "./RevenueTeacherStatistic.scss";
+interface RevenueInvoiceItemProps {
   data?: IDetailInvoice;
 }
 
-const CoursePaymentDetail: React.FC<CoursePaymentDetailProps> = ({ data }) => {
-  // console.log("course detail là", data);
+const RevenueInvoiceItem: React.FC<RevenueInvoiceItemProps> = ({ data }) => {
+  //   console.log("data là", data);
   const navigate = useNavigate();
+
   return (
-    <div className="course-payment-item">
+    <div className="revenue-invoice-item">
       <div
         className="thumbnail"
         onClick={() => navigate(`/courses/${data?.courseSlug}`)}
       >
-        <Image width={300} src={data?.courseThumbnail} />
+        <Image width={200} />
       </div>
       <div className="content">
         <span>
-          <b>Mã khoá học: </b>
-          {data?.courseId}
-        </span>
-        <span>
-          <b>Tên khoá học: </b>
-          {data?.courseName}
+          <b>Mã hoá đơn: </b>
+          {data?.invoice}
         </span>
         <span>
           <b>Giá gốc: </b>
           {numberLocale(data?.courseCurrentPrice, " đồng")}
         </span>
         <span>
-          <b>Giá giảm: </b>
-          {numberLocale(data?.discount, " đồng")}
+          <b>Ngày bán: </b>
+          {data?.createdAt}
         </span>
         <span>
-          <b>Giá thanh toán: </b>
+          <b>Giảm giá: </b>
+          {data?.discount}
+        </span>
+        <span>
+          <b>Tên khoá học: </b>
+          {data?.courseName}
+        </span>
+        <span>
+          <b>Số tiền nhận được: </b>
           {numberLocale(data?.amount, " đồng")}
         </span>
       </div>
     </div>
   );
 };
-
-export default CoursePaymentDetail;
+export default RevenueInvoiceItem;

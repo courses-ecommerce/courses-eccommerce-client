@@ -25,7 +25,6 @@ export default function CourseTotal() {
   return (
     <Box
       sx={{
-        width: 350,
         display: "flex",
         flexDirection: "column",
         gap: 3,
@@ -34,7 +33,13 @@ export default function CourseTotal() {
       }}
     >
       <h4>Tổng số lượng khoá học hiện đang có</h4>
-      {!_.isEmpty(data) ? <Pie data={data} /> : <Loading />}
+      {!_.isEmpty(data) ? (
+        <Box sx={{ width: 300 }}>
+          <Pie data={data} />
+        </Box>
+      ) : (
+        <Loading />
+      )}
     </Box>
   );
 }

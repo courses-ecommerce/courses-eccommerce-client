@@ -8,16 +8,16 @@ const statisticApi = {
     const url = STATISTIC_API + "/revenues/daily";
     return axiosClient.get(url, { params });
   },
-  getRevenueByRangeMonths: (year: number | string, params: any) => {
+  getRevenueByRangeMonth: (year: number | string, params: any) => {
     const url = STATISTIC_API + "/revenues/monthly/" + year;
     return axiosClient.get(url, { params });
   },
-  getRevenueByRangeYears: (params: any) => {
+  getRevenueByRangeYear: (params: any) => {
     const url = STATISTIC_API + "/revenues/yearly";
     return axiosClient.get(url, { params });
   },
   //users
-  getUserByRangeMonths: (params: any) => {
+  getUserByMonth: (params: any) => {
     const url = STATISTIC_API + "/users/monthly";
     return axiosClient.get(url, { params });
   },
@@ -30,13 +30,35 @@ const statisticApi = {
     const url = STATISTIC_API + "/courses";
     return axiosClient.get(url);
   },
-  getHotCourse: (params: any) => {
-    const url = STATISTIC_API + "/top-sale-courses";
+  getHotCourseByMonth: (params: any) => {
+    const url = STATISTIC_API + "/top-sale-courses/month";
+    return axiosClient.get(url, { params });
+  },
+  getHotCourseByYear: (params: any) => {
+    const url = STATISTIC_API + "/top-sale-courses/year";
     return axiosClient.get(url, { params });
   },
   //coupon
   getCoupons: (params: any) => {
     const url = STATISTIC_API + "/coupons";
+    return axiosClient.get(url, { params });
+  },
+
+  //teacher revenue
+  getTeacherRevenueByMonth: (params?: any) => {
+    const url = STATISTIC_API + "/revenues/teachers";
+    return axiosClient.get(url, { params });
+  },
+  getTeacherRevenueById: (id?: string, params?: any) => {
+    const url = STATISTIC_API + "/revenues/teachers/" + id;
+    return axiosClient.get(url, { params });
+  },
+  getTopTeacherRevenueByEveryMonth: (params?: any) => {
+    const url = STATISTIC_API + "/top-teachers-of-months";
+    return axiosClient.get(url, { params });
+  },
+  getTopTeacherRevenueByYear: (params?: any) => {
+    const url = STATISTIC_API + "/top-teachers-of-year";
     return axiosClient.get(url, { params });
   },
 };

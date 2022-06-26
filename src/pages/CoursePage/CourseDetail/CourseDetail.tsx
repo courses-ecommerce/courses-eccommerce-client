@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
 import courseApi from "src/apis/courseApi";
@@ -9,10 +9,14 @@ import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
 import Image from "src/components/Image/Image";
 import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
-import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
+import {
+  getPanelActive,
+  getTotalCart,
+  getVideoView,
+  selectAuthorization,
+} from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { IRating } from "src/types/myCourse";
-
 import { numberLocale, numberRound } from "src/utils";
 import CourseRating from "../CourseRating/CourseRating";
 import CourseSummary from "../CourseSummary/CourseSummary";
@@ -23,8 +27,8 @@ const CourseDetail = () => {
   document.title = "Thông tin chi tiết khoá học";
   const { id } = useParams();
   const { isRole } = useSelector(selectAuthorization);
-
   const navigate = useNavigate();
+
   const { isAuth } = useSelector(selectAuthorization);
   const dispatch = useDispatch();
 
@@ -34,6 +38,9 @@ const CourseDetail = () => {
 
   useLayoutEffect(() => {
     window.scroll(0, 0);
+    dispatch(getPanelActive(""));
+    dispatch(getVideoView(""));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -95,13 +102,13 @@ const CourseDetail = () => {
   return (
     <>
       <div className="navs">
-        <Link to="/">Quay lại trang chủ</Link>
+        <span onClick={() => navigate(-1)}>Quay lại trang trước</span>
       </div>
       <div className="coures-detail">
         <span className="title">Thông tin chi tiết khoá học</span>
         <div className="course-preview">
           <div className="info">
-            {courseDetail.saleOff && (
+            {!!courseDetail.saleOff && (
               <span className="sale-off">
                 -{numberRound(courseDetail.saleOff)}%
               </span>

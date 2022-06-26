@@ -32,6 +32,13 @@ export const categoryStatusTypes = [
   { value: false, name: "Đang trống" },
 ];
 
+//course
+export const statusCourseTypes = [
+  { value: "draft", name: "Đang nháp" },
+  { value: "pending", name: "Đang chờ" },
+  { value: "approved", name: "Đã duyệt" },
+];
+
 // statistic
 export const topAmountTypes = [
   { value: 5, name: "5 khoá hot nhất" },
@@ -42,4 +49,23 @@ export const dateTypes = [
   { value: "day", name: "Theo ngày" },
   { value: "month", name: "Theo tháng" },
   // { value: "year", name: "Theo năm" },
+];
+
+export const revenueSortTypes = [
+  { value: "revenue-desc", name: "Lương giảm dần" },
+  { value: "revenue-asc", name: "Lương tăng dần" },
+];
+
+export const numberRangeTypes = [
+  { value: 3, name: "Hiển thị 3" },
+  { value: 5, name: "Hiển thị 5" },
+  // { value: 10, name: "Hiển thị 10" },
+  // { value: 20, name: "Hiển thị 20" },
+];
+export const yearNumberCompare = [
+  { value: 1, name: "1 năm" },
+  { value: 2, name: "2 năm" },
+  { value: 3, name: "3 năm" },
+  { value: 4, name: "4 năm" },
+  // { value: 4, name: "5 năm" },
 ];
