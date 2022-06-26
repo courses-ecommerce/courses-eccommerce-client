@@ -1,4 +1,5 @@
 import React from "react";
+import "./Message.scss";
 
 interface MessageProps {}
 
