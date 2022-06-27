@@ -79,6 +79,14 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
           <b>Mức độ: </b>
           {data.level}
         </span>
+        {/* hot tags */}
+        <span className="sell-number">
+          <span className="amount">
+            <b>Số lượng bán được: </b>
+            {data.sellNumber}
+          </span>
+          {data.type && <span className="tags">Đang {data.type}</span>}
+        </span>
         <span
           className="level"
           style={{ display: "flex", flexDirection: "row" }}

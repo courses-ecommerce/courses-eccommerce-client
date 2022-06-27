@@ -76,7 +76,7 @@ const CourseDetail = () => {
     if (!isAuth) {
       navigate("/login");
     } else {
-      const params = { course: id };
+      const params = { course: courseDetail._id };
       // console.log("params", params);
       setIsLoading(true);
       try {
@@ -148,6 +148,17 @@ const CourseDetail = () => {
                 <b>Mức độ: </b>
                 {courseDetail.level}
               </span>
+              {/* hot tags */}
+              <span className="sell-number">
+                <span className="amount">
+                  <b>Số lượng bán được: </b>
+                  {courseDetail.sellNumber}
+                </span>
+                {courseDetail.type && (
+                  <span className="tags">Đang {courseDetail.type}</span>
+                )}
+              </span>
+
               <span style={{ display: "flex", flexDirection: "row" }}>
                 <b>Đánh giá: </b>
                 <Rating

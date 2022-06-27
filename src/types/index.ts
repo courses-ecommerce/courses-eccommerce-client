@@ -69,6 +69,7 @@ export interface ICourse {
   slug?: string;
   targets?: string[];
   discount?: number;
+  type?: string;
 }
 
 export interface IAccount {

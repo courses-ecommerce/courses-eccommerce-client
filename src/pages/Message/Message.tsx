@@ -9,7 +9,7 @@ const Message: React.FC<MessageProps> = () => {
   document.title = "Trò chuyện trực tuyến";
   return (
     <div className="message">
-      <h3 className="title">Khung trò chuyện trực tuyến với teacher, admin</h3>
+      <h3 className="title">Khung trò chuyện trực tuyến</h3>
       <div className="message-container">
         <div className="message-users">
           <div className="title">Danh sách người dùng</div>

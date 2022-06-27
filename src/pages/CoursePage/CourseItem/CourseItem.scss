@@ -47,6 +47,19 @@
     //   font-size: 14px;
     //   font-weight: 300;
     // }
+    > .sell-number {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      // gap: 20px;
+
+      > .tags {
+        background: rgb(38, 0, 255);
+        color: white;
+        font-weight: 700;
+        padding: 2px 10px;
+      }
+    }
 
     > .current_price {
       display: flex;
