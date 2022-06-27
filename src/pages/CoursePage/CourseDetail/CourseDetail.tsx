@@ -253,7 +253,7 @@ const CourseDetail = () => {
           </div>
         </div>
 
-        <Divider />
+        <Divider sx={{ marginY: 10 }} />
         <Box
           sx={{
             display: "flex",
