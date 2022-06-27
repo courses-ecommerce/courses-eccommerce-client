@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -128,10 +128,16 @@ const CourseDetail = () => {
           <div className="content-detail">
             <div className="detail-info">
               <h3>Sơ lược thông tin khoá học</h3>
-              <span>
-                <b>Tác giả: </b>
-                {courseDetail.author?.fullName}
-              </span>
+
+              <Tooltip
+                title="Xem trang cá nhân"
+                onClick={() => navigate(`/user/${courseDetail.author?._id}`)}
+              >
+                <span className="author" style={{ cursor: "pointer" }}>
+                  <b>Tác giả: </b>
+                  {courseDetail.author?.fullName}
+                </span>
+              </Tooltip>
 
               <span className="current_price">
                 <b>Giá hiện tại: </b>

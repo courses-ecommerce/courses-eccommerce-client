@@ -70,11 +70,15 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
         <Tooltip title={data.name || ""}>
           <span className="name">{data.name}</span>
         </Tooltip>
-        <span className="author">
-          <b>Tác giả: </b>
-          {data.author?.fullName}
-        </span>
-
+        <Tooltip
+          title="Xem trang cá nhân"
+          onClick={() => navigate(`user/${data.author?._id}`)}
+        >
+          <span className="author" style={{ cursor: "pointer" }}>
+            <b>Tác giả: </b>
+            {data.author?.fullName}
+          </span>
+        </Tooltip>
         <span className="level">
           <b>Mức độ: </b>
           {data.level}
