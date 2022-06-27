@@ -18,6 +18,7 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
+import PorfolioPage from "src/pages/MainPage/PorfolioPage/PorfolioPage";
 import Message from "src/pages/Message/Message";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
@@ -51,6 +52,11 @@ const MAIN_ROUTE = [
     role: "page",
     path: "invoice/:id",
     element: <PaymentDetail />,
+  },
+  {
+    role: "page",
+    path: "user/:id",
+    element: <PorfolioPage />,
   },
   { role: "page", path: "/unauthorized", element: <UnauthorizedPage /> },
   { role: "page", path: "/*", element: <NotFound /> },

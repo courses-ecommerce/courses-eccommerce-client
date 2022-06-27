@@ -1,6 +1,7 @@
 import axiosClient from "./axiosClient";
 
 const TEACHER_API = "/teacher";
+
 const teacherApi = {
   getCourses: (params?: any) => {
     const url = TEACHER_API + "/courses";
@@ -10,9 +11,17 @@ const teacherApi = {
     const url = TEACHER_API + "/courses/" + id;
     return axiosClient.get(url);
   },
-  getTeacherInfo: () => {
-    const url = TEACHER_API + "/info";
+  getTeacherInfoById: (id?: string) => {
+    const url = TEACHER_API + "/info/" + id;
     return axiosClient.get(url);
+  },
+  updateTeacherInfoById: (id?: string, params?: any) => {
+    const url = TEACHER_API + "/info/" + id;
+    return axiosClient.put(url, params);
+  },
+  getTeacherRevenueByRangeDate: (params?: any) => {
+    const url = TEACHER_API + "/my-revenue";
+    return axiosClient.get(url, { params });
   },
 };
 export default teacherApi;
