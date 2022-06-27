@@ -15,12 +15,14 @@ efert269@gmail.com
 123456789
 ```
 
+# Backlog Process
+
 ## 1. Auth Page:
 
 ### 1.1. Login Page:
 
 - [x] Login
-- [ ] Google Login
+- [x] Google Login
 
 ### 1.2 Register Page:
 
@@ -29,54 +31,67 @@ efert269@gmail.com
 
 ### 1.3 Forgot password Page:
 
-- [ ] Send Email to get new password
-- [ ] Forgot_password
+- [x] Send Email to get new password
+- [x] Forgot_password
 
 ## 2. Page user:
 
 ### 2.1 Keep Login:
 
-- [ ] Keep Login ( refresh token)
+- [x] Logout
+- [ ] Refresh token
 
 ### 2.2 Profile:
 
-- [ ] Mange Profile??
-- [ ] Change password
+- [x] View Profile
+- [x] Update Profile?
+- [x] Change password
+- [x] Get Invoices
+- [ ] History search
 
 ### 2.3 Cart??
 
+- [x] Get cart
+- [x] Add new course
+- [x] Add vouchers/coupons
+- [x] Delete course from cart
+
 ### 2.4 Manage course
+
+- [ ]
 
 ## 3. Page admin:
 
 ### 3.1 Manage User:
 
-- [ ] Get users
-- [ ] Create new user
-- [ ] Update user
-- [ ] Delete user
+- [x] Get users
+- [x] Create new user
+- [x] Thêm người dùng bằng file excel
+- [ ]
+- [x] Update user
+- [x] Delete user
 
 ### 3.2 Manage Categories:
 
-- [ ] Get categories
-- [ ] Create new category
-- [ ] Update category
-- [ ] Delete category
+- [x] Get categories
+- [x] Create new category
+- [x] Update category
+- [x] Delete category
 
 ### 3.3 Manage Course:
 
-- [ ] Get courses
+- [x] Get courses
 - [ ] View details course
 - [ ] Add new course
 - [ ] Update course
 
 ### 3.4 Manage Coupon:
 
-- [ ] Get coupons
-- [ ] Create new coupon
-- [ ] Update coupon
-- [ ] Delete coupon
-- [ ] View detail coupon
+- [x] Get coupons
+- [x] Create new coupon
+- [x] Update coupon
+- [x] Delete coupon
+- [x] View detail coupon
 
 ## 4. Courses:
 
@@ -87,7 +102,41 @@ efert269@gmail.com
 
 ## 5. Payment:
 
-- [ ] Estimate amount cart
-- [ ] Checkout cart
-- [ ] Notify Checkout Success
+- [x] Estimate amount cart
+- [x] Checkout cart
+- [x] Notify Checkout Success
 
+## 6. Statistic:
+
+### 6.1 Revenue:
+
+- [x] Revenue by date/month
+- [x] Revenue by Year
+- [x] Revenue by Range Year
+
+### 6.2 User
+
+- [x] User by Range Year
+- [x] User by month
+
+### 6.3 Course
+
+- [x] Total course
+- [x] Top course by Year
+- [x] Top course by Month
+
+### 6.4 Coupon
+
+- [ ] Total coupon
+
+### 6.5 Revenue Teacher
+
+- [x] Revenue teacher
+- [ ] Revenue teacher detail
+- [x] Top teacher by year
+- [x] Top teacher by month
+
+## 7. Web config:
+
+- [ ] View web config
+- [ ] Update web config
