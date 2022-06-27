@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "@mui/material";
+import { Box, Button, Divider, Tooltip } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import courseApi from "src/apis/courseApi";
 import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
 import Image from "src/components/Image/Image";
 import Loading from "src/components/Loading/Loading";
+import Pagination from "src/components/Pagination/Pagination";
 import Rating from "src/components/Rating/Rating";
 import {
   getPanelActive,
@@ -18,6 +19,7 @@ import {
 import { ICourse } from "src/types";
 import { IRating } from "src/types/myCourse";
 import { numberLocale, numberRound } from "src/utils";
+import CourseContainer from "../CourseContainer/CourseContainer";
 import CourseRating from "../CourseRating/CourseRating";
 import CourseSummary from "../CourseSummary/CourseSummary";
 import CourseTarget from "../CourseTarget/CourseTarget";
@@ -29,25 +31,39 @@ const CourseDetail = () => {
   const { isRole } = useSelector(selectAuthorization);
   const navigate = useNavigate();
 
+  // console.log("id", id);
+
   const { isAuth } = useSelector(selectAuthorization);
   const dispatch = useDispatch();
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
+  const [courseRelates, setCourseRelates] = useState<ICourse[]>([]);
   const [ratingComents, setRatingComents] = useState<IRating[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  // //search
+  // const [limit, setLimit] = useState(4);
+  const limit = 4;
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState<number>();
 
   useLayoutEffect(() => {
     window.scroll(0, 0);
     dispatch(getPanelActive(""));
     dispatch(getVideoView(""));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     getCourseDetail();
     getRatingComment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    courseDetail.slug && getCourseRelates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseDetail.slug, limit, page]);
 
   const getCourseDetail = async () => {
     try {
@@ -57,6 +73,25 @@ const CourseDetail = () => {
       // console.log("áddas", course);
     } catch (error) {
       console.log("lỗi", { error });
+    }
+  };
+
+  const getCourseRelates = async () => {
+    const params = { limit, page };
+    // console.log("params", params);
+
+    try {
+      const response = await courseApi.getCoursesRelated(
+        courseDetail.slug,
+        params
+      );
+      // console.log("response", response);
+      const { courses, total }: any = response;
+      // console.log(" courses", courses);
+      setTotal(total / limit);
+      setCourseRelates(courses);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
     }
   };
 
@@ -217,6 +252,23 @@ const CourseDetail = () => {
             />
           </div>
         </div>
+
+        <Divider sx={{ marginY: 10 }} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <CourseContainer title="Khoá học liên quan" courses={courseRelates} />
+          <Pagination
+            pageActive={page}
+            total={total}
+            onChangeValue={(value: any) => setPage(value)}
+          />
+        </Box>
       </div>
     </>
   );

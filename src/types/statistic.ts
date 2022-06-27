@@ -1,4 +1,4 @@
-import { IAccount } from ".";
+import { IAccount, ICourse, IUser } from ".";
 import { IDetailInvoice, IPayMent } from "./invoice";
 
 export interface IYearStatistic {
@@ -32,4 +32,9 @@ export interface ITeacher {
   numOfDetailInvoice?: number;
   detailInvoices?: IDetailInvoice[];
   gender?: boolean;
+}
+
+export interface ITeacherPorfolio {
+  user?: IUser;
+  userCourse?: ICourse[];
 }

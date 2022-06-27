@@ -12,6 +12,12 @@ export interface IComponent {
   component: ReactNode;
 }
 
+export interface ITeacherStatus {
+  _id?: string;
+  description?: string;
+  isVerified?: boolean;
+}
+
 export interface IUser {
   _id?: string;
   account?: IAccount;
@@ -22,6 +28,7 @@ export interface IUser {
   avatar?: any;
   createdAt?: string;
   updatedAt?: string;
+  teacher?: ITeacherStatus;
 }
 export interface ICategory {
   _id?: string;

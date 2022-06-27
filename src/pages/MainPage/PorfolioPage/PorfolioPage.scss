@@ -22,4 +22,74 @@
 }
 
 .porfolio-page {
+  max-width: 1500px;
+
+  margin: 0 auto;
+  margin-top: 20px;
+  padding-bottom: 100px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  > .teacher-info {
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    > .info {
+      display: flex;
+      flex-direction: row;
+      gap: 150px;
+
+      > .content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        > .is-verify {
+          color: white;
+          font-weight: 700;
+          background: green;
+          width: fit-content;
+
+          padding: 4px 10px;
+
+          user-select: none;
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
+
+  > .teacher-course {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    > .content {
+      max-width: 1400px;
+      margin: 0 auto;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 150px 50px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .porfolio-page {
+    > .teacher-info {
+      > .info {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  }
 }

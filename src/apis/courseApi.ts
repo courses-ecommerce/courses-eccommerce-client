@@ -12,13 +12,13 @@ const courseApi = {
     const url = COURSE_API + "/hot";
     return axiosClient.get(url, { params });
   },
-  getCoursesSuggest: (limit: Object) => {
+  getCoursesSuggest: (params?: any) => {
     const url = COURSE_API + "/suggest";
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
-  getCoursesRelated: (id: string) => {
-    const url = COURSE_API + id + "/related";
-    return axiosClient.get(url);
+  getCoursesRelated: (id?: string, params?: any) => {
+    const url = COURSE_API + "/" + id + "/related";
+    return axiosClient.get(url, { params });
   },
   getCourseDetail: (id?: string) => {
     const url = COURSE_API + "/" + id;
