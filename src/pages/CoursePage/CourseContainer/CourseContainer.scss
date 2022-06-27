@@ -15,9 +15,9 @@
     max-width: 1300px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     // gap: column row;
-    gap: 80px 30px;
-    flex-wrap: wrap;
+    gap: 120px 30px;
   }
 }
