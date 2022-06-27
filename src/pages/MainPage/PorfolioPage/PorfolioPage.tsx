@@ -61,7 +61,8 @@ const PorfolioPage = () => {
               </span>
               <span>
                 <b>Giới tính: </b>
-                {checkGender(teacherInfo?.user?.gender)}
+                {teacherInfo?.user?.gender &&
+                  checkGender(teacherInfo?.user?.gender)}
               </span>
               {!teacherInfo?.user?.teacher?.isVerified && (
                 <span className="is-verify">Giảng viên chính thức</span>
