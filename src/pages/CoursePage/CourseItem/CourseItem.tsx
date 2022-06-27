@@ -57,7 +57,9 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   return (
     <div className="course-item">
       <div className="img" ref={nodeRef}>
-        <span className="sale-off">-{numberRound(data.saleOff)}%</span>
+        {numberRound(data.saleOff) > 0 && (
+          <span className="sale-off">-{numberRound(data.saleOff)}%</span>
+        )}
         <img
           src={data.thumbnail}
           alt="img"
