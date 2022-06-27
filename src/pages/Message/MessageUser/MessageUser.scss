@@ -1,0 +1,27 @@
+.user-item {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-bottom: 1px solid rgb(168, 166, 166);
+  padding: 5px 20px;
+
+  display: flex;
+  gap: 20px;
+
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
+
+  > .user-info {
+    display: flex;
+    > span {
+      line-height: 20px;
+    }
+    > .name {
+      font-size: 18px;
+    }
+    > .status {
+      font-size: 14px;
+      color: red;
+    }
+  }
+}
