@@ -70,15 +70,13 @@
         // font-weight: 500;
         color: rgb(119, 119, 119);
       }
+      > .free {
+        padding: 1px 10px;
+        background: rgb(0, 79, 99);
+        color: white;
+        user-select: none;
+      }
     }
-
-    // > .free {
-    //   width: fit-content;
-    //   padding: 5px 10px;
-    //   background: red;
-    //   color: white;
-    //   user-select: none;
-    // }
   }
 
   //set product modal
