@@ -16,9 +16,9 @@ const courseApi = {
     const url = COURSE_API + "/suggest";
     return axiosClient.get(url);
   },
-  getCoursesRelated: (id: string) => {
-    const url = COURSE_API + id + "/related";
-    return axiosClient.get(url);
+  getCoursesRelated: (id?: string, params?: any) => {
+    const url = COURSE_API + "/" + id + "/related";
+    return axiosClient.get(url, { params });
   },
   getCourseDetail: (id?: string) => {
     const url = COURSE_API + "/" + id;
