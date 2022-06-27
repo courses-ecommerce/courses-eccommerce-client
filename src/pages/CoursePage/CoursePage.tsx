@@ -119,25 +119,29 @@ const CoursePage = () => {
           />
         </Box>
 
-        <Divider />
-
         {/* suggestion course */}
         {isRole === "student" && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 12,
-            }}
-          >
-            <CourseContainer title="Khoá Học Gợi Ý" courses={coursesSuggest} />
-            <Pagination
-              pageActive={pageSuggest}
-              total={totalSuggest}
-              onChangeValue={(value: any) => setPageSuggest(value)}
-            />
-          </Box>
+          <>
+            <Divider />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 12,
+              }}
+            >
+              <CourseContainer
+                title="Khoá Học Gợi Ý"
+                courses={coursesSuggest}
+              />
+              <Pagination
+                pageActive={pageSuggest}
+                total={totalSuggest}
+                onChangeValue={(value: any) => setPageSuggest(value)}
+              />
+            </Box>
+          </>
         )}
       </Box>
     </div>
