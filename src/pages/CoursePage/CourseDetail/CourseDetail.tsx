@@ -88,7 +88,7 @@ const CourseDetail = () => {
       // console.log("response", response);
       const { courses, total }: any = response;
       // console.log(" courses", courses);
-      setTotal(total / limit);
+      setTotal(numberRound(total / limit));
       setCourseRelates(courses);
     } catch (error) {
       console.log("lỗi rồi", { error });
