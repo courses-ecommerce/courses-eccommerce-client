@@ -7,7 +7,6 @@ import teacherApi from "src/apis/teacherApi";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Pagination from "src/components/Pagination/Pagination";
 import CourseContainer from "src/pages/CoursePage/CourseContainer/CourseContainer";
-import CourseItem from "src/pages/CoursePage/CourseItem/CourseItem";
 import { ICourse } from "src/types";
 import { ITeacherPorfolio } from "src/types/statistic";
 import { checkGender, numberRound } from "src/utils";
