@@ -4,7 +4,7 @@ declare interface InputSelectProps {
   icon?: string;
   required?: boolean;
   list: {
-    value: boolean | string | number | null;
+    value?: boolean | string | number | object;
     name: string;
   }[];
   name?: string;

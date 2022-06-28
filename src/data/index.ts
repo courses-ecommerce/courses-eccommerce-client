@@ -1,3 +1,5 @@
+const ONE_HUNDRED_THOUSAND = 100000;
+
 export const genderTypes = [
   { value: false, name: "Nữ" },
   { value: true, name: "Nam" },
@@ -30,6 +32,42 @@ export const categoryTypes = [
 export const categoryStatusTypes = [
   { value: true, name: "Đang sử dụng" },
   { value: false, name: "Đang trống" },
+];
+// search normal courses
+export const sortTypes = [
+  { value: "default", name: "Mặc định" },
+  { value: "rating-asc", name: "Đánh giá tăng dần" },
+  { value: "rating-desc", name: "Đánh giá giảm dần" },
+  { value: "sellNumber-asc", name: "Bán thấp nhất" },
+  { value: "sellNumber-desc", name: "Bán chạy nhất" },
+  { value: "currentPrice-asc", name: "Giá tăng dần" },
+  { value: "currentPrice-desc", name: "Giá giảm dần" },
+  { value: "score", name: "Độ chính xác cao" },
+];
+export const priceRangeTypes = [
+  { value: 0, name: "Mặc định" },
+  { value: { max: 0 }, name: "Miễn phí" },
+  { value: { max: 5 * ONE_HUNDRED_THOUSAND - 1 }, name: "Dưới 500 ngàn" },
+  {
+    value: {
+      min: 5 * ONE_HUNDRED_THOUSAND,
+      max: 10 * ONE_HUNDRED_THOUSAND,
+    },
+    name: "Từ 500 ngàn đến 1 triệu",
+  },
+  {
+    value: { min: 10 * ONE_HUNDRED_THOUSAND, max: 15 * ONE_HUNDRED_THOUSAND },
+    name: "Từ 1 triệu đến 1.5 triệu",
+  },
+  {
+    value: { min: 15 * ONE_HUNDRED_THOUSAND, max: 20 * ONE_HUNDRED_THOUSAND },
+    name: "Từ 1 triệu đến 2 triệu",
+  },
+  {
+    value: { min: 20 * ONE_HUNDRED_THOUSAND, max: 30 * ONE_HUNDRED_THOUSAND },
+    name: "Từ 2 triệu đến 3 triệu",
+  },
+  { value: { min: 30 * ONE_HUNDRED_THOUSAND + 1 }, name: "Trên 3 triệu" },
 ];
 
 //course
