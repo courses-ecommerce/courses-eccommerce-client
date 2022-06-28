@@ -102,7 +102,7 @@ const PorfolioPage = () => {
             gap: 12,
           }}
         >
-          <CourseContainer title="Khoá học liên quan" courses={courses} />
+          <CourseContainer title="Các khoá học đang bán" courses={courses} />
           <Pagination
             pageActive={page}
             total={total}

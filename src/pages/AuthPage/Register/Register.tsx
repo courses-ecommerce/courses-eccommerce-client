@@ -1,4 +1,4 @@
-import SendIcon from "@mui/icons-material/Send";
+// import SendIcon from "@mui/icons-material/Send";
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
@@ -114,7 +114,7 @@ const Register = () => {
             <Input
               required
               label="Mã xác nhận email"
-              placeholder="Nhập mã xác thực email"
+              placeholder="Nhập mã xác nhận"
               errorMessage={
                 formik.touched.verifyCode ? formik.errors.verifyCode : ""
               }
@@ -123,9 +123,11 @@ const Register = () => {
             <Tooltip title="Nhận mã xác thực gmail">
               <Button
                 variant="contained"
-                endIcon={<SendIcon />}
+                // endIcon={<SendIcon />}
                 onClick={handleVerifyEmail}
-              ></Button>
+              >
+                Gửi mã
+              </Button>
             </Tooltip>
           </div>
 
