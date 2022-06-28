@@ -164,6 +164,9 @@ const CourseList = () => {
       rowsData={courses}
       btnAdd={false}
       onViewItemDetail={goToCourseDetail}
+      isModify={false}
+      btnMultiDeleted={false}
+      isCheckBoxSelection={false}
       // handleAddItem={handleCreate}
       // onDeleteItem={handleDelete}
       // onModifyItem={handleModifyItem}

@@ -39,7 +39,7 @@ const columsHeader: GridColDef[] = [
   {
     field: "author",
     headerName: "Người tạo",
-    width: 150,
+    width: 100,
   },
   {
     field: "isActive",
