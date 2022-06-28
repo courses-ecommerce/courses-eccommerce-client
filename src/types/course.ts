@@ -7,4 +7,5 @@ export interface IGetCourse {
   tags?: string;
   price?: string;
   publish?: boolean;
+  author?: string;
 }
