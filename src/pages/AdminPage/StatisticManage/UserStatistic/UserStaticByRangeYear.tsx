@@ -162,11 +162,11 @@ export default function UserStaticByRangeYear() {
                 Đang hoạt động: {userStatisticByRangeYear?.activating}
               </span>
               <span>Đang khoá: {userStatisticByRangeYear?.notActivating}</span>
-              <Divider />
+              {/* <Divider />
               <span>
                 <b>Tăng: </b>
                 {userStatisticByRangeYear?.raise}
-              </span>
+              </span> */}
             </Box>
           </Box>
         </Box>

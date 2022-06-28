@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import courseApi from "src/apis/courseApi";
 import myCourseApi from "src/apis/myCourseApi";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Video from "src/components/Video/Video";
@@ -13,11 +14,14 @@ import {
 } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { IRating } from "src/types/myCourse";
+import AcceptMyCourse from "../AcceptMyCourse/AcceptMyCourse";
 import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
   document.title = "Khoá học của tôi";
+
+  const { isRole } = useSelector(selectAuthorization);
 
   const dispatch = useDispatch();
 
@@ -30,11 +34,30 @@ const MyCourseDetail = () => {
 
   const [rating, setRating] = useState<IRating>();
   const [showRating, setShowRating] = useState<boolean>(false);
+  const [showAccept, setShowAccept] = useState<boolean>(false);
 
   useEffect(() => {
-    getMyCourseDetail();
+    if (isRole === "student") {
+      getMyCourseDetail();
+    } else {
+      getAdminCourseDetail();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const getAdminCourseDetail = async () => {
+    try {
+      const response = await courseApi.viewCheckCourse(id);
+      // console.log("response nek", response);
+      const { course }: any = response;
+      const { chapters }: any = course;
+      // console.log(" course nek", course);
+      setCourse(course);
+      setChapter(chapters);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
 
   const getMyCourseDetail = async () => {
     try {
@@ -66,8 +89,9 @@ const MyCourseDetail = () => {
       <div className="my-course-detail">
         <div className="info">
           <span className="title">{course.name}</span>
-          {/* <span className="author"> {course.author?.fullName} </span> */}
+          {/* for student */}
           {course.name &&
+            isRole === "student" &&
             (!rating ? (
               <Button variant="contained" onClick={() => setShowRating(true)}>
                 Đánh giá ngay
@@ -81,6 +105,12 @@ const MyCourseDetail = () => {
                 Đánh giá lại
               </Button>
             ))}
+          {/* for teacher */}
+          {course.name && isRole === "admin" && (
+            <Button variant="contained" onClick={() => setShowAccept(true)}>
+              Duyệt khoá học
+            </Button>
+          )}
         </div>
         <div className="my-course-video">
           <div className="stream">
@@ -101,13 +131,24 @@ const MyCourseDetail = () => {
           </div>
         </div>
       </div>
-      <RatingMyCourse
-        slug={course.slug}
-        show={showRating}
-        value={rating}
-        onClose={() => setShowRating(false)}
-        setShow={setShowRating}
-      />
+      {isRole === "student" && (
+        <RatingMyCourse
+          slug={course.slug}
+          show={showRating}
+          value={rating}
+          onClose={() => setShowRating(false)}
+          setShow={setShowRating}
+        />
+      )}
+      {isRole === "admin" && (
+        <AcceptMyCourse
+          slug={course.slug}
+          show={showAccept}
+          value={rating}
+          onClose={() => setShowAccept(false)}
+          setShow={setShowAccept}
+        />
+      )}
     </>
   );
 };

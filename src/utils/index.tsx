@@ -33,7 +33,7 @@ export const translateVi = (name?: string) => {
       return "Ảnh đại diện";
     //level
     case "all":
-      return "Tất cả đối tượng";
+      return "Tất cả";
     case "beginer":
       return "Người bắt đầu";
     case "intermediate":

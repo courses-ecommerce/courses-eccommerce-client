@@ -47,34 +47,35 @@ export const sortTypes = [
 export const priceRangeTypes = [
   { value: 0, name: "Mặc định" },
   { value: { max: 0 }, name: "Miễn phí" },
-  { value: { max: 5 * ONE_HUNDRED_THOUSAND - 1 }, name: "Dưới 500 ngàn" },
+  { value: { max: 5 * ONE_HUNDRED_THOUSAND - 1 }, name: "< 500.000đ" },
   {
     value: {
       min: 5 * ONE_HUNDRED_THOUSAND,
       max: 10 * ONE_HUNDRED_THOUSAND,
     },
-    name: "Từ 500 ngàn đến 1 triệu",
+    name: "500.000đ - 1.000.000đ",
   },
   {
     value: { min: 10 * ONE_HUNDRED_THOUSAND, max: 15 * ONE_HUNDRED_THOUSAND },
-    name: "Từ 1 triệu đến 1.5 triệu",
+    name: "1.000.000đ - 1.500.000đ",
   },
   {
     value: { min: 15 * ONE_HUNDRED_THOUSAND, max: 20 * ONE_HUNDRED_THOUSAND },
-    name: "Từ 1 triệu đến 2 triệu",
+    name: "1.500.000đ - 2.000.000đ",
   },
   {
     value: { min: 20 * ONE_HUNDRED_THOUSAND, max: 30 * ONE_HUNDRED_THOUSAND },
-    name: "Từ 2 triệu đến 3 triệu",
+    name: "2.000.000đ - 3.000.000đ",
   },
-  { value: { min: 30 * ONE_HUNDRED_THOUSAND + 1 }, name: "Trên 3 triệu" },
+  { value: { min: 30 * ONE_HUNDRED_THOUSAND + 1 }, name: "> 3.000.000đ" },
 ];
 
 //course
 export const statusCourseTypes = [
-  { value: "draft", name: "Đang nháp" },
-  { value: "pending", name: "Đang chờ" },
+  // { value: "draft", name: "Đang nháp" },
+  { value: "pending", name: "Đang chờ duyệt" },
   { value: "approved", name: "Đã duyệt" },
+  { value: "denied", name: "Từ chối" },
 ];
 
 // statistic

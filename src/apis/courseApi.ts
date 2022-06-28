@@ -32,9 +32,18 @@ const courseApi = {
     const url = COURSE_API;
     return axiosClient.post(url, course_info);
   },
-  updateCourse: (id: string, course_info: Object) => {
+
+  deleteCourse: (id: string) => {
+    const url = COURSE_API + "/" + id;
+    return axiosClient.delete(url);
+  },
+  updateCourse: (id?: string, course_info?: Object) => {
     const url = COURSE_API + "/" + id;
     return axiosClient.put(url, course_info);
+  },
+  viewCheckCourse: (id?: string) => {
+    const url = COURSE_API + "/check/" + id;
+    return axiosClient.get(url);
   },
 };
 
