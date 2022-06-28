@@ -31,6 +31,15 @@ export const translateVi = (name?: string) => {
       return "Số điện thoại";
     case "avatar":
       return "Ảnh đại diện";
+    //level
+    case "all":
+      return "Tất cả đối tượng";
+    case "beginer":
+      return "Người bắt đầu";
+    case "intermediate":
+      return "Người có kiến thức";
+    case "expert":
+      return "Chuyên gia";
     //payment
     case "Paid":
       return "Đã thanh toán";

@@ -8,6 +8,7 @@ import courseApi from "src/apis/courseApi";
 import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
 import Image from "src/components/Image/Image";
 import Loading from "src/components/Loading/Loading";
+import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Pagination from "src/components/Pagination/Pagination";
 import Rating from "src/components/Rating/Rating";
 import {
@@ -18,7 +19,7 @@ import {
 } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { IRating } from "src/types/myCourse";
-import { numberLocale, numberRound } from "src/utils";
+import { numberLocale, numberRound, translateVi } from "src/utils";
 import CourseContainer from "../CourseContainer/CourseContainer";
 import CourseRating from "../CourseRating/CourseRating";
 import CourseSummary from "../CourseSummary/CourseSummary";
@@ -136,9 +137,7 @@ const CourseDetail = () => {
 
   return (
     <>
-      <div className="navs">
-        <span onClick={() => navigate(-1)}>Quay lại trang trước</span>
-      </div>
+      <NavigationHeader />
       <div className="coures-detail">
         <span className="title">Thông tin chi tiết khoá học</span>
         <div className="course-preview">
@@ -186,8 +185,8 @@ const CourseDetail = () => {
               </span>
 
               <span>
-                <b>Mức độ: </b>
-                {courseDetail.level}
+                <b>Dành cho: </b>
+                {translateVi(courseDetail.level)}
               </span>
               {/* hot tags */}
               <span className="sell-number">
@@ -207,16 +206,6 @@ const CourseDetail = () => {
                   total_rating={courseDetail.rating?.numOfRate}
                 />
               </span>
-              {/* <span className="intended-learners">
-                <b>Đối tượng học: </b>
-                {courseDetail.intendedLearners &&
-                  courseDetail.intendedLearners.map((name, index) => (
-                    <span key={index}>
-                      {index + 1}. {name}
-                    </span>
-                  ))}
-              </span> */}
-
               <Button
                 variant="contained"
                 color="warning"

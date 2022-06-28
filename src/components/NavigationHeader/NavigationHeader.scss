@@ -1,0 +1,22 @@
+.navs {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  z-index: 3;
+  padding: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background: white;
+
+  > span {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

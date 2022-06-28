@@ -1,19 +1,24 @@
 import { Avatar, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import teacherApi from "src/apis/teacherApi";
-import { ITeacherPorfolio } from "src/types/statistic";
+import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
+import CourseItem from "src/pages/CoursePage/CourseItem/CourseItem";
 import { ICourse } from "src/types";
+import { ITeacherPorfolio } from "src/types/statistic";
 import { checkGender } from "src/utils";
 import "./PorfolioPage.scss";
-import CourseItem from "src/pages/CoursePage/CourseItem/CourseItem";
 
 const PorfolioPage = () => {
   document.title = "Thông tin chi tiết giảng viên";
-  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const [teacherInfo, setTeacherInfo] = useState<ITeacherPorfolio>();
+
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState<number>();
+  const limitCourse = 4;
 
   useEffect(() => {
     getInfoTeacher();
@@ -42,9 +47,7 @@ const PorfolioPage = () => {
 
   return (
     <>
-      <div className="navs">
-        <span onClick={() => navigate(-1)}>Quay lại trang trước</span>
-      </div>
+      <NavigationHeader />
       <div className="porfolio-page">
         <div className="teacher-info">
           <h3>Thông tin chi tiết giảng viên</h3>
