@@ -58,7 +58,7 @@ const CourseList = () => {
   document.title = "Quản lý khoá học";
   const [loading, setLoading] = useState<boolean>(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
-  const [publish, setPublish] = useState<boolean>(true);
+  // const [publish, setPublish] = useState<boolean>(true);
 
   //for search
   const [status, setStatus] = useState<string>("approved");
@@ -78,7 +78,7 @@ const CourseList = () => {
   useEffect(() => {
     getCourses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, pageSize, name, publish, status]);
+  }, [page, pageSize, name, status]);
 
   useEffect(() => {
     setName(debouncedValue);
@@ -86,7 +86,7 @@ const CourseList = () => {
 
   const getCourses = async () => {
     setLoading(true);
-    const params = { page, limit: pageSize, publish, name, status };
+    const params = { page, limit: pageSize, name, status };
 
     try {
       const response = await courseApi.getCourses(params);
@@ -120,7 +120,7 @@ const CourseList = () => {
     let data: any;
     data = courses.filter((course) => course._id === id);
     // console.log("data nef", data[0].slug);
-    navigate(`/courses/${data[0].slug}`);
+    navigate(`${data[0].slug}`);
   };
 
   return (
@@ -140,11 +140,12 @@ const CourseList = () => {
             onChange={(e: any) => setValue(e.target.value)}
           />
 
-          <InputSelect
+          {/* <InputSelect
             defaultValue={publish}
             list={statusTypes}
             onChange={(e) => setPublish(e.target.value)}
-          />
+          /> */}
+
           <InputSelect
             defaultValue={status}
             list={statusCourseTypes}

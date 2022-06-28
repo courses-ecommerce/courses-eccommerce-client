@@ -19,6 +19,8 @@ import "./MyCourseDetail.scss";
 const MyCourseDetail = () => {
   document.title = "Khoá học của tôi";
 
+  const { isRole } = useSelector(selectAuthorization);
+
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -32,9 +34,20 @@ const MyCourseDetail = () => {
   const [showRating, setShowRating] = useState<boolean>(false);
 
   useEffect(() => {
-    getMyCourseDetail();
+    if (isRole === "student") {
+      getMyCourseDetail();
+    } else {
+      getAdminCourseDetail();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const getAdminCourseDetail = async () => {
+    try {
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
 
   const getMyCourseDetail = async () => {
     try {

@@ -77,6 +77,11 @@ const ADMIN_ROUTE = [
     path: "/admin/dashboard/statistic/revenue-teachers/:id",
     element: <RevenueTeacherDetail />,
   },
+  {
+    role: "admin",
+    path: "admin/dashboard/course/:id",
+    element: <MyCourseDetail />,
+  },
 ];
 
 // Student route

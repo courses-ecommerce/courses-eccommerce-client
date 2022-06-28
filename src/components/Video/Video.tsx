@@ -33,6 +33,10 @@ const Video: React.FC<VideoProps> = ({
   // }, [currentTime]);
 
   useEffect(() => {
+    if (!lessonId || !courseId) {
+      return;
+    }
+
     let timeline = 0;
     ref.current?.addEventListener("timeupdate", () => {
       timeline = ref.current?.currentTime;
