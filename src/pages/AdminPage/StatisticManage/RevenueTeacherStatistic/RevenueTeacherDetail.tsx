@@ -3,10 +3,11 @@ import { Box } from "@mui/system";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
 import Loading from "src/components/Loading/Loading";
+import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import { LINK_DOMAIN } from "src/data/link";
 import { IInvoice } from "src/types/invoice";
 import { ITeacher } from "src/types/statistic";
@@ -17,7 +18,7 @@ import "./RevenueTeacherStatistic.scss";
 
 const RevenueTeacherDetail = () => {
   document.title = "Doanh thu chi tiết giảng viên";
-  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const [teacherRevenueDetail, setTeacherRevenueDetail] = useState<ITeacher>();
@@ -71,9 +72,7 @@ const RevenueTeacherDetail = () => {
   };
   return (
     <>
-      <div className="navs">
-        <span onClick={() => navigate(-1)}>Quay lại khoá học của tôi</span>
-      </div>
+      <NavigationHeader />
       <div className="revenue-teacher-detail">
         <h3>{`Thông tin chi tiết của bảng lương của giảng viên tháng ${formatDate(
           monthAndYear,

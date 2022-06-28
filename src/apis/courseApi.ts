@@ -4,7 +4,7 @@ import axiosClient from "./axiosClient";
 const COURSE_API = "/courses";
 
 const courseApi = {
-  getCourses: (params?: IGetCourse) => {
+  getCourses: (params?: any) => {
     const url = COURSE_API;
     return axiosClient.get(url, { params });
   },

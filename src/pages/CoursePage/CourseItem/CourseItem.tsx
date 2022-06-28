@@ -9,7 +9,7 @@ import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
 import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { numberLocale, numberRound } from "src/utils";
+import { numberLocale, numberRound, translateVi } from "src/utils";
 import CourseModal from "../CourseModal/CourseModal";
 import "./CourseItem.scss";
 
@@ -57,7 +57,9 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   return (
     <div className="course-item">
       <div className="img" ref={nodeRef}>
-        <span className="sale-off">-{numberRound(data.saleOff)}%</span>
+        {numberRound(data.saleOff) > 0 && (
+          <span className="sale-off">-{numberRound(data.saleOff)}%</span>
+        )}
         <img
           src={data.thumbnail}
           alt="img"
@@ -82,8 +84,8 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
           </span>
         </Tooltip>
         <span className="level">
-          <b>Mức độ: </b>
-          {data.level}
+          <b>Dành cho: </b>
+          {translateVi(data.level)}
         </span>
         {/* hot tags */}
         <span className="sell-number">

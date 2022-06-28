@@ -1,50 +1,67 @@
 import { Avatar, Divider } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
-import { ITeacherPorfolio } from "src/types/statistic";
+import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
+import Pagination from "src/components/Pagination/Pagination";
+import CourseContainer from "src/pages/CoursePage/CourseContainer/CourseContainer";
 import { ICourse } from "src/types";
-import { checkGender } from "src/utils";
+import { ITeacherPorfolio } from "src/types/statistic";
+import { checkGender, numberRound } from "src/utils";
 import "./PorfolioPage.scss";
-import CourseItem from "src/pages/CoursePage/CourseItem/CourseItem";
 
 const PorfolioPage = () => {
   document.title = "Thông tin chi tiết giảng viên";
-  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const [teacherInfo, setTeacherInfo] = useState<ITeacherPorfolio>();
+  const [courses, setCourses] = useState<ICourse[]>([]);
+
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState<number>();
+  const limitCourse = 4;
 
   useEffect(() => {
     getInfoTeacher();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useEffect(() => {
+    id && getCourseTeacher();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, page]);
 
   const getInfoTeacher = async () => {
     try {
       const response = await teacherApi.getTeacherInfoById(id);
       // console.log("response", response);
-      const { user, userCourse }: any = response;
-      setTeacherInfo({ user, userCourse });
+      const { user }: any = response;
+      setTeacherInfo({ user });
     } catch (error) {
       console.log("lỗi rỗi", { error });
     }
   };
 
-  // console.log("teacherInfo", teacherInfo);
-
-  const renderTeacherCourse = (courses: ICourse[]) => {
-    return (
-      courses.length > 0 &&
-      courses.map((course, index) => <CourseItem data={course} key={index} />)
-    );
+  const getCourseTeacher = async () => {
+    const params = { author: id, page, limit: limitCourse };
+    try {
+      const response = await courseApi.getCourses(params);
+      // console.log("course teacher", response);
+      const { courses, total }: any = response;
+      setCourses(courses);
+      setTotal(numberRound(total / limitCourse));
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
   };
 
   return (
     <>
-      <div className="navs">
-        <span onClick={() => navigate(-1)}>Quay lại trang trước</span>
-      </div>
+      <NavigationHeader />
       <div className="porfolio-page">
         <div className="teacher-info">
           <h3>Thông tin chi tiết giảng viên</h3>
@@ -77,12 +94,21 @@ const PorfolioPage = () => {
           </div>
         </div>
         <Divider />
-        <div className="teacher-course">
-          <h3>Các khoá học hiện đang bán</h3>
-          <div className="content">
-            {renderTeacherCourse(teacherInfo?.userCourse || [])}
-          </div>
-        </div>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <CourseContainer title="Khoá học liên quan" courses={courses} />
+          <Pagination
+            pageActive={page}
+            total={total}
+            onChangeValue={(value: any) => setPage(value)}
+          />
+        </Box>
       </div>
     </>
   );

@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import myCourseApi from "src/apis/myCourseApi";
+import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
 import {
@@ -17,7 +18,7 @@ import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
   document.title = "Khoá học của tôi";
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -61,9 +62,7 @@ const MyCourseDetail = () => {
 
   return (
     <>
-      <div className="navs">
-        <span onClick={() => navigate(-1)}>Quay lại khoá học của tôi</span>
-      </div>
+      <NavigationHeader />
       <div className="my-course-detail">
         <div className="info">
           <span className="title">{course.name}</span>
