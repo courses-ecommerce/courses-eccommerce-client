@@ -63,7 +63,7 @@ const CoursePage = () => {
       const { courses, total }: any = response;
       // console.log("courses hot", courses);
       setCoursesHot(courses);
-      setTotalHot(total);
+      setTotalHot(numberRound(total / limitCourse));
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -76,7 +76,7 @@ const CoursePage = () => {
       const { courses, total }: any = response;
       console.log("courses hot", courses);
       setCoursesSuggest(courses);
-      setTotalSuggest(total);
+      setTotalSuggest(numberRound(total / total));
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
