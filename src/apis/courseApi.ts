@@ -37,11 +37,11 @@ const courseApi = {
     const url = COURSE_API + "/" + id;
     return axiosClient.delete(url);
   },
-  updateCourse: (id: string, course_info: Object) => {
+  updateCourse: (id?: string, course_info?: Object) => {
     const url = COURSE_API + "/" + id;
     return axiosClient.put(url, course_info);
   },
-  viewCheckCourse: (id: string) => {
+  viewCheckCourse: (id?: string) => {
     const url = COURSE_API + "/check/" + id;
     return axiosClient.get(url);
   },

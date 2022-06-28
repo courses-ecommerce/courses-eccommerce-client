@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import ReactHlsPlayer from "react-hls-player/dist";
+import { useSelector } from "react-redux";
 import { Player } from "react-tuby";
 import "react-tuby/css/main.css";
 import myCourseApi from "src/apis/myCourseApi";
 import { defaultIMG } from "src/assets";
+import { selectAuthorization } from "src/reducers/authSlice";
 
 interface VideoProps {
   currentTime?: number;
@@ -24,6 +26,7 @@ const Video: React.FC<VideoProps> = ({
 }) => {
   const TIME = 1000;
   // console.log("currentTime", currentTime);
+  const { isRole } = useSelector(selectAuthorization);
 
   const ref = useRef<any>(null);
   // const [timeline, setTimeline] = useState(0);
@@ -33,7 +36,7 @@ const Video: React.FC<VideoProps> = ({
   // }, [currentTime]);
 
   useEffect(() => {
-    if (!lessonId || !courseId) {
+    if (!lessonId || !courseId || isRole !== "student") {
       return;
     }
 
