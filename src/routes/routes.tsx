@@ -268,16 +268,30 @@ const DASHBOARD_ROUTE = [
       {
         path: "info",
         href: "/teacher/info",
-        element: <TeacherInfo />,
+        element: <ProfilePage />,
         title: "Thông tin cá nhân",
         icon: "info-circle",
+      },
+      {
+        path: "banking_info",
+        href: "/teacher/banking_info",
+        element: <TeacherInfo />,
+        title: "Thông tin ngân hàng",
+        icon: "id-card",
       },
       {
         path: "revenue",
         href: "/teacher/revenue",
         element: <TeacherRevenue />,
         title: "Doanh thu cá nhân",
-        icon: "cc-visa",
+        icon: "cc-paypal",
+      },
+      {
+        path: "dashboard/coupon",
+        href: "/teacher/dashboard/coupon",
+        element: <CouponList />,
+        title: "Quản lý khuyến mãi",
+        icon: "barcode",
       },
       {
         path: "message",

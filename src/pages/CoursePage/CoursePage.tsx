@@ -71,7 +71,15 @@ const CoursePage = () => {
   }, [pageSuggest]);
 
   const getCourses = async () => {
-    const params = { limit, page, sort, category, name, ...price };
+    const params = {
+      public: true,
+      limit,
+      page,
+      sort,
+      category,
+      name,
+      ...price,
+    };
     // console.log("params là", params);
 
     try {
