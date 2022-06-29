@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
-import "./TeacherPage.scss";
+import "./TeacherCourse.scss";
 import Input from "src/components/Input";
 import { Button } from "@mui/material";
 import ModalContainer from "src/components/ModalContainer";
@@ -21,7 +21,7 @@ export interface ICategories {
   value: string;
 }
 
-const TeacherPage: React.FC = () => {
+const TeacherCourse: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
@@ -183,4 +183,4 @@ const TeacherPage: React.FC = () => {
   );
 };
 
-export default TeacherPage;
+export default TeacherCourse;

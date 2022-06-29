@@ -9,6 +9,7 @@ export const linkHeader: IRoute[] = [
 export const linkUserProfile: IRoute[] = [
   { name: "Trang chủ", path: "/", role: "user" },
   { name: "Quản lý admin", path: "/admin/info", role: "admin" },
-  { name: "Quản lý khóa học", path: "/teacher/info", role: "teacher" },
+  // { name: "Thông tin cá nhân", path: "/teacher/info", role: "teacher" },
+  // { name: "Quản lý khóa học", path: "/teacher/course", role: "teacher" },
   // { name: "Đổi mật khẩu", path: "#" },
 ];

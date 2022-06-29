@@ -17,8 +17,10 @@ import { v4 as uuidv4 } from "uuid";
 import teacherApi from "src/apis/teacherApi";
 import InputSelect from "src/components/InputSelect";
 import categoryApi from "src/apis/categoryApi";
-import { ICategories } from "../TeacherPage";
+import { ICategories } from "..";
 import { ILesson } from "./Lesson";
+import chapterApi from "src/apis/chapterApi";
+import ReviewCourse from "./ReviewCourse";
 
 const TeacherCourseDetail: React.FC = () => {
   const { id } = useParams();
@@ -134,6 +136,10 @@ const TeacherCourseDetail: React.FC = () => {
         return item;
       })
     );
+
+    chapterApi.addChapter(id, order, name).then(() => {
+      chapterApi.getChapters(id).then((res: any) => setChapters(res.chapters));
+    });
 
     // isUpdate
     //   ? chapterApi.updateChapter(id, order, name).then(() => {
@@ -257,10 +263,20 @@ const TeacherCourseDetail: React.FC = () => {
           >
             Chương trình giảng dạy
           </p>
+          <p
+            className={navbar === 2 ? "active" : ""}
+            onClick={() => setNavbar(2)}
+          >
+            Chi tiết khóa học
+          </p>
         </div>
         <div className="form">
           <h2 className="title">
-            {navbar === 0 ? "Thông tin khóa học" : "Chương trình giảng dạy"}
+            {navbar === 0
+              ? "Thông tin khóa học"
+              : navbar === 1
+              ? "Chương trình giảng dạy"
+              : "Chi tiết khóa học"}
           </h2>
           {navbar === 0 ? (
             <form onSubmit={formik.handleSubmit}>
@@ -315,7 +331,7 @@ const TeacherCourseDetail: React.FC = () => {
                 </Button>
               </Box>
             </form>
-          ) : (
+          ) : navbar === 1 ? (
             <div className="chapter-list">
               {chapters.map((chapter, index) => (
                 <React.Fragment key={index}>
@@ -346,6 +362,8 @@ const TeacherCourseDetail: React.FC = () => {
                 </div>
               </div>
             </div>
+          ) : (
+            <ReviewCourse />
           )}
         </div>
       </div>
