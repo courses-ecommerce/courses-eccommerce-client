@@ -27,8 +27,9 @@ import CartList from "src/pages/StudentPage/ManageCart/CartList";
 import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
 import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCourseDetail";
 import StudentPage from "src/pages/StudentPage/StudentPage";
-import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourseDetail";
-import TeacherPage from "src/pages/TeacherPage/TeacherPage";
+import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourse/TeacherCourseDetail";
+import TeacherCourse from "src/pages/TeacherPage/TeacherCourse";
+import TeacherInfo from "src/pages/TeacherPage/TeacherInfo";
 
 // main route
 const MAIN_ROUTE = [
@@ -104,7 +105,12 @@ const TEACHER_ROUTE = [
   {
     role: "teacher",
     path: "/teacher/info",
-    element: <TeacherPage />,
+    element: <TeacherInfo />,
+  },
+  {
+    role: "teacher",
+    path: "/teacher/course",
+    element: <TeacherCourse />,
   },
   {
     role: "teacher",

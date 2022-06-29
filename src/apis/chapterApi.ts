@@ -14,20 +14,16 @@ const chapterApi = {
   addChapter: (idCourse?: string, order?: number, name?: string) => {
     const url = CHAPTER_API;
     return axiosClient.post(url, {
-      data: {
-        course: idCourse,
-        number: order,
-        name: name?.trim() || "",
-      },
+      course: idCourse,
+      number: order,
+      name: name?.trim() || "",
     });
   },
   updateChapter: (idChapter?: string, order?: number, name?: string) => {
     const url = CHAPTER_API + "/" + idChapter;
     return axiosClient.put(url, {
-      data: {
-        number: order,
-        name: name?.trim() || "",
-      },
+      number: order,
+      name: name?.trim() || "",
     });
   },
   deleteChapter: (idChapter: string) => {
