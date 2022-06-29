@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import myCourseApi from "src/apis/myCourseApi";
 import Loading from "src/components/Loading/Loading";
+import Pagination from "src/components/Pagination/Pagination";
 import { ICourse } from "src/types";
 import { IMyCourse } from "src/types/myCourse";
+import { numberRound } from "src/utils";
 import "./MyCourse.scss";
 import MyCourseItem from "./MyCourseItem/MyCourseItem";
 
@@ -13,10 +15,11 @@ export default function MyCourse() {
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
-  // //pagination
-  // const [total, setTotal] = useState<number>(0);
-  // const [pageSize, setPageSize] = useState<number>(5);
-  // const [page, setPage] = useState<number>(1);
+  // //search
+
+  const limit = 6;
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState<number>();
 
   useEffect(() => {
     if (!isUpdate) {
@@ -25,18 +28,21 @@ export default function MyCourse() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdate]);
 
-  const getMyCourse = async () => {
-    // const params = { limit: pageSize, page };
-    try {
-      // const response = await myCourseApi.getMyCourse(params);
-      const response = await myCourseApi.getMyCourse();
-      // console.log("ádadas", response);
-      // const { myCourses, total }: any = response;
-      const { myCourses }: any = response;
-      // console.log("myCourses", myCourses);
-      setCourses(myCourses);
+  useEffect(() => {
+    getMyCourse();
 
-      // setTotal(total);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit]);
+
+  const getMyCourse = async () => {
+    const params = { limit, page };
+    try {
+      const response = await myCourseApi.getMyCourse(params);
+      // console.log("ádadas", response);
+      const { myCourses, total }: any = response;
+      // console.log("myCourses", myCourses, total);
+      setCourses(myCourses);
+      setTotal(numberRound(total / limit));
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -60,6 +66,13 @@ export default function MyCourse() {
       <h3>Danh sách khoá học của tôi</h3>
       <div className="my-course-content">
         {renderMyCourses(courses) || <Loading />}
+      </div>
+      <div className="my-course-pagination">
+        <Pagination
+          pageActive={page}
+          total={total}
+          onChangeValue={(value: any) => setPage(value)}
+        />
       </div>
     </div>
   );

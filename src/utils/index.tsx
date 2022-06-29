@@ -75,6 +75,6 @@ export const numberLocale = (number?: number, unit_name: string = "") => {
 };
 export const numberRound = (number?: number) => {
   if (!number) return 0;
-  return Math.round(number);
+  return Math.ceil(number);
   // return number.toString().substring(0, 5);
 };
