@@ -20,8 +20,11 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   maxDate,
   onChange,
 }) => {
+  const ONE_DAY = 3600 * 1000 * 24;
   //   const TIMER_IN_A_DAY = 3600 * 1000 * 24;
-  const [startDay, setStartDay] = useState<any>(startTime || new Date());
+  const [startDay, setStartDay] = useState<any>(
+    startTime || new Date(Date.now() - ONE_DAY)
+  );
   const [endDay, setEndDay] = useState<any>(endTime || new Date());
 
   useEffect(() => {
