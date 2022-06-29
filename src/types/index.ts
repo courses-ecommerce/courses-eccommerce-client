@@ -12,10 +12,18 @@ export interface IComponent {
   component: ReactNode;
 }
 
+export interface IPayment {
+  accountNumber?: string;
+  bankName?: string;
+  cardNumber?: string;
+  name?: string;
+}
+
 export interface ITeacherStatus {
   _id?: string;
   description?: string;
   isVerified?: boolean;
+  payments?: IPayment;
 }
 
 export interface IUser {
