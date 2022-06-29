@@ -47,7 +47,7 @@ const PorfolioPage = () => {
   };
 
   const getCourseTeacher = async () => {
-    const params = { author: id, page, limit: limitCourse };
+    const params = { publish: true, author: id, page, limit: limitCourse };
     try {
       const response = await courseApi.getCourses(params);
       // console.log("course teacher", response);

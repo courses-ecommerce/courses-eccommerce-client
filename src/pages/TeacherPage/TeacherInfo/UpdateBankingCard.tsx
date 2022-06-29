@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { log } from "console";
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -30,10 +29,11 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
   const dispatch = useDispatch();
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      accountNumber: "",
-      name: "",
-      bankName: "",
+      accountNumber: bankingCard?.accountNumber,
+      name: bankingCard?.name,
+      bankName: bankingCard?.bankName,
     },
     validationSchema: Yup.object({
       accountNumber: Yup.string().required("Vui lòng nhập mã số tài khoản"),
@@ -49,7 +49,7 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
     // console.log("params là", { payments });
     dispatch(isPending());
     try {
-      await teacherApi.updateTeacherInfoById(id, payments);
+      await teacherApi.updateTeacherInfoById(id, { payments });
 
       //   console.log("đã lấy đươc thông tin là", response);
       dispatch(isSuccess());
