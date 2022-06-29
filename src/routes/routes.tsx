@@ -30,6 +30,7 @@ import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourse/TeacherCourseDetail";
 import TeacherCourse from "src/pages/TeacherPage/TeacherCourse";
 import TeacherInfo from "src/pages/TeacherPage/TeacherInfo";
+import TeacherRevenue from "src/pages/TeacherPage/TeacherRevenue/TeacherRevenue";
 
 // main route
 const MAIN_ROUTE = [
@@ -102,11 +103,11 @@ const STUDENT_ROUTE = [
 
 // Teacher route
 const TEACHER_ROUTE = [
-  {
-    role: "teacher",
-    path: "/teacher/info",
-    element: <TeacherInfo />,
-  },
+  // {
+  //   role: "teacher",
+  //   path: "/teacher/info",
+  //   element: <TeacherInfo />,
+  // },
   {
     role: "teacher",
     path: "/teacher/course",
@@ -252,6 +253,35 @@ const DASHBOARD_ROUTE = [
       {
         path: "message",
         href: "/student/message",
+        element: <Message />,
+        title: "Trò chuyện trực tuyến",
+        icon: "wechat",
+      },
+    ],
+  },
+
+  {
+    role: "teacher",
+    path: "/teacher",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "info",
+        href: "/teacher/info",
+        element: <TeacherInfo />,
+        title: "Thông tin cá nhân",
+        icon: "info-circle",
+      },
+      {
+        path: "revenue",
+        href: "/teacher/revenue",
+        element: <TeacherRevenue />,
+        title: "Doanh thu cá nhân",
+        icon: "cc-visa",
+      },
+      {
+        path: "message",
+        href: "/teacher/message",
         element: <Message />,
         title: "Trò chuyện trực tuyến",
         icon: "wechat",

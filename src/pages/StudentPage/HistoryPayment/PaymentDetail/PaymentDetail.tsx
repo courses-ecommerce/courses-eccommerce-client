@@ -1,7 +1,9 @@
-import { Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
+import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import userApi from "src/apis/userApi";
+import invoicesApi from "src/apis/invoicesApi";
+import Image from "src/components/Image/Image";
 import Loading from "src/components/Loading/Loading";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import { IDetailInvoice, IInvoice } from "src/types/invoice";
@@ -16,16 +18,18 @@ const PaymentDetail = () => {
   const { id } = useParams();
 
   const [invoice, setInvoice] = useState<IInvoice>({});
+  const [show, setShow] = useState<boolean>(false);
   const [detailInvoice, setDetailInvoice] = useState<IDetailInvoice[]>([]);
 
   useEffect(() => {
     getPaymenyDetail();
+    setShow(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const getPaymenyDetail = async () => {
     try {
-      const response = await userApi.getHistoryPaymentDetail(id);
+      const response = await invoicesApi.getInvoiceDetail(id);
       console.log("payment detail là", response);
       const { invoice }: any = response;
       const { detailInvoices }: any = invoice;
@@ -51,45 +55,61 @@ const PaymentDetail = () => {
     );
   };
 
+  const handlePrint = async () => {
+    await setShow(true);
+    await window.print();
+    setShow(false);
+  };
+
   return (
     <>
-      <NavigationHeader />
+      {!show && <NavigationHeader />}
       <div className="payments-detail">
         <span className="title">
           Thông tin chi tiết hoá đơn: <i>{invoice?._id}</i>
         </span>
-
+        <Button
+          variant="contained"
+          className={classNames(!show ? "btn-export" : "hide")}
+          onClick={handlePrint}
+        >
+          Xuất Hoá Đơn
+        </Button>
         <div className="invoice-info">
-          <span>
-            <b>Mã giao dịch: </b>
-            {invoice.transactionId}
-          </span>
-          <span>
-            <b>Người mua: </b>
-            {invoice.user?.fullName}
-          </span>
-          <span>
-            <b>Phương thức thanh toán: </b>
-            {invoice.paymentMethod}
-          </span>
+          <Image width={200} height={200} src={invoice.qrcode} />
 
-          <span>
-            <b>Trạng thái: </b>
-            {translateVi(invoice.status)}
-          </span>
-          <span>
-            <b>Tổng giá tiền: </b>
-            {numberLocale(invoice.totalPrice, " đồng")}
-          </span>
-          <span>
-            <b>Giá được giảm: </b>
-            {numberLocale(invoice.totalDiscount)}
-          </span>
-          <span>
-            <b>Ngày mua: </b>
-            {formatDate(invoice.createdAt, "dd-MM-yyyy hh:mm")}
-          </span>
+          <table className="info">
+            <tr>
+              <th>Mã giao dịch</th>
+              <td>{invoice.transactionId}</td>
+            </tr>
+            <tr>
+              <th>Tên người mua</th>
+              <td>{invoice.user?.fullName}</td>
+            </tr>
+            <tr>
+              <th>Ngày thanh toán</th>
+              <td>{formatDate(invoice.createdAt, "dd-MM-yyyy hh:mm")}</td>
+            </tr>
+            <tr>
+              <th>Hình thức thanh toán</th>
+              <td>{invoice.paymentMethod}</td>
+            </tr>
+            <tr>
+              <th>Trạng thái</th>
+              <td> {translateVi(invoice.status)}</td>
+            </tr>
+            <tr>
+              <th>Được giảm</th>
+              <td> {numberLocale(invoice.totalDiscount)}</td>
+            </tr>
+            <tr>
+              <th>Thành tiền</th>
+              <td> {numberLocale(invoice.totalPrice, " đồng")}</td>
+            </tr>
+          </table>
         </div>
+
         <Divider />
         <div className="invoice-cart">
           <span className="cart-title">Các khoá học đã mua</span>
