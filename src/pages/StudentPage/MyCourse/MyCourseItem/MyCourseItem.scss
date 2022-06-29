@@ -38,7 +38,7 @@
     > .progress-learning {
       height: 18px;
       width: 100%;
-      background: rgb(89, 0, 255);
+      background: rgb(255, 137, 137);
 
       font-size: 14px;
       color: white;
@@ -51,6 +51,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      > .progress-number {
+        z-index: 2;
+      }
+
       &.nonView {
         background: rgb(255, 137, 137);
       }
@@ -60,8 +64,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: rgb(255, 137, 137);
-
+        background: rgb(89, 0, 255);
         border-radius: 16px;
       }
     }

@@ -9,7 +9,9 @@
   justify-content: center;
   align-items: center;
 
-  background: url("https://th.bing.com/th/id/R.815d3a8988fca53ea55eb4389fc3f070?rik=%2bSQSGWo%2bnuD0Eg&riu=http%3a%2f%2fwww.ecofeet.com.au%2fwp-content%2fuploads%2f2014%2f07%2fgreen-leaf-bg1.jpg&ehk=rBOmP71uxYu5GRoE0UkuqJoD34AGBCSTIC08gWGIWf0%3d&risl=&pid=ImgRaw&r=0")
+  // background: url("https://th.bing.com/th/id/R.815d3a8988fca53ea55eb4389fc3f070?rik=%2bSQSGWo%2bnuD0Eg&riu=http%3a%2f%2fwww.ecofeet.com.au%2fwp-content%2fuploads%2f2014%2f07%2fgreen-leaf-bg1.jpg&ehk=rBOmP71uxYu5GRoE0UkuqJoD34AGBCSTIC08gWGIWf0%3d&risl=&pid=ImgRaw&r=0")
+  //   no-repeat center / cover;
+  background: url("https://th.bing.com/th/id/R.e00ce9216030ba729c7873cf2d57f25e?rik=O2GloT5uF%2bKkGg&pid=ImgRaw&r=0")
     no-repeat center / cover;
 
   > .auth-content {
@@ -20,7 +22,8 @@
 
     width: 100%;
 
-    background: rgba(255, 255, 255, 0.8);
+    // background: rgba(255, 255, 255, 0.8);
+    background: white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
     > .auth-title {

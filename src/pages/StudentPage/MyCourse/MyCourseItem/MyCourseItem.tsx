@@ -52,9 +52,11 @@ const MyCourseItem: React.FC<MyCourseItemProps> = ({ data, isUpdate }) => {
               !data?.percentProgress ? "nonView" : ""
             )}
           >
-            {data?.percentProgress
-              ? numberRound(data?.percentProgress) + "/100"
-              : "Chưa xem"}
+            <span className="progress-number">
+              {data?.percentProgress
+                ? numberRound(data?.percentProgress) + "/100"
+                : "Chưa xem"}
+            </span>
             <span
               className="percent"
               style={{
