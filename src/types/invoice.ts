@@ -37,4 +37,5 @@ export interface IInvoice {
   updatedAt?: string;
   detailInvoices?: IDetailInvoice[];
   user?: IUser;
+  qrcode?: string;
 }
