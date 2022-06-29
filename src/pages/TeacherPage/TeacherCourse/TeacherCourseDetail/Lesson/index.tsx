@@ -9,34 +9,41 @@ import Input from "src/components/Input";
 import { toast } from "react-toastify";
 
 export interface ILesson {
-  id: string;
-  name: string;
+  _id: string;
+  title: string;
+  description: string;
 }
 
 interface LessonProps {
   lesson: ILesson;
-  chapterId: string;
   index: number;
+  handleUpdateLesson: (
+    name: string,
+    order: number,
+    lessonId: string,
+    description?: string,
+    file?: FormData
+  ) => void;
   handleDeleteLesson: (id: string) => void;
-  handleLesson: (name: string, chapterId: string, lessonId: string) => void;
 }
 
 const Lesson: React.FC<LessonProps> = ({
   lesson,
   index,
   handleDeleteLesson,
-  handleLesson,
-  chapterId,
+  handleUpdateLesson,
 }) => {
   const [show, setShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [isContent, setIsContent] = useState(false);
   const [contentType, setContentType] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(lesson.description);
   const [article, setArticle] = useState("");
   const [video, setVideo] = useState<File>();
   const [value, setValue] = useState("");
   const [editArticle, setEditArticle] = useState(false);
+
+  console.log({ video });
 
   const handleUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
@@ -44,15 +51,19 @@ const Lesson: React.FC<LessonProps> = ({
 
     if (_target.files && _target.files.length !== 0) {
       formData.append("file", _target.files[0]);
+      handleUpdateLesson(
+        lesson.title,
+        index,
+        lesson._id,
+        lesson.description,
+        formData
+      );
       setVideo(_target.files[0]);
     }
   };
 
   useEffect(() => {
-    if (!lesson.name) {
-      setEditTitle(true);
-      setValue(lesson.name);
-    }
+    lesson.title === "default" && setEditTitle(true);
   }, [lesson]);
 
   return (
@@ -70,7 +81,7 @@ const Lesson: React.FC<LessonProps> = ({
           ) : (
             <>
               <Icon icon="file-text-o" size={15} />
-              <span>{lesson.name}</span>
+              <span>{lesson.title}</span>
 
               <div className="icons">
                 <Icon
@@ -79,7 +90,7 @@ const Lesson: React.FC<LessonProps> = ({
                   color="black"
                   className="icon"
                   onClick={() => {
-                    setValue(lesson.name);
+                    setValue(lesson.title);
                     setEditTitle(true);
                   }}
                 />
@@ -88,7 +99,7 @@ const Lesson: React.FC<LessonProps> = ({
                   size={15}
                   color="black"
                   className="icon"
-                  onClick={() => handleDeleteLesson(lesson.id)}
+                  onClick={() => handleDeleteLesson(lesson._id)}
                 />
               </div>
             </>
@@ -167,7 +178,7 @@ const Lesson: React.FC<LessonProps> = ({
             onClick={() => {
               if (value) {
                 setEditTitle(false);
-                handleLesson(value, chapterId, lesson.id);
+                handleUpdateLesson(value, index, lesson._id);
               } else {
                 toast.error("Vui lòng nhập tiêu đề bài học", {
                   position: "bottom-right",
@@ -225,7 +236,7 @@ const Lesson: React.FC<LessonProps> = ({
               </div>
               <span>Video & Slide Mashup</span>
             </div> */}
-            <div
+            {/* <div
               className="type"
               onClick={() => {
                 setContentType(3);
@@ -237,7 +248,7 @@ const Lesson: React.FC<LessonProps> = ({
                 <Icon icon="file-text-o" size={20} />
               </div>
               <span>Article</span>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
@@ -253,8 +264,8 @@ const Lesson: React.FC<LessonProps> = ({
                 <span>Thao tác</span>
               </div>
               <div className="description">
-                <span>boom.webm</span>
-                <span>Video</span>
+                <span>{video.name}</span>
+                <span>{video.type}</span>
                 <span>{new Date().toLocaleDateString()}</span>
                 <span>
                   <Icon
@@ -338,10 +349,7 @@ const Lesson: React.FC<LessonProps> = ({
                 color: "black",
                 fontWeight: "bold",
               }}
-              onClick={() => {
-                setDescription("");
-                setShow(false);
-              }}
+              onClick={() => setShow(false)}
             >
               Cancel
             </Button>
@@ -353,7 +361,15 @@ const Lesson: React.FC<LessonProps> = ({
                 fontWeight: "bold",
                 backgroundColor: "black",
               }}
-              onClick={() => setShow(false)}
+              onClick={() => {
+                handleUpdateLesson(
+                  lesson.title,
+                  index,
+                  lesson._id,
+                  description
+                );
+                setShow(false);
+              }}
             >
               Save
             </Button>

@@ -5,10 +5,12 @@ import Input from "src/components/Input";
 import Lesson, { ILesson } from "../Lesson";
 import "./Chapter.scss";
 import { toast } from "react-toastify";
-import chapterApi from "src/apis/chapterApi";
+import { useDispatch } from "react-redux";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import lessonApi from "src/apis/lessonApi";
 
 export interface IChapter {
-  id: string;
+  _id: string;
   name: string;
   lessons: ILesson[];
   number?: number;
@@ -17,40 +19,70 @@ export interface IChapter {
 interface ChapterProps {
   chapter: IChapter;
   index: number;
-  handleChapter: (name: string, order: number, chapterId: string) => void;
-  handleDeleteChapter: (id: string) => void;
-  handleLesson: (name: string, chapterId: string, lessonId: string) => void;
-  handleAddLesson: (
-    chapterId: string,
-    index: number,
-    type: "last" | "first"
-  ) => void;
+  handleUpdateChapter: (name: string, index: number, chapterId: string) => void;
+  handleDeleteChapter: (chapterId: string) => void;
 }
 
 const Chapter: React.FC<ChapterProps> = ({
   chapter,
   index,
+  handleUpdateChapter,
   handleDeleteChapter,
-  handleChapter,
-  handleLesson,
-  handleAddLesson,
 }) => {
   const [editTitle, setEditTitle] = useState(false);
   const [value, setValue] = useState("");
   const [lessons, setLessons] = useState<ILesson[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!chapter.name) {
-      setEditTitle(true);
-      setValue(chapter.name);
-    }
+    chapter.name === "default" && setEditTitle(true);
     setLessons(chapter.lessons);
   }, [chapter]);
 
-  const handleDeleteLesson = (id: string) => {
-    const _lessons = [...lessons];
+  useEffect(() => {
+    dispatch(isPending());
+    lessonApi.getLessons(chapter._id).then((res: any) => {
+      dispatch(isSuccess());
+      setLessons(res.lessons);
+    });
+  }, []);
 
-    setLessons(_lessons.filter((item) => item.id !== id));
+  const handleAddLesson = (index: number) => {
+    dispatch(isPending());
+    lessonApi.addLesson(chapter._id, index, "default").then(() => {
+      lessonApi.getLessons(chapter._id).then((res: any) => {
+        dispatch(isSuccess());
+        setLessons(res.lessons);
+      });
+    });
+  };
+
+  const handleUpdateLesson = (
+    name: string,
+    order: number,
+    lessonId: string,
+    description?: string,
+    file?: FormData
+  ) => {
+    dispatch(isPending());
+    lessonApi
+      .updateLesson(lessonId, order, name, description, file)
+      .then(() => {
+        lessonApi.getLessons(chapter._id).then((res: any) => {
+          dispatch(isSuccess());
+          setLessons(res.lessons);
+        });
+      });
+  };
+
+  const handleDeleteLesson = (chapterId: string) => {
+    dispatch(isPending());
+    lessonApi.deleteLesson(chapterId).then(() => {
+      lessonApi.getLessons(chapter._id).then((res: any) => {
+        dispatch(isSuccess());
+        setLessons(res.lessons);
+      });
+    });
   };
 
   return (
@@ -85,10 +117,7 @@ const Chapter: React.FC<ChapterProps> = ({
                   size={15}
                   color="black"
                   className="icon"
-                  onClick={() => {
-                    handleDeleteChapter(chapter.id);
-                    chapterApi.deleteChapter(chapter.id);
-                  }}
+                  onClick={() => handleDeleteChapter(chapter._id)}
                 />
               </div>
             </>
@@ -124,7 +153,7 @@ const Chapter: React.FC<ChapterProps> = ({
               onClick={() => {
                 if (value) {
                   setEditTitle(false);
-                  handleChapter(value, index, chapter.id);
+                  handleUpdateChapter(value, index, chapter._id);
                 } else {
                   toast.error("Vui lòng nhập tiêu đề của chương", {
                     position: "bottom-right",
@@ -141,17 +170,13 @@ const Chapter: React.FC<ChapterProps> = ({
         {lessons.map((lesson, index) => (
           <React.Fragment key={index}>
             <div className="new">
-              <div
-                className="icon"
-                onClick={() => handleAddLesson(chapter.id, index, "first")}
-              >
+              <div className="icon" onClick={() => handleAddLesson(index)}>
                 <Icon icon="plus" color="black" size={20} />
               </div>
             </div>
             <Lesson
               lesson={lesson}
-              chapterId={chapter.id}
-              handleLesson={handleLesson}
+              handleUpdateLesson={handleUpdateLesson}
               handleDeleteLesson={handleDeleteLesson}
               index={index}
             />
@@ -159,10 +184,7 @@ const Chapter: React.FC<ChapterProps> = ({
         ))}
       </div>
       <div className="new">
-        <div
-          className="icon"
-          onClick={() => handleAddLesson(chapter.id, index, "last")}
-        >
+        <div className="icon" onClick={() => handleAddLesson(lessons.length)}>
           <Icon icon="plus" color="black" size={20} />
         </div>
       </div>
