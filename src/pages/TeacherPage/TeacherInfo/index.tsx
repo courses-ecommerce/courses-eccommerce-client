@@ -8,6 +8,8 @@ import "./TeacherInfo.scss";
 import UpdateBankingCard from "./UpdateBankingCard";
 
 const TeacherInfo: React.FC = () => {
+  document.title = "Thông tin thẻ ngân hàng";
+
   const { userInfo } = useSelector(selectAuthorization);
 
   const [teacherInfo, setTeacherInfo] = useState<IUser>();

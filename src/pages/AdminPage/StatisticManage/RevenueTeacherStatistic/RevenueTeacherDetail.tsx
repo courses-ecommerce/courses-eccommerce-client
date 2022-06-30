@@ -43,7 +43,7 @@ const RevenueTeacherDetail = () => {
       const response = await statisticApi.getTeacherRevenueById(id, params);
       // console.log("data là", response);
       const { file, teacher }: any = response;
-      // console.log("teacher", teacher);
+      console.log("teacher", teacher);
       setTeacherRevenueDetail(teacher);
       setExcelHref(file);
     } catch (error) {
@@ -144,6 +144,25 @@ const RevenueTeacherDetail = () => {
             </div>
           </div>
           <Divider />
+          <div className="revenue-teacher-info">
+            <h3>Thông tin thẻ ngân hàng</h3>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <span>
+                <b>Mã số tài khoản : </b>
+                {teacherRevenueDetail?.teacherInfo?.payments?.accountNumber}
+              </span>
+              <span>
+                <b>Tên ngân hàng : </b>
+                {teacherRevenueDetail?.teacherInfo?.payments?.bankName}
+              </span>
+              <span>
+                <b>Chủ tài khoản: </b>
+                {teacherRevenueDetail?.teacherInfo?.payments?.name}
+              </span>
+            </Box>
+          </div>
+          <Divider />
+
           <div className="revenue-teacher-content">
             <h3>Thông tin các khoá học đã bán trong tháng</h3>
             <div className="content">

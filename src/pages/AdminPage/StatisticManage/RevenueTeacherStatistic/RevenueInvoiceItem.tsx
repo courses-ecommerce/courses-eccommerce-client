@@ -9,7 +9,7 @@ interface RevenueInvoiceItemProps {
 }
 
 const RevenueInvoiceItem: React.FC<RevenueInvoiceItemProps> = ({ data }) => {
-  console.log("data là", data);
+  // console.log("data là", data);
   const navigate = useNavigate();
 
   return (
