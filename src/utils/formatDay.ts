@@ -1,6 +1,9 @@
 import { format } from "date-fns";
 
 const formatDate = (value: any, formatDateType: string): string => {
+  if (value === "now") {
+    return value && format(new Date(), formatDateType);
+  }
   return value && format(new Date(value), formatDateType);
 };
 

@@ -68,6 +68,7 @@ const PaymentDetail = () => {
         <span className="title">
           Thông tin chi tiết hoá đơn: <i>{invoice?._id}</i>
         </span>
+
         <Button
           variant="contained"
           className={classNames(!show ? "btn-export" : "hide")}
@@ -75,10 +76,15 @@ const PaymentDetail = () => {
         >
           Xuất Hoá Đơn
         </Button>
+
         <div className="invoice-info">
           <Image width={200} height={200} src={invoice.qrcode} />
 
           <table className="info">
+            <tr>
+              <th>Ngày in hoá đơn</th>
+              <td>{formatDate("now", "dd-MM-yyyy HH:mm:ss")}</td>
+            </tr>
             <tr>
               <th>Mã giao dịch</th>
               <td>{invoice.transactionId}</td>
