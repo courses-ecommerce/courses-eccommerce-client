@@ -85,7 +85,7 @@ const HistoryPayment = () => {
       const response = await userApi.getHistoryPayment();
       // console.log("ádadas", response);
       const { invoices, total }: any = response;
-      console.log("invoices", invoices);
+      // console.log("invoices", invoices);
       if (invoices.length > 0) {
         const keys = getHeaderColumns(invoices[0]);
         const data = getNewHeaderColumn(invoices, keys, page, pageSize);
