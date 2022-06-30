@@ -26,3 +26,16 @@
     }
   }
 }
+
+.message-block {
+  height: 90%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-text {
+    line-height: 20px;
+    font-weight: 700;
+  }
+}
