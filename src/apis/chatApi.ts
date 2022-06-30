@@ -23,7 +23,7 @@ const chatApi = {
     const url = CHAT_API + "/conversation/" + conversation;
     return axiosClient.get(url, { params });
   },
-  markIsReadMessage: (conversation: string) => {
+  markIsReadMessage: (conversation?: string) => {
     const url = CHAT_API + "/conversation/" + conversation;
     return axiosClient.put(url);
   },

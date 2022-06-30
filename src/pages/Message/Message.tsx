@@ -16,10 +16,23 @@ const Message: React.FC<MessageProps> = () => {
   useEffect(() => {
     getUserChatList();
   }, []);
+
   // id chat
-  // useEffect(() => {
-  //   console.log("đã lấy được id chat", conservationId);
-  // }, [conservationId]);
+  useEffect(() => {
+    markReadConservation();
+    getUserChatList();
+    console.log("đâsds");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conservationId]);
+
+  const markReadConservation = async () => {
+    try {
+      const response = await chatApi.markIsReadMessage(conservationId);
+      console.log("response", response);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
 
   const getUserChatList = async () => {
     try {
