@@ -1,6 +1,7 @@
 import { Avatar, Button, Divider } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
@@ -8,6 +9,7 @@ import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Pagination from "src/components/Pagination/Pagination";
 import CourseContainer from "src/pages/CoursePage/CourseContainer/CourseContainer";
 import UpdateDescription from "src/pages/ProfilePage/UpdateDescription/UpdateDescription";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { ITeacherPorfolio } from "src/types/statistic";
 import { checkGender, numberRound } from "src/utils";
@@ -17,6 +19,8 @@ const PorfolioPage = () => {
   document.title = "Thông tin chi tiết giảng viên";
 
   const { id } = useParams();
+
+  const { isRole } = useSelector(selectAuthorization);
 
   const [teacherInfo, setTeacherInfo] = useState<ITeacherPorfolio>();
   const [courses, setCourses] = useState<ICourse[]>([]);
@@ -95,12 +99,14 @@ const PorfolioPage = () => {
                 {teacherInfo?.user?.teacher?.description ||
                   "Không có thông tin hiển thị"}
               </span>
-              <Button
-                variant="contained"
-                onClick={() => setShowDescription(true)}
-              >
-                Chỉnh sửa mô tả
-              </Button>
+              {isRole && (
+                <Button
+                  variant="contained"
+                  onClick={() => setShowDescription(true)}
+                >
+                  Chỉnh sửa mô tả
+                </Button>
+              )}
             </div>
           </div>
         </div>
