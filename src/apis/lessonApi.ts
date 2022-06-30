@@ -45,7 +45,7 @@ const lessonApi = {
       const res: any = await axiosClient.put(url, formData);
       if (res) {
         if (file) {
-          toast.success("Upload successfully, video is in progress", {
+          toast.success("Upload video thành công", {
             position: "bottom-right",
           });
         } else {

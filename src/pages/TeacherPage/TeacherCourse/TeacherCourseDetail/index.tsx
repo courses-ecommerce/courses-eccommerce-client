@@ -176,7 +176,7 @@ const TeacherCourseDetail: React.FC = () => {
             }}
             onClick={handleSubmitReview}
           >
-            Submit for Review
+            Xuất bản khoá học
           </Button>
         </div>
         <div className="form">
@@ -259,7 +259,7 @@ const TeacherCourseDetail: React.FC = () => {
                     height: 45,
                   }}
                 >
-                  Save
+                  Lưu thông tin
                 </Button>
               </Box>
             </form>

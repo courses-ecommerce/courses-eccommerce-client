@@ -22,6 +22,8 @@ export interface ICategories {
 }
 
 const TeacherCourse: React.FC = () => {
+  document.title = "Khoá học của tôi";
+
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
@@ -79,10 +81,13 @@ const TeacherCourse: React.FC = () => {
   return (
     <LayoutContainer>
       <div className="teacher">
-        <h2 className="teacher_title">Courses</h2>
+        <h2 className="teacher_title">Khoá học của tôi</h2>
 
         <div className="teacher_navbar">
-          <Input placeholder="Search your courses" />
+          <Input
+            style={{ width: 300 }}
+            placeholder="Nhập tên khoá học của bạn"
+          />
           <Button
             variant="contained"
             color="primary"
@@ -91,7 +96,7 @@ const TeacherCourse: React.FC = () => {
               height: 45,
             }}
           >
-            New Course
+            Tạo khoá học mới
           </Button>
         </div>
 
@@ -107,7 +112,12 @@ const TeacherCourse: React.FC = () => {
               <div className="right">
                 <div className="item">
                   <span>{course.name}</span>
-                  <span>{course.description}</span>
+                  <span
+                    className="description"
+                    dangerouslySetInnerHTML={{
+                      __html: course.description || "",
+                    }}
+                  />
                 </div>
                 <div className="overlay"></div>
                 <div
