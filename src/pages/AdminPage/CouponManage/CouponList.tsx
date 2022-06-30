@@ -51,12 +51,12 @@ const columsHeader: GridColDef[] = [
   {
     field: "startDate",
     headerName: "Ngày bắt đầu",
-    width: 160,
+    width: 200,
   },
   {
     field: "expireDate",
     headerName: "Ngày hết hạn",
-    width: 160,
+    width: 200,
   },
   {
     field: "apply",

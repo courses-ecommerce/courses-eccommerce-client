@@ -99,7 +99,7 @@ const PorfolioPage = () => {
                 {teacherInfo?.user?.teacher?.description ||
                   "Không có thông tin hiển thị"}
               </span>
-              {isRole && (
+              {isRole === "teacher" && (
                 <Button
                   variant="contained"
                   onClick={() => setShowDescription(true)}

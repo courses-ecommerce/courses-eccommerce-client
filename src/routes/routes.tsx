@@ -118,6 +118,11 @@ const TEACHER_ROUTE = [
     path: "/teacher/course/:id",
     element: <TeacherCourseDetail />,
   },
+  {
+    role: "teacher",
+    path: "teacher/course/preview-course/:id",
+    element: <MyCourseDetail />,
+  },
 ];
 
 //Dash board routes

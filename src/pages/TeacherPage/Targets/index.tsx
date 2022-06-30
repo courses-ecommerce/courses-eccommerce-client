@@ -82,7 +82,7 @@ const Targets: React.FC = () => {
           onClick={handleAddText}
         >
           <Icon icon="plus" color="#d32f2f" size={15} />
-          <span style={{ marginLeft: "15px" }}>Add more to your response</span>
+          <span style={{ marginLeft: "15px" }}>Thêm 1 dòng</span>
         </Button>
       </div>
       <Button
@@ -97,7 +97,7 @@ const Targets: React.FC = () => {
         }}
         onClick={handleSave}
       >
-        Save
+        Lưu thông tin
       </Button>
     </div>
   );

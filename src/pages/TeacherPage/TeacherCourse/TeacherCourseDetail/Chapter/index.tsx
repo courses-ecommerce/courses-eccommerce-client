@@ -161,7 +161,7 @@ const Chapter: React.FC<ChapterProps> = ({
                 }
               }}
             >
-              Save Section
+              Lưu thông tin Section
             </Button>
           </div>
         )}

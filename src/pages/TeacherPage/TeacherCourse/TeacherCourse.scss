@@ -33,6 +33,7 @@
         height: 118px;
 
         & > img {
+          // min-width: 118px;
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -88,6 +89,15 @@
               }
               &:last-child {
                 font-size: 12px;
+              }
+              &.description {
+                // white-space: nowrap;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
               }
             }
           }
