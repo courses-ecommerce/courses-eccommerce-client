@@ -49,8 +49,8 @@ export default function TeacherRevenue() {
     <div className="teacher-revenue">
       <h3>
         Doanh thu của tôi từ ngày{" "}
-        {formatDate(dateRange.start, "dd-MM-yyyy HH:mm:ss")} đến ngày{" "}
-        {formatDate(dateRange.end, "dd-MM-yyyy HH:mm:ss")}
+        {formatDate(dateRange?.start, "dd-MM-yyyy HH:mm:ss")} đến ngày{" "}
+        {formatDate(dateRange?.end, "dd-MM-yyyy HH:mm:ss")}
       </h3>
       <Box sx={{ display: "flex", gap: 1 }}>
         <DateRangePicker onChange={(date) => setDateRange(date)} />

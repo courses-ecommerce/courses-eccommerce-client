@@ -9,7 +9,7 @@ interface RevenueInvoiceItemProps {
 }
 
 const RevenueInvoiceItem: React.FC<RevenueInvoiceItemProps> = ({ data }) => {
-  //   console.log("data là", data);
+  console.log("data là", data);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +18,7 @@ const RevenueInvoiceItem: React.FC<RevenueInvoiceItemProps> = ({ data }) => {
         className="thumbnail"
         onClick={() => navigate(`/courses/${data?.courseSlug}`)}
       >
-        <Image width={200} />
+        <Image width={200} src={data?.courseThumbnail} />
       </div>
       <div className="content">
         <span>
