@@ -1,5 +1,4 @@
 import { Avatar, Button, Divider } from "@mui/material";
-import { Box } from "@mui/system";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -81,21 +80,14 @@ const ProfilePage = () => {
             <>
               <Divider />
               <h3>Phần dành riêng cho giảng viên</h3>
-              <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-                <Button
-                  variant="contained"
-                  onClick={() => setShowDescription(true)}
-                >
-                  Thêm mô tả porfolio
-                </Button>
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  onClick={() => navigate(`/user/${info._id}`)}
-                >
-                  Xem thử trang porfolio
-                </Button>
-              </Box>
+              <Button
+                variant="contained"
+                color="inherit"
+                onClick={() => navigate(`/user/${info._id}`)}
+                sx={{ width: 300 }}
+              >
+                Xem thử trang porfolio
+              </Button>
             </>
           )}
         </div>

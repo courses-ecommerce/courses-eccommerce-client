@@ -5,13 +5,12 @@ import { toast } from "react-toastify";
 import teacherApi from "src/apis/teacherApi";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IRating } from "src/types/myCourse";
 
 interface UpdateDescriptionProps {
   id?: string;
   slug?: string;
   show?: boolean;
-  value?: IRating;
+  value?: string;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
@@ -69,6 +68,7 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
           <TextField
             name="description"
             fullWidth
+            defaultValue={value}
             label="Nhập nội dung mô tả thông tin cá nhân"
           />
           <Button type="submit" variant="contained">
