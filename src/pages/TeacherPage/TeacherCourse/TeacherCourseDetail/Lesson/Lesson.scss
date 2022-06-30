@@ -116,7 +116,7 @@
     & > .file {
       & > .title {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         border-bottom: 1px solid #6a6f73;
         padding-bottom: 8px;
 
@@ -129,10 +129,16 @@
       }
       & > .description {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         padding-top: 8px;
 
         & > span {
+          &:first-child {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
           &:not(:first-child) {
             text-align: center;
           }

@@ -4,55 +4,80 @@ import React, { useEffect, useState } from "react";
 import Icon from "src/components/Icon/Icon";
 import "./Lesson.scss";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Input from "src/components/Input";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
+
+export interface IVideo {
+  name: string;
+  size: string;
+  createdAt: string;
+  type: string;
+  status: "pending" | "success";
+  url: string;
+}
 
 export interface ILesson {
-  id: string;
-  name: string;
+  _id: string;
+  title: string;
+  description: string;
+  videoInfo: IVideo;
 }
 
 interface LessonProps {
   lesson: ILesson;
-  chapterId: string;
   index: number;
+  handleUpdateLesson: (
+    name: string,
+    order: number,
+    lessonId: string,
+    description?: string,
+    file?: File
+  ) => void;
   handleDeleteLesson: (id: string) => void;
-  handleLesson: (name: string, chapterId: string, lessonId: string) => void;
 }
 
 const Lesson: React.FC<LessonProps> = ({
   lesson,
   index,
   handleDeleteLesson,
-  handleLesson,
-  chapterId,
+  handleUpdateLesson,
 }) => {
   const [show, setShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [isContent, setIsContent] = useState(false);
-  const [contentType, setContentType] = useState(0);
-  const [description, setDescription] = useState("");
+  const [contentType, setContentType] = useState(lesson.videoInfo ? 1 : 0);
+  const [description, setDescription] = useState(lesson.description);
   const [article, setArticle] = useState("");
-  const [video, setVideo] = useState<File>();
+  const [video, setVideo] = useState<IVideo | undefined>();
   const [value, setValue] = useState("");
   const [editArticle, setEditArticle] = useState(false);
 
   const handleUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
-    let formData = new FormData();
-
     if (_target.files && _target.files.length !== 0) {
-      formData.append("file", _target.files[0]);
-      setVideo(_target.files[0]);
+      const convertBtoMB = Math.floor(
+        _target.files[0].size / Math.pow(1024, 2)
+      );
+      if (convertBtoMB > 10) {
+        toast.error("Video tối đa upload là 10Mb", {
+          position: "bottom-right",
+        });
+      } else {
+        handleUpdateLesson(
+          lesson.title,
+          index,
+          lesson._id,
+          lesson.description,
+          _target.files[0]
+        );
+      }
     }
   };
 
   useEffect(() => {
-    if (!lesson.name) {
-      setEditTitle(true);
-      setValue(lesson.name);
-    }
+    lesson.title === "default" && setEditTitle(true);
+    lesson.videoInfo && setVideo(lesson.videoInfo);
   }, [lesson]);
 
   return (
@@ -70,7 +95,7 @@ const Lesson: React.FC<LessonProps> = ({
           ) : (
             <>
               <Icon icon="file-text-o" size={15} />
-              <span>{lesson.name}</span>
+              <span>{lesson.title}</span>
 
               <div className="icons">
                 <Icon
@@ -79,7 +104,7 @@ const Lesson: React.FC<LessonProps> = ({
                   color="black"
                   className="icon"
                   onClick={() => {
-                    setValue(lesson.name);
+                    setValue(lesson.title);
                     setEditTitle(true);
                   }}
                 />
@@ -88,7 +113,7 @@ const Lesson: React.FC<LessonProps> = ({
                   size={15}
                   color="black"
                   className="icon"
-                  onClick={() => handleDeleteLesson(lesson.id)}
+                  onClick={() => handleDeleteLesson(lesson._id)}
                 />
               </div>
             </>
@@ -116,13 +141,14 @@ const Lesson: React.FC<LessonProps> = ({
                 />
               </span>
             ) : (
-              !video &&
               !article && (
                 <>
-                  <div className="content" onClick={() => setIsContent(true)}>
-                    <Icon icon="plus" size={15} />
-                    Content
-                  </div>
+                  {!video && (
+                    <div className="content" onClick={() => setIsContent(true)}>
+                      <Icon icon="plus" size={15} />
+                      Content
+                    </div>
+                  )}
                   <Icon
                     icon="chevron-down"
                     size={15}
@@ -167,7 +193,7 @@ const Lesson: React.FC<LessonProps> = ({
             onClick={() => {
               if (value) {
                 setEditTitle(false);
-                handleLesson(value, chapterId, lesson.id);
+                handleUpdateLesson(value, index, lesson._id);
               } else {
                 toast.error("Vui lòng nhập tiêu đề bài học", {
                   position: "bottom-right",
@@ -225,7 +251,7 @@ const Lesson: React.FC<LessonProps> = ({
               </div>
               <span>Video & Slide Mashup</span>
             </div> */}
-            <div
+            {/* <div
               className="type"
               onClick={() => {
                 setContentType(3);
@@ -237,7 +263,7 @@ const Lesson: React.FC<LessonProps> = ({
                 <Icon icon="file-text-o" size={20} />
               </div>
               <span>Article</span>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
@@ -249,13 +275,19 @@ const Lesson: React.FC<LessonProps> = ({
               <div className="title">
                 <span>Filename</span>
                 <span>Type</span>
+                <span>Size</span>
+                <span>Status</span>
                 <span>Date</span>
                 <span>Thao tác</span>
               </div>
               <div className="description">
-                <span>boom.webm</span>
-                <span>Video</span>
-                <span>{new Date().toLocaleDateString()}</span>
+                <span>{video.name}</span>
+                <span>{video.type}</span>
+                <span>{video.size}</span>
+                <span>{video.status}</span>
+                <span>
+                  {format(new Date(video.createdAt), "dd/MM/yyyy - HH:mm")}
+                </span>
                 <span>
                   <Icon
                     icon="trash"
@@ -338,10 +370,7 @@ const Lesson: React.FC<LessonProps> = ({
                 color: "black",
                 fontWeight: "bold",
               }}
-              onClick={() => {
-                setDescription("");
-                setShow(false);
-              }}
+              onClick={() => setShow(false)}
             >
               Cancel
             </Button>
@@ -353,7 +382,15 @@ const Lesson: React.FC<LessonProps> = ({
                 fontWeight: "bold",
                 backgroundColor: "black",
               }}
-              onClick={() => setShow(false)}
+              onClick={() => {
+                handleUpdateLesson(
+                  lesson.title,
+                  index,
+                  lesson._id,
+                  description
+                );
+                setShow(false);
+              }}
             >
               Save
             </Button>
