@@ -45,7 +45,7 @@ const Chapter: React.FC<ChapterProps> = ({
       dispatch(isSuccess());
       setLessons(res.lessons);
     });
-  }, []);
+  }, [chapter._id, dispatch]);
 
   const handleAddLesson = (index: number) => {
     dispatch(isPending());
@@ -62,7 +62,7 @@ const Chapter: React.FC<ChapterProps> = ({
     order: number,
     lessonId: string,
     description?: string,
-    file?: FormData
+    file?: File
   ) => {
     dispatch(isPending());
     lessonApi

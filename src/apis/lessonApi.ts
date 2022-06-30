@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axiosClient from "./axiosClient";
 
 const LESSON_API = "/lessons";
@@ -25,20 +26,40 @@ const lessonApi = {
       description: description?.trim() || "",
     });
   },
-  updateLesson: (
+  updateLesson: async (
     idLesson?: string,
     number?: number,
     title?: string,
     description?: string,
-    file?: FormData
+    file?: File
   ) => {
     const url = LESSON_API + "/" + idLesson;
-    return axiosClient.put(url, {
-      number,
-      title: title?.trim() || "",
-      description: description?.trim() || "",
-      file,
-    });
+    const formData = new FormData();
+    title && formData.append("title", title);
+    number && formData.append("number", number.toString());
+    description && formData.append("description", description);
+    file && formData.append("file", file);
+    file && formData.append("type", "video");
+
+    try {
+      const res: any = await axiosClient.put(url, formData);
+      if (res) {
+        if (file) {
+          toast.success("Upload successfully, video is in progress", {
+            position: "bottom-right",
+          });
+        } else {
+          toast.success(res.message, {
+            position: "bottom-right",
+          });
+        }
+        return res;
+      }
+
+      return undefined;
+    } catch (error) {
+      return undefined;
+    }
   },
   deleteLesson: (idLesson: string) => {
     const url = LESSON_API + "/" + idLesson;

@@ -4,14 +4,24 @@ import React, { useEffect, useState } from "react";
 import Icon from "src/components/Icon/Icon";
 import "./Lesson.scss";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Input from "src/components/Input";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
+
+export interface IVideo {
+  name: string;
+  size: string;
+  createdAt: string;
+  type: string;
+  status: "pending" | "success";
+  url: string;
+}
 
 export interface ILesson {
   _id: string;
   title: string;
   description: string;
+  videoInfo: IVideo;
 }
 
 interface LessonProps {
@@ -22,7 +32,7 @@ interface LessonProps {
     order: number,
     lessonId: string,
     description?: string,
-    file?: FormData
+    file?: File
   ) => void;
   handleDeleteLesson: (id: string) => void;
 }
@@ -36,34 +46,38 @@ const Lesson: React.FC<LessonProps> = ({
   const [show, setShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [isContent, setIsContent] = useState(false);
-  const [contentType, setContentType] = useState(0);
+  const [contentType, setContentType] = useState(lesson.videoInfo ? 1 : 0);
   const [description, setDescription] = useState(lesson.description);
   const [article, setArticle] = useState("");
-  const [video, setVideo] = useState<File>();
+  const [video, setVideo] = useState<IVideo | undefined>();
   const [value, setValue] = useState("");
   const [editArticle, setEditArticle] = useState(false);
 
-  console.log({ video });
-
   const handleUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
-    let formData = new FormData();
-
     if (_target.files && _target.files.length !== 0) {
-      formData.append("file", _target.files[0]);
-      handleUpdateLesson(
-        lesson.title,
-        index,
-        lesson._id,
-        lesson.description,
-        formData
+      const convertBtoMB = Math.floor(
+        _target.files[0].size / Math.pow(1024, 2)
       );
-      setVideo(_target.files[0]);
+      if (convertBtoMB > 10) {
+        toast.error("Video tối đa upload là 10Mb", {
+          position: "bottom-right",
+        });
+      } else {
+        handleUpdateLesson(
+          lesson.title,
+          index,
+          lesson._id,
+          lesson.description,
+          _target.files[0]
+        );
+      }
     }
   };
 
   useEffect(() => {
     lesson.title === "default" && setEditTitle(true);
+    lesson.videoInfo && setVideo(lesson.videoInfo);
   }, [lesson]);
 
   return (
@@ -127,13 +141,14 @@ const Lesson: React.FC<LessonProps> = ({
                 />
               </span>
             ) : (
-              !video &&
               !article && (
                 <>
-                  <div className="content" onClick={() => setIsContent(true)}>
-                    <Icon icon="plus" size={15} />
-                    Content
-                  </div>
+                  {!video && (
+                    <div className="content" onClick={() => setIsContent(true)}>
+                      <Icon icon="plus" size={15} />
+                      Content
+                    </div>
+                  )}
                   <Icon
                     icon="chevron-down"
                     size={15}
@@ -260,13 +275,19 @@ const Lesson: React.FC<LessonProps> = ({
               <div className="title">
                 <span>Filename</span>
                 <span>Type</span>
+                <span>Size</span>
+                <span>Status</span>
                 <span>Date</span>
                 <span>Thao tác</span>
               </div>
               <div className="description">
                 <span>{video.name}</span>
                 <span>{video.type}</span>
-                <span>{new Date().toLocaleDateString()}</span>
+                <span>{video.size}</span>
+                <span>{video.status}</span>
+                <span>
+                  {format(new Date(video.createdAt), "dd/MM/yyyy - HH:mm")}
+                </span>
                 <span>
                   <Icon
                     icon="trash"

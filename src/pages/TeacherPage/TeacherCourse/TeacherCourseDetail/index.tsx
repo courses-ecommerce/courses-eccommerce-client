@@ -17,8 +17,11 @@ import teacherApi from "src/apis/teacherApi";
 import InputSelect from "src/components/InputSelect";
 import categoryApi from "src/apis/categoryApi";
 import { ICategories } from "..";
-import ReviewCourse from "./ReviewCourse";
 import chapterApi from "src/apis/chapterApi";
+import ReactQuill from "react-quill";
+import IntendedLearners from "../../IntendedLearners";
+import Requirements from "../../Requirements";
+import Targets from "../../Targets";
 
 const TeacherCourseDetail: React.FC = () => {
   const { id } = useParams();
@@ -121,6 +124,15 @@ const TeacherCourseDetail: React.FC = () => {
     });
   };
 
+  const handleSubmitReview = () => {
+    dispatch(isPending());
+    courseApi
+      .updateCourse(slug, {
+        status: "Pending",
+      })
+      .then(() => dispatch(isSuccess()));
+  };
+
   return (
     <LayoutContainer>
       <div className="teacher-course-detail">
@@ -142,8 +154,30 @@ const TeacherCourseDetail: React.FC = () => {
             className={navbar === 2 ? "active" : ""}
             onClick={() => setNavbar(2)}
           >
-            Chi tiết khóa học
+            Đối tượng khóa học
           </p>
+          <p
+            className={navbar === 3 ? "active" : ""}
+            onClick={() => setNavbar(3)}
+          >
+            Kiến thức bắt buộc
+          </p>
+          <p
+            className={navbar === 4 ? "active" : ""}
+            onClick={() => setNavbar(4)}
+          >
+            Mục tiêu khóa học
+          </p>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              height: 45,
+            }}
+            onClick={handleSubmitReview}
+          >
+            Submit for Review
+          </Button>
         </div>
         <div className="form">
           <h2 className="title">
@@ -151,7 +185,23 @@ const TeacherCourseDetail: React.FC = () => {
               ? "Thông tin khóa học"
               : navbar === 1
               ? "Chương trình giảng dạy"
-              : "Chi tiết khóa học"}
+              : navbar === 2
+              ? "Đối tượng nào nên học?"
+              : navbar === 3
+              ? "Kiến thức bắt buộc cần có?"
+              : "Bạn sẽ học được gì?"}
+            {navbar === 1 && (
+              <Button
+                variant="contained"
+                color="warning"
+                sx={{
+                  height: 45,
+                }}
+                onClick={() => nav(`${id}`)}
+              >
+                Xem trước khóa học
+              </Button>
+            )}
           </h2>
           {navbar === 0 ? (
             <form onSubmit={formik.handleSubmit}>
@@ -170,15 +220,22 @@ const TeacherCourseDetail: React.FC = () => {
                   errorMessage={formik.touched.name ? formik.errors.name : ""}
                   {...formik.getFieldProps("name")}
                 />
-                <Input
-                  required
-                  label="Mô tả khóa học"
-                  placeholder="Nhập mô tả khóa học"
-                  errorMessage={
-                    formik.touched.description ? formik.errors.description : ""
-                  }
-                  {...formik.getFieldProps("description")}
-                />
+                <div className="editor">
+                  <h2>
+                    Nội dung khóa học <span>*</span>
+                  </h2>
+                  <ReactQuill
+                    style={{
+                      height: 70,
+                    }}
+                    theme="snow"
+                    value={formik.values.description}
+                    onChange={(value) =>
+                      formik.setFieldValue("description", value)
+                    }
+                    placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
+                  />
+                </div>
                 <InputSelect
                   label="Loại khóa học"
                   list={categories}
@@ -202,7 +259,7 @@ const TeacherCourseDetail: React.FC = () => {
                     height: 45,
                   }}
                 >
-                  Submit for Review
+                  Save
                 </Button>
               </Box>
             </form>
@@ -235,8 +292,12 @@ const TeacherCourseDetail: React.FC = () => {
                 </div>
               </div>
             </div>
+          ) : navbar === 2 ? (
+            <IntendedLearners />
+          ) : navbar === 3 ? (
+            <Requirements />
           ) : (
-            <ReviewCourse />
+            <Targets />
           )}
         </div>
       </div>
