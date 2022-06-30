@@ -50,6 +50,11 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
     );
   };
 
+  const handleImagePost = (image: any) => {
+    console.log("lấy được img là", image);
+    setImg(upload);
+  };
+
   return (
     <>
       {conservationId ? (
@@ -58,17 +63,12 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
           <div className="chat-content">{renderChatMessage(messages)}</div>
           <form className="chat-handle" onSubmit={handleSubmit}>
             <Input
+              hideErrorMessage={true}
               className="input-text"
               placeholder="Nhập nội dung đoạn chat"
               onChange={(e: any) => setText(e.target.value)}
             />
-            <InputFile
-              // label="Ảnh đại diện"
-              // multiple
-              value={img}
-              // valueDefault={img}
-              onChange={(value) => setImg(value)}
-            />
+            <InputFile value={img} onChange={handleImagePost} />
           </form>
         </div>
       ) : (
