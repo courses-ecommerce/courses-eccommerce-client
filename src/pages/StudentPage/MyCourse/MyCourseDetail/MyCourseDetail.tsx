@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import myCourseApi from "src/apis/myCourseApi";
+import teacherApi from "src/apis/teacherApi";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Video from "src/components/Video/Video";
 import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
@@ -39,11 +40,28 @@ const MyCourseDetail = () => {
   useEffect(() => {
     if (isRole === "student") {
       getMyCourseDetail();
+    }
+    if (isRole === "teacher") {
+      getTeacherCourseDetails();
     } else {
       getAdminCourseDetail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const getTeacherCourseDetails = async () => {
+    try {
+      const response = await teacherApi.getCourseDetails(id);
+      // console.log("response", response);
+      const { course }: any = response;
+      const { chapters }: any = course;
+      // console.log(" course nek", course);
+      setCourse(course);
+      setChapter(chapters);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
 
   const getAdminCourseDetail = async () => {
     try {

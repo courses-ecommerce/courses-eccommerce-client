@@ -197,7 +197,7 @@ const TeacherCourseDetail: React.FC = () => {
                 sx={{
                   height: 45,
                 }}
-                onClick={() => nav(`${id}`)}
+                onClick={() => nav(`/teacher/course/preview-course/${id}`)}
               >
                 Xem trước khóa học
               </Button>
