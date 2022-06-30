@@ -1,25 +1,44 @@
 import { Avatar } from "@mui/material";
+import classNames from "classnames";
 import React from "react";
-import { avatarNone } from "src/assets";
+import { useSelector } from "react-redux";
+import { selectAuthorization } from "src/reducers/authSlice";
+import { IUser } from "src/types";
+import { IMessage } from "src/types/chat";
 import "./MessageUser.scss";
 
 interface MessageUserProps {
-  avatar?: string;
-  name?: string;
-  status?: string;
+  receiver?: IUser;
+  message?: IMessage;
+  onClick?: () => void;
 }
 
 const MessageUser: React.FC<MessageUserProps> = ({
-  avatar = avatarNone,
-  name = "No Name",
-  status = "Đang ngủ",
+  receiver,
+  message,
+  onClick,
 }) => {
+  // console.log("message: ", message);
+  const { userInfo } = useSelector(selectAuthorization);
+
   return (
-    <div className="user-item">
-      <Avatar className="avatar" alt="Remy Sharp" src={avatar} />
+    <div className="user-item" onClick={onClick}>
+      <Avatar
+        className="avatar"
+        alt={receiver?.fullName}
+        src={receiver?.avatar}
+      />
       <div className="user-info">
-        <span className="name">{name}</span>
-        <span className="status">{status}</span>
+        <span className="name">{receiver?.fullName}</span>
+        <span
+          className={classNames(
+            "last-message",
+            message?.seen ? "seen" : "unseen"
+          )}
+        >
+          {userInfo._id === message?._id ? "Bạn: " : ""}
+          {message?.text}
+        </span>
       </div>
     </div>
   );
