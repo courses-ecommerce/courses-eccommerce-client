@@ -28,6 +28,13 @@ const columsHeader: GridColDef[] = [
     headerAlign: "center",
   },
   {
+    field: "paymentMethod",
+    headerName: "Hình thức",
+    width: 100,
+    align: "center",
+    headerAlign: "center",
+  },
+  {
     field: "status",
     headerName: "Trạng thái",
     width: 120,
@@ -35,32 +42,24 @@ const columsHeader: GridColDef[] = [
     headerAlign: "center",
   },
   {
-    field: "paymentMethod",
-    headerName: "Phương thức thanh toán",
+    field: "createdAt",
+    headerName: "Ngày mua",
     width: 200,
-    align: "center",
-    headerAlign: "center",
   },
   {
     field: "totalPrice",
     headerName: "Giá gốc",
     width: 150,
-    align: "center",
-    headerAlign: "center",
   },
   {
     field: "totalDiscount",
     headerName: "Giảm giá",
     width: 150,
-    align: "center",
-    headerAlign: "center",
   },
   {
     field: "paymentPrice",
     headerName: "Thành tiền",
     width: 150,
-    align: "center",
-    headerAlign: "center",
   },
 ];
 
@@ -86,7 +85,7 @@ const HistoryPayment = () => {
       const response = await userApi.getHistoryPayment();
       // console.log("ádadas", response);
       const { invoices, total }: any = response;
-      // console.log("invoices", invoices);
+      console.log("invoices", invoices);
       if (invoices.length > 0) {
         const keys = getHeaderColumns(invoices[0]);
         const data = getNewHeaderColumn(invoices, keys, page, pageSize);

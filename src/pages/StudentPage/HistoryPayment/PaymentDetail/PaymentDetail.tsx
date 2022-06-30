@@ -30,7 +30,7 @@ const PaymentDetail = () => {
   const getPaymenyDetail = async () => {
     try {
       const response = await invoicesApi.getInvoiceDetail(id);
-      console.log("payment detail là", response);
+      // console.log("payment detail là", response);
       const { invoice }: any = response;
       const { detailInvoices }: any = invoice;
       // console.log("invoice là", invoice[0]);
