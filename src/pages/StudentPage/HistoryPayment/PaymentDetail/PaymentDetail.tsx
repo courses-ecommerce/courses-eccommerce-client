@@ -101,7 +101,7 @@ const PaymentDetail = () => {
             </tr>
             <tr>
               <th>Được giảm</th>
-              <td> {numberLocale(invoice.totalDiscount)}</td>
+              <td> {numberLocale(invoice.totalDiscount, " đồng")}</td>
             </tr>
             <tr>
               <th>Thành tiền</th>

@@ -7,9 +7,14 @@ export const linkHeader: IRoute[] = [
 ];
 
 export const linkUserProfile: IRoute[] = [
+  //for user
   { name: "Trang chủ", path: "/", role: "user" },
+  //for admin
   { name: "Quản lý admin", path: "/admin/info", role: "admin" },
-  // { name: "Thông tin cá nhân", path: "/teacher/info", role: "teacher" },
-  // { name: "Quản lý khóa học", path: "/teacher/course", role: "teacher" },
-  // { name: "Đổi mật khẩu", path: "#" },
+  { name: "Thông tin cá nhân", path: "/admin/info", role: "admin" },
+  //for teacher
+  { name: "Thông tin cá nhân", path: "/teacher/info", role: "teacher" },
+  { name: "Quản lý khóa học", path: "/teacher/course", role: "teacher" },
+  //for student
+  { name: "Thông tin cá nhân", path: "/student/info", role: "student" },
 ];
