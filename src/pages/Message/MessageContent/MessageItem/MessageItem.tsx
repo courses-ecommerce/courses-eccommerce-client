@@ -14,7 +14,7 @@ interface MessageItemProps {
 const MessageItem: React.FC<MessageItemProps> = ({ data }) => {
   const { userInfo } = useSelector(selectAuthorization);
 
-  console.log("thông tin message item", data);
+  // console.log("thông tin message item", data);
   return (
     <div
       className={classNames(

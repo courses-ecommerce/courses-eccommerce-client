@@ -1,15 +1,25 @@
 .mesage-content {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   > .chat-content {
-    height: 450px;
+    max-height: 450px;
+    height: 100%;
+    overflow-y: scroll;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   > .chat-handle {
-    padding: 0 10px;
+    padding: 0 20px;
 
     display: flex;
     flex-direction: row;
+
     gap: 5px;
     > .input-text {
       flex: 1;
