@@ -11,6 +11,8 @@ import formatDate from "src/utils/formatDay";
 import "./TeacherRevenue.scss";
 
 export default function TeacherRevenue() {
+  document.title = "Doanh thu cá nhân";
+
   const [dateRange, setDateRange] = useState<any>();
   const [teacherInfo, setTeacherInfo] = useState<ITeacher>();
   const [invoices, setInvoices] = useState<IInvoice[]>([]);
