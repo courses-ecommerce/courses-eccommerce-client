@@ -1,25 +1,63 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import chatApi from "src/apis/chatApi";
-import "./Message.scss";
+import { IConservation } from "src/types/chat";
 import MessageContent from "./MessageContent/MessageContent";
 import MessageUser from "./MessageUser/MessageUser";
+import "./Message.scss";
 
 interface MessageProps {}
 
 const Message: React.FC<MessageProps> = () => {
   document.title = "Trò chuyện trực tuyến";
 
+  const [conservation, setConservation] = useState<IConservation[]>([]);
+  const [conservationId, setConservationId] = useState<string>();
+
   useEffect(() => {
     getUserChatList();
   }, []);
 
-  const getUserChatList = async () => {
+  // id chat
+  useEffect(() => {
+    markReadConservation();
+    getUserChatList();
+    console.log("đâsds");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conservationId]);
+
+  const markReadConservation = async () => {
     try {
-      const response = await chatApi.getUserChatList();
-      console.log(response);
+      const response = await chatApi.markIsReadMessage(conservationId);
+      console.log("response", response);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
+  };
+
+  const getUserChatList = async () => {
+    try {
+      const response = await chatApi.getUserChatList();
+      // console.log(response);
+      const { conversations }: any = response;
+      // console.log("conversations", conversations);
+      setConservation(conversations);
+    } catch (error) {
+      console.log("lỗi rồi", { error });
+    }
+  };
+
+  const renderUserChatItems = (userChatList: IConservation[]) => {
+    return (
+      userChatList.length > 0 &&
+      userChatList.map((userItem, index) => (
+        <MessageUser
+          onClick={() => setConservationId(userItem._id)}
+          receiver={userItem.receiver}
+          message={userItem.message}
+          key={index}
+        />
+      ))
+    );
   };
 
   return (
@@ -28,11 +66,11 @@ const Message: React.FC<MessageProps> = () => {
       <div className="message-container">
         <div className="message-users">
           <div className="title">Danh sách người dùng</div>
-          <MessageUser />
+          <div className="content">{renderUserChatItems(conservation)}</div>
         </div>
         <div className="message-contents">
           <div className="title">Nội dung cuộc hội thoại</div>
-          <MessageContent />
+          <MessageContent conservationId={conservationId} />
         </div>
       </div>
     </div>
