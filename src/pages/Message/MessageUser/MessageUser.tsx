@@ -33,10 +33,12 @@ const MessageUser: React.FC<MessageUserProps> = ({
         <span
           className={classNames(
             "last-message",
-            !message?.seen ? "seen" : "unseen"
+            userInfo._id !== message?.sender && message?.seen
+              ? "unseen"
+              : "seen"
           )}
         >
-          {userInfo._id === message?._id ? "Bạn: " : ""}
+          {userInfo._id === message?.sender ? "Bạn: " : ""}
           {message?.text}
         </span>
       </div>

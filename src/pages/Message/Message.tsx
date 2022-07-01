@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import chatApi from "src/apis/chatApi";
 import { IConservation } from "src/types/chat";
+import "./Message.scss";
 import MessageContent from "./MessageContent/MessageContent";
 import MessageUser from "./MessageUser/MessageUser";
-import "./Message.scss";
 
 interface MessageProps {}
 
@@ -19,16 +19,15 @@ const Message: React.FC<MessageProps> = () => {
 
   // id chat
   useEffect(() => {
-    markReadConservation();
+    conservationId && markReadConservation();
     getUserChatList();
-    console.log("đâsds");
+    // console.log("đâsds");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conservationId]);
 
   const markReadConservation = async () => {
     try {
-      const response = await chatApi.markIsReadMessage(conservationId);
-      console.log("response", response);
+      await chatApi.markIsReadMessage(conservationId);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
