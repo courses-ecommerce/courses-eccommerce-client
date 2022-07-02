@@ -21,8 +21,8 @@ const CoursePage = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>();
   const [limit, setLimit] = useState<number>(8);
-
-  const limitCourse = 4;
+  //for hot, sugggest
+  const [limitCourse, setLimitCourse] = useState<number>(4);
 
   //for search
   const [categoryList, setCategoryList] = useState<any>();
@@ -63,12 +63,20 @@ const CoursePage = () => {
   useEffect(() => {
     getCoursesHot();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageHot]);
+  }, [pageHot, limitCourse]);
+
+  //call page
+  useEffect(() => {
+    if (window.screen.width <= 430) {
+      setLimit(4);
+      setLimitCourse(2);
+    }
+  }, []);
 
   useEffect(() => {
     isRole === "student" && getCoursesSuggest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageSuggest]);
+  }, [pageSuggest, limitCourse]);
 
   const getCourses = async () => {
     const params = {
