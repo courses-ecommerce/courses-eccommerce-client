@@ -60,7 +60,11 @@ const Header = () => {
           ref={nodeRef}
           onClick={() => setShow(!show)}
         >
-          <Icon icon="align-justify" size={30} />
+          {!show ? (
+            <Icon icon="align-justify" size={30} />
+          ) : (
+            <Icon icon="close" size={30} />
+          )}
         </div>
 
         {show && (

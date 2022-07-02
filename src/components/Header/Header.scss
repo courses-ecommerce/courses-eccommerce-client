@@ -76,17 +76,20 @@
     left: 0;
     right: 0;
     z-index: 15;
+
     > .icon-toggle {
-      padding: 10px;
+      padding: 15px;
 
       width: 100%;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      border-bottom: 1px solid rgb(213, 213, 213);
       background: white;
     }
     &-links {
-      width: fit-content;
+      // width: fit-content;
 
       padding: 20px;
+      // height: 600px;
 
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background: white;
