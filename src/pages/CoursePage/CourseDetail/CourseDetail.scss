@@ -87,12 +87,6 @@
             color: rgb(119, 119, 119);
           }
         }
-
-        // > .intended-learners {
-        //   display: flex;
-        //   flex-direction: column;
-        //   gap: 2px;
-        // }
       }
     }
   }
@@ -100,8 +94,15 @@
 
 @media (max-width: 600px) {
   .coures-detail {
+    padding: 2px;
     > .course-preview {
       flex-direction: column;
+
+      .content-detail,
+      .info {
+        width: 100%;
+        min-width: 0;
+      }
     }
   }
 }

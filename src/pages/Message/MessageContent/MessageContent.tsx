@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
 import chatApi from "src/apis/chatApi";
 import { upload } from "src/assets";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
+import { LINK_DOMAIN } from "src/data/link";
 import { IMessage } from "src/types/chat";
+import { IAccesstoken } from "src/types/token";
 import "./MessageContent.scss";
 import MessageItem from "./MessageItem/MessageItem";
 
@@ -17,11 +20,40 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
   const [img, setImg] = useState<string>(upload);
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [newMessage, setNewMessages] = useState<IMessage>();
+
+  const socket = useRef<any>();
 
   useEffect(() => {
     conservationId && getConservation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conservationId]);
+
+  useEffect(() => {
+    const { accessToken }: IAccesstoken = JSON.parse(
+      localStorage.getItem("access_token") ||
+        JSON.stringify({ accessToken: "" })
+    );
+
+    // console.log("accessToken", accessToken);
+
+    //connect
+    socket.current = io(LINK_DOMAIN, {
+      extraHeaders: { token: `Beaer ${accessToken}` },
+    });
+
+    //on event
+    socket.current.on("send-message", (data: any) => setNewMessages(data.text));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // console.log("sadsa", [...messages, newMessage]);
+    const newValue: any[] = [...messages, newMessage];
+    setMessages(newValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newMessage]);
 
   const getConservation = async () => {
     // console.log("chạy", conservationId);
@@ -36,9 +68,20 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<any>) => {
+  const handleSubmit = async (e: React.FormEvent<any>) => {
     e.preventDefault();
-    console.log("img nè", img, "text nè", text);
+    if (text) {
+      const params = { conversation: conservationId, text };
+      // console.log("params là", params);
+      try {
+        await chatApi.sendMessage(params);
+        // console.log("response", response);
+        setText("");
+      } catch (error) {
+        console.log("lỗi rồi", error);
+      }
+    }
+    // console.log("img nè", img, "text nè", text);
   };
 
   const renderChatMessage = (messages: IMessage[]) => {
@@ -50,9 +93,20 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
     );
   };
 
-  const handleImagePost = (image: any) => {
-    console.log("lấy được img là", image);
-    setImg(upload);
+  const handleImagePost = async (image: any) => {
+    // console.log("lấy được img là", image);
+    let formData = new FormData();
+    formData.append("images", image);
+    formData.append("conversation", conservationId || "");
+
+    try {
+      const response = await chatApi.sendMessage(formData);
+      console.log("response", response);
+      setText("");
+    } catch (error) {
+      console.log("lỗi rồi", error);
+    }
+    // setImg(upload);
   };
 
   return (
@@ -63,6 +117,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
           <div className="chat-content">{renderChatMessage(messages)}</div>
           <form className="chat-handle" onSubmit={handleSubmit}>
             <Input
+              value={text}
               hideErrorMessage={true}
               className="input-text"
               placeholder="Nhập nội dung đoạn chat"

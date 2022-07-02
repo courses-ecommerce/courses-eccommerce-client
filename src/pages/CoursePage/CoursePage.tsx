@@ -136,38 +136,48 @@ const CoursePage = () => {
   return (
     <div className="course-page">
       <span className="title">Danh sách các khoá học</span>
-      <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+
+      {/* search input */}
+      <div className="search-courses">
+        {/* input search text */}
         <Input
+          className="input-text"
           style={{ width: 300 }}
           hideErrorMessage={true}
           placeholder="Hãy nhập tên khoá học muốn tìm"
           onChange={(e: any) => setValue(e.target.value)}
         />
-        {categoryList && (
-          <Box sx={{ width: 150 }}>
+        {/* input select item */}
+        <div className="input-select">
+          {categoryList && (
+            <Box sx={{ width: 150 }}>
+              <InputSelect
+                hideErrorMessage={true}
+                defaultValue={category}
+                list={categoryList}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </Box>
+          )}
+
+          <Box sx={{ width: 200 }}>
             <InputSelect
-              defaultValue={category}
-              list={categoryList}
-              onChange={(e) => setCategory(e.target.value)}
+              hideErrorMessage={true}
+              defaultValue={sort}
+              list={sortTypes}
+              onChange={(e) => setSort(e.target.value)}
             />
           </Box>
-        )}
-
-        <Box sx={{ width: 200 }}>
-          <InputSelect
-            defaultValue={sort}
-            list={sortTypes}
-            onChange={(e) => setSort(e.target.value)}
-          />
-        </Box>
-        <Box sx={{ width: 200 }}>
-          <InputSelect
-            defaultValue={price}
-            list={priceRangeTypes}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </Box>
-      </Box>
+          <Box sx={{ width: 200 }}>
+            <InputSelect
+              hideErrorMessage={true}
+              defaultValue={price}
+              list={priceRangeTypes}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </Box>
+        </div>
+      </div>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <Box
           sx={{

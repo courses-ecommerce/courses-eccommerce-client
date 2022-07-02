@@ -15,7 +15,7 @@ const chatApi = {
     const url = CHAT_API + "/conversation";
     return axiosClient.get(url, { params });
   },
-  sendMessage: (params: string) => {
+  sendMessage: (params?: any) => {
     const url = CHAT_API + "/message";
     return axiosClient.post(url, params);
   },
