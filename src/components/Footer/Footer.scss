@@ -27,3 +27,12 @@
     }
   }
 }
+
+@media (max-width: 430px) {
+  .footer {
+    padding: 20px;
+    > div {
+      gap: 50px;
+    }
+  }
+}
