@@ -10,6 +10,7 @@ interface InputFileProps {
   onChange: (value: any) => void;
   multiple?: boolean;
   errorMessage?: string;
+  labelImg?: boolean;
 }
 
 const InputFile: React.FC<InputFileProps> = ({
@@ -19,6 +20,7 @@ const InputFile: React.FC<InputFileProps> = ({
   multiple = false,
   onChange,
   errorMessage,
+  labelImg = true,
 }) => {
   // const [image, setImage] = useState<any>([]);
 
@@ -66,7 +68,7 @@ const InputFile: React.FC<InputFileProps> = ({
       />
 
       <label htmlFor="file_input">
-        {imagePreview ? (
+        {imagePreview && labelImg ? (
           <img src={imagePreview} alt="" />
         ) : (
           <img src={downloadIMG} alt="" />

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import chatApi from "src/apis/chatApi";
-import { upload } from "src/assets";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import { LINK_DOMAIN } from "src/data/link";
@@ -17,7 +16,6 @@ interface MessageContentProps {
 const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
   // console.log("đã lấy được conservationId: " + conservationId);
 
-  const [img, setImg] = useState<string>(upload);
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [newMessage, setNewMessages] = useState<IMessage>();
@@ -66,8 +64,9 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
 
   const getConservation = async () => {
     // console.log("chạy", conservationId);
+    const params = { limit: 10, page: 7 };
     try {
-      const response = await chatApi.getLatestMessage(conservationId);
+      const response = await chatApi.getLatestMessage(conservationId, params);
       // console.log("response:", response);
       const { messages }: any = response;
       // console.log("messages:", messages);
@@ -136,7 +135,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
               placeholder="Nhập nội dung đoạn chat"
               onChange={(e: any) => setText(e.target.value)}
             />
-            <InputFile value={img} onChange={handleImagePost} />
+            <InputFile labelImg={false} onChange={handleImagePost} />
           </form>
         </div>
       ) : (
