@@ -19,6 +19,7 @@ const MessageUser: React.FC<MessageUserProps> = ({
   onClick,
 }) => {
   // console.log("message: ", message);
+  // console.log("receiver: ", receiver);
   const { userInfo } = useSelector(selectAuthorization);
 
   return (

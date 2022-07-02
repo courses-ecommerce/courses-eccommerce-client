@@ -7,6 +7,7 @@ import { io } from "socket.io-client";
 import MessageContent from "./MessageContent/MessageContent";
 import MessageUser from "./MessageUser/MessageUser";
 import "./Message.scss";
+import { IUser } from "src/types";
 
 interface MessageProps {}
 
@@ -15,6 +16,7 @@ const Message: React.FC<MessageProps> = () => {
 
   const [conservation, setConservation] = useState<IConservation[]>([]);
   const [conservationId, setConservationId] = useState<string>();
+  const [receiver, setReceiver] = useState<IUser>();
 
   const [newMessage, setNewMessages] = useState<IMessage>();
   const socket = useRef<any>();
@@ -75,13 +77,23 @@ const Message: React.FC<MessageProps> = () => {
       userChatList.length > 0 &&
       userChatList.map((userItem, index) => (
         <MessageUser
-          onClick={() => setConservationId(userItem._id)}
+          onClick={() =>
+            handleChooseMessageUser(userItem._id, userItem.receiver)
+          }
           receiver={userItem.receiver}
           message={userItem.message}
           key={index}
         />
       ))
     );
+  };
+
+  const handleChooseMessageUser = (
+    conservationId?: string,
+    receiver?: IUser
+  ) => {
+    setConservationId(conservationId);
+    setReceiver(receiver);
   };
 
   return (
@@ -95,6 +107,7 @@ const Message: React.FC<MessageProps> = () => {
         <div className="message-contents">
           <div className="title">Nội dung cuộc hội thoại</div>
           <MessageContent
+            receiver={receiver}
             newMessages={newMessage}
             conservationId={conservationId}
           />
