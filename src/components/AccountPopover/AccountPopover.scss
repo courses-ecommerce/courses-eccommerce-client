@@ -10,8 +10,10 @@
     z-index: 2;
 
     position: absolute;
+
     top: calc(100% + 10px);
-    left: -220%;
+    right: calc(100% - 60px);
+    // left: -220%;
 
     > .menu-list {
       > a {
@@ -29,6 +31,7 @@
     > .btns {
       > button {
         width: 100%;
+        min-width: max-content;
       }
     }
   }

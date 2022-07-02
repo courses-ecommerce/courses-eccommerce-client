@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IRating } from "src/types/myCourse";
 
-import "./CourseRating.scss";
 import CourseRatingItem from "./CourseRatingItem/CourseRatingItem";
+import "./CourseRating.scss";
 
 interface CourseRatingProps {
   ratingComents?: IRating[];
@@ -10,12 +10,21 @@ interface CourseRatingProps {
 
 const CourseRating: React.FC<CourseRatingProps> = ({ ratingComents = [] }) => {
   // console.log("sdasdasdas", ratingComents);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  //call page
+  useEffect(() => {
+    window.screen.width <= 430 && setIsMobile(true);
+  }, []);
 
   const redenderCourseRating = (ratingComments: IRating[]) => {
     return (
       ratingComments.length > 0 &&
       ratingComments.map((ratingComment, index) => (
-        <CourseRatingItem key={index} data={ratingComment} />
+        <CourseRatingItem
+          key={index}
+          isMobile={isMobile}
+          data={ratingComment}
+        />
       ))
     );
   };
