@@ -16,6 +16,7 @@ const MessageContent: React.FC<MessageContentProps> = ({
   newMessages,
 }) => {
   // console.log("đã lấy được conservationId: " + conservationId);
+  // console.log("đã lấy được newMessages: " + newMessages?.conversation);
 
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -36,8 +37,10 @@ const MessageContent: React.FC<MessageContentProps> = ({
 
   useEffect(() => {
     // console.log("sadsa", [...messages, newMessage]);
-    const newValue: any[] = [...messages, newMessages];
-    setMessages(newValue);
+    if (newMessages?.conversation === conservationId) {
+      const newValue: any[] = [...messages, newMessages];
+      setMessages(newValue);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMessages]);
