@@ -1,6 +1,6 @@
 import { Avatar, Button, Divider } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
@@ -29,6 +29,11 @@ const PorfolioPage = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>();
   const [limitCourse, setLimitCourse] = useState<number>(4);
+
+  useLayoutEffect(() => {
+    window.scroll(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   //call page
   useEffect(() => {
