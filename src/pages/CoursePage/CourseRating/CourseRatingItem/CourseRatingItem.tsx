@@ -8,15 +8,21 @@ import "./CourseRatingItem.scss";
 
 interface CourseRatingItemProps {
   data?: IRating;
+  isMobile?: boolean;
 }
 
-const CourseRatingItem: React.FC<CourseRatingItemProps> = ({ data }) => {
+const CourseRatingItem: React.FC<CourseRatingItemProps> = ({
+  data,
+  isMobile = false,
+}) => {
   //   console.log("đã lấy được course rating item là", data);
 
   return (
     <div className="course-rating-item">
       <div className="info">
-        <span className="name">Học viên: {data?.author?.fullName}</span>
+        <span className="name">
+          {!isMobile && "Học viên:"} {data?.author?.fullName}
+        </span>
         <span className="date">
           {formatDate(data?.createdAt, "dd-MM-yyyy HH:mm")}
         </span>

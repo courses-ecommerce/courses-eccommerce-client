@@ -28,7 +28,12 @@ const PorfolioPage = () => {
 
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>();
-  const limitCourse = 4;
+  const [limitCourse, setLimitCourse] = useState<number>(4);
+
+  //call page
+  useEffect(() => {
+    window.screen.width <= 430 && setLimitCourse(1);
+  }, []);
 
   useEffect(() => {
     if (!showDescription) {
@@ -41,7 +46,7 @@ const PorfolioPage = () => {
   useEffect(() => {
     id && getCourseTeacher();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, page]);
+  }, [id, page, limitCourse]);
 
   const getInfoTeacher = async () => {
     try {

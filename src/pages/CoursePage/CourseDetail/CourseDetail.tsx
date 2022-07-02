@@ -43,8 +43,7 @@ const CourseDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // //search
-  // const [limit, setLimit] = useState(4);
-  const limit = 4;
+  const [limit, setLimit] = useState(4);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>();
 
@@ -54,6 +53,11 @@ const CourseDetail = () => {
     dispatch(getVideoView(""));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  //call page
+  useEffect(() => {
+    window.screen.width <= 430 && setLimit(1);
+  }, []);
 
   useEffect(() => {
     getCourseDetail();
@@ -249,6 +253,7 @@ const CourseDetail = () => {
             flexDirection: "column",
             alignItems: "center",
             gap: 12,
+            paddingBottom: 10,
           }}
         >
           <CourseContainer title="Khoá học liên quan" courses={courseRelates} />
