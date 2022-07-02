@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import chatApi from "src/apis/chatApi";
-import { IConservation } from "src/types/chat";
-import "./Message.scss";
+import { LINK_DOMAIN } from "src/data/link";
+import { IConservation, IMessage } from "src/types/chat";
+import { IAccesstoken } from "src/types/token";
+import { io } from "socket.io-client";
 import MessageContent from "./MessageContent/MessageContent";
 import MessageUser from "./MessageUser/MessageUser";
+import "./Message.scss";
 
 interface MessageProps {}
 
@@ -12,6 +15,28 @@ const Message: React.FC<MessageProps> = () => {
 
   const [conservation, setConservation] = useState<IConservation[]>([]);
   const [conservationId, setConservationId] = useState<string>();
+
+  const [newMessage, setNewMessages] = useState<IMessage>();
+  const socket = useRef<any>();
+
+  useEffect(() => {
+    const { accessToken }: IAccesstoken = JSON.parse(
+      localStorage.getItem("access_token") ||
+        JSON.stringify({ accessToken: "" })
+    );
+
+    // console.log("accessToken", accessToken);
+
+    //connect
+    socket.current = io(LINK_DOMAIN, {
+      extraHeaders: { token: `Beaer ${accessToken}` },
+    });
+
+    //on event
+    socket.current.on("send-message", (data: any) => setNewMessages(data.text));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     getUserChatList();
@@ -23,7 +48,7 @@ const Message: React.FC<MessageProps> = () => {
     getUserChatList();
     // console.log("đâsds");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conservationId]);
+  }, [conservationId, newMessage]);
 
   const markReadConservation = async () => {
     try {
@@ -69,7 +94,10 @@ const Message: React.FC<MessageProps> = () => {
         </div>
         <div className="message-contents">
           <div className="title">Nội dung cuộc hội thoại</div>
-          <MessageContent conservationId={conservationId} />
+          <MessageContent
+            newMessages={newMessage}
+            conservationId={conservationId}
+          />
         </div>
       </div>
     </div>
