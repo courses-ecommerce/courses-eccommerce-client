@@ -39,4 +39,9 @@
         no-repeat center / cover;
     }
   }
+  .extraLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

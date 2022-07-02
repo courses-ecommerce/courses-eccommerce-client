@@ -1,22 +1,27 @@
+import { Avatar } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import chatApi from "src/apis/chatApi";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import { IMessage } from "src/types/chat";
-import "./MessageContent.scss";
 import MessageItem from "./MessageItem/MessageItem";
+import "./MessageContent.scss";
+import { IUser } from "src/types";
 
 interface MessageContentProps {
+  receiver?: IUser;
   conservationId?: string;
   newMessages?: IMessage;
 }
 
 const MessageContent: React.FC<MessageContentProps> = ({
+  receiver,
   conservationId,
   newMessages,
 }) => {
   // console.log("đã lấy được conservationId: " + conservationId);
   // console.log("đã lấy được newMessages: " + newMessages?.conversation);
+  console.log("đã lấy được receiver: ", receiver);
 
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -104,12 +109,18 @@ const MessageContent: React.FC<MessageContentProps> = ({
     <>
       {conservationId ? (
         <div className="mesage-content">
+          <div className="receiver">
+            <Avatar alt={receiver?.fullName} src={receiver?.avatar} />
+            <div className="receiver-info">
+              <span className="name">{receiver?.fullName}</span>
+              <span className="role">Chức vụ: Giáo Viên </span>
+            </div>
+          </div>
           {/* messages content */}
           <div className="chat-content">
             {renderChatMessage(messages)}
             <div ref={messagesEndRef}></div>
           </div>
-
           <form className="chat-handle" onSubmit={handleSubmit}>
             <Input
               value={text}
