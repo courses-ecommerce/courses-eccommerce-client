@@ -1,4 +1,4 @@
-import { Tooltip } from "@mui/material";
+import { Divider, Tooltip } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "src/components/Icon/Icon";
@@ -22,6 +22,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ title, children }) => {
           </Tooltip>
           <span>{title}</span>
         </div>
+        <Divider />
         <div className="auth-form">{children}</div>
       </div>
     </div>

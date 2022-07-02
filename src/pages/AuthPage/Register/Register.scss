@@ -1,6 +1,4 @@
 .register-form {
-  margin-top: 20px;
-
   display: flex;
   flex-direction: row !important;
   justify-content: space-between;
@@ -22,5 +20,18 @@
         flex: 1;
       }
     }
+  }
+}
+
+@media (max-width: 430px) {
+  .register-form {
+    flex-direction: column !important;
+    gap: 0;
+  }
+  .extra-links {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row !important;
+    justify-content: space-between;
   }
 }
