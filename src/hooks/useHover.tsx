@@ -10,7 +10,7 @@ const useHover = () => {
     const dom = nodeRef.current;
 
     const handleMouseOver = () => {
-      window.screen.width > 414 && setShow(true);
+      window.screen.width > 900 && setShow(true);
     };
 
     const handleMouseOut = () => {
