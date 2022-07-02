@@ -72,7 +72,7 @@ const CoursePage = () => {
 
   const getCourses = async () => {
     const params = {
-      public: true,
+      publish: true,
       limit,
       page,
       sort,
