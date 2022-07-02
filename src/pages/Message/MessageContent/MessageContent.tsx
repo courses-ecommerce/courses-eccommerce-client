@@ -88,8 +88,8 @@ const MessageContent: React.FC<MessageContentProps> = ({
     formData.append("conversation", conservationId || "");
 
     try {
-      const response = await chatApi.sendMessage(formData);
-      console.log("response", response);
+      await chatApi.sendMessage(formData);
+      // console.log("response", response);
       setText("");
     } catch (error) {
       console.log("lỗi rồi", error);
