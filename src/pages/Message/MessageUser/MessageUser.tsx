@@ -18,7 +18,7 @@ const MessageUser: React.FC<MessageUserProps> = ({
   message,
   onClick,
 }) => {
-  // console.log("message: ", message);
+  console.log("message: ", message);
   const { userInfo } = useSelector(selectAuthorization);
 
   return (
@@ -33,7 +33,7 @@ const MessageUser: React.FC<MessageUserProps> = ({
         <span
           className={classNames(
             "last-message",
-            userInfo._id !== message?.sender && message?.seen
+            userInfo._id !== message?.sender && !message?.seen
               ? "unseen"
               : "seen"
           )}

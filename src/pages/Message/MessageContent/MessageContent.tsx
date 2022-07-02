@@ -64,13 +64,13 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
 
   const getConservation = async () => {
     // console.log("chạy", conservationId);
-    const params = { limit: 10, page: 7 };
+    const params = { limit: 20 };
     try {
       const response = await chatApi.getLatestMessage(conservationId, params);
       // console.log("response:", response);
       const { messages }: any = response;
       // console.log("messages:", messages);
-      setMessages(messages);
+      setMessages(messages.reverse());
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
