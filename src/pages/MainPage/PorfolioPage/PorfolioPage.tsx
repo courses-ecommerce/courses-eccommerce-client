@@ -76,9 +76,10 @@ const PorfolioPage = () => {
           <h3>Thông tin chi tiết giảng viên</h3>
           <div className="info">
             <Avatar
+              className="avatar-porfolio"
               alt={teacherInfo?.user?.fullName}
               src={teacherInfo?.user?.avatar}
-              sx={{ width: 200, height: 200 }}
+              // sx={{ width: 200, height: 200 }}
             />
             <div className="content">
               <span>
