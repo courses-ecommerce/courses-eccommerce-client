@@ -19,6 +19,12 @@ export const discountTypes = [
   { value: "percent", name: "Phần trăm" },
   { value: "money", name: "VNĐ" },
 ];
+//api my course
+export const myCourseTypes = [
+  { value: "createdAt-asc", name: "Khoá học mới nhất" },
+  { value: "progress-asc", name: "Xem nhiều nhất" },
+];
+
 export const discountApplyTypes = [
   { value: "all", name: "Tất cả" },
   { value: "author", name: "Tác giả" },

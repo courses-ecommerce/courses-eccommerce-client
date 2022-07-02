@@ -1,36 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
 import chatApi from "src/apis/chatApi";
-import { upload } from "src/assets";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
-import { LINK_DOMAIN } from "src/data/link";
 import { IMessage } from "src/types/chat";
-import { IAccesstoken } from "src/types/token";
 import "./MessageContent.scss";
 import MessageItem from "./MessageItem/MessageItem";
 
 interface MessageContentProps {
   conservationId?: string;
+  newMessages?: IMessage;
 }
 
-const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
+const MessageContent: React.FC<MessageContentProps> = ({
+  conservationId,
+  newMessages,
+}) => {
   // console.log("đã lấy được conservationId: " + conservationId);
 
-  const [img, setImg] = useState<string>(upload);
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [newMessage, setNewMessages] = useState<IMessage>();
 
   const messagesEndRef = useRef<any>(null);
-
-  const socket = useRef<any>();
 
   useEffect(() => {
     messagesEndRef?.current?.scrollIntoView({
       block: "end",
     });
   });
+
   useEffect(() => {
     conservationId && getConservation();
 
@@ -38,40 +35,22 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
   }, [conservationId]);
 
   useEffect(() => {
-    const { accessToken }: IAccesstoken = JSON.parse(
-      localStorage.getItem("access_token") ||
-        JSON.stringify({ accessToken: "" })
-    );
-
-    // console.log("accessToken", accessToken);
-
-    //connect
-    socket.current = io(LINK_DOMAIN, {
-      extraHeaders: { token: `Beaer ${accessToken}` },
-    });
-
-    //on event
-    socket.current.on("send-message", (data: any) => setNewMessages(data.text));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     // console.log("sadsa", [...messages, newMessage]);
-    const newValue: any[] = [...messages, newMessage];
+    const newValue: any[] = [...messages, newMessages];
     setMessages(newValue);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newMessage]);
+  }, [newMessages]);
 
   const getConservation = async () => {
     // console.log("chạy", conservationId);
+    const params = { limit: 20 };
     try {
-      const response = await chatApi.getLatestMessage(conservationId);
+      const response = await chatApi.getLatestMessage(conservationId, params);
       // console.log("response:", response);
       const { messages }: any = response;
       // console.log("messages:", messages);
-      setMessages(messages);
+      setMessages(messages.reverse());
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -109,8 +88,8 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
     formData.append("conversation", conservationId || "");
 
     try {
-      const response = await chatApi.sendMessage(formData);
-      console.log("response", response);
+      await chatApi.sendMessage(formData);
+      // console.log("response", response);
       setText("");
     } catch (error) {
       console.log("lỗi rồi", error);
@@ -136,7 +115,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
               placeholder="Nhập nội dung đoạn chat"
               onChange={(e: any) => setText(e.target.value)}
             />
-            <InputFile value={img} onChange={handleImagePost} />
+            <InputFile labelImg={false} onChange={handleImagePost} />
           </form>
         </div>
       ) : (

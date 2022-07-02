@@ -1,7 +1,10 @@
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import myCourseApi from "src/apis/myCourseApi";
+import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
 import Pagination from "src/components/Pagination/Pagination";
+import { myCourseTypes } from "src/data";
 import { ICourse } from "src/types";
 import { IMyCourse } from "src/types/myCourse";
 import { numberRound } from "src/utils";
@@ -12,6 +15,7 @@ export default function MyCourse() {
   document.title = "Khoá học của tôi";
 
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [sort, setSort] = useState<any>("progress-asc");
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
@@ -32,10 +36,10 @@ export default function MyCourse() {
     getMyCourse();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, limit]);
+  }, [page, sort, limit]);
 
   const getMyCourse = async () => {
-    const params = { limit, page };
+    const params = { limit, page, sort };
     try {
       const response = await myCourseApi.getMyCourse(params);
       // console.log("ádadas", response);
@@ -63,7 +67,22 @@ export default function MyCourse() {
 
   return (
     <div className="my-course">
-      <h3>Danh sách khoá học của tôi</h3>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 1,
+        }}
+      >
+        <h3>Danh sách khoá học của tôi</h3>
+        <InputSelect
+          hideErrorMessage={true}
+          defaultValue={sort}
+          list={myCourseTypes}
+          onChange={(e) => setSort(e.target.value)}
+        />
+      </Box>
       <div className="my-course-content">
         {renderMyCourses(courses) || <Loading />}
       </div>

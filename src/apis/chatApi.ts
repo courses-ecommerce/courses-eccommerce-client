@@ -19,7 +19,7 @@ const chatApi = {
     const url = CHAT_API + "/message";
     return axiosClient.post(url, params);
   },
-  getLatestMessage: (conversation?: string, params?: string) => {
+  getLatestMessage: (conversation?: string, params?: any) => {
     const url = CHAT_API + "/conversation/" + conversation;
     return axiosClient.get(url, { params });
   },
