@@ -41,7 +41,7 @@ const CartIcon: React.FC<CartIconProps> = ({
     if (!isAuth) {
       navigate("/login");
     } else {
-      navigate(`${isRole}/cart`);
+      navigate(`/${isRole}/cart`);
     }
   };
 
