@@ -34,7 +34,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ data }) => {
       )}
       <Tooltip title={formatDate(data?.createdAt, "dd-MM-yyyy HH:mm:ss")}>
         {data?.type === "image" ? (
-          <Image src={data?.text} height={200} width={200} />
+          <Image className="chat-message-image" src={data?.text} />
         ) : (
           <span className="chat-message-text">{data?.text}</span>
         )}

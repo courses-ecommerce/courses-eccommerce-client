@@ -15,6 +15,10 @@
     border-radius: 12px;
     color: white;
   }
+  > .chat-message-image {
+    border-radius: 12px;
+    height: 200px;
+  }
 
   &.other {
     margin-right: auto;

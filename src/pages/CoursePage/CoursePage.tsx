@@ -144,7 +144,6 @@ const CoursePage = () => {
   return (
     <div className="course-page">
       <span className="title">Danh sách các khoá học</span>
-
       {/* search input */}
       <div className="search-courses">
         {/* input search text */}

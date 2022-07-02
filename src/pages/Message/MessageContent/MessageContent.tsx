@@ -22,10 +22,18 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [newMessage, setNewMessages] = useState<IMessage>();
 
+  const messagesEndRef = useRef<any>(null);
+
   const socket = useRef<any>();
 
   useEffect(() => {
+    messagesEndRef?.current?.scrollIntoView({
+      block: "end",
+    });
+  });
+  useEffect(() => {
     conservationId && getConservation();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conservationId]);
 
@@ -52,6 +60,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
     // console.log("sadsa", [...messages, newMessage]);
     const newValue: any[] = [...messages, newMessage];
     setMessages(newValue);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMessage]);
 
@@ -114,7 +123,11 @@ const MessageContent: React.FC<MessageContentProps> = ({ conservationId }) => {
       {conservationId ? (
         <div className="mesage-content">
           {/* messages content */}
-          <div className="chat-content">{renderChatMessage(messages)}</div>
+          <div className="chat-content">
+            {renderChatMessage(messages)}
+            <div ref={messagesEndRef}></div>
+          </div>
+
           <form className="chat-handle" onSubmit={handleSubmit}>
             <Input
               value={text}
