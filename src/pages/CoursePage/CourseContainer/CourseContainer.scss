@@ -30,6 +30,9 @@
 
 @media (max-width: 1283px) {
   .course-container {
+    > .title {
+      padding-left: 20px;
+    }
     > .courses {
       max-width: 1000px;
     }
