@@ -167,10 +167,10 @@ const Chapter: React.FC<ChapterProps> = ({
         )}
       </div>
       <div className="list">
-        {lessons.map((lesson, index) => (
-          <React.Fragment key={index}>
+        {lessons.map((lesson, i) => (
+          <React.Fragment key={i}>
             <div className="new">
-              <div className="icon" onClick={() => handleAddLesson(index)}>
+              <div className="icon" onClick={() => handleAddLesson(i)}>
                 <Icon icon="plus" color="black" size={20} />
               </div>
             </div>
@@ -178,7 +178,7 @@ const Chapter: React.FC<ChapterProps> = ({
               lesson={lesson}
               handleUpdateLesson={handleUpdateLesson}
               handleDeleteLesson={handleDeleteLesson}
-              index={index}
+              index={i}
             />
           </React.Fragment>
         ))}

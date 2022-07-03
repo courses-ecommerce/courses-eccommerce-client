@@ -46,10 +46,10 @@ const Lesson: React.FC<LessonProps> = ({
   const [show, setShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [isContent, setIsContent] = useState(false);
-  const [contentType, setContentType] = useState(lesson.videoInfo ? 1 : 0);
+  const [contentType, setContentType] = useState(0);
   const [description, setDescription] = useState(lesson.description);
   const [article, setArticle] = useState("");
-  const [video, setVideo] = useState<IVideo | undefined>();
+  const [video, setVideo] = useState<IVideo>();
   const [value, setValue] = useState("");
   const [editArticle, setEditArticle] = useState(false);
 
@@ -77,8 +77,11 @@ const Lesson: React.FC<LessonProps> = ({
 
   useEffect(() => {
     lesson.title === "default" && setEditTitle(true);
-    lesson.videoInfo && setVideo(lesson.videoInfo);
+    setVideo(lesson.videoInfo || "");
+    setContentType(lesson.videoInfo ? 1 : 0);
   }, [lesson]);
+
+  console.log({ name: lesson.title, video });
 
   return (
     <div className="lesson">
