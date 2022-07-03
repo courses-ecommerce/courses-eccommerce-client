@@ -38,12 +38,16 @@ const MyCourseDetail = () => {
   const [showAccept, setShowAccept] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!isRole) {
+      return;
+    }
     if (isRole === "student") {
       getMyCourseDetail();
     }
     if (isRole === "teacher") {
       getTeacherCourseDetails();
-    } else {
+    }
+    if (isRole === "admin") {
       getAdminCourseDetail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
