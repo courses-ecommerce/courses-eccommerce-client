@@ -35,7 +35,10 @@ const Chapter: React.FC<ChapterProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    chapter.name === "default" && setEditTitle(true);
+    if (chapter.name === "default") {
+      setValue("");
+      setEditTitle(true);
+    }
     setLessons(chapter.lessons);
   }, [chapter]);
 
@@ -153,7 +156,7 @@ const Chapter: React.FC<ChapterProps> = ({
               onClick={() => {
                 if (value) {
                   setEditTitle(false);
-                  handleUpdateChapter(value, index, chapter._id);
+                  handleUpdateChapter(value, index + 1, chapter._id);
                 } else {
                   toast.error("Vui lòng nhập tiêu đề của chương", {
                     position: "bottom-right",
@@ -170,7 +173,7 @@ const Chapter: React.FC<ChapterProps> = ({
         {lessons.map((lesson, i) => (
           <React.Fragment key={i}>
             <div className="new">
-              <div className="icon" onClick={() => handleAddLesson(i)}>
+              <div className="icon" onClick={() => handleAddLesson(i + 1)}>
                 <Icon icon="plus" color="black" size={20} />
               </div>
             </div>
@@ -184,7 +187,10 @@ const Chapter: React.FC<ChapterProps> = ({
         ))}
       </div>
       <div className="new">
-        <div className="icon" onClick={() => handleAddLesson(lessons.length)}>
+        <div
+          className="icon"
+          onClick={() => handleAddLesson(lessons.length + 1)}
+        >
           <Icon icon="plus" color="black" size={20} />
         </div>
       </div>

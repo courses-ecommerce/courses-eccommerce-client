@@ -66,7 +66,7 @@ const Lesson: React.FC<LessonProps> = ({
       } else {
         handleUpdateLesson(
           lesson.title,
-          index,
+          index + 1,
           lesson._id,
           lesson.description,
           _target.files[0]
@@ -76,12 +76,13 @@ const Lesson: React.FC<LessonProps> = ({
   };
 
   useEffect(() => {
-    lesson.title === "default" && setEditTitle(true);
+    if (lesson.title === "default") {
+      setValue("");
+      setEditTitle(true);
+    }
     setVideo(lesson.videoInfo || "");
     setContentType(lesson.videoInfo ? 1 : 0);
   }, [lesson]);
-
-  console.log({ name: lesson.title, video });
 
   return (
     <div className="lesson">
@@ -196,7 +197,7 @@ const Lesson: React.FC<LessonProps> = ({
             onClick={() => {
               if (value) {
                 setEditTitle(false);
-                handleUpdateLesson(value, index, lesson._id);
+                handleUpdateLesson(value, index + 1, lesson._id);
               } else {
                 toast.error("Vui lòng nhập tiêu đề bài học", {
                   position: "bottom-right",
