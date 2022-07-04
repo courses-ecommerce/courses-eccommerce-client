@@ -133,6 +133,17 @@ const TeacherCourseDetail: React.FC = () => {
       .then(() => dispatch(isSuccess()));
   };
 
+  const handleDeleteCourse = () => {
+    dispatch(isPending());
+    courseApi.deleteCourse(slug).then(() => {
+      toast.success("Xóa khóa học thành công", {
+        position: "bottom-right",
+      });
+      dispatch(isSuccess());
+      nav("/teacher/course");
+    });
+  };
+
   return (
     <LayoutContainer>
       <div className="teacher-course-detail">
@@ -177,6 +188,16 @@ const TeacherCourseDetail: React.FC = () => {
             onClick={handleSubmitReview}
           >
             Xuất bản khoá học
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{
+              height: 45,
+            }}
+            onClick={handleDeleteCourse}
+          >
+            Xóa khóa học
           </Button>
         </div>
         <div className="form">
@@ -270,7 +291,7 @@ const TeacherCourseDetail: React.FC = () => {
                   <div className="new">
                     <div
                       className="icon"
-                      onClick={() => handleAddChapter(index)}
+                      onClick={() => handleAddChapter(index + 1)}
                     >
                       <Icon icon="plus" color="black" size={20} />
                     </div>
@@ -286,7 +307,7 @@ const TeacherCourseDetail: React.FC = () => {
               <div className="new">
                 <div
                   className="icon"
-                  onClick={() => handleAddChapter(chapters.length)}
+                  onClick={() => handleAddChapter(chapters.length + 1)}
                 >
                   <Icon icon="plus" color="black" size={20} />
                 </div>
