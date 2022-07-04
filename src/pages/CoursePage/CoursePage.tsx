@@ -93,6 +93,7 @@ const CoursePage = () => {
     try {
       const response = await courseApi.getCourses(params);
       const { courses, total }: any = response;
+      console.log("data", response);
       // console.log("courses", courses);
       setCourses(courses);
       setTotal(numberRound(total / limit));

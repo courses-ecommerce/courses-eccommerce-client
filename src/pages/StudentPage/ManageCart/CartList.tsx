@@ -10,6 +10,7 @@ import paymentApi from "src/apis/paymentApi";
 import { numberLocale } from "src/utils";
 import CartItem from "./CartItem/CartItem";
 import "./CartList.scss";
+import { useNavigate } from "react-router-dom";
 
 const CartList = () => {
   document.title = "Quản lý giỏ hàng";
@@ -20,6 +21,8 @@ const CartList = () => {
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const { amount_cart } = useSelector(selectAuthorization);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCart();
@@ -63,17 +66,37 @@ const CartList = () => {
 
   const handlePayment = async () => {
     setIsLoading(true);
-    const params = { paymentMethod: "vnPay" };
-    try {
-      const response = await paymentApi.postCheckout(params);
-      const { location }: any = response;
-      // console.log(location);
-      window.location.href = location;
-      setIsLoading(false);
-    } catch (error) {
-      console.log("lỗi rồi", { error });
-      toast.warning("Thanh toán lỗi", { position: "bottom-right" });
-      setIsLoading(false);
+    const { estimatedPrice } = cartInfo;
+
+    if (estimatedPrice && estimatedPrice > 0) {
+      const params = { paymentMethod: "vnPay" };
+      try {
+        const response = await paymentApi.postCheckout(params);
+        const { location }: any = response;
+        // console.log(location);
+        window.location.href = location;
+        setIsLoading(false);
+      } catch (error) {
+        console.log("lỗi rồi", { error });
+        toast.warning("Thanh toán lỗi", { position: "bottom-right" });
+        setIsLoading(false);
+      }
+    } else {
+      console.log("mua khoá này");
+
+      try {
+        const response = await paymentApi.postCheckout();
+        const { invoice }: any = response;
+        // console.log("response", response);
+        // window.location.href = invoice._id;
+        toast.success("Mua khoá học thành công", { position: "bottom-right" });
+        navigate(`/invoice/${invoice._id}`);
+        setIsLoading(false);
+      } catch (error) {
+        console.log("lỗi rồi", { error });
+        toast.warning("Thanh toán lỗi", { position: "bottom-right" });
+        setIsLoading(false);
+      }
     }
   };
 
