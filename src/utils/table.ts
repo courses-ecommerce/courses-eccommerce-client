@@ -32,6 +32,9 @@ export const getNewHeaderColumn = (
       if (key === "used") {
         return { [key]: item[key] ? "Đang sử dụng" : "Đang trống" };
       }
+      if (key === "transactionId") {
+        return { [key]: item[key] !== "undefined" ? item[key] : "Miễn phí" };
+      }
       if (
         key === "currentPrice" ||
         key === "originalPrice" ||

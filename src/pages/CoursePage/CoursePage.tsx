@@ -223,24 +223,27 @@ const CoursePage = () => {
         {isRole === "student" && (
           <>
             <Divider />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 12,
-              }}
-            >
-              <CourseContainer
-                title="Khoá Học Gợi Ý"
-                courses={coursesSuggest}
-              />
-              <Pagination
-                pageActive={pageSuggest}
-                total={totalSuggest}
-                onChangeValue={(value: any) => setPageSuggest(value)}
-              />
-            </Box>
+
+            {coursesSuggest.length > 0 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <CourseContainer
+                  title="Khoá Học Gợi Ý"
+                  courses={coursesSuggest}
+                />
+                <Pagination
+                  pageActive={pageSuggest}
+                  total={totalSuggest}
+                  onChangeValue={(value: any) => setPageSuggest(value)}
+                />
+              </Box>
+            )}
           </>
         )}
       </Box>

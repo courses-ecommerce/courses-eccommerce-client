@@ -82,6 +82,7 @@ export interface ICourse {
   saleOff?: number;
   sellNumber?: string;
   slug?: string;
+  isBuyed?: boolean;
   targets?: string[];
   discount?: number;
   type?: string;

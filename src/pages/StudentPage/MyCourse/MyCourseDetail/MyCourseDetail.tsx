@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import myCourseApi from "src/apis/myCourseApi";
 import teacherApi from "src/apis/teacherApi";
@@ -21,7 +21,7 @@ import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
   document.title = "Khoá học của tôi";
-
+  const navigate = useNavigate();
   const { isRole } = useSelector(selectAuthorization);
 
   const dispatch = useDispatch();
@@ -39,7 +39,8 @@ const MyCourseDetail = () => {
 
   useEffect(() => {
     if (!isRole) {
-      return;
+      navigate("/login");
+      // return;
     }
     if (isRole === "student") {
       getMyCourseDetail();

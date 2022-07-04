@@ -1,25 +1,18 @@
-import { Box, Button, Divider, Tooltip } from "@mui/material";
+import { Box, Divider, Tooltip } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import cartApi from "src/apis/cartApi";
 import courseApi from "src/apis/courseApi";
 import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
 import Image from "src/components/Image/Image";
-import Loading from "src/components/Loading/Loading";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Pagination from "src/components/Pagination/Pagination";
 import Rating from "src/components/Rating/Rating";
-import {
-  getPanelActive,
-  getTotalCart,
-  getVideoView,
-  selectAuthorization,
-} from "src/reducers/authSlice";
+import { getPanelActive, getVideoView } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { IRating } from "src/types/myCourse";
 import { numberLocale, numberRound, translateVi } from "src/utils";
+import BtnAddCart from "../BtnAddCart/BtnAddCart";
 import CourseContainer from "../CourseContainer/CourseContainer";
 import CourseRating from "../CourseRating/CourseRating";
 import CourseSummary from "../CourseSummary/CourseSummary";
@@ -29,18 +22,16 @@ import "./CourseDetail.scss";
 const CourseDetail = () => {
   document.title = "Thông tin chi tiết khoá học";
   const { id } = useParams();
-  const { isRole } = useSelector(selectAuthorization);
+
   const navigate = useNavigate();
 
   // console.log("id", id);
 
-  const { isAuth } = useSelector(selectAuthorization);
   const dispatch = useDispatch();
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
   const [courseRelates, setCourseRelates] = useState<ICourse[]>([]);
   const [ratingComents, setRatingComents] = useState<IRating[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   // //search
   const [limit, setLimit] = useState(4);
@@ -109,33 +100,6 @@ const CourseDetail = () => {
       setRatingComents(rates);
     } catch (error) {
       console.log("lỗi rồi", { error });
-    }
-  };
-
-  const handleAddCart = async () => {
-    if (!isAuth) {
-      navigate("/login");
-    } else {
-      const params = { course: courseDetail._id };
-      // console.log("params", params);
-      setIsLoading(true);
-      try {
-        const response = await cartApi.addItemToCart(params);
-        const { carts }: any = response;
-        // console.log("carts", carts.length);
-        dispatch(getTotalCart(carts.length));
-
-        setIsLoading(false);
-        toast.success("Thêm vào giỏ hàng thành công", {
-          position: "bottom-right",
-        });
-      } catch (error) {
-        console.log("lỗi rồi", { error });
-        setIsLoading(false);
-        toast.warning(`${error}`, {
-          position: "bottom-right",
-        });
-      }
     }
   };
 
@@ -210,22 +174,12 @@ const CourseDetail = () => {
                   total_rating={courseDetail.rating?.numOfRate}
                 />
               </span>
-              <Button
-                variant="contained"
-                color="warning"
-                onClick={handleAddCart}
-                disabled={isLoading || (isRole !== "student" && isRole !== "")}
-              >
-                {!isLoading ? (
-                  isRole === "student" || !isRole ? (
-                    "Mua khoá học ngay"
-                  ) : (
-                    "Học sinh mới được mua"
-                  )
-                ) : (
-                  <Loading />
-                )}
-              </Button>
+
+              {/* btn add cart */}
+              <BtnAddCart
+                courseId={courseDetail._id}
+                isBought={courseDetail.isBuyed}
+              />
             </div>
             <CourseSummary
               title="Thông tin chi tiết khoá học"

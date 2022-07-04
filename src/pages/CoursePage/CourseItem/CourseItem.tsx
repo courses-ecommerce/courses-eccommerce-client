@@ -1,15 +1,11 @@
-import { Button, Tooltip } from "@mui/material";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Tooltip } from "@mui/material";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import cartApi from "src/apis/cartApi";
-import Loading from "src/components/Loading/Loading";
 import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
-import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
 import { numberLocale, numberRound, translateVi } from "src/utils";
+import BtnAddCart from "../BtnAddCart/BtnAddCart";
 import CourseModal from "../CourseModal/CourseModal";
 import "./CourseItem.scss";
 
@@ -19,40 +15,9 @@ interface CourseItemProps {
 const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
   const navigate = useNavigate();
 
-  const { isRole } = useSelector(selectAuthorization);
-  const { isAuth } = useSelector(selectAuthorization);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const dispatch = useDispatch();
-
   // console.log(data);
 
   const { nodeRef, show } = useHover();
-
-  const handleAddCart = async () => {
-    if (!isAuth) {
-      navigate("/login");
-    } else {
-      const params = { course: data._id };
-      setIsLoading(true);
-      try {
-        const response = await cartApi.addItemToCart(params);
-        setIsLoading(false);
-        const { carts }: any = response;
-        // console.log("carts", carts.length);
-        dispatch(getTotalCart(carts.length));
-        toast.success("Thêm vào giỏ hàng thành công", {
-          position: "bottom-right",
-        });
-      } catch (error) {
-        console.log("lỗi rồi", { error });
-        setIsLoading(false);
-        toast.warning(`${error}`, {
-          position: "bottom-right",
-        });
-      }
-    }
-  };
 
   return (
     <div className="course-item">
@@ -117,22 +82,8 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
             <b>Giá:</b> <span className="free">Miễn phí</span>
           </span>
         )}
-        <Button
-          variant="contained"
-          color="warning"
-          onClick={handleAddCart}
-          disabled={isLoading || (isRole !== "student" && isRole !== "")}
-        >
-          {!isLoading ? (
-            isRole === "student" || !isRole ? (
-              "Mua khoá học ngay"
-            ) : (
-              "Học sinh mới được mua"
-            )
-          ) : (
-            <Loading />
-          )}
-        </Button>
+
+        <BtnAddCart courseId={data._id} isBought={data.isBuyed} />
       </div>
     </div>
   );
