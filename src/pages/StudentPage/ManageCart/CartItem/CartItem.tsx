@@ -185,7 +185,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
         ) : (
           <span onClick={handleBuyLater}>Mua sau</span>
         )}
-        <span onClick={handleDeleteCart}>Loại bỏ</span>
+        <span onClick={handleDeleteCart}>Xoá khỏi giỏ hàng</span>
       </div>
     </div>
   );
