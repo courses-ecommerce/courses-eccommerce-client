@@ -87,7 +87,11 @@ const PaymentDetail = () => {
             </tr>
             <tr>
               <th>Mã giao dịch</th>
-              <td>{invoice.transactionId}</td>
+              <td>
+                {invoice.transactionId !== "undefined"
+                  ? invoice.transactionId
+                  : "Miễn phí"}
+              </td>
             </tr>
             <tr>
               <th>Tên người mua</th>
