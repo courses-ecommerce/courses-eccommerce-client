@@ -185,6 +185,16 @@ const CoursePage = () => {
           </Box>
         </div>
       </div>
+
+      {/* what for u using to search?? */}
+      <div className="keyword-to-search">
+        {name && (
+          <span className="title">
+            Đang search với từ khoá <span className="key-search">{name}</span>
+          </span>
+        )}
+      </div>
+
       <Box sx={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <Box
           sx={{
