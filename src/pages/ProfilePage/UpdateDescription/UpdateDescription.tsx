@@ -1,5 +1,6 @@
-import { Box, Button, TextField } from "@mui/material";
-import React from "react";
+import { Box, Button } from "@mui/material";
+import React, { useState } from "react";
+import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import teacherApi from "src/apis/teacherApi";
@@ -25,11 +26,12 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const [description, setDescription] = useState<string>();
+
   const handleUpdateDescription = async (e: any) => {
     e.preventDefault();
-    const { description } = e.target;
 
-    const params = { description: description.value };
+    const params = { description };
     // console.log("params truyền là", params);
     dispatch(isPending());
     setShow?.(true);
@@ -65,12 +67,16 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
             gap: 4,
           }}
         >
-          <TextField
-            name="description"
-            fullWidth
+          <ReactQuill
+            // style={{
+            //   height: 70,
+            // }}
             defaultValue={value}
-            label="Nhập nội dung mô tả thông tin cá nhân"
+            theme="snow"
+            onChange={(value) => setDescription(value)}
+            placeholder="Nhập nội dung mô tả thông tin cá nhân."
           />
+
           <Button type="submit" variant="contained">
             Cập nhật mô tả
           </Button>

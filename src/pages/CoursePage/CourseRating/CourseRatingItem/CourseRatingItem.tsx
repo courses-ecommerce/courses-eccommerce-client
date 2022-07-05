@@ -32,11 +32,15 @@ const CourseRatingItem: React.FC<CourseRatingItemProps> = ({
         <b>Đánh giá:</b>
         <Rating isShowTotalRating={false} average_rating={data?.rate} />
       </span>
-
-      <span className="content">
+      <span>
         <b>Nội dung:</b>
-        {data?.content}
       </span>
+      <span
+        className="content"
+        dangerouslySetInnerHTML={{
+          __html: data?.content || "",
+        }}
+      ></span>
     </div>
   );
 };
