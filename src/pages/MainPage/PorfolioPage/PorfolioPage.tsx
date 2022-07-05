@@ -106,10 +106,13 @@ const PorfolioPage = () => {
               )}
               <Divider />
               <h3>Thông tin sơ lược</h3>
-              <span>
-                {teacherInfo?.user?.teacher?.description ||
-                  "Không có thông tin hiển thị"}
-              </span>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html:
+                    teacherInfo?.user?.teacher?.description ||
+                    "Không có thông tin hiển thị",
+                }}
+              ></span>
               {isRole === "teacher" && (
                 <Button
                   variant="contained"

@@ -63,6 +63,11 @@ export interface ChaptersProps {
   number?: number;
   lessons?: LessonProps[];
 }
+export interface SearchKeyProps {
+  original?: string;
+  suggestion?: string;
+}
+
 export interface ICourse {
   _id?: string;
   author?: IUser;

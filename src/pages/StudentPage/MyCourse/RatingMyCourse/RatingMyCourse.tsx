@@ -1,5 +1,6 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
+import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ratingApi from "src/apis/ratingApi";
@@ -29,10 +30,11 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
   // console.log("value laf", value);
 
   const [star, setStar] = useState();
+  const [content, setContent] = useState<string>();
 
   const handleRating = async (e: any) => {
     e.preventDefault();
-    const { rating, content } = e.target;
+    const { rating } = e.target;
     if (!rating.value || rating.value === 0) {
       toast.warning("Số sao rating phải lớn hơn 0", {
         position: "bottom-right",
@@ -40,7 +42,7 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
       return;
     }
 
-    const params = { rate: rating.value * 1, content: content.value, slug };
+    const params = { rate: rating.value * 1, content, slug };
     // console.log("params truyền là", params);
     dispatch(isPending());
     setShow?.(true);
@@ -58,9 +60,10 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
     setShow?.(false);
     dispatch(isSuccess());
   };
+
   const handleRerating = async (e: any) => {
     e.preventDefault();
-    const { rating, content } = e.target;
+    const { rating } = e.target;
     if (!rating.value || rating.value === 0) {
       toast.warning("Số sao rating phải lớn hơn 0", {
         position: "bottom-right",
@@ -68,13 +71,13 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
       return;
     }
 
-    const params = { rate: rating.value * 1, content: content.value };
+    const params = { rate: rating.value * 1, content };
     // console.log("params truyền là", params);
     dispatch(isPending());
     setShow?.(true);
     try {
-      const response = await ratingApi.updateRate(value?._id, params);
-      console.log("adsa", response);
+      await ratingApi.updateRate(value?._id, params);
+      // console.log("adsa", response);
 
       toast.success("Đánh giá khoá học thành công", {
         position: "bottom-right",
@@ -115,10 +118,15 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
                   onChange={(e: any) => setStar(e.target.value)}
                 />
               </span>
-              <TextField
-                name="content"
-                fullWidth
-                label="Nhập nội dung đánh giá"
+
+              <ReactQuill
+                // style={{
+                //   height: 70,
+                // }}
+                defaultValue={content}
+                theme="snow"
+                onChange={(value) => setContent(value)}
+                placeholder="Nhập nội dung đánh giá."
               />
               <Button type="submit" variant="contained">
                 Đánh giá ngay
@@ -150,11 +158,14 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
                   onChange={(e: any) => setStar(e.target.value)}
                 />
               </span>
-              <TextField
+
+              <ReactQuill
+                // style={{
+                //   height: 70,
+                // }}
                 defaultValue={value.content}
-                name="content"
-                fullWidth
-                label="Nhập nội dung đánh giá"
+                theme="snow"
+                onChange={(value) => setContent(value)}
               />
               <Button type="submit" variant="contained" color="warning">
                 Đánh giá lại

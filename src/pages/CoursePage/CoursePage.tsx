@@ -9,7 +9,7 @@ import Pagination from "src/components/Pagination/Pagination";
 import { priceRangeTypes, sortTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { ICourse } from "src/types";
+import { ICourse, SearchKeyProps } from "src/types";
 import { numberRound } from "src/utils";
 import CourseContainer from "./CourseContainer/CourseContainer";
 import "./CoursePage.scss";
@@ -18,6 +18,8 @@ const CoursePage = () => {
   const { isRole } = useSelector(selectAuthorization);
 
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [searchKey, setSearchKey] = useState<SearchKeyProps>();
+  const [totalCourse, setTotalCourse] = useState<number>();
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>();
   const [limit, setLimit] = useState<number>(8);
@@ -54,8 +56,6 @@ const CoursePage = () => {
 
   useEffect(() => {
     getCourses();
-    // console.log("sort", sort, "category", category);
-    // console.log("giá là", price === 0 ? { min: 0 } : price);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, page, sort, category, name, price]);
@@ -92,9 +92,14 @@ const CoursePage = () => {
 
     try {
       const response = await courseApi.getCourses(params);
-      const { courses, total }: any = response;
+      const { courses, searchKey, total }: any = response;
+      // console.log("data", response);
       // console.log("courses", courses);
+      // console.log("searchkey", searchKey);
+
       setCourses(courses);
+      setSearchKey(searchKey);
+      setTotalCourse(total);
       setTotal(numberRound(total / limit));
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -118,7 +123,7 @@ const CoursePage = () => {
     try {
       const response = await courseApi.getCoursesSuggest(params);
       const { courses, total }: any = response;
-      console.log("courses hot", courses);
+      // console.log("courses hot", courses);
       setCoursesSuggest(courses);
       setTotalSuggest(numberRound(total / total));
     } catch (error) {
@@ -162,7 +167,10 @@ const CoursePage = () => {
                 hideErrorMessage={true}
                 defaultValue={category}
                 list={categoryList}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => {
+                  setPage(1);
+                  setCategory(e.target.value);
+                }}
               />
             </Box>
           )}
@@ -172,7 +180,10 @@ const CoursePage = () => {
               hideErrorMessage={true}
               defaultValue={sort}
               list={sortTypes}
-              onChange={(e) => setSort(e.target.value)}
+              onChange={(e) => {
+                setPage(1);
+                setSort(e.target.value);
+              }}
             />
           </Box>
           <Box sx={{ width: 200 }}>
@@ -180,11 +191,35 @@ const CoursePage = () => {
               hideErrorMessage={true}
               defaultValue={price}
               list={priceRangeTypes}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                setPage(1);
+                setPrice(e.target.value);
+              }}
             />
           </Box>
         </div>
       </div>
+
+      {/* what for u using to search?? */}
+      <div className="keyword-to-search">
+        {searchKey?.suggestion && searchKey.original !== "" ? (
+          <>
+            <span className="key-search">
+              Đang search với từ khoá <b>{searchKey.original}</b>
+            </span>
+            <span>
+              Hiển thị kết quả cho từ <b>{searchKey.suggestion}</b>
+            </span>
+          </>
+        ) : totalCourse && totalCourse > 0 ? (
+          <span>
+            Có <b>{totalCourse}</b> kết quả hiển thị
+          </span>
+        ) : (
+          <span>Không có kết quả hiển thị</span>
+        )}
+      </div>
+
       <Box sx={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <Box
           sx={{
@@ -198,7 +233,9 @@ const CoursePage = () => {
           <Pagination
             pageActive={page}
             total={total}
-            onChangeValue={(value: any) => setPage(value)}
+            onChangeValue={(value: any) => {
+              setPage(value);
+            }}
           />
         </Box>
 

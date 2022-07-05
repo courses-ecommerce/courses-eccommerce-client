@@ -7,7 +7,7 @@ const paymentApi = {
   //   const url = PAYMENT_API + "/checkout-cart";
   //   return axiosClient.post(url, params);
   // },
-  postCheckout: (params: any) => {
+  postCheckout: (params?: any) => {
     const url = PAYMENT_API + "/checkout";
     return axiosClient.post(url, params);
   },
