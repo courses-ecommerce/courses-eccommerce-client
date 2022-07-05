@@ -81,8 +81,10 @@ const HistoryPayment = () => {
   }, [pageSize, page]);
 
   const getHistoryPayment = async () => {
+    const params = { limit: pageSize, page };
+
     try {
-      const response = await userApi.getHistoryPayment();
+      const response = await userApi.getHistoryPayment(params);
       // console.log("ádadas", response);
       const { invoices, total }: any = response;
       // console.log("invoices", invoices);
