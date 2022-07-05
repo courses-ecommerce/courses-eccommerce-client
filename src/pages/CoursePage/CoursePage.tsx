@@ -211,12 +211,12 @@ const CoursePage = () => {
               Hiển thị kết quả cho từ <b>{searchKey.suggestion}</b>
             </span>
           </>
+        ) : totalCourse && totalCourse > 0 ? (
+          <span>
+            Có <b>{totalCourse}</b> kết quả hiển thị
+          </span>
         ) : (
-          totalCourse && (
-            <span>
-              Có <b>{totalCourse}</b> kết quả hiển thị
-            </span>
-          )
+          <span>Không có kết quả hiển thị</span>
         )}
       </div>
 
