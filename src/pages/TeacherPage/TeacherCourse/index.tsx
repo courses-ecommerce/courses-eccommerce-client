@@ -79,7 +79,7 @@ const TeacherCourse: React.FC = () => {
   }, []);
 
   return (
-    <LayoutContainer>
+    <LayoutContainer titleShow={false} footerShow={false}>
       <div className="teacher">
         <h2 className="teacher_title">Khoá học của tôi</h2>
 
@@ -124,7 +124,7 @@ const TeacherCourse: React.FC = () => {
                   className="edit"
                   onClick={() => nav("/teacher/course/" + course._id)}
                 >
-                  Edit / manage course
+                  Chỉnh sửa / Quản lý khoá học
                 </div>
                 {/* <div className="item">
                   <span>Finish your course</span>

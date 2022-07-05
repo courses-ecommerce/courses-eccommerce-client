@@ -1,6 +1,7 @@
 import { Divider } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
 import { linkHeader, linkUserProfile } from "src/data/sidebar";
 import useClickOutSide from "src/hooks/useClickOutSide";
@@ -13,8 +14,13 @@ import Icon from "../Icon/Icon";
 import Notification from "../Notification/Notification";
 import "./Header.scss";
 
-const Header = () => {
+interface HeaderProps {
+  titleShow?: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
   const { isRole } = useSelector(selectAuthorization);
+  const navigate = useNavigate();
 
   const { nodeRef, show, setShow } = useClickOutSide();
 
@@ -40,11 +46,15 @@ const Header = () => {
     <>
       {/* for website */}
       <div className="header">
-        <div className="header-img"></div>
+        <div
+          className="header-img"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        ></div>
 
         <div className="header-links">
           {/* <NavLinks links={linkHeader} /> */}
-          {renderSmoothLinks(linkHeader)}
+          {titleShow && renderSmoothLinks(linkHeader)}
         </div>
         <div className="header-profile">
           <Notification type="message" />

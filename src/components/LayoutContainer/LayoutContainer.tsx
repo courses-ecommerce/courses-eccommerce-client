@@ -4,14 +4,20 @@ import Header from "../Header/Header";
 
 interface LayoutContainerProps {
   children: ReactNode;
+  titleShow?: boolean;
+  footerShow?: boolean;
 }
 
-const LayoutContainer: React.FC<LayoutContainerProps> = ({ children }) => {
+const LayoutContainer: React.FC<LayoutContainerProps> = ({
+  children,
+  titleShow = true,
+  footerShow = true,
+}) => {
   return (
     <div>
-      <Header />
+      <Header titleShow={titleShow} />
       <div>{children}</div>
-      <Footer />
+      {footerShow && <Footer />}
     </div>
   );
 };
