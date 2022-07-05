@@ -22,6 +22,7 @@ import ReactQuill from "react-quill";
 import IntendedLearners from "../../IntendedLearners";
 import Requirements from "../../Requirements";
 import Targets from "../../Targets";
+import { ICourseStatues } from "src/types/course";
 
 const TeacherCourseDetail: React.FC = () => {
   const { id } = useParams();
@@ -30,6 +31,7 @@ const TeacherCourseDetail: React.FC = () => {
   const [chapters, setChapters] = useState<IChapter[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
   const [slug, setSlug] = useState("");
+  const [courseStatus, setCourseStatus] = useState();
   const nav = useNavigate();
 
   const formik = useFormik({
@@ -77,11 +79,13 @@ const TeacherCourseDetail: React.FC = () => {
             category,
             slug: _slugCourse,
             chapters: chapterCourse,
+            status,
           } = res.course;
           dispatch(isSuccess());
           setSlug(_slugCourse);
           formik.setValues({ name, description, category: category._id });
           setChapters(chapterCourse);
+          setCourseStatus(status);
         })
         .catch(() => {
           dispatch(isSuccess());
@@ -128,9 +132,14 @@ const TeacherCourseDetail: React.FC = () => {
     dispatch(isPending());
     courseApi
       .updateCourse(slug, {
-        status: "Pending",
+        status: "pending",
       })
-      .then(() => dispatch(isSuccess()));
+      .then(() => {
+        dispatch(isSuccess());
+        toast.success("Chờ admin duyệt khóa học của bạn", {
+          position: "bottom-right",
+        });
+      });
   };
 
   const handleDeleteCourse = () => {
@@ -211,18 +220,25 @@ const TeacherCourseDetail: React.FC = () => {
               : navbar === 3
               ? "Kiến thức bắt buộc cần có?"
               : "Bạn sẽ học được gì?"}
-            {navbar === 1 && (
-              <Button
-                variant="contained"
-                color="warning"
-                sx={{
-                  height: 45,
-                }}
-                onClick={() => nav(`/teacher/course/preview-course/${id}`)}
-              >
-                Xem trước khóa học
-              </Button>
-            )}
+            {navbar === 0
+              ? courseStatus && (
+                  <p>
+                    Trạng thái khóa học:{" "}
+                    <span>{ICourseStatues[courseStatus]}</span>
+                  </p>
+                )
+              : navbar === 1 && (
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    sx={{
+                      height: 45,
+                    }}
+                    onClick={() => nav(`/teacher/course/preview-course/${id}`)}
+                  >
+                    Xem trước khóa học
+                  </Button>
+                )}
           </h2>
           {navbar === 0 ? (
             <form onSubmit={formik.handleSubmit}>
