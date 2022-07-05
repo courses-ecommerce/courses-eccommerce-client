@@ -22,7 +22,7 @@ export const discountTypes = [
 //api my course
 export const myCourseTypes = [
   { value: "createdAt-asc", name: "Khoá học mới nhất" },
-  { value: "progress-asc", name: "Xem nhiều nhất" },
+  { value: "progress-desc", name: "Xem nhiều nhất" },
 ];
 
 export const discountApplyTypes = [

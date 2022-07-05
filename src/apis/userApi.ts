@@ -15,9 +15,9 @@ const userApi = {
     const url = ACCOUNT_API + "/history";
     return axiosClient.get(url);
   },
-  getHistoryPayment: () => {
+  getHistoryPayment: (params?: any) => {
     const url = ACCOUNT_API + "/invoices";
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   getHistoryPaymentDetail: (id?: string) => {
     const url = ACCOUNT_API + "/invoices/" + id;

@@ -154,7 +154,7 @@ const TeacherCourseDetail: React.FC = () => {
   };
 
   return (
-    <LayoutContainer>
+    <LayoutContainer titleShow={false} footerShow={false}>
       <div className="teacher-course-detail">
         <div className="sidebar">
           <h2>Danh sách các mục</h2>
