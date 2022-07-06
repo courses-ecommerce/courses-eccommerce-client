@@ -141,16 +141,23 @@ const CourseDetail = () => {
                 </span>
               </Tooltip>
 
-              <span className="current_price">
-                <b>Giá hiện tại: </b>
-                {courseDetail.currentPrice &&
-                  numberLocale(courseDetail.currentPrice, " đồng")}
+              {courseDetail.currentPrice && courseDetail.currentPrice > 0 ? (
+                <span className="current_price">
+                  <b>Giá hiện tại: </b>
+                  {courseDetail.currentPrice &&
+                    numberLocale(courseDetail.currentPrice, " đồng")}
 
-                <span className="original_price">
-                  {courseDetail.originalPrice &&
-                    numberLocale(courseDetail.originalPrice, " đồng")}
+                  <span className="original_price">
+                    {courseDetail.originalPrice &&
+                      numberLocale(courseDetail.originalPrice, " đồng")}
+                  </span>
                 </span>
-              </span>
+              ) : (
+                <span className="current_price">
+                  <b>Giá hiện tại: </b>
+                  <span className="free">Miễn phí</span>
+                </span>
+              )}
 
               <span>
                 <b>Dành cho: </b>
