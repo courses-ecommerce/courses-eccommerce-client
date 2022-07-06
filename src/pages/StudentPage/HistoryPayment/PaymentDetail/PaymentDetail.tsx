@@ -1,11 +1,13 @@
 import { Button, Divider } from "@mui/material";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import invoicesApi from "src/apis/invoicesApi";
 import Image from "src/components/Image/Image";
 import Loading from "src/components/Loading/Loading";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
+import { selectAuthorization } from "src/reducers/authSlice";
 import { IDetailInvoice, IInvoice } from "src/types/invoice";
 import { numberLocale, translateVi } from "src/utils";
 import formatDate from "src/utils/formatDay";
@@ -15,6 +17,7 @@ import "./PaymentDetail.scss";
 const PaymentDetail = () => {
   document.title = "Thông tin chi tiết hoá đơn";
 
+  const { isAuth } = useSelector(selectAuthorization);
   const { id } = useParams();
 
   const [invoice, setInvoice] = useState<IInvoice>({});
@@ -63,7 +66,7 @@ const PaymentDetail = () => {
 
   return (
     <>
-      {!show && <NavigationHeader />}
+      {!show && isAuth && <NavigationHeader />}
       <div className="payments-detail">
         <span className="title">
           Thông tin chi tiết hoá đơn: <i>{invoice?._id}</i>
