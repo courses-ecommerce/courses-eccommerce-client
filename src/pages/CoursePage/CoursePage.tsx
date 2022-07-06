@@ -95,7 +95,7 @@ const CoursePage = () => {
       const { courses, searchKey, total }: any = response;
       // console.log("data", response);
       // console.log("courses", courses);
-      // console.log("searchkey", searchKey);
+      console.log("searchkey", searchKey);
 
       setCourses(courses);
       setSearchKey(searchKey);
@@ -202,7 +202,7 @@ const CoursePage = () => {
 
       {/* what for u using to search?? */}
       <div className="keyword-to-search">
-        {searchKey?.suggestion && searchKey.original !== "" ? (
+        {name && searchKey?.suggestion && searchKey.original !== "" ? (
           <>
             <span className="key-search">
               Đang search với từ khoá <b>{searchKey.original}</b>

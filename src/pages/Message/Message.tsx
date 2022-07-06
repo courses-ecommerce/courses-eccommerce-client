@@ -17,6 +17,7 @@ const Message: React.FC<MessageProps> = () => {
   const [conservation, setConservation] = useState<IConservation[]>([]);
   const [conservationId, setConservationId] = useState<string>();
   const [receiver, setReceiver] = useState<IUser>();
+  const [indexClick, setIndexClick] = useState<number>(0);
 
   const [newMessage, setNewMessages] = useState<IMessage>();
   const socket = useRef<any>();
@@ -78,11 +79,12 @@ const Message: React.FC<MessageProps> = () => {
       userChatList.map((userItem, index) => (
         <MessageUser
           onClick={() =>
-            handleChooseMessageUser(userItem._id, userItem.receiver)
+            handleChooseMessageUser(userItem._id, userItem.receiver, index + 1)
           }
+          indexActive={index + 1 === indexClick}
           receiver={userItem.receiver}
           message={userItem.message}
-          key={index}
+          key={index + 1}
         />
       ))
     );
@@ -90,9 +92,11 @@ const Message: React.FC<MessageProps> = () => {
 
   const handleChooseMessageUser = (
     conservationId?: string,
-    receiver?: IUser
+    receiver?: IUser,
+    indexUser?: number
   ) => {
     setConservationId(conservationId);
+    setIndexClick(indexUser || 0);
     setReceiver(receiver);
   };
 

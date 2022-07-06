@@ -9,21 +9,27 @@ import "./MessageUser.scss";
 
 interface MessageUserProps {
   receiver?: IUser;
+  indexActive?: boolean;
   message?: IMessage;
   onClick?: () => void;
 }
 
 const MessageUser: React.FC<MessageUserProps> = ({
   receiver,
+  indexActive = false,
   message,
   onClick,
 }) => {
   // console.log("message: ", message);
   // console.log("receiver: ", receiver);
+  // console.log("index lấy được là", indexActive);
   const { userInfo } = useSelector(selectAuthorization);
 
   return (
-    <div className="user-item" onClick={onClick}>
+    <div
+      className={classNames("user-item", indexActive ? "active" : "")}
+      onClick={onClick}
+    >
       <Avatar
         className="avatar"
         alt={receiver?.fullName}
