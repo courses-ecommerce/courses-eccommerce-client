@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { ICourse } from "src/types";
 import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
+import ReactQuill from "react-quill";
 
 export interface ICategories {
   name: string;
@@ -42,24 +43,49 @@ const TeacherCourse: React.FC = () => {
       name: "",
       category: "",
       description: "",
+      originalPrice: "",
+      currentPrice: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Vui lòng nhập khóa học"),
-      description: Yup.string().required("Vui lòng nhập mô tả khóa học"),
+      description: Yup.string().required("Vui lòng nhập nội dung khóa học"),
+      originalPrice: Yup.number().required("Vui lòng nhập giá gốc khóa học"),
+      currentPrice: Yup.number().required(
+        "Vui lòng nhập giá khuyến mãi khóa học"
+      ),
     }),
+    validate: (values) => {
+      let errors = {};
+      if (Number(values.currentPrice) > Number(values.originalPrice)) {
+        errors = {
+          ...errors,
+          currentPrice: "Giá khuyến mãi phải nhỏ hơn giá gốc",
+        };
+      }
+
+      return errors;
+    },
     onSubmit: async (values) => {
       dispatch(isPending());
-      courseApi.createNewCourse(values).then(() => {
-        formik.resetForm({
-          values: {
-            name: "",
-            description: "",
-            category: categories[0].value,
-          },
+      courseApi
+        .createNewCourse({
+          ...values,
+          originalPrice: Number(values.originalPrice),
+          currentPrice: Number(values.currentPrice),
+        })
+        .then(() => {
+          formik.resetForm({
+            values: {
+              name: "",
+              description: "",
+              category: categories[0].value,
+              originalPrice: "",
+              currentPrice: "",
+            },
+          });
+          setShowModal(false);
+          getListCourses();
         });
-        setShowModal(false);
-        getListCourses();
-      });
     },
   });
 
@@ -161,13 +187,39 @@ const TeacherCourse: React.FC = () => {
             />
             <Input
               required
-              label="Mô tả khóa học"
-              placeholder="Nhập mô tả khóa học"
+              label="Giá gốc khóa học"
+              placeholder="1.200.000 đ"
               errorMessage={
-                formik.touched.description ? formik.errors.description : ""
+                formik.touched.originalPrice ? formik.errors.originalPrice : ""
               }
-              {...formik.getFieldProps("description")}
+              {...formik.getFieldProps("originalPrice")}
             />
+            <Input
+              required
+              label="Giá khuyến mãi khóa học"
+              placeholder="1.000.000 đ"
+              errorMessage={
+                formik.touched.currentPrice ? formik.errors.currentPrice : ""
+              }
+              {...formik.getFieldProps("currentPrice")}
+            />
+            <div className="editor">
+              <h2>
+                Nội dung khóa học <span>*</span>
+              </h2>
+              <ReactQuill
+                style={{
+                  height: 70,
+                }}
+                theme="snow"
+                value={formik.values.description}
+                onChange={(value) => formik.setFieldValue("description", value)}
+                placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
+              />
+            </div>
+            {formik.touched.description && (
+              <div className="editor-error">{formik.errors.description}</div>
+            )}
             <InputSelect
               label="Loại khóa học"
               list={categories}
