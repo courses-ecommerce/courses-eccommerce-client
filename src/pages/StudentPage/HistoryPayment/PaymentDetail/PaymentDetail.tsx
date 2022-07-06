@@ -90,7 +90,7 @@ const PaymentDetail = () => {
               <td>
                 {invoice.transactionId !== "undefined"
                   ? invoice.transactionId
-                  : "Miễn phí"}
+                  : "Không có mã giao dịch"}
               </td>
             </tr>
             <tr>
