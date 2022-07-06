@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 import "./TeacherCourseDetail.scss";
@@ -39,19 +39,41 @@ const TeacherCourseDetail: React.FC = () => {
       name: "",
       description: "",
       category: "",
+      originalPrice: "",
+      currentPrice: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Vui lòng nhập khóa học"),
-      description: Yup.string().required("Vui lòng nhập mô tả khóa học"),
+      originalPrice: Yup.number().required("Vui lòng nhập giá gốc khóa học"),
+      currentPrice: Yup.number().required(
+        "Vui lòng nhập giá khuyến mãi khóa học"
+      ),
     }),
+    validate: (values) => {
+      let errors = {};
+      if (Number(values.currentPrice) > Number(values.originalPrice)) {
+        errors = {
+          ...errors,
+          currentPrice: "Giá khuyến mãi phải nhỏ hơn giá gốc",
+        };
+      }
+
+      return errors;
+    },
     onSubmit: async (values) => {
       dispatch(isPending());
-      courseApi.updateCourse(slug, values).then((res: any) => {
-        dispatch(isSuccess());
-        toast.success(res.message, {
-          position: "bottom-right",
+      courseApi
+        .updateCourse(slug, {
+          ...values,
+          originalPrice: Number(values.originalPrice),
+          currentPrice: Number(values.currentPrice),
+        })
+        .then((res: any) => {
+          dispatch(isSuccess());
+          toast.success(res.message, {
+            position: "bottom-right",
+          });
         });
-      });
     },
   });
 
@@ -66,9 +88,7 @@ const TeacherCourseDetail: React.FC = () => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    dispatch(isPending());
-
+  const getCourseDetails = useCallback(() => {
     id &&
       teacherApi
         .getCourseDetails(id)
@@ -80,10 +100,18 @@ const TeacherCourseDetail: React.FC = () => {
             slug: _slugCourse,
             chapters: chapterCourse,
             status,
+            originalPrice,
+            currentPrice,
           } = res.course;
           dispatch(isSuccess());
           setSlug(_slugCourse);
-          formik.setValues({ name, description, category: category._id });
+          formik.setValues({
+            name,
+            description,
+            originalPrice,
+            currentPrice,
+            category: category._id,
+          });
           setChapters(chapterCourse);
           setCourseStatus(status);
         })
@@ -91,8 +119,14 @@ const TeacherCourseDetail: React.FC = () => {
           dispatch(isSuccess());
           nav("/teacher/info");
         });
+
     // eslint-disable-next-line
-  }, [id]);
+  }, []);
+
+  useEffect(() => {
+    dispatch(isPending());
+    getCourseDetails();
+  }, [getCourseDetails, dispatch]);
 
   const handleAddChapter = (index: number) => {
     dispatch(isPending());
@@ -135,7 +169,8 @@ const TeacherCourseDetail: React.FC = () => {
         status: "pending",
       })
       .then(() => {
-        dispatch(isSuccess());
+        getCourseDetails();
+
         toast.success("Chờ admin duyệt khóa học của bạn", {
           position: "bottom-right",
         });
@@ -257,6 +292,28 @@ const TeacherCourseDetail: React.FC = () => {
                   errorMessage={formik.touched.name ? formik.errors.name : ""}
                   {...formik.getFieldProps("name")}
                 />
+                <Input
+                  required
+                  label="Giá gốc khóa học"
+                  placeholder="1.200.000 đ"
+                  errorMessage={
+                    formik.touched.originalPrice
+                      ? formik.errors.originalPrice
+                      : ""
+                  }
+                  {...formik.getFieldProps("originalPrice")}
+                />
+                <Input
+                  required
+                  label="Giá khuyến mãi khóa học"
+                  placeholder="1.000.000 đ"
+                  errorMessage={
+                    formik.touched.currentPrice
+                      ? formik.errors.currentPrice
+                      : ""
+                  }
+                  {...formik.getFieldProps("currentPrice")}
+                />
                 <div className="editor">
                   <h2>
                     Nội dung khóa học <span>*</span>
@@ -273,6 +330,11 @@ const TeacherCourseDetail: React.FC = () => {
                     placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
                   />
                 </div>
+                {formik.touched.description && (
+                  <div className="editor-error">
+                    {formik.errors.description}
+                  </div>
+                )}
                 <InputSelect
                   label="Loại khóa học"
                   list={categories}

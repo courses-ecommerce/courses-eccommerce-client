@@ -42,6 +42,14 @@
       }
     }
 
+    .editor-error {
+      font-size: 12px;
+      height: 15px;
+      margin-top: -14px;
+      font-weight: 600;
+      color: red;
+    }
+
     & > .title {
       height: 100px;
       display: flex;
