@@ -20,3 +20,11 @@
     gap: 10px;
   }
 }
+
+@media (max-width: 430px) {
+  .course-payment-item {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
