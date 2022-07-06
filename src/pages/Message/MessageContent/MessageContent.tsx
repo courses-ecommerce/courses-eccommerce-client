@@ -5,8 +5,10 @@ import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import { IMessage } from "src/types/chat";
 import MessageItem from "./MessageItem/MessageItem";
-import "./MessageContent.scss";
 import { IUser } from "src/types";
+import { translateVi } from "src/utils";
+import { useNavigate } from "react-router-dom";
+import "./MessageContent.scss";
 
 interface MessageContentProps {
   receiver?: IUser;
@@ -21,7 +23,9 @@ const MessageContent: React.FC<MessageContentProps> = ({
 }) => {
   // console.log("đã lấy được conservationId: " + conservationId);
   // console.log("đã lấy được newMessages: " + newMessages?.conversation);
-  console.log("đã lấy được receiver: ", receiver);
+  // console.log("đã lấy được receiver: ", receiver);
+
+  const navigate = useNavigate();
 
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -112,8 +116,18 @@ const MessageContent: React.FC<MessageContentProps> = ({
           <div className="receiver">
             <Avatar alt={receiver?.fullName} src={receiver?.avatar} />
             <div className="receiver-info">
-              <span className="name">{receiver?.fullName}</span>
-              <span className="role">Chức vụ: Giáo Viên </span>
+              <span
+                className="name"
+                onClick={() =>
+                  receiver?.account?.role === "teacher" &&
+                  navigate(`/user/${receiver._id}`)
+                }
+              >
+                {receiver?.fullName}
+              </span>
+              <span className="role">
+                {translateVi(receiver?.account?.role)}
+              </span>
             </div>
           </div>
           {/* messages content */}

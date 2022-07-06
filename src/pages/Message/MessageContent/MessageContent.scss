@@ -18,6 +18,11 @@
       line-height: 22px;
       > .name {
         font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
       > .role {
         font-size: 14px;
