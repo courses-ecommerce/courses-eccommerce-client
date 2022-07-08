@@ -1,14 +1,12 @@
-import { Box } from "@mui/material";
+import { Box } from "@mui/system";
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import courseApi from "src/apis/courseApi";
+import invoicesApi from "src/apis/invoicesApi";
 import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
-import { statusCourseTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICourse } from "src/types";
+import { IInvoice } from "src/types/invoice";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 
 const columsHeader: GridColDef[] = [
@@ -26,6 +24,25 @@ const columsHeader: GridColDef[] = [
     headerAlign: "center",
   },
   {
+    field: "transactionId",
+    headerName: "Mã giao dịch",
+    width: 180,
+    align: "center",
+    headerAlign: "center",
+  },
+  {
+    field: "paymentMethod",
+    headerName: "Phương thức thanh toán",
+    width: 200,
+  },
+  {
+    field: "createdAt",
+    headerName: "Ngày mua",
+    width: 180,
+    align: "center",
+    headerAlign: "center",
+  },
+  {
     field: "status",
     headerName: "Trạng thái",
     width: 120,
@@ -33,35 +50,24 @@ const columsHeader: GridColDef[] = [
     headerAlign: "center",
   },
   {
-    field: "name",
-    headerName: "Tên khoá học",
-    width: 400,
-  },
-  {
-    field: "author",
-    headerName: "Tác giả",
+    field: "fullName",
+    headerName: "Người mua",
     width: 150,
   },
   {
-    field: "originalPrice",
-    headerName: "Giá gốc",
-    width: 150,
-  },
-  {
-    field: "currentPrice",
-    headerName: "Giá hiện tại",
+    field: "totalPrice",
+    headerName: "Thành tiền",
     width: 150,
   },
 ];
 
-const CourseList = () => {
-  document.title = "Quản lý khoá học";
-  const [loading, setLoading] = useState<boolean>(false);
-  const [courses, setCourses] = useState<ICourse[]>([]);
-  // const [publish, setPublish] = useState<boolean>(true);
+export default function InvoiceList() {
+  document.title = "Quản lý hoá đơn";
 
-  //for search
-  const [status, setStatus] = useState<string>("approved");
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [invoices, setInvoices] = useState<IInvoice[]>([]);
 
   //pagination
   const [total, setTotal] = useState<number>(0);
@@ -73,39 +79,44 @@ const CourseList = () => {
   const debouncedValue = useTypingDebounce(value);
   const [name, setName] = useState<string>();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    getCourses();
+    getInvoices();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, pageSize, name, status]);
+  }, [page, pageSize, name]);
 
   useEffect(() => {
     setName(debouncedValue);
   }, [debouncedValue]);
 
-  const getCourses = async () => {
+  //   const goToCourseDetail = (id: any) => {
+  //     let data: any;
+  //     data = invoices.filter((invoices) => invoices._id === id);
+  //     // console.log("data nef", data[0].slug);
+  //     navigate(`${data[0].slug}`);
+  //   };
+
+  const getInvoices = async () => {
     setLoading(true);
-    const params = { page, limit: pageSize, name, status };
-
+    const params = { page, limit: pageSize, name };
     try {
-      const response = await courseApi.getCourses(params);
-      const { courses, total }: any = response;
-      // console.log("course", response);
-      if (courses.length > 0) {
-        const keys = getHeaderColumns(courses[0]);
-        const data = getNewHeaderColumn(courses, keys, page, pageSize);
+      const response = await invoicesApi.getInvoices(params);
+      //   console.log("response", response);
+      const { invoices, total }: any = response;
 
-        const courseData = data.map((data, index) => {
+      if (invoices.length > 0) {
+        const keys = getHeaderColumns(invoices[0]);
+        const data = getNewHeaderColumn(invoices, keys, page, pageSize);
+
+        const invoiceData = data.map((data, index) => {
           return {
             ...data,
-            author: courses[index].author.fullName,
+            fullName: invoices[index].user.fullName,
           };
         });
-        // console.log("courseData", courseData);
-        setCourses(courseData);
+        console.log("courseData", invoiceData);
+        setInvoices(invoiceData);
       } else {
-        setCourses(courses);
+        setInvoices(invoices);
       }
 
       setLoading(false);
@@ -114,13 +125,6 @@ const CourseList = () => {
       setLoading(false);
       console.log("lỗi rồi", { error });
     }
-  };
-
-  const goToCourseDetail = (id: any) => {
-    let data: any;
-    data = courses.filter((course) => course._id === id);
-    // console.log("data nef", data[0].slug);
-    navigate(`${data[0].slug}`);
   };
 
   return (
@@ -141,29 +145,22 @@ const CourseList = () => {
           />
 
           {/* <InputSelect
-            defaultValue={publish}
-            list={statusTypes}
-            onChange={(e) => setPublish(e.target.value)}
-          /> */}
-
-          <InputSelect
-            defaultValue={status}
-            list={statusCourseTypes}
-            onChange={(e) => setStatus(e.target.value)}
-          />
+        defaultValue={publish}
+        list={statusTypes}
+        onChange={(e) => setPublish(e.target.value)}
+      /> */}
         </Box>
       }
-      titleBtnAdd="Tạo tài khoản mới"
       isLoading={loading}
-      title="Danh sách thông tin khoá học"
+      title="Danh sách thông tin hoá đơn"
       columnsData={columsHeader}
       getRowId={(row) => row._id}
       onPage={(page) => setPage(Number(page))}
       onPageSize={(pageSize) => setPageSize(Number(pageSize))}
       total={total}
-      rowsData={courses}
+      rowsData={invoices}
       btnAdd={false}
-      onViewItemDetail={goToCourseDetail}
+      //   onViewItemDetail={goToCourseDetail}
       isModify={false}
       btnMultiDeleted={false}
       isCheckBoxSelection={false}
@@ -173,6 +170,4 @@ const CourseList = () => {
       // onDeleteSelectMultiItem={handleMultiDeleted}
     />
   );
-};
-
-export default CourseList;
+}

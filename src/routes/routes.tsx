@@ -32,6 +32,7 @@ import TeacherCourse from "src/pages/TeacherPage/TeacherCourse";
 import TeacherInfo from "src/pages/TeacherPage/TeacherInfo";
 import TeacherRevenue from "src/pages/TeacherPage/TeacherRevenue/TeacherRevenue";
 import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
+import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
 
 // main route
 const MAIN_ROUTE = [
@@ -159,15 +160,22 @@ const DASHBOARD_ROUTE = [
         icon: "newspaper-o",
       },
       {
-        path: "dashboard/course",
+        path: "dashboard/courses",
         title: "Quản lý khoá học",
-        href: "/admin/dashboard/course",
+        href: "/admin/dashboard/courses",
         element: <CourseList />,
         icon: "book",
       },
       {
-        path: "dashboard/coupon",
-        href: "/admin/dashboard/coupon",
+        path: "dashboard/invoices",
+        title: "Quản lý hoá đơn",
+        href: "/admin/dashboard/invoices",
+        element: <InvoiceList />,
+        icon: "file-text-o",
+      },
+      {
+        path: "dashboard/coupons",
+        href: "/admin/dashboard/coupons",
         element: <CouponList />,
         title: "Quản lý khuyến mãi",
         icon: "barcode",

@@ -6,7 +6,7 @@ export const genderTypes = [
 ];
 export const accountTypes = [
   { value: "student", name: "Học sinh" },
-  { value: "teacher", name: "Giáo viên" },
+  { value: "teacher", name: "Giảng viên" },
   { value: "admin", name: "Quản trị viên" },
 ];
 export const statusTypes = [
@@ -81,6 +81,7 @@ export const statusCourseTypes = [
   // { value: "draft", name: "Đang nháp" },
   { value: "pending", name: "Đang chờ duyệt" },
   { value: "approved", name: "Đã duyệt" },
+  { value: "updating", name: "Đang update" },
   { value: "denied", name: "Từ chối" },
 ];
 
