@@ -107,8 +107,15 @@ const STUDENT_ROUTE = [
     element: <MyCourseDetail />,
   },
 ];
+
+// director route
 const DIRECTOR_ROUTE = [
   { role: "director", path: "/director", element: <StudentPage /> },
+  {
+    role: "director",
+    path: "/director/revenue-teachers/:id",
+    element: <RevenueTeacherDetail />,
+  },
 ];
 
 // Teacher route
