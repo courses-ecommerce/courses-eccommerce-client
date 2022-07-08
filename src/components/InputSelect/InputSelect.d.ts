@@ -17,4 +17,5 @@ declare interface InputSelectProps {
   onBlur?: (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => void;
+  placeholder?: string;
 }

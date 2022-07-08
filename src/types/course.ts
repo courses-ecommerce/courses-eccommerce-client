@@ -10,8 +10,11 @@ export interface IGetCourse {
   author?: string;
 }
 
+export type CourseType = "draft" | "pending" | "approved" | "denied";
+
 export enum ICourseStatues {
   draft = "Bản nháp",
   pending = "Đang chờ duyệt",
   approved = "Đã duyệt",
+  denied = "Từ chối",
 }

@@ -16,6 +16,9 @@ import { ICourse } from "src/types";
 import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import ReactQuill from "react-quill";
+import { ICourseStatues } from "src/types/course";
+import { dateCourseTypes, statusCourseTypes } from "src/data";
+import Loading from "src/components/Loading/Loading";
 
 export interface ICategories {
   name: string;
@@ -28,14 +31,25 @@ const TeacherCourse: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState({
+    name: "",
+    status: "",
+    sort: "",
+  });
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-  const getListCourses = () => {
-    teacherApi.getCourses().then((res: any) => {
-      dispatch(isSuccess());
-      setCourses(res.courses);
-    });
+  const getListCourses = (params?: Object) => {
+    !loading && setLoading(true);
+    teacherApi
+      .getCourses(params)
+      .then((res: any) => {
+        setLoading(false);
+        dispatch(isSuccess());
+        setCourses(res.courses);
+      })
+      .catch(() => setLoading(false));
   };
 
   const formik = useFormik({
@@ -104,6 +118,16 @@ const TeacherCourse: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      getListCourses(filter);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [filter]);
+
   return (
     <LayoutContainer titleShow={false} footerShow={false}>
       <div className="teacher">
@@ -113,6 +137,27 @@ const TeacherCourse: React.FC = () => {
           <Input
             style={{ width: 300 }}
             placeholder="Nhập tên khoá học của bạn"
+            value={filter.name}
+            onChange={(e) =>
+              setFilter({
+                ...filter,
+                name: (e.target as HTMLInputElement).value,
+              })
+            }
+          />
+          <InputSelect
+            style={{ width: 225 }}
+            placeholder="Chọn trạng thái khóa học"
+            defaultValue={filter.status}
+            list={statusCourseTypes}
+            onChange={(e) => setFilter({ ...filter, status: e.target.value })}
+          />
+          <InputSelect
+            style={{ width: 225 }}
+            placeholder="Chọn thời gian khóa học"
+            defaultValue={filter.sort}
+            list={dateCourseTypes}
+            onChange={(e) => setFilter({ ...filter, sort: e.target.value })}
           />
           <Button
             variant="contained"
@@ -120,39 +165,53 @@ const TeacherCourse: React.FC = () => {
             onClick={() => setShowModal(true)}
             sx={{
               height: 45,
+              marginLeft: "auto",
             }}
           >
             Tạo khoá học mới
           </Button>
         </div>
 
-        <div className="teacher_course-list">
-          {courses.map((course, index) => (
-            <div className="teacher_course-item" key={index}>
-              <div className="left">
-                <img
-                  src="https://s.udemycdn.com/course/200_H/placeholder.jpg"
-                  alt="course"
-                />
-              </div>
-              <div className="right">
-                <div className="item">
-                  <span>{course.name}</span>
-                  <span
-                    className="description"
-                    dangerouslySetInnerHTML={{
-                      __html: course.description || "",
-                    }}
+        {loading ? (
+          <Loading />
+        ) : courses.length === 0 ? (
+          <div className="teacher_none">
+            Hiện tại chưa khóa học nào được tạo
+          </div>
+        ) : (
+          <div className="teacher_course-list">
+            {courses.map((course, index) => (
+              <div className="teacher_course-item" key={index}>
+                <div className="left">
+                  <img
+                    src="https://s.udemycdn.com/course/200_H/placeholder.jpg"
+                    alt="course"
                   />
                 </div>
-                <div className="overlay"></div>
-                <div
-                  className="edit"
-                  onClick={() => nav("/teacher/course/" + course._id)}
-                >
-                  Chỉnh sửa / Quản lý khoá học
-                </div>
-                {/* <div className="item">
+                <div className="right">
+                  <div className="item">
+                    <span>{course.name}</span>
+                    <span
+                      className="description"
+                      dangerouslySetInnerHTML={{
+                        __html: course.description || "",
+                      }}
+                    />
+                  </div>
+                  <div className="overlay"></div>
+                  <div
+                    className="edit"
+                    onClick={() => nav("/teacher/course/" + course._id)}
+                  >
+                    Chỉnh sửa / Quản lý khoá học
+                  </div>
+                  <div className="item">
+                    Trạng thái khóa học:{" "}
+                    <span>
+                      {course.status && ICourseStatues[course.status]}
+                    </span>
+                  </div>
+                  {/* <div className="item">
                   <span>Finish your course</span>
                   <span>
                     <LinearProgress
@@ -162,10 +221,11 @@ const TeacherCourse: React.FC = () => {
                     />
                   </span>
                 </div> */}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <ModalContainer

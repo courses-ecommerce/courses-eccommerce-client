@@ -1,3 +1,5 @@
+import { ICourseStatues } from "src/types/course";
+
 const ONE_HUNDRED_THOUSAND = 100000;
 
 export const genderTypes = [
@@ -78,11 +80,17 @@ export const priceRangeTypes = [
 
 //course
 export const statusCourseTypes = [
-  { value: "draft", name: "Đang nháp" },
-  { value: "pending", name: "Đang chờ duyệt" },
-  { value: "approved", name: "Đã duyệt" },
-  { value: "updating", name: "Đang update" },
-  { value: "denied", name: "Từ chối" },
+  { value: "", name: "-" },
+  { value: "draft", name: ICourseStatues.draft },
+  { value: "pending", name: ICourseStatues.pending },
+  { value: "approved", name: ICourseStatues.approved },
+  { value: "denied", name: ICourseStatues.denied },
+];
+
+export const dateCourseTypes = [
+  { value: "", name: "-" },
+  { value: "createdAt-desc", name: "Khóa học mới nhất" },
+  { value: "createdAt-asc", name: "Khóa học cũ nhất" },
 ];
 
 // statistic
