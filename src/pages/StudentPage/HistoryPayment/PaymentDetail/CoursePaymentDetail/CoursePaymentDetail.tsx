@@ -30,6 +30,10 @@ const CoursePaymentDetail: React.FC<CoursePaymentDetailProps> = ({ data }) => {
           {data?.courseName}
         </span>
         <span>
+          <b>Tên tác giả: </b>
+          {data?.courseAuthor?.fullName}
+        </span>
+        <span>
           <b>Giá gốc: </b>
           {numberLocale(data?.courseCurrentPrice, " đồng")}
         </span>

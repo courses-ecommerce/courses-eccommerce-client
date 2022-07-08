@@ -33,7 +33,7 @@ const PaymentDetail = () => {
   const getPaymenyDetail = async () => {
     try {
       const response = await invoicesApi.getInvoiceDetail(id);
-      // console.log("payment detail là", response);
+      console.log("payment detail là", response);
       const { invoice }: any = response;
       const { detailInvoices }: any = invoice;
       // console.log("invoice là", invoice[0]);
@@ -95,6 +95,10 @@ const PaymentDetail = () => {
                   ? invoice.transactionId
                   : "Không có mã giao dịch"}
               </td>
+            </tr>
+            <tr>
+              <th>Mã người mua</th>
+              <td>{invoice.user?._id}</td>
             </tr>
             <tr>
               <th>Tên người mua</th>

@@ -17,7 +17,7 @@ const AvatarUser = () => {
           <span className="name">{userInfo.fullName}</span>
 
           <span className="role">
-            Chức vụ:
+            {/* Chức vụ: */}
             {isRole && <span> {translateVi(isRole)}</span>}
           </span>
         </div>

@@ -34,6 +34,12 @@ const columsHeader: GridColDef[] = [
     field: "paymentMethod",
     headerName: "Phương thức thanh toán",
     width: 200,
+    align: "center",
+  },
+  {
+    field: "fullName",
+    headerName: "Người mua",
+    width: 180,
   },
   {
     field: "createdAt",
@@ -45,19 +51,14 @@ const columsHeader: GridColDef[] = [
   {
     field: "status",
     headerName: "Trạng thái",
-    width: 120,
+    width: 140,
     align: "center",
     headerAlign: "center",
   },
   {
-    field: "fullName",
-    headerName: "Người mua",
-    width: 150,
-  },
-  {
-    field: "totalPrice",
+    field: "paymentPrice",
     headerName: "Thành tiền",
-    width: 150,
+    width: 160,
   },
 ];
 
@@ -76,28 +77,29 @@ export default function InvoiceList() {
 
   //debounce
   const [value, setValue] = useState<string>();
+  const [valueName, setValueName] = useState<string>();
   const debouncedValue = useTypingDebounce(value);
-  const [name, setName] = useState<string>();
+  const debouncedValueName = useTypingDebounce(valueName);
+  const [transaction, setTransaction] = useState<string>();
+  const [user, setUser] = useState<string>();
 
   useEffect(() => {
     getInvoices();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, pageSize, name]);
+  }, [page, pageSize, transaction, user]);
 
+  //transaction id
   useEffect(() => {
-    setName(debouncedValue);
+    setTransaction(debouncedValue);
   }, [debouncedValue]);
-
-  //   const goToCourseDetail = (id: any) => {
-  //     let data: any;
-  //     data = invoices.filter((invoices) => invoices._id === id);
-  //     // console.log("data nef", data[0].slug);
-  //     navigate(`${data[0].slug}`);
-  //   };
+  // buyers
+  useEffect(() => {
+    setUser(debouncedValueName);
+  }, [debouncedValueName]);
 
   const getInvoices = async () => {
     setLoading(true);
-    const params = { page, limit: pageSize, name };
+    const params = { page, limit: pageSize, transaction, user };
     try {
       const response = await invoicesApi.getInvoices(params);
       //   console.log("response", response);
@@ -113,7 +115,7 @@ export default function InvoiceList() {
             fullName: invoices[index].user.fullName,
           };
         });
-        console.log("courseData", invoiceData);
+        // console.log("courseData", invoiceData);
         setInvoices(invoiceData);
       } else {
         setInvoices(invoices);
@@ -140,15 +142,14 @@ export default function InvoiceList() {
         >
           <Input
             style={{ width: 250 }}
-            placeholder="Nhập tên khoá học"
+            placeholder="Nhập mã giao dịch"
             onChange={(e: any) => setValue(e.target.value)}
           />
-
-          {/* <InputSelect
-        defaultValue={publish}
-        list={statusTypes}
-        onChange={(e) => setPublish(e.target.value)}
-      /> */}
+          <Input
+            style={{ width: 250 }}
+            placeholder="Nhập mã người mua"
+            onChange={(e: any) => setValueName(e.target.value)}
+          />
         </Box>
       }
       isLoading={loading}
@@ -160,7 +161,7 @@ export default function InvoiceList() {
       total={total}
       rowsData={invoices}
       btnAdd={false}
-      //   onViewItemDetail={goToCourseDetail}
+      onViewItemDetail={(id) => navigate(`${id}`)}
       isModify={false}
       btnMultiDeleted={false}
       isCheckBoxSelection={false}

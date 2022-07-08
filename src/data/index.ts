@@ -78,7 +78,7 @@ export const priceRangeTypes = [
 
 //course
 export const statusCourseTypes = [
-  // { value: "draft", name: "Đang nháp" },
+  { value: "draft", name: "Đang nháp" },
   { value: "pending", name: "Đang chờ duyệt" },
   { value: "approved", name: "Đã duyệt" },
   { value: "updating", name: "Đang update" },
