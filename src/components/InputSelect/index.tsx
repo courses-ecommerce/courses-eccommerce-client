@@ -22,6 +22,7 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
     hideErrorMessage = false,
     border = true,
     disabled = false,
+    placeholder,
     ...rest
   } = props;
 
@@ -51,6 +52,16 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
       <FormControl fullWidth>
         <Select
           disabled={disabled}
+          displayEmpty
+          renderValue={
+            defaultValue
+              ? undefined
+              : () => (
+                  <Box sx={{ color: "#aaa", fontWeight: "normal" }}>
+                    {placeholder}
+                  </Box>
+                )
+          }
           onChange={handleChange}
           inputProps={{
             name,

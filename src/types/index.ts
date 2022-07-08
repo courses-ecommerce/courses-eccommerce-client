@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { CourseType } from "./course";
 
 export interface IRoute {
   name: string;
@@ -91,6 +92,7 @@ export interface ICourse {
   targets?: string[];
   discount?: number;
   type?: string;
+  status?: CourseType;
 }
 
 export interface IAccount {

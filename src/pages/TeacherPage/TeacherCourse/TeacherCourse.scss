@@ -11,9 +11,21 @@
     font-weight: bold;
   }
 
+  &_none {
+    border-radius: 16px;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 200px;
+  }
+
   &_navbar {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
   }
 
   &_course {
@@ -25,13 +37,15 @@
 
     &-item {
       display: flex;
-      height: 120px;
+      height: 150px;
       width: 100%;
       border: 1px solid #d1d7dc;
+      border-radius: 16px;
+      overflow: hidden;
 
       & > .left {
-        width: 118px;
-        height: 118px;
+        width: 150px;
+        height: 150px;
 
         & > img {
           // min-width: 118px;
@@ -43,6 +57,7 @@
 
       & > .right {
         position: relative;
+        justify-content: space-between;
         display: flex;
         width: 100%;
         padding: 24px;
@@ -104,19 +119,27 @@
           }
 
           &:last-child {
-            width: 75%;
             display: flex;
-            align-items: center;
+            gap: 0.4rem;
+            font-size: 14px;
+            font-weight: bold;
 
             & > span {
-              font-weight: bold;
-              font-size: 16px;
-              width: 150px;
-
-              &:last-child {
-                width: calc(100% - 150px);
-              }
+              color: red;
             }
+            // width: 75%;
+            // display: flex;
+            // align-items: center;
+
+            // & > span {
+            //   font-weight: bold;
+            //   font-size: 16px;
+            //   width: 150px;
+
+            //   &:last-child {
+            //     width: calc(100% - 150px);
+            //   }
+            // }
           }
         }
       }
