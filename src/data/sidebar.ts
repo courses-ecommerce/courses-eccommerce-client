@@ -17,4 +17,6 @@ export const linkUserProfile: IRoute[] = [
   { name: "Quản lý khóa học", path: "/teacher/course", role: "teacher" },
   //for student
   { name: "Thông tin cá nhân", path: "/student/info", role: "student" },
+  //for director
+  { name: "Thông tin cá nhân", path: "/director/info", role: "director" },
 ];

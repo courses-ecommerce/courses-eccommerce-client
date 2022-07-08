@@ -7,13 +7,13 @@ import usertApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { IUser } from "src/types";
-import { checkGender } from "src/utils";
+import { checkGender, translateVi } from "src/utils";
 import formatDate from "src/utils/formatDay";
 import ItemInfo from "../../components/ItemInfo/ItemInfo";
-import "./ProfilePage.scss";
 import UpdateDescription from "./UpdateDescription/UpdateDescription";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
+import "./ProfilePage.scss";
 
 const ProfilePage = () => {
   document.title = "Thông tin chi tiết cá nhân";
@@ -58,7 +58,10 @@ const ProfilePage = () => {
             </div>
             <div className="content">
               <ItemInfo title="Tên:" value={info.fullName} />
-              <ItemInfo title="Chức vụ:" value={info.account?.role} />
+              <ItemInfo
+                title="Chức vụ:"
+                value={translateVi(info.account?.role)}
+              />
               <ItemInfo title="Email:" value={info.account?.email} />
               <ItemInfo title="Giới tính:" value={checkGender(info.gender)} />
               <ItemInfo title="Số điện thoại:" value={info.phone} />

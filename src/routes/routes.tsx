@@ -31,6 +31,7 @@ import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourse/TeacherCour
 import TeacherCourse from "src/pages/TeacherPage/TeacherCourse";
 import TeacherInfo from "src/pages/TeacherPage/TeacherInfo";
 import TeacherRevenue from "src/pages/TeacherPage/TeacherRevenue/TeacherRevenue";
+import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
 
 // main route
 const MAIN_ROUTE = [
@@ -100,6 +101,9 @@ const STUDENT_ROUTE = [
     element: <MyCourseDetail />,
   },
 ];
+const DIRECTOR_ROUTE = [
+  { role: "director", path: "/director", element: <StudentPage /> },
+];
 
 // Teacher route
 const TEACHER_ROUTE = [
@@ -127,6 +131,7 @@ const TEACHER_ROUTE = [
 
 //Dash board routes
 const DASHBOARD_ROUTE = [
+  // admin routes
   {
     role: "admin",
     path: "/admin",
@@ -221,7 +226,7 @@ const DASHBOARD_ROUTE = [
       },
     ],
   },
-
+  // student routes
   {
     role: "student",
     path: "/student",
@@ -264,7 +269,7 @@ const DASHBOARD_ROUTE = [
       },
     ],
   },
-
+  // teacher routes
   {
     role: "teacher",
     path: "/teacher",
@@ -307,12 +312,42 @@ const DASHBOARD_ROUTE = [
       },
     ],
   },
+  // director routes
+  {
+    role: "director",
+    path: "/director",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "info",
+        href: "/director/info",
+        element: <ProfilePage />,
+        title: "Thông tin cá nhân",
+        icon: "info-circle",
+      },
+      {
+        path: "over-view",
+        href: "/director/over-view",
+        element: <OverviewSystem />,
+        title: "Tổng quan hệ thống",
+        icon: "gears",
+      },
+      {
+        path: "revenue-teachers",
+        href: "/director/revenue-teachers",
+        element: <RevenueTeacherStatistic />,
+        title: "Doanh thu giảng viên",
+        icon: "money",
+      },
+    ],
+  },
 ];
 
 export {
   MAIN_ROUTE,
   AUTH_ROUTE,
   ADMIN_ROUTE,
+  DIRECTOR_ROUTE,
   TEACHER_ROUTE,
   STUDENT_ROUTE,
   DASHBOARD_ROUTE,
