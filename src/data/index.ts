@@ -105,8 +105,8 @@ export const revenueSortTypes = [
 export const numberRangeTypes = [
   { value: 3, name: "Hiển thị 3" },
   { value: 5, name: "Hiển thị 5" },
-  // { value: 10, name: "Hiển thị 10" },
-  // { value: 20, name: "Hiển thị 20" },
+  { value: 10, name: "Hiển thị 10" },
+  { value: 20, name: "Hiển thị 20" },
 ];
 export const yearNumberCompare = [
   { value: 1, name: "1 năm" },
