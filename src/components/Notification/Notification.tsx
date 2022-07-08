@@ -28,7 +28,7 @@ const Notification: React.FC<NotificationProps> = ({
     if (!isAuth) {
       navigate("/login");
     } else {
-      navigate(`${isRole}/message`);
+      navigate(`/${isRole}/message`);
     }
   };
 

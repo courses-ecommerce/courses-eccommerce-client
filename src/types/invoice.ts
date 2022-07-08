@@ -6,13 +6,17 @@ export interface IPayMent {
   cardNumber?: string;
   name?: string;
 }
+export interface ICourseAuthor {
+  _id?: string;
+  fullName?: string;
+}
 
 export interface IDetailInvoice {
   _id?: string;
   amount?: number;
   courseThumbnail?: string;
   couponCode?: string;
-  courseAuthor?: string;
+  courseAuthor?: ICourseAuthor;
   courseCurrentPrice?: number;
   courseId?: string;
   courseName?: string;

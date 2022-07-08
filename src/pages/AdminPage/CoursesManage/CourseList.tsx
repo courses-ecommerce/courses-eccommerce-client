@@ -91,7 +91,7 @@ const CourseList = () => {
     try {
       const response = await courseApi.getCourses(params);
       const { courses, total }: any = response;
-      console.log("course", response);
+      // console.log("course", response);
       if (courses.length > 0) {
         const keys = getHeaderColumns(courses[0]);
         const data = getNewHeaderColumn(courses, keys, page, pageSize);
@@ -102,7 +102,7 @@ const CourseList = () => {
             author: courses[index].author.fullName,
           };
         });
-        console.log("courseData", courseData);
+        // console.log("courseData", courseData);
         setCourses(courseData);
       } else {
         setCourses(courses);

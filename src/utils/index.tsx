@@ -19,6 +19,10 @@ export const translateVi = (name?: string) => {
       return "Học viên";
     case "teacher":
       return "Giảng viên";
+    case "admin":
+      return "Quản trị viên";
+    case "director":
+      return "Giám đốc điều hành";
 
     //user
     case "fullName":

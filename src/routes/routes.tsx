@@ -31,6 +31,8 @@ import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourse/TeacherCour
 import TeacherCourse from "src/pages/TeacherPage/TeacherCourse";
 import TeacherInfo from "src/pages/TeacherPage/TeacherInfo";
 import TeacherRevenue from "src/pages/TeacherPage/TeacherRevenue/TeacherRevenue";
+import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
+import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
 
 // main route
 const MAIN_ROUTE = [
@@ -81,6 +83,11 @@ const ADMIN_ROUTE = [
   },
   {
     role: "admin",
+    path: "/admin/dashboard/invoices/:id",
+    element: <PaymentDetail />,
+  },
+  {
+    role: "admin",
     path: "admin/dashboard/course/:id",
     element: <MyCourseDetail />,
   },
@@ -99,6 +106,9 @@ const STUDENT_ROUTE = [
     path: "/student/my-course/:id",
     element: <MyCourseDetail />,
   },
+];
+const DIRECTOR_ROUTE = [
+  { role: "director", path: "/director", element: <StudentPage /> },
 ];
 
 // Teacher route
@@ -127,6 +137,7 @@ const TEACHER_ROUTE = [
 
 //Dash board routes
 const DASHBOARD_ROUTE = [
+  // admin routes
   {
     role: "admin",
     path: "/admin",
@@ -154,15 +165,22 @@ const DASHBOARD_ROUTE = [
         icon: "newspaper-o",
       },
       {
-        path: "dashboard/course",
+        path: "dashboard/courses",
         title: "Quản lý khoá học",
-        href: "/admin/dashboard/course",
+        href: "/admin/dashboard/courses",
         element: <CourseList />,
         icon: "book",
       },
       {
-        path: "dashboard/coupon",
-        href: "/admin/dashboard/coupon",
+        path: "dashboard/invoices",
+        title: "Quản lý hoá đơn",
+        href: "/admin/dashboard/invoices",
+        element: <InvoiceList />,
+        icon: "file-text-o",
+      },
+      {
+        path: "dashboard/coupons",
+        href: "/admin/dashboard/coupons",
         element: <CouponList />,
         title: "Quản lý khuyến mãi",
         icon: "barcode",
@@ -221,7 +239,7 @@ const DASHBOARD_ROUTE = [
       },
     ],
   },
-
+  // student routes
   {
     role: "student",
     path: "/student",
@@ -264,7 +282,7 @@ const DASHBOARD_ROUTE = [
       },
     ],
   },
-
+  // teacher routes
   {
     role: "teacher",
     path: "/teacher",
@@ -307,12 +325,63 @@ const DASHBOARD_ROUTE = [
       },
     ],
   },
+  // director routes
+  {
+    role: "director",
+    path: "/director",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "info",
+        href: "/director/info",
+        element: <ProfilePage />,
+        title: "Thông tin cá nhân",
+        icon: "info-circle",
+      },
+      {
+        path: "over-view",
+        href: "/director/over-view",
+        element: <OverviewSystem />,
+        title: "Tổng quan hệ thống",
+        icon: "gears",
+      },
+      {
+        path: "revenue-teachers",
+        href: "/director/revenue-teachers",
+        element: <RevenueTeacherStatistic />,
+        title: "Doanh thu giảng viên",
+        icon: "money",
+      },
+      {
+        path: "users",
+        href: "/director/users",
+        title: "Tài khoản người dùng",
+        element: <UserStatistic />,
+        icon: "users",
+      },
+      {
+        path: "revenues",
+        href: "/director/revenues",
+        title: "Doanh thu hệ thống",
+        element: <RevenueStatistic />,
+        icon: "rocket",
+      },
+      {
+        path: "courses",
+        href: "/director/courses",
+        title: "Khoá học bán chạy",
+        element: <StatisticCourses />,
+        icon: "cart-plus",
+      },
+    ],
+  },
 ];
 
 export {
   MAIN_ROUTE,
   AUTH_ROUTE,
   ADMIN_ROUTE,
+  DIRECTOR_ROUTE,
   TEACHER_ROUTE,
   STUDENT_ROUTE,
   DASHBOARD_ROUTE,

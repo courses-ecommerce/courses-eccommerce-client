@@ -51,8 +51,9 @@ const UpdatePassword = () => {
       }
       return errors;
     },
-    onSubmit: (values) => {
-      changePassword(values);
+    onSubmit: async (values) => {
+      await changePassword(values);
+      resetDataForm();
     },
   });
 
@@ -76,6 +77,16 @@ const UpdatePassword = () => {
       toast.warning(`${error}`, { position: "bottom-right" });
       dispatch(isSuccess());
     }
+  };
+
+  const resetDataForm = () => {
+    formik.resetForm({
+      values: {
+        oldPassword: "",
+        password: "",
+        passwordConfirm: "",
+      },
+    });
   };
 
   return (

@@ -7,6 +7,7 @@ import {
   ADMIN_ROUTE,
   AUTH_ROUTE,
   DASHBOARD_ROUTE,
+  DIRECTOR_ROUTE,
   MAIN_ROUTE,
   STUDENT_ROUTE,
   TEACHER_ROUTE,
@@ -23,6 +24,7 @@ function App() {
         {privateRoute(ADMIN_ROUTE)}
         {privateRoute(TEACHER_ROUTE)}
         {privateRoute(STUDENT_ROUTE)}
+        {privateRoute(DIRECTOR_ROUTE)}
         {/* Dashboard routes */}
         {privateRoute(DASHBOARD_ROUTE)}
       </Routes>
