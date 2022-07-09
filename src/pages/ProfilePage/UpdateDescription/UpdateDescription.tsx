@@ -67,16 +67,20 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
             gap: 4,
           }}
         >
-          <ReactQuill
-            // style={{
-            //   height: 70,
-            // }}
-            defaultValue={value}
-            theme="snow"
-            onChange={(value) => setDescription(value)}
-            placeholder="Nhập nội dung mô tả thông tin cá nhân."
-          />
-
+          <div className="editor">
+            <h2>
+              Thông tin mô tả cá nhân <span>*</span>
+            </h2>
+            <ReactQuill
+              // style={{
+              //   height: 70,
+              // }}
+              defaultValue={value}
+              theme="snow"
+              onChange={(value) => setDescription(value)}
+              placeholder="Nhập nội dung mô tả thông tin cá nhân."
+            />
+          </div>
           <Button type="submit" variant="contained">
             Cập nhật mô tả
           </Button>
