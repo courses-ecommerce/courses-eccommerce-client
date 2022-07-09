@@ -57,8 +57,12 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
           {titleShow && renderSmoothLinks(linkHeader)}
         </div>
         <div className="header-profile">
-          <Notification type="message" />
-          <Notification type="notify" />
+          {isRole !== "director" && (
+            <>
+              <Notification type="message" />
+              <Notification type="notify" />
+            </>
+          )}
           {isRole === "student" && <CartIcon />}
           <AccountPopover routes={linkUserProfile} />
         </div>
