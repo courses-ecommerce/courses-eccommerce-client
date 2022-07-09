@@ -29,7 +29,7 @@ const CoursePage = () => {
   //for search
   const [categoryList, setCategoryList] = useState<any>();
   const [category, setCategory] = useState<string>("all");
-  const [price, setPrice] = useState<any>(0);
+  const [price, setPrice] = useState<any>("0");
   const [sort, setSort] = useState<string>("default");
 
   //debounce
