@@ -88,7 +88,7 @@ const ADMIN_ROUTE = [
   },
   {
     role: "admin",
-    path: "admin/dashboard/course/:id",
+    path: "admin/dashboard/courses/:id",
     element: <MyCourseDetail />,
   },
 ];
