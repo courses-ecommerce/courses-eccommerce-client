@@ -14,12 +14,12 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   courses,
 }) => {
   const renderCourses = (courses: ICourse[]) => {
-    return (
-      courses.length > 0 &&
-      courses.map((course: ICourse, index) => (
+    if (courses.length > 0) {
+      return courses.map((course: ICourse, index) => (
         <CourseItem key={index} data={course} />
-      ))
-    );
+      ));
+    }
+    return <div className="none-courses">Hiện tại chưa có khoá học nào</div>;
   };
 
   return (
