@@ -16,6 +16,7 @@ export default function TeacherRevenue() {
   const [dateRange, setDateRange] = useState<any>();
   const [teacherInfo, setTeacherInfo] = useState<ITeacher>();
   const [invoices, setInvoices] = useState<IInvoice[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     // console.log("date range", dateRange);
@@ -24,6 +25,7 @@ export default function TeacherRevenue() {
   }, [dateRange]);
 
   const getTeacherRevenue = async () => {
+    setIsLoading(true);
     try {
       const response = await teacherApi.getTeacherRevenueByRangeDate(dateRange);
 
@@ -33,12 +35,17 @@ export default function TeacherRevenue() {
       // console.log(" detailInvoices", detailInvoices);
       setInvoices(detailInvoices);
       setTeacherInfo(teacher);
+      setIsLoading(false);
     } catch (error) {
       console.log("lỗi rồi", { error });
+      setIsLoading(false);
     }
   };
 
   const renderRevenueInvoices = (invoices: IInvoice[] = []) => {
+    if (invoices.length === 0) {
+      return <div>Không có thông tin</div>;
+    }
     return (
       invoices.length > 0 &&
       invoices.map((invoice, index) => (
@@ -79,7 +86,7 @@ export default function TeacherRevenue() {
         <div className="revenue-teacher-content">
           <h3>Thông tin các khoá học đã bán trong tháng</h3>
           <div className="content">
-            {renderRevenueInvoices(invoices) || <Loading />}
+            {!isLoading ? renderRevenueInvoices(invoices) : <Loading />}
           </div>
         </div>
       </Box>
