@@ -21,8 +21,9 @@ const CoursePage = () => {
   const [searchKey, setSearchKey] = useState<SearchKeyProps>();
   const [totalCourse, setTotalCourse] = useState<number>();
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState<number>();
+  const [total, setTotal] = useState<number>(0);
   const [limit, setLimit] = useState<number>(8);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   //for hot, sugggest
   const [limitCourse, setLimitCourse] = useState<number>(4);
 
@@ -40,11 +41,13 @@ const CoursePage = () => {
   //courses hot
   const [coursesHot, setCoursesHot] = useState<ICourse[]>([]);
   const [pageHot, setPageHot] = useState(1);
-  const [totalHot, setTotalHot] = useState<number>();
+  const [totalHot, setTotalHot] = useState<number>(0);
+  const [isLoadingHot, setIsLoadingHot] = useState<boolean>(false);
   //courses suggest
   const [coursesSuggest, setCoursesSuggest] = useState<ICourse[]>([]);
   const [pageSuggest, setPageSuggest] = useState(1);
-  const [totalSuggest, setTotalSuggest] = useState<number>();
+  const [totalSuggest, setTotalSuggest] = useState<number>(0);
+  const [isLoadingSuggest, setIsLoadingSuggest] = useState<boolean>(false);
 
   useEffect(() => {
     setName(debouncedValue);
@@ -89,44 +92,50 @@ const CoursePage = () => {
       ...price,
     };
     // console.log("params là", params);
-
+    setIsLoading(true);
     try {
       const response = await courseApi.getCourses(params);
       const { courses, searchKey, total }: any = response;
       // console.log("data", response);
       // console.log("courses", courses);
-      console.log("searchkey", searchKey);
-
+      // console.log("searchkey", searchKey);
       setCourses(courses);
       setSearchKey(searchKey);
+      setIsLoading(false);
       setTotalCourse(total);
       setTotal(numberRound(total / limit));
     } catch (error) {
       console.log("lỗi rồi", { error });
+      setIsLoading(false);
     }
   };
   const getCoursesHot = async () => {
     const params = { limit: limitCourse, page: pageHot };
+    setIsLoadingHot(true);
     try {
       const response = await courseApi.getCoursesHot(params);
       const { courses, total }: any = response;
       // console.log("courses hot", courses);
       setCoursesHot(courses);
+      setIsLoadingHot(false);
       setTotalHot(numberRound(total / limitCourse));
     } catch (error) {
+      setIsLoadingHot(false);
       console.log("lỗi rồi", { error });
     }
   };
   const getCoursesSuggest = async () => {
     const params = { limit: limitCourse, page: pageSuggest };
-
+    setIsLoadingSuggest(true);
     try {
       const response = await courseApi.getCoursesSuggest(params);
       const { courses, total }: any = response;
       // console.log("courses hot", courses);
       setCoursesSuggest(courses);
+      setIsLoadingSuggest(false);
       setTotalSuggest(numberRound(total / total));
     } catch (error) {
+      setIsLoadingSuggest(false);
       console.log("lỗi rồi", { error });
     }
   };
@@ -229,14 +238,20 @@ const CoursePage = () => {
             gap: 12,
           }}
         >
-          <CourseContainer title="Khoá Học Thông Thường" courses={courses} />
-          <Pagination
-            pageActive={page}
-            total={total}
-            onChangeValue={(value: any) => {
-              setPage(value);
-            }}
+          <CourseContainer
+            title="Khoá Học Thông Thường"
+            courses={courses}
+            isLoading={isLoading}
           />
+          {total > 0 && (
+            <Pagination
+              pageActive={page}
+              total={total}
+              onChangeValue={(value: any) => {
+                setPage(value);
+              }}
+            />
+          )}
         </Box>
 
         <Divider />
@@ -248,12 +263,18 @@ const CoursePage = () => {
             gap: 12,
           }}
         >
-          <CourseContainer title="Khoá Học Đang Hot" courses={coursesHot} />
-          <Pagination
-            pageActive={pageHot}
-            total={totalHot}
-            onChangeValue={(value: any) => setPageHot(value)}
+          <CourseContainer
+            title="Khoá Học Đang Hot"
+            courses={coursesHot}
+            isLoading={isLoadingHot}
           />
+          {totalHot > 0 && (
+            <Pagination
+              pageActive={pageHot}
+              total={totalHot}
+              onChangeValue={(value: any) => setPageHot(value)}
+            />
+          )}
         </Box>
 
         {/* suggestion course */}
@@ -273,12 +294,15 @@ const CoursePage = () => {
                 <CourseContainer
                   title="Khoá Học Gợi Ý"
                   courses={coursesSuggest}
+                  isLoading={isLoadingSuggest}
                 />
-                <Pagination
-                  pageActive={pageSuggest}
-                  total={totalSuggest}
-                  onChangeValue={(value: any) => setPageSuggest(value)}
-                />
+                {totalSuggest > 0 && (
+                  <Pagination
+                    pageActive={pageSuggest}
+                    total={totalSuggest}
+                    onChangeValue={(value: any) => setPageSuggest(value)}
+                  />
+                )}
               </Box>
             )}
           </>

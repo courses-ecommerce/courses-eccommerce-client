@@ -7,11 +7,13 @@ import "./CourseContainer.scss";
 interface CourseContainerProps {
   title: string;
   courses: ICourse[];
+  isLoading?: boolean;
 }
 
 const CourseContainer: React.FC<CourseContainerProps> = ({
   title,
   courses,
+  isLoading = false,
 }) => {
   const renderCourses = (courses: ICourse[]) => {
     if (courses.length > 0) {
@@ -27,7 +29,9 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
       <span className="title">{title}</span>
 
       <div className="courses">
-        {renderCourses(courses) || (
+        {!isLoading ? (
+          renderCourses(courses)
+        ) : (
           <LoadingSkeleton
             width={300}
             height={160}
