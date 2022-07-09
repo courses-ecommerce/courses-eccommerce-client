@@ -32,11 +32,12 @@ const CourseDetail = () => {
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
   const [courseRelates, setCourseRelates] = useState<ICourse[]>([]);
   const [ratingComents, setRatingComents] = useState<IRating[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // //search
   const [limit, setLimit] = useState(4);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState<number>();
+  const [total, setTotal] = useState<number>(0);
 
   useLayoutEffect(() => {
     window.scroll(0, 0);
@@ -75,7 +76,7 @@ const CourseDetail = () => {
   const getCourseRelates = async () => {
     const params = { limit, page };
     // console.log("params", params);
-
+    setIsLoading(true);
     try {
       const response = await courseApi.getCoursesRelated(
         courseDetail.slug,
@@ -85,8 +86,10 @@ const CourseDetail = () => {
       const { courses, total }: any = response;
       // console.log(" courses", courses);
       setTotal(numberRound(total / limit));
+      setIsLoading(false);
       setCourseRelates(courses);
     } catch (error) {
+      setIsLoading(false);
       console.log("lỗi rồi", { error });
     }
   };
@@ -217,12 +220,18 @@ const CourseDetail = () => {
             paddingBottom: 10,
           }}
         >
-          <CourseContainer title="Khoá học liên quan" courses={courseRelates} />
-          <Pagination
-            pageActive={page}
-            total={total}
-            onChangeValue={(value: any) => setPage(value)}
+          <CourseContainer
+            title="Khoá học liên quan"
+            courses={courseRelates}
+            isLoading={isLoading}
           />
+          {total > 0 && (
+            <Pagination
+              pageActive={page}
+              total={total}
+              onChangeValue={(value: any) => setPage(value)}
+            />
+          )}
         </Box>
       </div>
     </>
