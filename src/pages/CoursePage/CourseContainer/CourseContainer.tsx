@@ -7,19 +7,21 @@ import "./CourseContainer.scss";
 interface CourseContainerProps {
   title: string;
   courses: ICourse[];
+  isLoading?: boolean;
 }
 
 const CourseContainer: React.FC<CourseContainerProps> = ({
   title,
   courses,
+  isLoading = false,
 }) => {
   const renderCourses = (courses: ICourse[]) => {
-    return (
-      courses.length > 0 &&
-      courses.map((course: ICourse, index) => (
+    if (courses.length > 0) {
+      return courses.map((course: ICourse, index) => (
         <CourseItem key={index} data={course} />
-      ))
-    );
+      ));
+    }
+    return <div className="none-courses">Hiện tại chưa có khoá học nào</div>;
   };
 
   return (
@@ -27,7 +29,9 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
       <span className="title">{title}</span>
 
       <div className="courses">
-        {renderCourses(courses) || (
+        {!isLoading ? (
+          renderCourses(courses)
+        ) : (
           <LoadingSkeleton
             width={300}
             height={160}

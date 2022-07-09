@@ -25,9 +25,10 @@ const PorfolioPage = () => {
   const [teacherInfo, setTeacherInfo] = useState<ITeacherPorfolio>();
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [showDescription, setShowDescription] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState<number>();
+  const [total, setTotal] = useState<number>(0);
   const [limitCourse, setLimitCourse] = useState<number>(4);
 
   useLayoutEffect(() => {
@@ -67,13 +68,16 @@ const PorfolioPage = () => {
 
   const getCourseTeacher = async () => {
     const params = { publish: true, author: id, page, limit: limitCourse };
+    setIsLoading(true);
     try {
       const response = await courseApi.getCourses(params);
       // console.log("course teacher", response);
       const { courses, total }: any = response;
       setCourses(courses);
+      setIsLoading(false);
       setTotal(numberRound(total / limitCourse));
     } catch (error) {
+      setIsLoading(false);
       console.log("lỗi rồi", { error });
     }
   };
@@ -133,12 +137,18 @@ const PorfolioPage = () => {
             gap: 12,
           }}
         >
-          <CourseContainer title="Các khoá học đang bán" courses={courses} />
-          <Pagination
-            pageActive={page}
-            total={total}
-            onChangeValue={(value: any) => setPage(value)}
+          <CourseContainer
+            title="Các khoá học đang bán"
+            courses={courses}
+            isLoading={isLoading}
           />
+          {total > 0 && (
+            <Pagination
+              pageActive={page}
+              total={total}
+              onChangeValue={(value: any) => setPage(value)}
+            />
+          )}
         </Box>
       </div>
       <UpdateDescription

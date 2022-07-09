@@ -25,6 +25,13 @@
     flex-wrap: wrap;
     // gap: column row;
     gap: 120px 30px;
+
+    > .none-courses {
+      font-weight: 700;
+      font-size: 18px;
+      padding-top: 20px;
+      margin: 0 auto;
+    }
   }
 }
 

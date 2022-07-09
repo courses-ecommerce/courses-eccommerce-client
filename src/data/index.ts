@@ -53,7 +53,7 @@ export const sortTypes = [
   { value: "score", name: "Độ chính xác cao" },
 ];
 export const priceRangeTypes = [
-  { value: 0, name: "Mặc định" },
+  { value: "0", name: "Mặc định" },
   { value: { max: 0 }, name: "Miễn phí" },
   { value: { max: 5 * ONE_HUNDRED_THOUSAND - 1 }, name: "< 500.000đ" },
   {
@@ -80,7 +80,7 @@ export const priceRangeTypes = [
 
 //course
 export const statusCourseTypes = [
-  { value: "", name: "-" },
+  { value: "", name: "Tất cả" },
   { value: "draft", name: ICourseStatues.draft },
   { value: "pending", name: ICourseStatues.pending },
   { value: "approved", name: ICourseStatues.approved },
