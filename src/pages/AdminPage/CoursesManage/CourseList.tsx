@@ -61,7 +61,7 @@ const CourseList = () => {
   // const [publish, setPublish] = useState<boolean>(true);
 
   //for search
-  const [status, setStatus] = useState<string>("approved");
+  const [status, setStatus] = useState<string>("");
 
   //pagination
   const [total, setTotal] = useState<number>(0);
@@ -148,6 +148,7 @@ const CourseList = () => {
 
           <InputSelect
             defaultValue={status}
+            placeholder="Chọn trạng thái khóa học"
             list={statusCourseTypes}
             onChange={(e) => setStatus(e.target.value)}
           />
