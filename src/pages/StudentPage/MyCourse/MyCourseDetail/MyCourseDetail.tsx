@@ -20,7 +20,7 @@ import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseDetail.scss";
 
 const MyCourseDetail = () => {
-  document.title = "Khoá học của tôi";
+  document.title = "Thông tin khoá học chi tiết";
   const navigate = useNavigate();
   const { isRole } = useSelector(selectAuthorization);
 

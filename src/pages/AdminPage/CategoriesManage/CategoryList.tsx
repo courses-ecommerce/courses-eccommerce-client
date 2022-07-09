@@ -25,7 +25,7 @@ const CategoryList = () => {
   //for search
   //for debounce
   const [publish, setPublish] = useState<boolean>(true);
-  const [isPending, setIsPending] = useState<boolean>(false);
+  const [isPending, setIsPending] = useState<string>("false");
   const [used, setUsed] = useState<boolean>(true);
   const [value, setValue] = useState<string>();
   const debouncedValue = useTypingDebounce(value);

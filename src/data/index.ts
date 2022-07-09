@@ -3,8 +3,8 @@ import { ICourseStatues } from "src/types/course";
 const ONE_HUNDRED_THOUSAND = 100000;
 
 export const genderTypes = [
-  { value: false, name: "Nữ" },
-  { value: true, name: "Nam" },
+  { value: "false", name: "Nữ" },
+  { value: "true", name: "Nam" },
 ];
 export const accountTypes = [
   { value: "student", name: "Học sinh" },
@@ -12,8 +12,8 @@ export const accountTypes = [
   { value: "admin", name: "Quản trị viên" },
 ];
 export const statusTypes = [
-  { value: false, name: "Đang khoá" },
-  { value: true, name: "Hoạt động" },
+  { value: "false", name: "Đang khoá" },
+  { value: "true", name: "Hoạt động" },
   // { value: , name: "Tất cả" },
 ];
 
@@ -34,12 +34,12 @@ export const discountApplyTypes = [
   // { value: "new user", name: "Người dùng mới" },
 ];
 export const categoryTypes = [
-  { value: false, name: "Đã duyệt" },
-  { value: true, name: "Đang chờ duyệt" },
+  { value: "false", name: "Đã duyệt" },
+  { value: "true", name: "Đang chờ duyệt" },
 ];
 export const categoryStatusTypes = [
-  { value: true, name: "Đang sử dụng" },
-  { value: false, name: "Đang trống" },
+  { value: "true", name: "Đang sử dụng" },
+  { value: "false", name: "Đang trống" },
 ];
 // search normal courses
 export const sortTypes = [
@@ -84,6 +84,7 @@ export const statusCourseTypes = [
   { value: "draft", name: ICourseStatues.draft },
   { value: "pending", name: ICourseStatues.pending },
   { value: "approved", name: ICourseStatues.approved },
+  { value: "updating", name: ICourseStatues.updating },
   { value: "denied", name: ICourseStatues.denied },
 ];
 
