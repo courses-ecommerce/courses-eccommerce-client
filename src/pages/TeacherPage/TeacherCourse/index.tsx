@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
-import "./TeacherCourse.scss";
 import Input from "src/components/Input";
 import { Button } from "@mui/material";
 import ModalContainer from "src/components/ModalContainer";
@@ -19,6 +18,7 @@ import ReactQuill from "react-quill";
 import { ICourseStatues } from "src/types/course";
 import { dateCourseTypes, statusCourseTypes } from "src/data";
 import Loading from "src/components/Loading/Loading";
+import "./TeacherCourse.scss";
 
 export interface ICategories {
   name: string;

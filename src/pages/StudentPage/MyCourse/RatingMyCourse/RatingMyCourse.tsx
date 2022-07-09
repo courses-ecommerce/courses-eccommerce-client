@@ -8,6 +8,7 @@ import ModalContainer from "src/components/ModalContainer";
 import Rating from "src/components/Rating/Rating";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IRating } from "src/types/myCourse";
+import "./RatingMyCourse.scss";
 
 interface RatingMyCourseProps {
   id?: string | number;
@@ -120,9 +121,6 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
               </span>
 
               <ReactQuill
-                // style={{
-                //   height: 70,
-                // }}
                 defaultValue={content}
                 theme="snow"
                 onChange={(value) => setContent(value)}
@@ -158,15 +156,19 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
                   onChange={(e: any) => setStar(e.target.value)}
                 />
               </span>
-
-              <ReactQuill
-                // style={{
-                //   height: 70,
-                // }}
-                defaultValue={value.content}
-                theme="snow"
-                onChange={(value) => setContent(value)}
-              />
+              <div className="editor">
+                <h2>
+                  Nội dung đánh giá <span>*</span>
+                </h2>
+                <ReactQuill
+                  // style={{
+                  //   height: 70,
+                  // }}
+                  defaultValue={value.content}
+                  theme="snow"
+                  onChange={(value) => setContent(value)}
+                />
+              </div>
               <Button type="submit" variant="contained" color="warning">
                 Đánh giá lại
               </Button>
