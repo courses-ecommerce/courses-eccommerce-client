@@ -157,6 +157,13 @@ const DASHBOARD_ROUTE = [
         title: "Thông tin cá nhân",
         icon: "info-circle",
       },
+      // {
+      //   path: "over-view",
+      //   href: "/admin/over-view",
+      //   element: <OverviewSystem />,
+      //   title: "Tổng quan hệ thống",
+      //   icon: "gears",
+      // },
       {
         path: "dashboard/user",
         href: "/admin/dashboard/user",
