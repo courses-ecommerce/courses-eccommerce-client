@@ -15,7 +15,7 @@ export default function MyCourse() {
   document.title = "Khoá học của tôi";
 
   const [courses, setCourses] = useState<ICourse[]>([]);
-  const [sort, setSort] = useState<any>("progress-asc");
+  const [sort, setSort] = useState<any>("progress-desc");
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
