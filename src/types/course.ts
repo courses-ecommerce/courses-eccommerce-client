@@ -15,7 +15,8 @@ export type CourseType =
   | "pending"
   | "approved"
   | "denied"
-  | "updating";
+  | "updating"
+  | "update denied";
 
 export enum ICourseStatues {
   draft = "Bản nháp",
@@ -23,4 +24,5 @@ export enum ICourseStatues {
   approved = "Đã duyệt",
   denied = "Từ chối",
   updating = "Đang update",
+  "update denied" = "Từ chối cập nhật",
 }

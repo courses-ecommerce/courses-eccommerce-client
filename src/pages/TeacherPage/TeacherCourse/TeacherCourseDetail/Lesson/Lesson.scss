@@ -19,7 +19,7 @@
     &:hover {
       & > .left {
         & > .icons {
-          display: flex;
+          visibility: visible;
         }
       }
     }
@@ -28,7 +28,14 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      width: 100%;
+
+      & > .active {
+        color: red;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border: 1px solid green;
+        padding: 4px 6px;
+      }
 
       .input-error {
         display: none;
@@ -40,11 +47,14 @@
       }
 
       & > span {
-        width: max-content;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       & > .icons {
-        display: none;
+        display: flex;
+        visibility: hidden;
         align-items: center;
         gap: 8px;
 
