@@ -22,6 +22,7 @@ export interface ILesson {
   title: string;
   description: string;
   videoInfo: IVideo;
+  publish: boolean;
 }
 
 interface LessonProps {
@@ -120,6 +121,7 @@ const Lesson: React.FC<LessonProps> = ({
                   onClick={() => handleDeleteLesson(lesson._id)}
                 />
               </div>
+              {!lesson.publish && <div className="active">Đã kích hoạt</div>}
             </>
           )}
         </div>
