@@ -121,7 +121,7 @@ const Lesson: React.FC<LessonProps> = ({
                   onClick={() => handleDeleteLesson(lesson._id)}
                 />
               </div>
-              {!lesson.publish && <div className="active">Đã kích hoạt</div>}
+              {lesson.publish && <div className="active">Đã kích hoạt</div>}
             </>
           )}
         </div>
