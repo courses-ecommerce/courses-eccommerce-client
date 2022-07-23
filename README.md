@@ -4,139 +4,107 @@ Link Apis: [https://hnam.works/api-docs/](https://hnam.works/api-docs/?fbclid=Iw
 
 Link Demo Website: [course-ecommerce](https://www.course-ecommerce.tk/)
 
-Account:
+# UI WEBSITE LOGIC DESCRIPTION
+
+## 1. Tổng quan chức năng hệ thống:
+
+| Đối tượng                                                    | Chức năng                                    | Chi tiết                                                                                       |
+| ------------------------------------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Chung                                                        | Xếp loại khoá học                            | - Tự động gắn thẻ khoá học hot, bestseller vào mỗi tháng                                       |
+|                                                              | Xác thực và uỷ quyền                         | - Đăng nhập cục bộ                                                                             |
+| - Đăng nhập bằng google.                                     |
+|                                                              | Xem, cập nhật thông tin tài khoản người dùng | - Xem và chỉnh sửa thông tin của người dùng                                                    |
+|                                                              | Tìm kiếm khoá học                            | - Tìm kiếm khoá học theo tên, giá, loại danh mục…                                              |
+|                                                              | Xem mô tả khoá học                           | - Xem thông tin mô tả của khoá học như tên, giá, tác giả, yêu cầu, mục tiêu, chương trình học… |
+|                                                              | Đề xuất khoá học liên quan                   | - Gợi ý khoá học liên quan về tên, giá, tác giả, danh mục.                                     |
+|                                                              | Nhắn tin                                     | - Nhắn tin realtime giữa học sinh, giảng viên và admin                                         |
+| Học viên                                                     | Gợi ý khoá học                               | - Gợi ý khoá học dựa vào lịch sử tìm kiếm, lịch sử xem khoá học của người dùng                 |
+|                                                              | Giỏ hàng và thanh toán                       | - Quản lý giỏ hàng, thêm mã giảm giá                                                           |
+| - Thanh toán bằng cổng thành toán VNPay                      |
+|                                                              | Đánh giá khoá học đã mua                     | - Đánh giá khoá học đã mua                                                                     |
+|                                                              | Xem lịch sử thanh toán                       | - Xem lịch sử thanh toán                                                                       |
+|                                                              | Xem nội dung khoá học                        | - Sử dụng HLS Video streaming để giảm dung lượng tải video, hạn chế người dùng tải video về.   |
+| - Lưu thông tin tiến trình học của người dùng                |
+| Giảng viên                                                   | Quản lý khoá học đã tạo                      | - Thêm xoá sửa nội dung bài giảng, chương, mô tả khoá học…                                     |
+|                                                              | Thống kê doanh thu                           | - Thống kê doanh thu theo khoản thời gian                                                      |
+|                                                              | Quản lý mã giảm giá của giảng viên           | - Quản lý mã giảm giá, mã giảm giá chỉ áp dụng được cho các khoá học của giảng viên đó.        |
+| - Mã giảm giá được lưu bằng google sheet                     |
+|                                                              | Quản lý hồ sơ giảng viên                     | - Sửa nội dung giới thiệu bản thân.                                                            |
+| - Thông tin tài khoản thanh toán                             |
+| Quản trị viên                                                | Quản lý tài người dùng                       | - Xem, thêm sửa thông tin tài khoản người dùng                                                 |
+| - Thêm danh sách bằng file excel, sao lưu dữ liệu bằng excel |
+|                                                              | Quản lý khoá học                             | - Xem sửa thông tin khoá học (kiểm duyệt khoá học)                                             |
+|                                                              | Quản lý mã giảm giá                          | - Xem, thêm xoá sửa mã giảm giá, xuất excel mã giảm giá                                        |
+|                                                              | Thống kê                                     | - Thống kê doanh thu theo khoản thời gian                                                      |
+
+- Thống kê người dùng mới
+- Thống kê số lượng khoá học, top khoá học
+- Thống kê doanh thu giảng viên theo khoản thời gian |
+  | | Quản lý danh mục khoá học | - Xem thêm xoá sửa doanh mục khoá học |
+  | | Quản lý cấu hình trang web | - Chỉnh sửa điều kiện, số lượng khoá học hot, bán chạy, banner… |
+  | Giám đốc điều hành | Xem biểu đồ thống kê | - Doanh thu hệ thống, bảng lương giảng viên, khoá học bán chạy, thống kê người dùng… |
+
+## 2. Tài khoản testing cho hệ thống:
 
 ```jsx
 // User
-hacthuylong@gmail.com
-12345678
+user@gmail.com
 // Admin
-efert269@gmail.com
+admin@gmail.com
+// Teacher
+teacher@gmail.com
+// Director
+giamdoc@gmail.com
+//password(using for all)
 123456789
+
 ```
 
-# Backlog Process
+## 3. Sơ lược thông tin các pages:
 
-## 1. Auth Page:
+### 3.1 Trang chính (non-auth pages):
 
-### 1.1. Login Page:
+- Trang chủ khoá học
+- Trang chi tiết khoá học
+- Trang login (đăng nhập, đăng ký, quên mật khẩu)
+- Trang xem hoá đơn công khai (bằng cách quét QR)
+- Trang 401, 403,404
 
-- [x] Login
-- [x] Google Login
+### 3.2 Trang học viên (user pages):
 
-### 1.2 Register Page:
+- Trang profile (cập nhật profile, đổi mật khẩu)
+- Trang giỏ hàng (thanh toán, mua sau)
+- Trang quản lý khoá học đã mua (đánh giá, xem khoá học)
+- Trang quản lý hoá đơn đã mua
+- Trang trò chuyện trực tuyến
 
-- [x] Verify Email
-- [x] Register
+### 3.3 Trang giảng viên (teacher pages):
 
-### 1.3 Forgot password Page:
+- Trang profile (cập nhật profile, cập nhật porfolio, cập nhật thẻ ngân hàng, đổi mật khẩu)
+- Trang quản lý khoá học (tạo, cập nhật khoá học)
+- Trang xem doanh thu cá nhân
+- Trang quản lý mã khuyến mãi (tạo mã khuyến mãi)
+- Trang trò chuyện trực tuyến
 
-- [x] Send Email to get new password
-- [x] Forgot_password
+### 3.4 Trang quản trị viên (admin pages):
 
-## 2. Page user:
+- Trang profile (cập nhật profile, đổi mật khẩu)
+- Quản lý người dùng (thêm, xoá, sửa, nhập-xuất bằng file excel)
+- Quản lý danh mục khoá học
+- Quản lý khoá học (duyệt khoá học)
+- Quản lý hoá đơn
+- Quản lý mã khuyến mãi
+- Biểu đồ thống kê
+  - Thống kê người dùng
+  - Thống kê doanh thu
+  - Doanh thu giảng viên
+  - Thống kê khoá học
+- Trang trò chuyện trực tuyến
 
-### 2.1 Keep Login:
+### 3.5 Trang giám đốc điều hành (director pages):
 
-- [x] Logout
-- [ ] Refresh token
-
-### 2.2 Profile:
-
-- [x] View Profile
-- [x] Update Profile?
-- [x] Change password
-- [x] Get Invoices
-- [ ] History search
-
-### 2.3 Cart??
-
-- [x] Get cart
-- [x] Add new course
-- [x] Add vouchers/coupons
-- [x] Delete course from cart
-
-### 2.4 Manage course
-
-- [ ]
-
-## 3. Page admin:
-
-### 3.1 Manage User:
-
-- [x] Get users
-- [x] Create new user
-- [x] Thêm người dùng bằng file excel
-- [ ]
-- [x] Update user
-- [x] Delete user
-
-### 3.2 Manage Categories:
-
-- [x] Get categories
-- [x] Create new category
-- [x] Update category
-- [x] Delete category
-
-### 3.3 Manage Course:
-
-- [x] Get courses
-- [ ] View details course
-- [ ] Add new course
-- [ ] Update course
-
-### 3.4 Manage Coupon:
-
-- [x] Get coupons
-- [x] Create new coupon
-- [x] Update coupon
-- [x] Delete coupon
-- [x] View detail coupon
-
-## 4. Courses:
-
-- [ ] Get courses
-  - [ ] Relate
-  - [ ] Hot
-  - [ ] Suggest (by history search)
-
-## 5. Payment:
-
-- [x] Estimate amount cart
-- [x] Checkout cart
-- [x] Notify Checkout Success
-
-## 6. Statistic:
-
-### 6.1 Revenue:
-
-- [x] Revenue by date/month
-- [x] Revenue by Year
-- [x] Revenue by Range Year
-
-### 6.2 User
-
-- [x] User by Range Year
-- [x] User by month
-
-### 6.3 Course
-
-- [x] Total course
-- [x] Top course by Year
-- [x] Top course by Month
-
-### 6.4 Coupon
-
-- [ ] Total coupon
-
-### 6.5 Revenue Teacher
-
-- [x] Revenue teacher
-- [ ] Revenue teacher detail
-- [x] Top teacher by year
-- [x] Top teacher by month
-
-## 7. Web config:
-
-- [ ] View web config
-- [ ] Update web config
+- Biểu đồ thống kê
+  - Thống kê người dùng
+  - Thống kê doanh thu
+  - Doanh thu giảng viên
+  - Thống kê khoá học
