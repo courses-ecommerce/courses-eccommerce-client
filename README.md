@@ -1,48 +1,42 @@
 # Course Ecommerce- Thesis
 
-Link Apis: [https://hnam.works/api-docs/](https://hnam.works/api-docs/?fbclid=IwAR3A5GNo_i52lIIu1q2J4P_Y1CDkf9YwBQ4UPmJ8gI6bnxqqY5RwrdpihvI)
+## Demo Links:
 
-Link Demo Website: [course-ecommerce](https://www.course-ecommerce.tk/)
+[Link Apis](https://hnam.works/api-docs/)
 
-# UI WEBSITE LOGIC DESCRIPTION
+[Banking card demo](https://sandbox.vnpayment.vn/apis/vnpay-demo/)
+
+[Link Demo Website](https://www.course-ecommerce.tk/)
+
+# WEBSITE LOGIC SYSTEM DESCRIPTION
 
 ## 1. Tổng quan chức năng hệ thống:
 
-| Đối tượng                                                    | Chức năng                                    | Chi tiết                                                                                       |
-| ------------------------------------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Chung                                                        | Xếp loại khoá học                            | - Tự động gắn thẻ khoá học hot, bestseller vào mỗi tháng                                       |
-|                                                              | Xác thực và uỷ quyền                         | - Đăng nhập cục bộ                                                                             |
-| - Đăng nhập bằng google.                                     |
-|                                                              | Xem, cập nhật thông tin tài khoản người dùng | - Xem và chỉnh sửa thông tin của người dùng                                                    |
-|                                                              | Tìm kiếm khoá học                            | - Tìm kiếm khoá học theo tên, giá, loại danh mục…                                              |
-|                                                              | Xem mô tả khoá học                           | - Xem thông tin mô tả của khoá học như tên, giá, tác giả, yêu cầu, mục tiêu, chương trình học… |
-|                                                              | Đề xuất khoá học liên quan                   | - Gợi ý khoá học liên quan về tên, giá, tác giả, danh mục.                                     |
-|                                                              | Nhắn tin                                     | - Nhắn tin realtime giữa học sinh, giảng viên và admin                                         |
-| Học viên                                                     | Gợi ý khoá học                               | - Gợi ý khoá học dựa vào lịch sử tìm kiếm, lịch sử xem khoá học của người dùng                 |
-|                                                              | Giỏ hàng và thanh toán                       | - Quản lý giỏ hàng, thêm mã giảm giá                                                           |
-| - Thanh toán bằng cổng thành toán VNPay                      |
-|                                                              | Đánh giá khoá học đã mua                     | - Đánh giá khoá học đã mua                                                                     |
-|                                                              | Xem lịch sử thanh toán                       | - Xem lịch sử thanh toán                                                                       |
-|                                                              | Xem nội dung khoá học                        | - Sử dụng HLS Video streaming để giảm dung lượng tải video, hạn chế người dùng tải video về.   |
-| - Lưu thông tin tiến trình học của người dùng                |
-| Giảng viên                                                   | Quản lý khoá học đã tạo                      | - Thêm xoá sửa nội dung bài giảng, chương, mô tả khoá học…                                     |
-|                                                              | Thống kê doanh thu                           | - Thống kê doanh thu theo khoản thời gian                                                      |
-|                                                              | Quản lý mã giảm giá của giảng viên           | - Quản lý mã giảm giá, mã giảm giá chỉ áp dụng được cho các khoá học của giảng viên đó.        |
-| - Mã giảm giá được lưu bằng google sheet                     |
-|                                                              | Quản lý hồ sơ giảng viên                     | - Sửa nội dung giới thiệu bản thân.                                                            |
-| - Thông tin tài khoản thanh toán                             |
-| Quản trị viên                                                | Quản lý tài người dùng                       | - Xem, thêm sửa thông tin tài khoản người dùng                                                 |
-| - Thêm danh sách bằng file excel, sao lưu dữ liệu bằng excel |
-|                                                              | Quản lý khoá học                             | - Xem sửa thông tin khoá học (kiểm duyệt khoá học)                                             |
-|                                                              | Quản lý mã giảm giá                          | - Xem, thêm xoá sửa mã giảm giá, xuất excel mã giảm giá                                        |
-|                                                              | Thống kê                                     | - Thống kê doanh thu theo khoản thời gian                                                      |
-
-- Thống kê người dùng mới
-- Thống kê số lượng khoá học, top khoá học
-- Thống kê doanh thu giảng viên theo khoản thời gian |
-  | | Quản lý danh mục khoá học | - Xem thêm xoá sửa doanh mục khoá học |
-  | | Quản lý cấu hình trang web | - Chỉnh sửa điều kiện, số lượng khoá học hot, bán chạy, banner… |
-  | Giám đốc điều hành | Xem biểu đồ thống kê | - Doanh thu hệ thống, bảng lương giảng viên, khoá học bán chạy, thống kê người dùng… |
+| Đối tượng          | Chức năng                                    | Chi tiết                                                                                                                                                       |
+| ------------------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chung              | Xếp loại khoá học                            | Tự động gắn thẻ khoá học hot, bestseller vào mỗi tháng                                                                                                         |
+|                    | Xác thực và uỷ quyền                         | Đăng nhập cục bộ, đăng nhập bằng google.                                                                                                                       |
+|                    | Xem, cập nhật thông tin tài khoản người dùng | Xem và chỉnh sửa thông tin của người dùng                                                                                                                      |
+|                    | Tìm kiếm khoá học                            | Tìm kiếm khoá học theo tên, giá, loại danh mục…                                                                                                                |
+|                    | Xem mô tả khoá học                           | Xem thông tin mô tả của khoá học như tên, giá, tác giả, yêu cầu, mục tiêu, chương trình học…                                                                   |
+|                    | Đề xuất khoá học liên quan                   | Gợi ý khoá học liên quan về tên, giá, tác giả, danh mục.                                                                                                       |
+|                    | Nhắn tin                                     | Nhắn tin realtime giữa học sinh, giảng viên và admin                                                                                                           |
+| Học viên           | Gợi ý khoá học                               | Gợi ý khoá học dựa vào lịch sử tìm kiếm, lịch sử xem khoá học của người dùng                                                                                   |
+|                    | Giỏ hàng và thanh toán                       | Quản lý giỏ hàng, thêm mã giảm giá, thanh toán bằng cổng thành toán VNPay                                                                                      |
+|                    | Đánh giá khoá học đã mua                     | Đánh giá khoá học đã mua                                                                                                                                       |
+|                    | Xem lịch sử thanh toán                       | Xem lịch sử thanh toán                                                                                                                                         |
+|                    | Xem nội dung khoá học                        | Sử dụng HLS Video streaming để giảm dung lượng tải video, hạn chế người dùng tải video về, lưu thông tin tiến trình học của người dùng                         |
+| Giảng viên         | Quản lý khoá học đã tạo                      | Thêm xoá sửa nội dung bài giảng, chương, mô tả khoá học…                                                                                                       |
+|                    | Thống kê doanh thu                           | Thống kê doanh thu theo khoản thời gian                                                                                                                        |
+|                    | Quản lý mã giảm giá của giảng viên           | Quản lý mã giảm giá, mã giảm giá chỉ áp dụng được cho các khoá học của giảng viên đó, mã giảm giá được lưu bằng google sheet                                   |
+|                    | Quản lý hồ sơ giảng viên                     | Sửa nội dung giới thiệu bản thân, thông tin tài khoản thanh toán                                                                                               |
+| Quản trị viên      | Quản lý tài người dùng                       | Xem, thêm sửa thông tin tài khoản người dùng, thêm danh sách bằng file excel, sao lưu dữ liệu bằng excel                                                       |
+|                    | Quản lý khoá học                             | Xem sửa thông tin khoá học (kiểm duyệt khoá học)                                                                                                               |
+|                    | Quản lý mã giảm giá                          | Xem, thêm xoá sửa mã giảm giá, xuất excel mã giảm giá                                                                                                          |
+|                    | Thống kê                                     | Thống kê doanh thu theo khoản thời gian, thống kê người dùng mới, thống kê số lượng khoá học, top khoá học, thống kê doanh thu giảng viên theo khoản thời gian |
+|                    | Quản lý danh mục khoá học                    | Xem thêm xoá sửa doanh mục khoá học                                                                                                                            |
+|                    | Quản lý cấu hình trang web                   | Chỉnh sửa điều kiện, số lượng khoá học hot, bán chạy, banner…                                                                                                  |
+| Giám đốc điều hành | Xem biểu đồ thống kê                         | Doanh thu hệ thống, bảng lương giảng viên, khoá học bán chạy, thống kê người dùng…                                                                             |
 
 ## 2. Tài khoản testing cho hệ thống:
 
