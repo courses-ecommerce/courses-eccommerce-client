@@ -93,7 +93,7 @@ const MyCourseDetail = () => {
       // const { course, chapters, rating }: any = myCourse;
       // console.log("thông tin course của tôi", course);
       // console.log("thông tin chapters của tôi", chapters);
-      console.log("lấy được lastview r", chapterOfLastView, lastView);
+      console.log("lấy được lastkview r", chapterOfLastView, lastView);
 
       setRating(rating);
       setCourse(course);

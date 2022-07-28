@@ -53,6 +53,7 @@ export interface RatingProps {
 }
 export interface LessonProps {
   _id?: string;
+  complete?: boolean;
   description?: string;
   number?: number;
   title?: number;

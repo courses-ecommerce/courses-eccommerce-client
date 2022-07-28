@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { getVideoView } from "src/reducers/authSlice";
 import { LessonProps } from "src/types";
 import "./CourseChapterLesson.scss";
+import classNames from "classnames";
+import Icon from "src/components/Icon/Icon";
 
 interface CourseChapterLessonProps {
   chapterNumber?: number;
@@ -16,7 +18,7 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   chapterNumber = 0,
   lessons = [],
 }) => {
-  // console.log("leson", lessons);
+  // console.log("lesson", lessons);
 
   const [lesson, setLesson] = useState<LessonProps>();
 
@@ -33,7 +35,7 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
   return (
     <>
       {lessons.map((lesson: LessonProps, index) => {
-        // console.log("lessons", lesson);
+        // console.log("lessons", lesson.complete);
         return (
           <div
             key={index}
@@ -42,14 +44,16 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
           >
             <Typography
               sx={{ padding: 1.5, textTransform: "capitalize" }}
-              className={
-                videoView?.title === lesson?.title ? "lesson-title-active" : ""
-              }
+              className={classNames(
+                videoView?.title === lesson?.title ? "lesson-title-active" : "",
+                lesson.complete ? "lesson-title-complete" : ""
+              )}
             >
               <b>
                 {chapterNumber + 1}.{index + 1}{" "}
               </b>
-              {lesson.title}
+              {lesson.title}{" "}
+              {lesson.complete && <Icon icon="check" size={18} />}
             </Typography>
             {index < lessons.length - 1 && <Divider />}
           </div>
