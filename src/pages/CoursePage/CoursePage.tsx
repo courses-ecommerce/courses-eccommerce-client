@@ -51,6 +51,7 @@ const CoursePage = () => {
 
   useEffect(() => {
     setName(debouncedValue);
+    setPage(1);
   }, [debouncedValue]);
 
   useEffect(() => {
