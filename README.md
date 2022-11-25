@@ -2,7 +2,7 @@
 
 ## Demo Links:
 
-[Link Apis](https://ecourse-apis.herokuapp.com/api-docs)
+[Link Apis](https://copper-large-rubidium.glitch.me/api-docs)
 
 [Banking card demo](https://sandbox.vnpayment.vn/apis/vnpay-demo/)
 
