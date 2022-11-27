@@ -19,11 +19,10 @@ export default function MyCourse() {
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
-  // //search
-
   const limit = 6;
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isUpdate) {
@@ -39,30 +38,33 @@ export default function MyCourse() {
   }, [page, sort, limit]);
 
   const getMyCourse = async () => {
+    setIsLoading(true);
     const params = { limit, page, sort };
     try {
       const response = await myCourseApi.getMyCourse(params);
       // console.log("ádadas", response);
       const { myCourses, total }: any = response;
       // console.log("myCourses", myCourses, total);
+      setIsLoading(false);
       setCourses(myCourses);
       setTotal(numberRound(total / limit));
     } catch (error) {
+      setIsLoading(false);
       console.log("lỗi rồi", { error });
     }
   };
 
   const renderMyCourses = (courses: IMyCourse[]) => {
-    return (
-      courses.length > 0 &&
-      courses.map((course, index) => (
+    if (courses.length > 0) {
+      return courses.map((course, index) => (
         <MyCourseItem
           isUpdate={(status) => setIsUpdate(status)}
           data={course}
           key={index}
         />
-      ))
-    );
+      ));
+    }
+    return <div>Bạn chưa mua khóa học nào</div>;
   };
 
   return (
@@ -84,7 +86,7 @@ export default function MyCourse() {
         />
       </Box>
       <div className="my-course-content">
-        {renderMyCourses(courses) || <Loading />}
+        {!isLoading ? renderMyCourses(courses) : <Loading />}
       </div>
       <div className="my-course-pagination">
         <Pagination
