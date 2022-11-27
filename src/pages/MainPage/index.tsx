@@ -3,4 +3,4 @@ export * from "./HomePage/HomePage";
 export * from "./ErrorPage/NotFound";
 export * from "./ErrorPage/UnauthorizedPage";
 export * from "./MainPage";
-export * from "./PorfolioPage/PorfolioPage";
+export * from "./PortfolioPage/PortfolioPage";

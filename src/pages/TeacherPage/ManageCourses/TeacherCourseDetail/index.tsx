@@ -1,30 +1,33 @@
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
-import "./TeacherCourseDetail.scss";
-import * as Yup from "yup";
-import courseApi from "src/apis/courseApi";
-import { Box } from "@mui/system";
-import { Button } from "@mui/material";
-import Input from "src/components/Input";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import Chapter, { IChapter } from "./Chapter";
-import Icon from "src/components/Icon/Icon";
-import teacherApi from "src/apis/teacherApi";
-import InputSelect from "src/components/InputSelect";
-import categoryApi from "src/apis/categoryApi";
-import { ICategories } from "..";
-import chapterApi from "src/apis/chapterApi";
 import ReactQuill from "react-quill";
-import IntendedLearners from "../../IntendedLearners";
-import Requirements from "../../Requirements";
-import Targets from "../../Targets";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import categoryApi from "src/apis/categoryApi";
+import chapterApi from "src/apis/chapterApi";
+import courseApi from "src/apis/courseApi";
+import teacherApi from "src/apis/teacherApi";
+import Icon from "src/components/Icon/Icon";
+import Input from "src/components/Input";
+import InputSelect from "src/components/InputSelect";
+import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import * as Yup from "yup";
+import Chapter, { IChapter } from "./Chapter";
+import "./TeacherCourseDetail.scss";
+
 import { ICourseStatues } from "src/types/course";
+import IntendedLearners from "../IntendedLearners";
+import Requirements from "../Requirements";
+import Targets from "../Targets";
+import { ICategories } from "../TeacherCourse";
 
 const TeacherCourseDetail: React.FC = () => {
+  document.title = "Quản lý khóa học";
+
   const { id } = useParams();
   const dispatch = useDispatch();
   const [navbar, setNavbar] = useState(0);

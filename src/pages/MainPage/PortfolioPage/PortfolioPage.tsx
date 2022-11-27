@@ -11,18 +11,19 @@ import CourseContainer from "src/pages/CoursePage/CourseContainer/CourseContaine
 import UpdateDescription from "src/pages/ProfilePage/UpdateDescription/UpdateDescription";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse } from "src/types";
-import { ITeacherPorfolio } from "src/types/statistic";
-import { checkGender, numberRound } from "src/utils";
-import "./PorfolioPage.scss";
+import { ITeacherPortfolio } from "src/types/statistic";
 
-const PorfolioPage = () => {
+import { checkGender, numberRound } from "src/utils";
+import "./PortfolioPage.scss";
+
+const PortfolioPage = () => {
   document.title = "Thông tin chi tiết giảng viên";
 
   const { id } = useParams();
 
   const { isRole } = useSelector(selectAuthorization);
 
-  const [teacherInfo, setTeacherInfo] = useState<ITeacherPorfolio>();
+  const [teacherInfo, setTeacherInfo] = useState<ITeacherPortfolio>();
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [showDescription, setShowDescription] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -85,12 +86,12 @@ const PorfolioPage = () => {
   return (
     <>
       <NavigationHeader />
-      <div className="porfolio-page">
+      <div className="portfolio-page">
         <div className="teacher-info">
           <h3>Thông tin chi tiết giảng viên</h3>
           <div className="info">
             <Avatar
-              className="avatar-porfolio"
+              className="avatar-portfolio"
               alt={teacherInfo?.user?.fullName}
               src={teacherInfo?.user?.avatar}
               // sx={{ width: 200, height: 200 }}
@@ -162,4 +163,4 @@ const PorfolioPage = () => {
   );
 };
 
-export default PorfolioPage;
+export default PortfolioPage;

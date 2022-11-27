@@ -18,7 +18,7 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
-import PorfolioPage from "src/pages/MainPage/PorfolioPage/PorfolioPage";
+import PorfolioPage from "src/pages/MainPage/PortfolioPage/PortfolioPage";
 import Message from "src/pages/Message/Message";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
@@ -27,12 +27,12 @@ import CartList from "src/pages/StudentPage/ManageCart/CartList";
 import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
 import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCourseDetail";
 import StudentPage from "src/pages/StudentPage/StudentPage";
-import TeacherCourseDetail from "src/pages/TeacherPage/TeacherCourse/TeacherCourseDetail";
-import TeacherCourse from "src/pages/TeacherPage/TeacherCourse";
-import TeacherInfo from "src/pages/TeacherPage/TeacherInfo";
-import TeacherRevenue from "src/pages/TeacherPage/TeacherRevenue/TeacherRevenue";
+import TeacherInfo from "src/pages/TeacherPage/ManageProfile/TeacherInfo";
+import TeacherRevenue from "src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue";
 import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
 import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
+import TeacherCourse from "src/pages/TeacherPage/ManageCourses/TeacherCourse";
+import TeacherCourseDetail from "src/pages/TeacherPage/ManageCourses/TeacherCourseDetail";
 
 // main route
 const MAIN_ROUTE = [

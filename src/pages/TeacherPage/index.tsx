@@ -1,2 +1,2 @@
-export * from "./TeacherCourse";
-export * from "./TeacherInfo";
+export * as ManageCourses from "./ManageCourses";
+export * as ManageProfile from "./ManageProfile";

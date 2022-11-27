@@ -34,7 +34,7 @@ export interface ITeacher {
   gender?: boolean;
 }
 
-export interface ITeacherPorfolio {
+export interface ITeacherPortfolio {
   user?: IUser;
   userCourse?: ICourse[];
 }
