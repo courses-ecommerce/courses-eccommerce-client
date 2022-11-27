@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
 import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
-import { yearNumberCompare } from "src/data";
+import { yearNumberCompare } from "src/data/searchInfo";
 import { LINK_DOMAIN } from "src/data/link";
 import {
   getOptionsCharBar,

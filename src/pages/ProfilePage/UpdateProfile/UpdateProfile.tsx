@@ -8,7 +8,7 @@ import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { genderTypes } from "src/data";
+import { genderTypes } from "src/data/searchInfo";
 import { getUserInfo, isPending, isSuccess } from "src/reducers/authSlice";
 import { IUser } from "src/types";
 import { phoneRegExp } from "src/utils";

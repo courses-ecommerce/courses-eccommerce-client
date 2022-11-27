@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { listFooter } from "src/data/data";
+import { listFooter } from "src/data/mainPageInfo";
 import "./Footer.scss";
 
 interface FooterProps {

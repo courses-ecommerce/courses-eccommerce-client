@@ -6,7 +6,7 @@ import courseApi from "src/apis/courseApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
-import { statusCourseTypes } from "src/data";
+import { statusCourseTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { ICourse } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";

@@ -7,7 +7,7 @@ import couponApi from "src/apis/couponApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { discountTypes } from "src/data";
+import { discountTypes } from "src/data/searchInfo";
 // import { discountApplyTypes, discountTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import * as Yup from "yup";

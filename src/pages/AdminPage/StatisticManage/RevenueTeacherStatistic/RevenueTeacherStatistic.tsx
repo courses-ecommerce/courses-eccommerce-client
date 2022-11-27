@@ -9,7 +9,7 @@ import statisticApi from "src/apis/statisticApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
-import { revenueSortTypes } from "src/data";
+import { revenueSortTypes } from "src/data/searchInfo";
 import { LINK_DOMAIN } from "src/data/link";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import formatDate from "src/utils/formatDay";

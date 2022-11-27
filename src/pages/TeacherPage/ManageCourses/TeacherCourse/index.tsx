@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import ReactQuill from "react-quill";
 import { ICourseStatues } from "src/types/course";
-import { dateCourseTypes, statusCourseTypes } from "src/data";
+import { dateCourseTypes, statusCourseTypes } from "src/data/searchInfo";
 import Loading from "src/components/Loading/Loading";
 import "./TeacherCourse.scss";
 

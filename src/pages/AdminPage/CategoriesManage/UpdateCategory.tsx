@@ -7,7 +7,7 @@ import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { categoryTypes, statusTypes } from "src/data";
+import { categoryTypes, statusTypes } from "src/data/searchInfo";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { ICategory } from "src/types";
 import * as Yup from "yup";

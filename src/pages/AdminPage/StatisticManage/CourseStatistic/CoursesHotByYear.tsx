@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
 import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
-import { topAmountTypes } from "src/data";
+import { topAmountTypes } from "src/data/searchInfo";
 import { LINK_DOMAIN } from "src/data/link";
 import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
 import formatDate from "src/utils/formatDay";

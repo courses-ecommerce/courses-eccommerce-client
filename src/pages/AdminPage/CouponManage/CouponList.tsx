@@ -5,7 +5,7 @@ import couponApi from "src/apis/couponApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
-import { statusTypes } from "src/data";
+import { statusTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { ICounpon } from "src/types/cart";
 

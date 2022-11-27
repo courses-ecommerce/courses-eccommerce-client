@@ -4,7 +4,7 @@ import myCourseApi from "src/apis/myCourseApi";
 import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
 import Pagination from "src/components/Pagination/Pagination";
-import { myCourseTypes } from "src/data";
+import { myCourseTypes } from "src/data/searchInfo";
 import { ICourse } from "src/types";
 import { IMyCourse } from "src/types/myCourse";
 import { numberRound } from "src/utils";

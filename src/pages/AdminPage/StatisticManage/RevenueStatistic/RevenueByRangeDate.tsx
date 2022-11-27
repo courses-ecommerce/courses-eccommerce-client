@@ -7,7 +7,7 @@ import statisticApi from "src/apis/statisticApi";
 import DateRangePicker from "src/components/DateRangePicker/DateRangePicker";
 import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
-import { dateTypes } from "src/data";
+import { dateTypes } from "src/data/searchInfo";
 import { LINK_DOMAIN } from "src/data/link";
 import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
 

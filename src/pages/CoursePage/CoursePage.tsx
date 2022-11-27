@@ -6,7 +6,7 @@ import courseApi from "src/apis/courseApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Pagination from "src/components/Pagination/Pagination";
-import { priceRangeTypes, sortTypes } from "src/data";
+import { priceRangeTypes, sortTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICourse, SearchKeyProps } from "src/types";

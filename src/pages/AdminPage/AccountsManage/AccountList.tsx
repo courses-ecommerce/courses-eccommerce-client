@@ -5,7 +5,7 @@ import adminApi from "src/apis/adminApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
-import { accountTypes, statusTypes } from "src/data";
+import { accountTypes, statusTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { IUser } from "src/types";
 // import { useTypingDebounce } from "src/hooks";

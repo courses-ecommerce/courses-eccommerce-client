@@ -4,7 +4,7 @@ import couponApi from "src/apis/couponApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { discountApplyTypes, discountTypes } from "src/data";
+import { discountApplyTypes, discountTypes } from "src/data/searchInfo";
 import { ICounpon } from "src/types/cart";
 
 import formatDate from "src/utils/formatDay";

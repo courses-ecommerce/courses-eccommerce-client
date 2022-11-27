@@ -4,7 +4,7 @@ import adminApi from "src/apis/adminApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
-import { accountTypes, genderTypes, statusTypes } from "src/data";
+import { accountTypes, genderTypes, statusTypes } from "src/data/searchInfo";
 import { IUser } from "src/types";
 import formatDate from "src/utils/formatDay";
 

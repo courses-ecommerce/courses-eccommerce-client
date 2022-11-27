@@ -1,6 +1,6 @@
 import React from "react";
 import SlideShow from "src/components/SlideShow/SlideShow";
-import { listSlideShow } from "src/data/data";
+import { listSlideShow } from "src/data/mainPageInfo";
 
 const HomePage = () => {
   return <SlideShow listSlideShow={listSlideShow} />;

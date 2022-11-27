@@ -4,7 +4,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import statisticApi from "src/apis/statisticApi";
 import InputSelect from "src/components/InputSelect";
-import { numberRangeTypes } from "src/data";
+import { numberRangeTypes } from "src/data/searchInfo";
 import { ITeacher } from "src/types/statistic";
 import formatDay from "src/utils/formatDay";
 import "./RevenueTeacherStatistic.scss";

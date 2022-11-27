@@ -6,7 +6,7 @@ import { Bar } from "react-chartjs-2";
 import statisticApi from "src/apis/statisticApi";
 import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
-import { numberRangeTypes } from "src/data";
+import { numberRangeTypes } from "src/data/searchInfo";
 import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
 import formatDay from "src/utils/formatDay";
 
