@@ -64,7 +64,9 @@ export default function MyCourse() {
         />
       ));
     }
-    return <div>Bạn chưa mua khóa học nào</div>;
+    return (
+      <div className="not-my-course">Bạn hiện tại chưa mua khóa học nào</div>
+    );
   };
 
   return (
@@ -86,7 +88,7 @@ export default function MyCourse() {
         />
       </Box>
       <div className="my-course-content">
-        {!isLoading ? renderMyCourses(courses) : <Loading />}
+        {!isLoading ? renderMyCourses([]) : <Loading />}
       </div>
       <div className="my-course-pagination">
         <Pagination
