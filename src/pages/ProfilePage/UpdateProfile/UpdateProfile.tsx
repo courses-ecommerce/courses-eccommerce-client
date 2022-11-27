@@ -11,8 +11,6 @@ import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data/searchInfo";
 import { getUserInfo, isPending, isSuccess } from "src/reducers/authSlice";
 import { IUser } from "src/types";
-import { phoneRegExp } from "src/utils";
-import * as Yup from "yup";
 import "./UpdateProfile.scss";
 
 interface UpdateProfileProps {
@@ -31,12 +29,6 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
       phone: data.phone,
       avatar: null,
     },
-    // validationSchema: Yup.object({
-    //   phone: Yup.string()
-    //     .matches(phoneRegExp, "Định dạng số điện thoại sai")
-    //     .max(10, "Định dạng số điện thoại sai")
-    //     .min(10, "Định dạng số điện thoại sai"),
-    // }),
     onSubmit: (values) => {
       // console.log("lấy được dữ liệu là", values);
       updateProfile(values);
@@ -75,12 +67,27 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
     }
   };
 
+  const resetDataForm = () => {
+    formik.resetForm({
+      values: {
+        fullName: data.fullName,
+        birthday: data.birthday,
+        gender: data.gender,
+        phone: data.phone,
+        avatar: null,
+      },
+    });
+  };
+
   return (
     <>
       <Button
         variant="contained"
         color="success"
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          resetDataForm();
+          setShowModal(true);
+        }}
       >
         Thay đổi thông tin
       </Button>

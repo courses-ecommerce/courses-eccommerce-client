@@ -3,7 +3,7 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import usertApi from "src/apis/userApi";
+import userApi from "src/apis/userApi";
 import Loading from "src/components/Loading/Loading";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { IUser } from "src/types";
@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
   const getMe = async () => {
     try {
-      const response = await usertApi.getMe();
+      const response = await userApi.getMe();
       const { user }: any = response;
       // console.log(user);
 

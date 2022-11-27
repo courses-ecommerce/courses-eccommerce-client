@@ -102,7 +102,10 @@ const UpdatePassword = () => {
         width={500}
         title="Thay đổi mật khẩu"
         open={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          resetDataForm();
+          setShowModal(false);
+        }}
       >
         <form
           style={{ display: "flex", flexDirection: "column", gap: 20 }}
