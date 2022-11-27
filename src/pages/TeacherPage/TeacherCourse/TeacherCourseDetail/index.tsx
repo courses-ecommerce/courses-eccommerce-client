@@ -179,13 +179,20 @@ const TeacherCourseDetail: React.FC = () => {
 
   const handleDeleteCourse = () => {
     dispatch(isPending());
-    courseApi.deleteCourse(slug).then(() => {
-      toast.success("Xóa khóa học thành công", {
-        position: "bottom-right",
+    courseApi
+      .deleteCourse(slug)
+      .then(() => {
+        toast.success("Xóa khóa học thành công", {
+          position: "bottom-right",
+        });
+        dispatch(isSuccess());
+        nav("/teacher/course");
+      })
+      .catch((error) => {
+        console.log("lỗi rồi", { error });
+        toast.warning(`${error}`, { position: "bottom-right" });
+        dispatch(isSuccess());
       });
-      dispatch(isSuccess());
-      nav("/teacher/course");
-    });
   };
 
   return (
