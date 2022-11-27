@@ -88,7 +88,7 @@ export default function MyCourse() {
         />
       </Box>
       <div className="my-course-content">
-        {!isLoading ? renderMyCourses([]) : <Loading />}
+        {!isLoading ? renderMyCourses(courses) : <Loading />}
       </div>
       <div className="my-course-pagination">
         <Pagination
