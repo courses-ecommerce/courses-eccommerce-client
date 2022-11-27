@@ -2,14 +2,6 @@
 
 export const listSlideShow = [
   {
-    // name: "Khoá học ABC",
-    // description: "Khoá học hay nhất Việt Nam",
-    btn: false,
-    image:
-      "https://i.pinimg.com/originals/75/1d/ad/751dade406f71b730876045ba9e6be4c.jpg",
-    // image: thumb1,
-  },
-  {
     // name: "Khoá học ABD",
     // description: "Khoá học hay nhất Việt Nam",
     // image: thumb2,
