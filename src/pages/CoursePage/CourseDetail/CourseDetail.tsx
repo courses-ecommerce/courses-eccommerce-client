@@ -33,6 +33,7 @@ const CourseDetail = () => {
   const [courseRelates, setCourseRelates] = useState<ICourse[]>([]);
   const [ratingComents, setRatingComents] = useState<IRating[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingDetail, setIsLoadingDetail] = useState<boolean>(false);
 
   // //search
   const [limit, setLimit] = useState(4);
@@ -63,12 +64,15 @@ const CourseDetail = () => {
   }, [courseDetail.slug, limit, page]);
 
   const getCourseDetail = async () => {
+    setIsLoadingDetail(true);
     try {
       const response = await courseApi.getCourseDetail(id);
       const { course }: any = response;
       setCourseDetail(course);
+      setIsLoadingDetail(false);
       // console.log("áddas", course);
     } catch (error) {
+      setIsLoadingDetail(false);
       console.log("lỗi", { error });
     }
   };
@@ -198,14 +202,17 @@ const CourseDetail = () => {
             <CourseTarget
               title="Đối tượng nào nên học?"
               content={courseDetail.intendedLearners}
+              isLoading={isLoadingDetail}
             />
             <CourseTarget
               title="Kiến thức bắt buộc cần có?"
               content={courseDetail.requirements}
+              isLoading={isLoadingDetail}
             />
             <CourseTarget
               title="Bạn sẽ học được gì?"
               content={courseDetail.targets}
+              isLoading={isLoadingDetail}
             />
           </div>
         </div>
