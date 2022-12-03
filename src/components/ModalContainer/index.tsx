@@ -25,10 +25,10 @@ const ModalContainer: React.FC<ModalProps> = ({
     <Dialog
       open={open}
       onClose={onClose}
+      scroll="body"
       sx={{
         "& .MuiPaper-root": {
           maxWidth: "max-content",
-          maxHeight: "fit-content",
         },
       }}
     >
