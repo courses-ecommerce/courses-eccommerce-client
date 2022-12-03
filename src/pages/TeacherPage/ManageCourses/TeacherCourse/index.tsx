@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
-import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
-import Input from "src/components/Input";
 import { Button } from "@mui/material";
-import ModalContainer from "src/components/ModalContainer";
 import { Box } from "@mui/system";
-import * as Yup from "yup";
 import { useFormik } from "formik";
-import InputSelect from "src/components/InputSelect";
+import React, { useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
-import { useNavigate } from "react-router-dom";
-import { ICourse } from "src/types";
-import { useDispatch } from "react-redux";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import ReactQuill from "react-quill";
-import { ICourseStatues } from "src/types/course";
-import { dateCourseTypes, statusCourseTypes } from "src/data/searchInfo";
+import Input from "src/components/Input";
+import InputFile from "src/components/InputFile";
+import InputSelect from "src/components/InputSelect";
+import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 import Loading from "src/components/Loading/Loading";
+import ModalContainer from "src/components/ModalContainer";
+import { dateCourseTypes, statusCourseTypes } from "src/data/searchInfo";
+import { isPending, isSuccess } from "src/reducers/authSlice";
+import { ICourse } from "src/types";
+import { ICourseStatues } from "src/types/course";
+import * as Yup from "yup";
 import "./TeacherCourse.scss";
 
 export interface ICategories {
@@ -32,6 +34,7 @@ const TeacherCourse: React.FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState("");
   const [filter, setFilter] = useState({
     name: "",
     status: "",
@@ -84,6 +87,7 @@ const TeacherCourse: React.FC = () => {
       courseApi
         .createNewCourse({
           ...values,
+          thumbnail: image,
           originalPrice: Number(values.originalPrice),
           currentPrice: Number(values.currentPrice),
         })
@@ -97,11 +101,38 @@ const TeacherCourse: React.FC = () => {
               currentPrice: "",
             },
           });
+          toast.success("Tạo khóa học thành công", {
+            position: "bottom-right",
+          });
           setShowModal(false);
+          setImage("");
           getListCourses();
         });
     },
   });
+
+  const postImage = (image: any) => {
+    dispatch(isPending());
+    const formData = new FormData();
+    formData.append("image", image);
+
+    courseApi
+      .uploadImage(formData)
+      .then((res: any) => {
+        dispatch(isSuccess());
+        const { message, url } = res;
+        // console.log("res", res);
+
+        toast.success(`${message}`, {
+          position: "bottom-right",
+        });
+        setImage(url);
+      })
+      .catch((err) => {
+        dispatch(isSuccess());
+        console.log("Lỗi rồi", err);
+      });
+  };
 
   useEffect(() => {
     dispatch(isPending());
@@ -230,7 +261,7 @@ const TeacherCourse: React.FC = () => {
 
       <ModalContainer
         width={700}
-        title="Thêm khóa học"
+        title="Thêm khóa học mới"
         open={showModal}
         onClose={() => setShowModal(false)}
       >
@@ -238,6 +269,11 @@ const TeacherCourse: React.FC = () => {
           <Box
             sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}
           >
+            <InputFile
+              className="create-thumbnail-course"
+              label="Thumbnail khóa học"
+              onChange={(value) => postImage(value)}
+            />
             <Input
               required
               label="Tên khóa học"
