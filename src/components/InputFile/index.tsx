@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import classNames from "classnames";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { downloadIMG } from "src/assets";
 import "./InputFile.scss";
@@ -11,6 +12,7 @@ interface InputFileProps {
   multiple?: boolean;
   errorMessage?: string;
   labelImg?: boolean;
+  className?: string;
 }
 
 const InputFile: React.FC<InputFileProps> = ({
@@ -21,10 +23,15 @@ const InputFile: React.FC<InputFileProps> = ({
   onChange,
   errorMessage,
   labelImg = true,
+  className = "",
 }) => {
   // const [image, setImage] = useState<any>([]);
 
   const [imagePreview, setImagePreview] = useState(valueDefault);
+
+  useEffect(() => {
+    setImagePreview(valueDefault);
+  }, [valueDefault]);
 
   const handleChangeImage = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
@@ -69,11 +76,12 @@ const InputFile: React.FC<InputFileProps> = ({
 
       <label htmlFor="file_input">
         {imagePreview && labelImg ? (
-          <img src={imagePreview} alt="" />
+          <img className={classNames(className)} src={imagePreview} alt="" />
         ) : (
-          <img src={downloadIMG} alt="" />
+          <img className={classNames(className)} src={downloadIMG} alt="" />
         )}
       </label>
+
       <div className="error">{errorMessage}</div>
     </div>
   );
