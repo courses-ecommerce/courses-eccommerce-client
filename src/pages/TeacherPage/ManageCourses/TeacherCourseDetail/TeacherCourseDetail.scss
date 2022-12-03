@@ -23,6 +23,12 @@
     border-radius: 16px;
     width: calc(100% - 250px);
 
+    .thumbnail-course {
+      width: 400px;
+      height: 200px;
+      object-fit: cover;
+    }
+
     .editor {
       height: 200px;
 

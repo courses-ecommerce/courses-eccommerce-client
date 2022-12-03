@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,6 +24,7 @@ import IntendedLearners from "../IntendedLearners";
 import Requirements from "../Requirements";
 import Targets from "../Targets";
 import { ICategories } from "../TeacherCourse";
+import InputFile from "src/components/InputFile";
 
 const TeacherCourseDetail: React.FC = () => {
   document.title = "Quản lý khóa học";
@@ -35,15 +36,18 @@ const TeacherCourseDetail: React.FC = () => {
   const [categories, setCategories] = useState<ICategories[]>([]);
   const [slug, setSlug] = useState("");
   const [courseStatus, setCourseStatus] = useState();
+  const [image, setImage] = useState("");
   const nav = useNavigate();
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       name: "",
       description: "",
       category: "",
       originalPrice: "",
       currentPrice: "",
+      thumbnail: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Vui lòng nhập khóa học"),
@@ -68,6 +72,7 @@ const TeacherCourseDetail: React.FC = () => {
       courseApi
         .updateCourse(slug, {
           ...values,
+          thumbnail: image,
           originalPrice: Number(values.originalPrice),
           currentPrice: Number(values.currentPrice),
         })
@@ -105,6 +110,7 @@ const TeacherCourseDetail: React.FC = () => {
             status,
             originalPrice,
             currentPrice,
+            thumbnail,
           } = res.course;
           dispatch(isSuccess());
           setSlug(_slugCourse);
@@ -114,6 +120,7 @@ const TeacherCourseDetail: React.FC = () => {
             originalPrice,
             currentPrice,
             category: category._id,
+            thumbnail,
           });
           setChapters(chapterCourse);
           setCourseStatus(status);
@@ -139,6 +146,27 @@ const TeacherCourseDetail: React.FC = () => {
         setChapters(res.chapters);
       });
     });
+  };
+
+  const postImage = (image: any) => {
+    dispatch(isPending());
+    const formData = new FormData();
+    formData.append("image", image);
+
+    courseApi
+      .uploadImage(formData)
+      .then((res: any) => {
+        dispatch(isSuccess());
+        const { message, url } = res;
+        toast.success(`${message}`, {
+          position: "bottom-right",
+        });
+        setImage(url);
+      })
+      .catch((err) => {
+        dispatch(isSuccess());
+        console.log("Lỗi rồi", err);
+      });
   };
 
   const handleUpdateChapter = (
@@ -295,6 +323,13 @@ const TeacherCourseDetail: React.FC = () => {
                   gap: 1,
                 }}
               >
+                <InputFile
+                  className="thumbnail-course"
+                  label="Thumbnail khóa học"
+                  valueDefault={formik.values.thumbnail}
+                  // onChange={(value) => formik.setFieldValue("thumbnail", value)}
+                  onChange={(value) => postImage(value)}
+                />
                 <Input
                   required
                   label="Tên khóa học"
