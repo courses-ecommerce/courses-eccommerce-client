@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { IGetCourse } from "src/types/course";
 import axiosClient from "./axiosClient";
 
@@ -44,6 +45,11 @@ const courseApi = {
   viewCheckCourse: (id?: string) => {
     const url = COURSE_API + "/check/" + id;
     return axiosClient.get(url);
+  },
+
+  uploadImage: (image: any) => {
+    const url = COURSE_API + "/upload/image";
+    return axiosClient.post(url, image);
   },
 };
 
