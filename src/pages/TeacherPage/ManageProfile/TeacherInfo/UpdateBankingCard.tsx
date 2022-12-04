@@ -14,6 +14,7 @@ import * as Yup from "yup";
 interface UpdateBankingCardProps {
   id: any;
   show?: boolean;
+  isUpdate?: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
   bankingCard?: IPayment;
@@ -23,6 +24,7 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
   id,
   setShow,
   show = false,
+  isUpdate,
   onClose,
   bankingCard,
 }) => {
@@ -48,12 +50,14 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
   const handleUpdateBankingCard = async (payments?: any) => {
     // console.log("params là", { payments });
     dispatch(isPending());
+    isUpdate?.(false);
     try {
       await teacherApi.updateTeacherInfoById(id, { payments });
 
       //   console.log("đã lấy đươc thông tin là", response);
       dispatch(isSuccess());
       setShow?.(false);
+      isUpdate?.(true);
       toast.success("Cập nhật thông tin thẻ ngân hàng thành công", {
         position: "bottom-right",
       });
@@ -77,8 +81,8 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
   };
   return (
     <ModalContainer
-      width={800}
-      title="Cập nhật thông tin thẻ ngân hàng"
+      width={900}
+      title="Cập nhật thông tin tài khoản ngân hàng"
       open={show}
       onClose={() => {
         onClose?.();

@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import teacherApi from "src/apis/teacherApi";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { IUser } from "src/types";
-import "./TeacherInfo.scss";
 import UpdateBankingCard from "./UpdateBankingCard";
+import "./TeacherInfo.scss";
 
 const TeacherInfo: React.FC = () => {
   document.title = "Thông tin thẻ ngân hàng";
@@ -15,13 +15,15 @@ const TeacherInfo: React.FC = () => {
   const [teacherInfo, setTeacherInfo] = useState<IUser>();
 
   const [showUpdateBanking, setShowUpdateBanking] = useState<boolean>(false);
+  const [isUpdateBankingCompleted, setIsUpdateBankingCompleted] =
+    useState<boolean>(false);
 
   useEffect(() => {
-    if (!showUpdateBanking) {
+    if (isUpdateBankingCompleted) {
       getTeacherInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo._id, showUpdateBanking]);
+  }, [userInfo._id, isUpdateBankingCompleted]);
 
   const getTeacherInfo = async () => {
     // console.log("id là", userInfo._id);
@@ -40,7 +42,7 @@ const TeacherInfo: React.FC = () => {
   return (
     <>
       <div className="teacher-info">
-        <h3>Thông tin ngân hàng</h3>
+        <h3>Thông tin tài khoản ngân hàng</h3>
         <div className="banking_info">
           <span>
             <b>Mã số tài khoản: </b>
@@ -50,23 +52,20 @@ const TeacherInfo: React.FC = () => {
             <b>Tên ngân hàng: </b>
             {teacherInfo?.teacher?.payments?.bankName}
           </span>
-          {/* <span>
-          <b>Mã số thẻ(được ghi trên thẻ atm) : </b>
-          {teacherInfo?.teacher?.payments?.cardNumber}
-        </span> */}
           <span>
             <b>Tên chủ sở hữu : </b>
             {teacherInfo?.teacher?.payments?.name}
           </span>
         </div>
         <Button variant="contained" onClick={() => setShowUpdateBanking(true)}>
-          Cập nhật thẻ ngân hàng
+          Cập nhật thông tin tài khoản ngân hàng
         </Button>
       </div>
       <UpdateBankingCard
         bankingCard={teacherInfo?.teacher?.payments}
         id={teacherInfo?._id}
         show={showUpdateBanking}
+        isUpdate={(status) => setIsUpdateBankingCompleted(status)}
         onClose={() => setShowUpdateBanking(false)}
         setShow={setShowUpdateBanking}
       />
