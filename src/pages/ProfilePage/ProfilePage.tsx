@@ -1,6 +1,6 @@
 import { Avatar, Button, Divider } from "@mui/material";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import userApi from "src/apis/userApi";
@@ -20,7 +20,7 @@ const ProfilePage = () => {
 
   const { isRole } = useSelector(selectAuthorization);
 
-  const [info, setinfo] = useState<IUser>({});
+  const [info, setInfo] = useState<IUser>({});
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [showDescription, setShowDescription] = useState<boolean>(false);
 
@@ -36,7 +36,7 @@ const ProfilePage = () => {
       const { user }: any = response;
       // console.log(user);
 
-      setinfo(user);
+      setInfo(user);
     } catch (error) {
       console.log("lỗi r", { error });
     }
@@ -89,7 +89,7 @@ const ProfilePage = () => {
                 onClick={() => navigate(`/user/${info._id}`)}
                 sx={{ width: 300 }}
               >
-                Xem thử trang porfolio
+                Xem thử trang portfolio
               </Button>
             </>
           )}
