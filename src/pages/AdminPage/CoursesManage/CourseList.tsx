@@ -11,7 +11,7 @@ import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { ICourse } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 
-const columsHeader: GridColDef[] = [
+const columnsHeader: GridColDef[] = [
   {
     field: "_id",
     headerName: "STT",
@@ -157,7 +157,7 @@ const CourseList = () => {
       titleBtnAdd="Tạo tài khoản mới"
       isLoading={loading}
       title="Danh sách thông tin khoá học"
-      columnsData={columsHeader}
+      columnsData={columnsHeader}
       getRowId={(row) => row._id}
       onPage={(page) => setPage(Number(page))}
       onPageSize={(pageSize) => setPageSize(Number(pageSize))}

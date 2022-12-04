@@ -64,6 +64,8 @@ export const translateVi = (name?: string) => {
       return "Được công bố";
     case "pendingCourse":
       return "Đang chờ duyệt";
+    case "updating":
+      return "Đang update";
 
     default:
       return name;
