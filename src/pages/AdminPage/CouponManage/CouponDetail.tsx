@@ -30,8 +30,7 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
     try {
       const response = await couponApi.getCouponDetail(id);
       const { coupon }: any = response;
-      console.log("details laf", response);
-
+      // console.log("details laf", response);
       setCouponDetail(coupon);
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -40,7 +39,7 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
 
   return (
     <ModalContainer
-      width={700}
+      width={900}
       title="Thông tin chi tiết mã giảm giá"
       open={show}
       onClose={onClose}
@@ -72,12 +71,6 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
             defaultValue={couponDetail.type}
             disabled
           />
-          <InputSelect
-            disabled
-            label="Phạm vi áp dụng"
-            list={discountApplyTypes}
-            defaultValue={couponDetail.apply}
-          />
           <Input
             disabled
             label="Ngày bắt đầu"
@@ -92,6 +85,12 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
+          <InputSelect
+            disabled
+            label="Phạm vi áp dụng"
+            list={discountApplyTypes}
+            defaultValue={couponDetail.apply}
+          />
           <Input
             disabled
             label="Còn lại"
@@ -109,7 +108,7 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
           />
           <Input
             disabled
-            label="Giảm giá tối đa (VNĐ)"
+            label="Giảm giá tối đa (VNĐ) - Chỉ dành cho đơn vị tính là %"
             placeholder="Nhập giá tối đa"
             value={couponDetail.maxDiscount}
           />

@@ -9,6 +9,7 @@ import { isPending, isSuccess } from "src/reducers/authSlice";
 interface MultiDeleteCouponProps {
   ids: string[] | number[];
   show?: boolean;
+  isUpdate?: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
@@ -17,18 +18,20 @@ const MultiDeleteCoupon: React.FC<MultiDeleteCouponProps> = ({
   ids,
   setShow,
   show = false,
+  isUpdate,
   onClose,
 }) => {
   const dispatch = useDispatch();
 
   const handleMultiDeleteCoupon = async () => {
     const params = { ids };
+    isUpdate?.(false);
     dispatch(isPending());
     try {
-      const response = await couponApi.multiDeleteCoupon(params);
-      console.log(response);
+      await couponApi.multiDeleteCoupon(params);
       dispatch(isSuccess());
       setShow?.(false);
+      isUpdate?.(true);
       toast.success("Xoá mã khuyến mãi thành công", {
         position: "bottom-right",
       });

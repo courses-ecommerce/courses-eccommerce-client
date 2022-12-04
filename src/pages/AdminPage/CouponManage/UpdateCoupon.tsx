@@ -15,6 +15,7 @@ import * as Yup from "yup";
 interface UpdateCouponProps {
   id: string | number;
   show?: boolean;
+  isUpdate?: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
@@ -22,6 +23,7 @@ interface UpdateCouponProps {
 const UpdateCoupon: React.FC<UpdateCouponProps> = ({
   id,
   setShow,
+  isUpdate,
   show = false,
   onClose,
 }) => {
@@ -35,7 +37,7 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
   const getCategoryDetail = async (id: any) => {
     try {
       const response = await couponApi.getCouponDetail(id);
-      console.log("details laf", response);
+      // console.log("details laf", response);
       const { coupon }: any = response;
       setCouponDetail(coupon);
     } catch (error) {
@@ -44,13 +46,15 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
   };
 
   const handleUpdateCoupon = async (values: any) => {
-    dispatch(isPending());
+    // console.log("values have updated", values);
 
+    dispatch(isPending());
+    isUpdate?.(false);
     try {
       await couponApi.updateCoupon(id, values);
       dispatch(isSuccess());
       setShow?.(false);
-
+      isUpdate?.(true);
       toast.success("Cập nhật mã khuyến mãi thành công", {
         position: "bottom-right",
       });
@@ -124,17 +128,34 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
       return errors;
     },
     onSubmit: async (values) => {
-      console.log("lấy được dữ liệu là", values);
+      // console.log("lấy được dữ liệu là", values);
       handleUpdateCoupon(values);
     },
   });
 
+  const resetForm = () => {
+    formik.resetForm({
+      values: {
+        title: couponDetail.title,
+        type: couponDetail.type,
+        amount: couponDetail.amount,
+        startDate: couponDetail.startDate,
+        expireDate: couponDetail.expireDate,
+        maxDiscount: couponDetail.maxDiscount,
+        minPrice: couponDetail.minPrice,
+      },
+    });
+  };
+
   return (
     <ModalContainer
-      width={700}
+      width={900}
       title="Cập nhật thông tin mã khuyến mãi"
       open={show}
-      onClose={onClose}
+      onClose={() => {
+        onClose?.();
+        setTimeout(() => resetForm(), 200);
+      }}
     >
       <form
         id="update-account"
@@ -191,7 +212,8 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
             {...formik.getFieldProps("amount")}
           />
           <Input
-            label="Giảm giá tối đa (VNĐ)"
+            disabled={formik.values.type !== "percent"}
+            label="Giảm giá tối đa (VNĐ) - Chỉ dành cho đơn vị tính là %"
             placeholder="Nhập giá tối đa"
             errorMessage={
               formik.touched.maxDiscount ? formik.errors.maxDiscount : ""

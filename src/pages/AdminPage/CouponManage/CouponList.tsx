@@ -98,17 +98,32 @@ const CouponList = () => {
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
+  //status
+  const [isCreateCouponComplete, setIsCreateCouponComplete] =
+    useState<boolean>(false);
+  const [isUpdateCouponComplete, setIsUpdateCouponComplete] =
+    useState<boolean>(false);
+  const [isMultiDeleteCouponComplete, setIsMultiDeleteCouponComplete] =
+    useState<boolean>(false);
+
   useEffect(() => {
     getCoupons();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive, title, page, pageSize]);
+
+  useEffect(() => {
+    if (
+      isCreateCouponComplete ||
+      isUpdateCouponComplete ||
+      isMultiDeleteCouponComplete
+    ) {
+      getCoupons();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    showMultiDelete,
-    showCreate,
-    showUpdate,
-    isActive,
-    title,
-    page,
-    pageSize,
+    isCreateCouponComplete,
+    isUpdateCouponComplete,
+    isMultiDeleteCouponComplete,
   ]);
 
   useEffect(() => {
@@ -201,6 +216,7 @@ const CouponList = () => {
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <CreateCoupon
+        isUpdate={(status) => setIsCreateCouponComplete(status)}
         show={showCreate}
         onClose={() => setShowCreate(false)}
         setShow={setShowCreate}
@@ -208,6 +224,7 @@ const CouponList = () => {
       <MultiDeleteCoupon
         ids={couponIds}
         show={showMultiDelete}
+        isUpdate={(status) => setIsMultiDeleteCouponComplete(status)}
         onClose={() => setShowMultiDelete(false)}
         setShow={setShowMultiDelete}
       />
@@ -219,6 +236,7 @@ const CouponList = () => {
       <UpdateCoupon
         id={couponId}
         show={showUpdate}
+        isUpdate={(status) => setIsUpdateCouponComplete(status)}
         onClose={() => setShowUpdate(false)}
         setShow={setShowUpdate}
       />

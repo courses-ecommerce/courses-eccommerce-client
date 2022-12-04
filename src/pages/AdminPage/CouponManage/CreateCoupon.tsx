@@ -8,18 +8,19 @@ import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { discountTypes } from "src/data/searchInfo";
-// import { discountApplyTypes, discountTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import * as Yup from "yup";
 
 interface CreateCouponProps {
   show?: boolean;
+  isUpdate?: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
 const CreateCoupon: React.FC<CreateCouponProps> = ({
   show = false,
+  isUpdate,
   onClose,
   setShow,
 }) => {
@@ -116,12 +117,13 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
 
   const handleCreateCoupon = async (values: any) => {
     dispatch(isPending());
-
+    isUpdate?.(false);
     try {
       await couponApi.createNewCoupon(values);
       // console.log(response);
       dispatch(isSuccess());
       setShow?.(false);
+      isUpdate?.(true);
       toast.success("Tạo mã khuyến mãi thành công", {
         position: "bottom-right",
       });
@@ -137,10 +139,14 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
 
   return (
     <ModalContainer
-      width={700}
+      width={900}
       title="Tạo mã giảm giá mới"
       open={show}
-      onClose={onClose}
+      onClose={() => {
+        isUpdate?.(false);
+        onClose?.();
+        resetDataForm();
+      }}
     >
       <form
         id="create-form"
@@ -210,7 +216,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
             {...formik.getFieldProps("amount")}
           />
           <Input
-            label="Giảm giá tối đa (VNĐ)"
+            label="Giảm giá tối đa (VNĐ) - Chỉ dành cho đơn vị tính là %"
             placeholder="Nhập giá tối đa"
             disabled={formik.values.type !== "percent"}
             errorMessage={
