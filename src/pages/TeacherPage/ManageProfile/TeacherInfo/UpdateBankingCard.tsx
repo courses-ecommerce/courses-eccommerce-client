@@ -66,13 +66,24 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
       });
     }
   };
-
+  const resetDataForm = () => {
+    formik.resetForm({
+      values: {
+        accountNumber: bankingCard?.accountNumber,
+        name: bankingCard?.name,
+        bankName: bankingCard?.bankName,
+      },
+    });
+  };
   return (
     <ModalContainer
       width={800}
       title="Cập nhật thông tin thẻ ngân hàng"
       open={show}
-      onClose={onClose}
+      onClose={() => {
+        onClose?.();
+        setTimeout(() => resetDataForm(), 100);
+      }}
     >
       <form
         onSubmit={formik.handleSubmit}
