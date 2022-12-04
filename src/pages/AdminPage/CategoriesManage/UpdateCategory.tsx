@@ -14,6 +14,7 @@ import * as Yup from "yup";
 
 interface UpdateCategoryProps {
   id: string | number;
+  isUpdate: (status: boolean) => void;
   show?: boolean;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
@@ -22,6 +23,7 @@ interface UpdateCategoryProps {
 const UpdateCategory: React.FC<UpdateCategoryProps> = ({
   id,
   setShow,
+  isUpdate,
   show = false,
   onClose,
 }) => {
@@ -35,7 +37,7 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
   const getCategoryDetail = async (id: any) => {
     try {
       const response = await categoryApi.getCategoryDetail(id);
-      // console.log("áádasd", response);
+      console.log("áádasd", response);
       const { category }: any = response;
       setCategoryDetail(category);
     } catch (error) {
@@ -44,13 +46,14 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
   };
 
   const handleUpdateCategory = async (values: any) => {
+    isUpdate?.(false);
     dispatch(isPending());
 
     try {
       await categoryApi.updateCategory(id, values);
       dispatch(isSuccess());
       setShow?.(false);
-
+      isUpdate?.(true);
       toast.success("Cập nhật thông tin danh mục thành công", {
         position: "bottom-right",
       });
@@ -80,12 +83,25 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
     },
   });
 
+  const resetForm = () => {
+    formik.resetForm({
+      values: {
+        name: categoryDetail.name,
+        publish: categoryDetail.publish,
+        isPending: categoryDetail.isPending,
+      },
+    });
+  };
+
   return (
     <ModalContainer
       width={700}
       title="Cập nhật thông tin danh mục"
       open={show}
-      onClose={onClose}
+      onClose={() => {
+        onClose?.();
+        setTimeout(() => resetForm(), 200);
+      }}
     >
       <form id="update-account" onSubmit={formik.handleSubmit}>
         <Input
@@ -105,7 +121,7 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
         <InputSelect
           label="Trạng thái"
           list={categoryTypes}
-          defaultValue={formik.values.isPending}
+          defaultValue={formik.values.isPending?.toString()}
           errorMessage={formik.touched.isPending ? formik.errors.isPending : ""}
           {...formik.getFieldProps("isPending")}
         />

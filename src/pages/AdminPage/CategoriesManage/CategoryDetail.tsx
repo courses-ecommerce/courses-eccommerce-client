@@ -53,7 +53,7 @@ const CategoryDetail: React.FC<CategoryDetailProps> = ({
         <InputSelect
           label="Trạng thái"
           list={categoryTypes}
-          defaultValue={categoryDetail.isPending}
+          defaultValue={categoryDetail.isPending?.toString()}
           disabled
         />
       </form>

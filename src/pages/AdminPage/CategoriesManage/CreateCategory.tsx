@@ -9,15 +9,17 @@ import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import * as Yup from "yup";
 
-interface CreateCatergoryProps {
+interface CreateCategoryProps {
   show?: boolean;
+  isUpdate: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
 
-const CreateCatergory: React.FC<CreateCatergoryProps> = ({
+const CreateCategory: React.FC<CreateCategoryProps> = ({
   show = false,
   onClose,
+  isUpdate,
   setShow,
 }) => {
   const dispatch = useDispatch();
@@ -45,12 +47,13 @@ const CreateCatergory: React.FC<CreateCatergoryProps> = ({
 
   const handleCreateCatergory = async (values: Object) => {
     dispatch(isPending());
-
+    isUpdate?.(false);
     try {
-      const response = await categoryApi.createNewCategory(values);
-      console.log(response);
+      await categoryApi.createNewCategory(values);
+      // console.log(response);
       dispatch(isSuccess());
       setShow?.(false);
+      isUpdate?.(true);
       toast.success("Tạo danh mục thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -65,7 +68,10 @@ const CreateCatergory: React.FC<CreateCatergoryProps> = ({
       width={500}
       title="Tạo danh mục mới"
       open={show}
-      onClose={onClose}
+      onClose={() => {
+        onClose?.();
+        resetDataForm();
+      }}
     >
       <form id="create-form" onSubmit={formik.handleSubmit}>
         <Input
@@ -98,4 +104,4 @@ const CreateCatergory: React.FC<CreateCatergoryProps> = ({
   );
 };
 
-export default CreateCatergory;
+export default CreateCategory;

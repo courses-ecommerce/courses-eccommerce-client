@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import { GridColDef } from "@mui/x-data-grid";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import categoryApi from "src/apis/categoryApi";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
@@ -46,6 +46,12 @@ const CategoryList = () => {
   const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
+  //check isUpdate
+  const [isCreateCompleted, setIsCreateCompleted] = useState<boolean>(false);
+  const [isMultiDeleteCompleted, setIsMultiDeleteCompleted] =
+    useState<boolean>(false);
+  const [isUpdateCompleted, setIsUpdateCompleted] = useState<boolean>(false);
+
   const columsHeader: GridColDef[] = [
     { field: "id", headerName: "STT", width: 100 },
     { field: "name", headerName: "Tên danh mục", width: 300 },
@@ -56,17 +62,14 @@ const CategoryList = () => {
   useEffect(() => {
     getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    showCreate,
-    showMultiDelete,
-    showUpdate,
-    page,
-    pageSize,
-    categoryName,
-    publish,
-    used,
-    isPending,
-  ]);
+  }, [page, pageSize, categoryName, publish, used, isPending]);
+
+  useEffect(() => {
+    if (isCreateCompleted || isUpdateCompleted || isMultiDeleteCompleted) {
+      getCategories();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreateCompleted, isUpdateCompleted, isMultiDeleteCompleted]);
 
   //debounce to search
   useEffect(() => {
@@ -166,17 +169,20 @@ const CategoryList = () => {
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <CreateCategory
+        isUpdate={(status) => setIsCreateCompleted(status)}
         show={showCreate}
         onClose={() => setShowCreate(false)}
         setShow={setShowCreate}
       />
       <MultiDeleteCategory
         slugs={categoryIds}
+        isUpdate={(status) => setIsMultiDeleteCompleted(status)}
         show={showMultiDelete}
         onClose={() => setShowMultiDelete(false)}
         setShow={setShowMultiDelete}
       />
       <UpdateCategory
+        isUpdate={(status) => setIsUpdateCompleted(status)}
         id={categoryId}
         show={showUpdate}
         onClose={() => setShowUpdate(false)}
