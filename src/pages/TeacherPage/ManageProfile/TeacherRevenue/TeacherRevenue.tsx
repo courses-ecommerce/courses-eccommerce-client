@@ -1,5 +1,5 @@
 import { Box, Divider } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import teacherApi from "src/apis/teacherApi";
 import DateRangePicker from "src/components/DateRangePicker/DateRangePicker";
 import Loading from "src/components/Loading/Loading";
@@ -20,7 +20,7 @@ export default function TeacherRevenue() {
 
   useEffect(() => {
     // console.log("date range", dateRange);
-    getTeacherRevenue();
+    dateRange && getTeacherRevenue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateRange]);
 
@@ -43,15 +43,13 @@ export default function TeacherRevenue() {
   };
 
   const renderRevenueInvoices = (invoices: IInvoice[] = []) => {
-    if (invoices.length === 0) {
-      return <div>Không có thông tin</div>;
-    }
-    return (
-      invoices.length > 0 &&
-      invoices.map((invoice, index) => (
+    if (invoices.length > 0) {
+      return invoices.map((invoice, index) => (
         <RevenueInvoiceItem data={invoice} key={index} />
-      ))
-    );
+      ));
+    }
+
+    return <div>Không có thông tin</div>;
   };
 
   return (
