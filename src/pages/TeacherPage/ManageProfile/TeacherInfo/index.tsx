@@ -19,6 +19,11 @@ const TeacherInfo: React.FC = () => {
     useState<boolean>(false);
 
   useEffect(() => {
+    getTeacherInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (isUpdateBankingCompleted) {
       getTeacherInfo();
     }
