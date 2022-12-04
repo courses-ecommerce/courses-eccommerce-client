@@ -4,7 +4,6 @@ import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-// import CouponStatistic from "src/pages/AdminPage/StatisticManage/CouponStatistic/CouponStatistic";
 import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
 import RevenueStatistic from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenueStatistic";
 import RevenueTeacherDetail from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherDetail";
@@ -18,7 +17,7 @@ import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
-import PorfolioPage from "src/pages/MainPage/PortfolioPage/PortfolioPage";
+import PortfolioPage from "src/pages/MainPage/PortfolioPage/PortfolioPage";
 import Message from "src/pages/Message/Message";
 import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
@@ -60,7 +59,7 @@ const MAIN_ROUTE = [
   {
     role: "page",
     path: "user/:id",
-    element: <PorfolioPage />,
+    element: <PortfolioPage />,
   },
   { role: "page", path: "/unauthorized", element: <UnauthorizedPage /> },
   { role: "page", path: "/*", element: <NotFound /> },
