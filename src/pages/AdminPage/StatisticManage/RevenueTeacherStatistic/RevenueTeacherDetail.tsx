@@ -22,6 +22,7 @@ const RevenueTeacherDetail = () => {
   const { id } = useParams();
 
   const [teacherRevenueDetail, setTeacherRevenueDetail] = useState<ITeacher>();
+  const [isLoading, setIsLoading] = useState(false);
   const [excelHref, setExcelHref] = useState<string>();
   const [monthAndYear, setMonthAndYear] = useState<any>(new Date());
 
@@ -39,14 +40,17 @@ const RevenueTeacherDetail = () => {
   }, [id, monthAndYear]);
 
   const getRevenueTeacherDetailByMonth = async (params?: any) => {
+    setIsLoading(false);
     try {
       const response = await statisticApi.getTeacherRevenueById(id, params);
       // console.log("data là", response);
       const { file, teacher }: any = response;
-      console.log("teacher", teacher);
+      // console.log("teacher", teacher);
       setTeacherRevenueDetail(teacher);
+      setIsLoading(true);
       setExcelHref(file);
     } catch (error) {
+      setIsLoading(true);
       console.log("lỗi rồi", { error });
     }
   };
@@ -63,12 +67,12 @@ const RevenueTeacherDetail = () => {
   };
 
   const renderRevenueInvoices = (invoices: IInvoice[] = []) => {
-    return (
-      invoices.length > 0 &&
-      invoices.map((invoice, index) => (
+    if (invoices.length > 0) {
+      return invoices.map((invoice, index) => (
         <RevenueInvoiceItem data={invoice} key={index} />
-      ))
-    );
+      ));
+    }
+    return <div>Tháng này chưa bán được khóa nào</div>;
   };
   return (
     <>
@@ -166,7 +170,9 @@ const RevenueTeacherDetail = () => {
           <div className="revenue-teacher-content">
             <h3>Thông tin các khoá học đã bán trong tháng</h3>
             <div className="content">
-              {renderRevenueInvoices(teacherRevenueDetail?.detailInvoices) || (
+              {isLoading ? (
+                renderRevenueInvoices(teacherRevenueDetail?.detailInvoices)
+              ) : (
                 <Loading />
               )}
             </div>
