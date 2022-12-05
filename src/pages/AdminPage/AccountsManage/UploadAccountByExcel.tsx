@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import adminApi from "src/apis/adminApi";
 import ModalContainer from "src/components/ModalContainer";
+import { LINK_DOMAIN } from "src/data";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
 interface UploadAccountByExcelProps {
   show?: boolean;
+  isUpdate: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
@@ -15,6 +17,7 @@ interface UploadAccountByExcelProps {
 const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   show,
   onClose,
+  isUpdate,
   setShow,
 }) => {
   const [error, setError] = useState("");
@@ -24,7 +27,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
   const handleUpload = async (e: any) => {
     const formData: any = new FormData();
     formData.append("file", e.target.files[0]);
-
+    isUpdate?.(false);
     // console.log("param là", ...formData);
     dispatch(isPending());
     try {
@@ -44,11 +47,12 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
       setShow?.(false);
       toast.warning("Lỗi rồi", { position: "bottom-right" });
     }
+    isUpdate?.(true);
     dispatch(isSuccess());
   };
 
   const handleOpenNewLink = () => {
-    error && window.open(`https://hnam.works${error}`, "_blank");
+    error && window.open(LINK_DOMAIN + error, "_blank");
     setError("");
     setShow?.(false);
   };
@@ -61,7 +65,9 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
     >
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Button variant="outlined">
-          <a href="https://s.id/-187LJ">Tải form excel mẫu</a>
+          <a href={`${LINK_DOMAIN}/samples/create-multiple-account.xlsx`}>
+            Tải form excel mẫu
+          </a>
         </Button>
         <label htmlFor="file_input">
           <input

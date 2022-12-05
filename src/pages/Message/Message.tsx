@@ -32,7 +32,7 @@ const Message: React.FC<MessageProps> = () => {
 
     //connect
     socket.current = io(LINK_DOMAIN, {
-      extraHeaders: { token: `Beaer ${accessToken}` },
+      extraHeaders: { token: `Bearer ${accessToken}` },
     });
 
     //on event

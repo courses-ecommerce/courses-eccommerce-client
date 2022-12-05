@@ -29,7 +29,7 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
     try {
       const response = await adminApi.getUserDetail(id);
       const { user }: any = response;
-      console.log(user);
+      // console.log(user);
 
       setUserDetail(user);
     } catch (error) {
@@ -39,7 +39,7 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
 
   return (
     <ModalContainer
-      width={700}
+      width={900}
       title="Xem thông tin chi tiết tài khoản"
       open={show}
       onClose={onClose}

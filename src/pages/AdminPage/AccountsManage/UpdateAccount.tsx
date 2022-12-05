@@ -16,6 +16,7 @@ import * as Yup from "yup";
 interface UpdateAccountProps {
   id: string | number;
   show?: boolean;
+  isUpdate: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
@@ -23,6 +24,7 @@ interface UpdateAccountProps {
 const UpdateAccount: React.FC<UpdateAccountProps> = ({
   id,
   setShow,
+  isUpdate,
   show = false,
   onClose,
 }) => {
@@ -46,6 +48,7 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
   const handleUpdateAccount = async (values: any) => {
     const { role, birthday, fullName, gender, isActive, password, phone } =
       values;
+    isUpdate?.(false);
     dispatch(isPending());
     const params = {
       account: { password: password ? password : null, isActive, role },
@@ -55,7 +58,7 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
       await adminApi.updateUserInfo(id, params);
       dispatch(isSuccess());
       setShow?.(false);
-
+      isUpdate?.(true);
       toast.success("Cập nhật thông tin tài khoản thành công", {
         position: "bottom-right",
       });

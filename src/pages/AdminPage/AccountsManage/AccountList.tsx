@@ -87,20 +87,36 @@ export default function AccountList() {
   const [showUpload, setShowUpload] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
+  //check status
+  const [isCreateCompleted, setIsCreateCompleted] = useState<boolean>(false);
+  const [isDeleteCompleted, setIsDeleteCompleted] = useState<boolean>(false);
+  const [isMultiDeleteCompleted, setIsMultiDeleteCompleted] =
+    useState<boolean>(false);
+  const [isUpdateCompleted, setIsUpdateCompleted] = useState<boolean>(false);
+  const [isUploadCompleted, setIsUploadCompleted] = useState<boolean>(false);
+
   useEffect(() => {
     getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [role, isActive, email, page, pageSize]);
+
+  useEffect(() => {
+    if (
+      isCreateCompleted ||
+      isDeleteCompleted ||
+      isMultiDeleteCompleted ||
+      isUpdateCompleted ||
+      isUploadCompleted
+    ) {
+      getUsers();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    showCreate,
-    showUpdate,
-    showDelete,
-    showMultiDelete,
-    showUpload,
-    role,
-    isActive,
-    email,
-    page,
-    pageSize,
+    isCreateCompleted,
+    isDeleteCompleted,
+    isMultiDeleteCompleted,
+    isUpdateCompleted,
+    isUploadCompleted,
   ]);
 
   //debounce to search
@@ -219,12 +235,14 @@ export default function AccountList() {
         onDeleteSelectMultiItem={handleMultiDeleted}
       />
       <DeleteAccount
+        isUpdate={(status) => setIsDeleteCompleted(status)}
         id={userId}
         show={showDelete}
         onClose={() => setShowDelete(false)}
         setShow={setShowDelete}
       />
       <MultiDeleteAccount
+        isUpdate={(status) => setIsMultiDeleteCompleted(status)}
         ids={userIds}
         show={showMultiDelete}
         onClose={() => setShowMultiDelete(false)}
@@ -232,6 +250,7 @@ export default function AccountList() {
       />
 
       <CreateAccount
+        isUpdate={(status) => setIsCreateCompleted(status)}
         show={showCreate}
         onClose={() => setShowCreate(false)}
         setShow={setShowCreate}
@@ -239,10 +258,12 @@ export default function AccountList() {
       <UpdateAccount
         id={userId}
         show={showUpdate}
+        isUpdate={(status) => setIsUpdateCompleted(status)}
         onClose={() => setShowUpdate(false)}
         setShow={setShowUpdate}
       />
       <UploadAccountByExcel
+        isUpdate={(status) => setIsUploadCompleted(status)}
         show={showUpload}
         onClose={() => setShowUpload(false)}
         setShow={setShowUpload}

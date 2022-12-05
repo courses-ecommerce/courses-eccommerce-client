@@ -14,6 +14,7 @@ import * as Yup from "yup";
 
 interface CreateAccountProps {
   show?: boolean;
+  isUpdate: (status: boolean) => void;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 }
@@ -21,6 +22,7 @@ interface CreateAccountProps {
 const CreateAccount: React.FC<CreateAccountProps> = ({
   show = false,
   onClose,
+  isUpdate,
   setShow,
 }) => {
   document.title = "Quản lý người dùng";
@@ -67,12 +69,14 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   const handleCreateAccount = async (values: ICreateNewUser) => {
+    isUpdate?.(false);
     dispatch(isPending());
     try {
       const response = await adminApi.createNewUser(values);
       console.log(response);
       dispatch(isSuccess());
       setShow?.(false);
+      isUpdate?.(true);
       toast.success("Tạo tài khoản thành công", { position: "bottom-right" });
     } catch (error) {
       console.log("lỗi rồi", { error });
@@ -84,7 +88,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
   return (
     <ModalContainer
-      width={700}
+      width={900}
       title="Tạo tài khoản mới"
       open={show}
       onClose={onClose}
