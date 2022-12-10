@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import adminApi from "src/apis/adminApi";
@@ -27,6 +27,13 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 }) => {
   document.title = "Quản lý người dùng";
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!show) {
+      resetDataForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
 
   const formik = useFormik({
     initialValues: {

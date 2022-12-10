@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
@@ -23,6 +23,13 @@ const CreateCategory: React.FC<CreateCategoryProps> = ({
   setShow,
 }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!show) {
+      resetDataForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
 
   const formik = useFormik({
     initialValues: { name: "", isPending: false },
@@ -68,10 +75,7 @@ const CreateCategory: React.FC<CreateCategoryProps> = ({
       width={500}
       title="Tạo danh mục mới"
       open={show}
-      onClose={() => {
-        onClose?.();
-        resetDataForm();
-      }}
+      onClose={onClose}
     >
       <form id="create-form" onSubmit={formik.handleSubmit}>
         <Input

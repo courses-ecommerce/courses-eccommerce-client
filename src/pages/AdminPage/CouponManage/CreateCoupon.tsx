@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import couponApi from "src/apis/couponApi";
@@ -25,6 +25,13 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
   setShow,
 }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!show) {
+      resetDataForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
 
   const formik = useFormik({
     initialValues: {
@@ -142,11 +149,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
       width={900}
       title="Tạo mã giảm giá mới"
       open={show}
-      onClose={() => {
-        isUpdate?.(false);
-        onClose?.();
-        resetDataForm();
-      }}
+      onClose={onClose}
     >
       <form
         id="create-form"
