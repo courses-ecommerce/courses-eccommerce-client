@@ -17,8 +17,7 @@ import Loading from "src/components/Loading/Loading";
 import ModalContainer from "src/components/ModalContainer";
 import { dateCourseTypes, statusCourseTypes } from "src/data/searchInfo";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { ICourse } from "src/types";
-import { ICourseStatues } from "src/types/course";
+import { ICourse, ICourseStatues } from "src/types/course";
 import * as Yup from "yup";
 import "./TeacherCourse.scss";
 

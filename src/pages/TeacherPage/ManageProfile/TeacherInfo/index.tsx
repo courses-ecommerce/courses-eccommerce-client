@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import teacherApi from "src/apis/teacherApi";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IUser } from "src/types";
-import UpdateBankingCard from "./UpdateBankingCard";
+import { IUser } from "src/types/user";
 import "./TeacherInfo.scss";
+import UpdateBankingCard from "./UpdateBankingCard";
 
 const TeacherInfo: React.FC = () => {
   document.title = "Thông tin thẻ ngân hàng";

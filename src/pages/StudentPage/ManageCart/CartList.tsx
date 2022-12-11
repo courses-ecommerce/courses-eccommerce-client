@@ -1,19 +1,21 @@
 import { Button, Divider } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
+import paymentApi from "src/apis/paymentApi";
 import Loading from "src/components/Loading/Loading";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { ICart, ICartInfo } from "src/types/cart";
-import paymentApi from "src/apis/paymentApi";
-import { numberLocale } from "src/utils";
+
+import { useNavigate } from "react-router-dom";
+import formatCharacter from "src/utils/formatCharacter";
 import CartItem from "./CartItem/CartItem";
 import "./CartList.scss";
-import { useNavigate } from "react-router-dom";
 
 const CartList = () => {
   document.title = "Quản lý giỏ hàng";
+
   const [cart, setCart] = useState<ICart[]>([]);
   const [wishlist, setWishlist] = useState<ICart[]>([]);
   const [cartInfo, setCartInfo] = useState<ICartInfo>({});
@@ -111,17 +113,17 @@ const CartList = () => {
             <Divider sx={{ marginY: 1 }} />
             <span>
               <b>Giá ước tính: </b>
-              {numberLocale(cartInfo.totalPrice)} đồng
+              {formatCharacter.numberLocale(cartInfo.totalPrice)} đồng
             </span>
             <span>
               <b>Tổng giảm: </b>
-              {numberLocale(cartInfo.totalDiscount)} đồng
+              {formatCharacter.numberLocale(cartInfo.totalDiscount)} đồng
             </span>
             <Divider />
             <span>
               <b>Thành tiền: </b>
               <span style={{ color: "red", fontWeight: 700 }}>
-                {numberLocale(cartInfo.estimatedPrice)} đồng
+                {formatCharacter.numberLocale(cartInfo.estimatedPrice)} đồng
               </span>
             </span>
             <span className="note">

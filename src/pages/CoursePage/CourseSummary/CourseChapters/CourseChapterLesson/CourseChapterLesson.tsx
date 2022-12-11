@@ -1,13 +1,11 @@
 import { Divider, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectAuthorization } from "src/reducers/authSlice";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getVideoView } from "src/reducers/authSlice";
-import { LessonProps } from "src/types";
-import "./CourseChapterLesson.scss";
 import classNames from "classnames";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Icon from "src/components/Icon/Icon";
+import { getVideoView, selectAuthorization } from "src/reducers/authSlice";
+import { LessonProps } from "src/types/course";
+import "./CourseChapterLesson.scss";
 
 interface CourseChapterLessonProps {
   chapterNumber?: number;

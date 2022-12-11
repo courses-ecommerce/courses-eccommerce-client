@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { IRoute } from "src/types";
+import { IRoute } from "src/types/route";
+
 import "./NavLinks.scss";
 
 interface NavLinksProps {

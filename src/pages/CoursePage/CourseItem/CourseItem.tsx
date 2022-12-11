@@ -3,62 +3,68 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Rating from "src/components/Rating/Rating";
 import useHover from "src/hooks/useHover";
-import { ICourse } from "src/types";
-import { numberLocale, numberRound, translateVi } from "src/utils";
+import { ICourse } from "src/types/course";
+import formatCharacter from "src/utils/formatCharacter";
+import translateVi from "src/utils/translateVi";
 import BtnAddCart from "../BtnAddCart/BtnAddCart";
 import CourseModal from "../CourseModal/CourseModal";
 import "./CourseItem.scss";
 
 interface CourseItemProps {
-  data: ICourse;
+  courseInfo: ICourse;
 }
-const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
+const CourseItem: React.FC<CourseItemProps> = ({ courseInfo }) => {
   const navigate = useNavigate();
 
-  // console.log(data);
+  // console.log(courseInfo);
 
   const { nodeRef, show } = useHover();
 
   return (
     <div className="course-item">
       <div className="img" ref={nodeRef}>
-        {numberRound(data.saleOff) > 0 && (
-          <span className="sale-off">-{numberRound(data.saleOff)}%</span>
+        {formatCharacter.numberRound(courseInfo.saleOff) > 0 && (
+          <span className="sale-off">
+            -{formatCharacter.numberRound(courseInfo.saleOff)}%
+          </span>
         )}
         <img
-          src={data.thumbnail}
+          src={courseInfo.thumbnail}
           alt="img"
-          // onClick={() => navigate(`/courses/${data._id}`)}
-          onClick={() => navigate(`/courses/${data.slug}`)}
+          // onClick={() => navigate(`/courses/${courseInfo._id}`)}
+          onClick={() => navigate(`/courses/${courseInfo.slug}`)}
         />
-        {show && <CourseModal course={data} />}
+        {show && <CourseModal course={courseInfo} />}
       </div>
       <div className="content">
-        <Tooltip title={data.name || ""}>
-          <span className="name">{data.name}</span>
+        <Tooltip title={courseInfo.name || ""}>
+          <span className="name">{courseInfo.name}</span>
         </Tooltip>
         <Tooltip
           title="Xem trang cá nhân"
           onClick={() =>
-            data.author?._id && navigate(`/user/${data.author?._id}`)
+            courseInfo.author?._id &&
+            navigate(`/user/${courseInfo.author?._id}`)
           }
         >
           <span className="author" style={{ cursor: "pointer" }}>
             <b>Tác giả: </b>
-            {data.author?.fullName}
+            {courseInfo.author?.fullName}
           </span>
         </Tooltip>
         <span className="level">
           <b>Dành cho: </b>
-          {translateVi(data.level)}
+          {translateVi(courseInfo.level)}
         </span>
         {/* hot tags */}
         <span className="sell-number">
           <span className="amount">
             <b>Số lượng bán được: </b>
-            {data.sellNumber}
+            {courseInfo.sellNumber}
           </span>
-          {data.type && <span className="tags">Đang {data.type}</span>}
+          {courseInfo.type && (
+            <span className="tags">Đang {courseInfo.type}</span>
+          )}
         </span>
         <span
           className="level"
@@ -66,15 +72,16 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
         >
           <b>Đánh giá: </b>
           <Rating
-            average_rating={data.rating?.rate}
-            total_rating={data.rating?.numOfRate}
+            average_rating={courseInfo.rating?.rate}
+            total_rating={courseInfo.rating?.numOfRate}
           />
         </span>
-        {(data.currentPrice || 0) > 0 ? (
+        {(courseInfo.currentPrice || 0) > 0 ? (
           <span className="current_price">
-            <b>Giá: </b> {numberLocale(data.currentPrice, " đồng")}
+            <b>Giá: </b>
+            {formatCharacter.numberLocale(courseInfo.currentPrice, " đồng")}
             <span className="original_price">
-              {numberLocale(data.originalPrice, " đồng")}
+              {formatCharacter.numberLocale(courseInfo.originalPrice, " đồng")}
             </span>
           </span>
         ) : (
@@ -83,7 +90,7 @@ const CourseItem: React.FC<CourseItemProps> = ({ data }) => {
           </span>
         )}
 
-        <BtnAddCart courseId={data._id} isBought={data.isBuyed} />
+        <BtnAddCart courseId={courseInfo._id} isBought={courseInfo.isBought} />
       </div>
     </div>
   );

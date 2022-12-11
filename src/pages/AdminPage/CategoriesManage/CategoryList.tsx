@@ -11,7 +11,7 @@ import {
   statusTypes,
 } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICategory } from "src/types";
+import { ICategory } from "src/types/category";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CategoryDetail from "./CategoryDetail";
 import CreateCategory from "./CreateCategory";

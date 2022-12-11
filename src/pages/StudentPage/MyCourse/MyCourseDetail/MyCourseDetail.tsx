@@ -13,7 +13,7 @@ import {
   getVideoView,
   selectAuthorization,
 } from "src/reducers/authSlice";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
 import { IRating } from "src/types/myCourse";
 import AcceptMyCourse from "../AcceptMyCourse/AcceptMyCourse";
 import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";

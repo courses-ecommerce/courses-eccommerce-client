@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import { IDetailInvoice } from "src/types/invoice";
-import { numberLocale } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+
 import "./RevenueTeacherStatistic.scss";
 interface RevenueInvoiceItemProps {
   data?: IDetailInvoice;
@@ -27,7 +28,7 @@ const RevenueInvoiceItem: React.FC<RevenueInvoiceItemProps> = ({ data }) => {
         </span>
         <span>
           <b>Giá gốc: </b>
-          {numberLocale(data?.courseCurrentPrice, " đồng")}
+          {formatCharacter.numberLocale(data?.courseCurrentPrice, " đồng")}
         </span>
         <span>
           <b>Ngày bán: </b>
@@ -43,7 +44,7 @@ const RevenueInvoiceItem: React.FC<RevenueInvoiceItemProps> = ({ data }) => {
         </span>
         <span>
           <b>Số tiền nhận được: </b>
-          {numberLocale(data?.amount, " đồng")}
+          {formatCharacter.numberLocale(data?.amount, " đồng")}
         </span>
       </div>
     </div>

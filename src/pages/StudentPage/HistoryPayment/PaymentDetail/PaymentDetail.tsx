@@ -9,8 +9,9 @@ import Loading from "src/components/Loading/Loading";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { IDetailInvoice, IInvoice } from "src/types/invoice";
-import { numberLocale, translateVi } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
 import formatDate from "src/utils/formatDay";
+import translateVi from "src/utils/translateVi";
 import CoursePaymentDetail from "./CoursePaymentDetail/CoursePaymentDetail";
 import "./PaymentDetail.scss";
 
@@ -25,12 +26,12 @@ const PaymentDetail = () => {
   const [detailInvoice, setDetailInvoice] = useState<IDetailInvoice[]>([]);
 
   useEffect(() => {
-    getPaymenyDetail();
+    getPaymentDetail();
     setShow(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const getPaymenyDetail = async () => {
+  const getPaymentDetail = async () => {
     try {
       const response = await invoicesApi.getInvoiceDetail(id);
       console.log("payment detail là", response);
@@ -86,7 +87,7 @@ const PaymentDetail = () => {
           <table className="info">
             <tr>
               <th>Ngày in hoá đơn</th>
-              <td>{formatDate("now", "dd-MM-yyyy HH:mm:ss")}</td>
+              <td>{formatDate.getDate("now", "dd-MM-yyyy HH:mm:ss")}</td>
             </tr>
             <tr>
               <th>Mã giao dịch</th>
@@ -106,7 +107,9 @@ const PaymentDetail = () => {
             </tr>
             <tr>
               <th>Ngày thanh toán</th>
-              <td>{formatDate(invoice.createdAt, "dd-MM-yyyy hh:mm")}</td>
+              <td>
+                {formatDate.getDate(invoice.createdAt, "dd-MM-yyyy hh:mm")}
+              </td>
             </tr>
             <tr>
               <th>Hình thức thanh toán</th>
@@ -118,11 +121,15 @@ const PaymentDetail = () => {
             </tr>
             <tr>
               <th>Được giảm</th>
-              <td> {numberLocale(invoice.totalDiscount, " đồng")}</td>
+              <td>
+                {formatCharacter.numberLocale(invoice.totalDiscount, " đồng")}
+              </td>
             </tr>
             <tr>
               <th>Thành tiền</th>
-              <td> {numberLocale(invoice.totalPrice, " đồng")}</td>
+              <td>
+                {formatCharacter.numberLocale(invoice.totalPrice, " đồng")}
+              </td>
             </tr>
           </table>
         </div>

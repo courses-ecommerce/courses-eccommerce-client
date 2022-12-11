@@ -1,6 +1,6 @@
 import { Avatar, Button, Divider } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
@@ -10,10 +10,10 @@ import Pagination from "src/components/Pagination/Pagination";
 import CourseContainer from "src/pages/CoursePage/CourseContainer/CourseContainer";
 import UpdateDescription from "src/pages/ProfilePage/UpdateDescription/UpdateDescription";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
 import { ITeacherPortfolio } from "src/types/statistic";
-
-import { checkGender, numberRound } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import "./PortfolioPage.scss";
 
 const PortfolioPage = () => {
@@ -76,7 +76,7 @@ const PortfolioPage = () => {
       const { courses, total }: any = response;
       setCourses(courses);
       setIsLoading(false);
-      setTotal(numberRound(total / limitCourse));
+      setTotal(formatCharacter.numberRound(total / limitCourse));
     } catch (error) {
       setIsLoading(false);
       console.log("lỗi rồi", { error });
@@ -103,8 +103,7 @@ const PortfolioPage = () => {
               </span>
               <span>
                 <b>Giới tính: </b>
-                {teacherInfo?.user?.gender &&
-                  checkGender(teacherInfo?.user?.gender)}
+                {isVerifyCharacter.isGender(teacherInfo?.user?.gender)}
               </span>
               {!teacherInfo?.user?.teacher?.isVerified && (
                 <span className="is-verify">Giảng viên chính thức</span>

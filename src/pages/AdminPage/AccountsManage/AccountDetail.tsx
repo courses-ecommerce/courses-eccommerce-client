@@ -5,7 +5,8 @@ import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { accountTypes, genderTypes, statusTypes } from "src/data/searchInfo";
-import { IUser } from "src/types";
+import { IUser } from "src/types/user";
+
 import formatDate from "src/utils/formatDay";
 
 interface AccountDetailProps {
@@ -77,7 +78,7 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
             disabled
             placeholder="ngày-tháng-năm"
             label="Ngày tạo tài khoản"
-            value={formatDate(userDetail.createdAt, "dd-MM-yyyy")}
+            value={formatDate.getDate(userDetail.createdAt, "dd-MM-yyyy")}
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
@@ -104,7 +105,7 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
             disabled
             label="Ngày sinh nhật"
             placeholder="ngày-tháng-năm"
-            value={formatDate(userDetail.birthday, "dd-MM-yyyy")}
+            value={formatDate.getDate(userDetail.birthday, "dd-MM-yyyy")}
           />
         </Box>
       </form>

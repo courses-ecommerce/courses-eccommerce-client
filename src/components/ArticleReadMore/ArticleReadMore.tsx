@@ -1,24 +1,23 @@
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React from "react";
 import { linearIMG, quotes } from "src/assets";
 import Image from "../Image/Image";
-import "./ArticalReadMore.scss";
+import "./ArticleReadMore.scss";
 
-interface ArticalReadMoreProps {
+interface ArticleReadMoreProps {
   title?: string;
   className?: string;
   short_description?: string;
   content?: string | any;
 }
 
-const ArticalReadMore: FC<ArticalReadMoreProps> = (props) => {
-  const {
-    className,
-    content,
-    short_description,
-    title = "Chưa đặt title",
-  } = props;
-  const [isShowContent, setIsShowContent] = useState<boolean>(false);
+const ArticleReadMore: React.FC<ArticleReadMoreProps> = ({
+  className,
+  content,
+  short_description,
+  title = "Chưa đặt title",
+}) => {
+  const [isShowContent, setIsShowContent] = React.useState<boolean>(false);
 
   return (
     <div className={classNames(className)}>
@@ -53,4 +52,4 @@ const ArticalReadMore: FC<ArticalReadMoreProps> = (props) => {
   );
 };
 
-export default ArticalReadMore;
+export default ArticleReadMore;

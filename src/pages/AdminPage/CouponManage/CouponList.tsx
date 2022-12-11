@@ -7,7 +7,7 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICounpon } from "src/types/cart";
+import { ICoupon } from "src/types/cart";
 
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 import CouponDetail from "./CouponDetail";
@@ -77,7 +77,7 @@ const columsHeader: GridColDef[] = [
 const CouponList = () => {
   document.title = "Quản lý mã giảm giá";
   const [loading, setLoading] = useState<boolean>(false);
-  const [coupons, setCoupons] = useState<ICounpon[]>([]);
+  const [coupons, setCoupons] = useState<ICoupon[]>([]);
   const [couponIds, setCouponIds] = useState<string[] | number[]>([]);
   const [couponId, setCouponId] = useState<string | number>("");
   const [isActive, setIsActive] = useState<boolean>(true);

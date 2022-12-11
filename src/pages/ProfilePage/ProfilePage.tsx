@@ -4,16 +4,17 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import userApi from "src/apis/userApi";
+import ItemInfo from "src/components/ItemInfo/ItemInfo";
 import Loading from "src/components/Loading/Loading";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IUser } from "src/types";
-import { checkGender, translateVi } from "src/utils";
+import { IUser } from "src/types/user";
 import formatDate from "src/utils/formatDay";
-import ItemInfo from "../../components/ItemInfo/ItemInfo";
+import isVerifyCharacter from "src/utils/isVerifyCharacter";
+import translateVi from "src/utils/translateVi";
+import "./ProfilePage.scss";
 import UpdateDescription from "./UpdateDescription/UpdateDescription";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
-import "./ProfilePage.scss";
 
 const ProfilePage = () => {
   document.title = "Thông tin chi tiết cá nhân";
@@ -63,11 +64,14 @@ const ProfilePage = () => {
                 value={translateVi(info.account?.role)}
               />
               <ItemInfo title="Email:" value={info.account?.email} />
-              <ItemInfo title="Giới tính:" value={checkGender(info.gender)} />
+              <ItemInfo
+                title="Giới tính:"
+                value={isVerifyCharacter.isGender(info.gender)}
+              />
               <ItemInfo title="Số điện thoại:" value={info.phone} />
               <ItemInfo
                 title="Ngày sinh:"
-                value={formatDate(info.birthday, "dd-MM-yyyy")}
+                value={formatDate.getDate(info.birthday, "dd-MM-yyyy")}
               />
             </div>
           </div>

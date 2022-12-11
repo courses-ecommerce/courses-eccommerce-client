@@ -7,7 +7,7 @@ import { linkHeader, linkUserProfile } from "src/data/sidebar";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IRoute } from "src/types";
+import { IRoute } from "src/types/route";
 import AccountPopover from "../AccountPopover/AccountPopover";
 import CartIcon from "../CartIcon/CartIcon";
 import Icon from "../Icon/Icon";

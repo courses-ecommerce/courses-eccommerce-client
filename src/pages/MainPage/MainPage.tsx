@@ -2,7 +2,8 @@ import React from "react";
 import { Element } from "react-scroll";
 import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
 import { homePageElements } from "src/data/home";
-import { IComponent } from "src/types";
+import { IComponent } from "src/types/component";
+
 import "./MainPage.scss";
 
 const MainPage = () => {

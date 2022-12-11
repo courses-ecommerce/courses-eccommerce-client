@@ -5,7 +5,7 @@ import { avatarNone } from "src/assets";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IRoute } from "src/types";
+import { IRoute } from "src/types/route";
 import "./AccountPopover.scss";
 
 interface AccountPopoverProps {

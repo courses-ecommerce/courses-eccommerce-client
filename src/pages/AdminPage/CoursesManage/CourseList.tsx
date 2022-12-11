@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import Input from "src/components/Input";
@@ -8,7 +8,7 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { statusCourseTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 
 const columnsHeader: GridColDef[] = [

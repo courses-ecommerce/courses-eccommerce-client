@@ -3,7 +3,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { dateGetTime } from "src/utils/formatDay";
+import formatDate from "src/utils/formatDay";
 
 interface DateRangePickerProps {
   startTime?: any;
@@ -28,7 +28,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   const [endDay, setEndDay] = useState<any>(endTime || new Date());
 
   useEffect(() => {
-    if (dateGetTime(startDay) - dateGetTime(endDay) > 0) {
+    if (formatDate.getDateTime(startDay) - formatDate.getDateTime(endDay) > 0) {
       toast.warning("Ngày bắt đầu phải bé hớn ngày kết thúc", {
         position: "bottom-right",
       });
@@ -38,19 +38,19 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     }
 
     onChange?.({
-      start: dateGetTime(startDay),
-      end: dateGetTime(endDay),
+      start: formatDate.getDateTime(startDay),
+      end: formatDate.getDateTime(endDay),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDay, endDay]);
 
   const handleStartDay = (startDay: any) => {
-    // console.log("start day", dateGetTime(startDay));
-    setStartDay(dateGetTime(startDay));
+    // console.log("start day", formatDate.getDateTime(startDay));
+    setStartDay(formatDate.getDateTime(startDay));
   };
   const handleEndDay = (endDay: any) => {
-    // console.log("end day", dateGetTime(endDay));
-    setEndDay(dateGetTime(endDay));
+    // console.log("end day", formatDate.getDateTime(endDay));
+    setEndDay(formatDate.getDateTime(endDay));
   };
 
   return (

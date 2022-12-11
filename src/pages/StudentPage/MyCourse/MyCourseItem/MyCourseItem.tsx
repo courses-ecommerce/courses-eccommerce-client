@@ -5,17 +5,21 @@ import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import Rating from "src/components/Rating/Rating";
 import { IMyCourse } from "src/types/myCourse";
-import { numberRound } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+
 import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
 import "./MyCourseItem.scss";
 
 interface MyCourseItemProps {
-  data?: IMyCourse;
+  courseInfo?: IMyCourse;
   isUpdate?: (status: boolean) => void;
 }
 
-const MyCourseItem: React.FC<MyCourseItemProps> = ({ data, isUpdate }) => {
-  // console.log("my course item", data);
+const MyCourseItem: React.FC<MyCourseItemProps> = ({
+  courseInfo,
+  isUpdate,
+}) => {
+  // console.log("my course item", courseInfo);
   const navigate = useNavigate();
   const [showRating, setShowRating] = useState<boolean>(false);
 
@@ -29,48 +33,51 @@ const MyCourseItem: React.FC<MyCourseItemProps> = ({ data, isUpdate }) => {
       <div className="my-course-item">
         <div
           className="course-thumbnail"
-          onClick={() => navigate(`${data?._id}`)}
+          onClick={() => navigate(`${courseInfo?._id}`)}
         >
-          <Image src={data?.course?.thumbnail} />
+          <Image src={courseInfo?.course?.thumbnail} />
         </div>
         <div className="course-info">
-          <Tooltip title={data?.course?.name || ""}>
+          <Tooltip title={courseInfo?.course?.name || ""}>
             <span
               className="name"
-              onClick={() => navigate(`/courses/${data?.course?.slug}`)}
+              onClick={() => navigate(`/courses/${courseInfo?.course?.slug}`)}
             >
-              {data?.course?.name}
+              {courseInfo?.course?.name}
             </span>
           </Tooltip>
           <span className="author">
             <b>Tác giả: </b>
-            {data?.course?.author?.fullName}
+            {courseInfo?.course?.author?.fullName}
           </span>
           <span
             className={classNames(
               "progress-learning",
-              !data?.percentProgress ? "nonView" : ""
+              !courseInfo?.percentProgress ? "nonView" : ""
             )}
           >
             <span className="progress-number">
-              {data?.percentProgress
-                ? numberRound(data?.percentProgress) + "/100"
+              {courseInfo?.percentProgress
+                ? formatCharacter.numberRound(courseInfo?.percentProgress) +
+                  "/100"
                 : "Chưa xem"}
             </span>
             <span
               className="percent"
               style={{
-                width: data?.percentProgress ? `${data?.percentProgress}%` : 0,
+                width: courseInfo?.percentProgress
+                  ? `${courseInfo?.percentProgress}%`
+                  : 0,
               }}
             ></span>
           </span>
           <span className="rating">
             {/* <b>Đánh giá: </b> */}
             <Rating
-              average_rating={data?.rating?.rate}
+              average_rating={courseInfo?.rating?.rate}
               isShowTotalRating={false}
             />
-            {data?.rating ? (
+            {courseInfo?.rating ? (
               <Button
                 variant="contained"
                 color="warning"
@@ -87,9 +94,9 @@ const MyCourseItem: React.FC<MyCourseItemProps> = ({ data, isUpdate }) => {
         </div>
       </div>
       <RatingMyCourse
-        slug={data?.course?.slug}
+        slug={courseInfo?.course?.slug}
         show={showRating}
-        value={data?.rating}
+        value={courseInfo?.rating}
         onClose={() => setShowRating(false)}
         setShow={setShowRating}
       />

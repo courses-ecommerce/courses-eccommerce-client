@@ -30,7 +30,7 @@ export default function CoursesHotByMonth() {
     };
 
     const options = getOptionsCharBar(
-      `Biểu đồ thể hiện top khoá học bán chạy trong tháng ${formatDate(
+      `Biểu đồ thể hiện top khoá học bán chạy trong tháng ${formatDate.getDate(
         monthAndYear,
         "MM-yyyy"
       )}`

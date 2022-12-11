@@ -1,17 +1,18 @@
 import { Box, Divider, Tooltip } from "@mui/material";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
-import ArticalReadMore from "src/components/ArticalReadMore/ArticalReadMore";
+import ArticleReadMore from "src/components/ArticleReadMore/ArticleReadMore";
 import Image from "src/components/Image/Image";
 import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import Pagination from "src/components/Pagination/Pagination";
 import Rating from "src/components/Rating/Rating";
 import { getPanelActive, getVideoView } from "src/reducers/authSlice";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
 import { IRating } from "src/types/myCourse";
-import { numberLocale, numberRound, translateVi } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+import translateVi from "src/utils/translateVi";
 import BtnAddCart from "../BtnAddCart/BtnAddCart";
 import CourseContainer from "../CourseContainer/CourseContainer";
 import CourseRating from "../CourseRating/CourseRating";
@@ -31,7 +32,7 @@ const CourseDetail = () => {
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
   const [courseRelates, setCourseRelates] = useState<ICourse[]>([]);
-  const [ratingComents, setRatingComents] = useState<IRating[]>([]);
+  const [ratingComments, setRatingComments] = useState<IRating[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingDetail, setIsLoadingDetail] = useState<boolean>(false);
 
@@ -89,7 +90,7 @@ const CourseDetail = () => {
       // console.log("response", response);
       const { courses, total }: any = response;
       // console.log(" courses", courses);
-      setTotal(numberRound(total / limit));
+      setTotal(formatCharacter.numberRound(total / limit));
       setIsLoading(false);
       setCourseRelates(courses);
     } catch (error) {
@@ -104,7 +105,7 @@ const CourseDetail = () => {
       // console.log("response", response);
       const { rates }: any = response;
       // console.log("rating", rates);
-      setRatingComents(rates);
+      setRatingComments(rates);
     } catch (error) {
       console.log("lỗi rồi", { error });
     }
@@ -119,19 +120,19 @@ const CourseDetail = () => {
           <div className="info">
             {!!courseDetail.saleOff && (
               <span className="sale-off">
-                -{numberRound(courseDetail.saleOff)}%
+                -{formatCharacter.numberRound(courseDetail.saleOff)}%
               </span>
             )}
             <Image src={courseDetail.thumbnail} />
             <span className="name">{courseDetail.name}</span>
             <span className="description">
-              <ArticalReadMore
+              <ArticleReadMore
                 title="Mô tả khoá học"
                 content={courseDetail.description}
               />
             </span>
             <div className="rating">
-              <CourseRating ratingComents={ratingComents} />
+              <CourseRating ratingComments={ratingComments} />
             </div>
           </div>
           <div className="content-detail">
@@ -152,11 +153,17 @@ const CourseDetail = () => {
                 <span className="current_price">
                   <b>Giá hiện tại: </b>
                   {courseDetail.currentPrice &&
-                    numberLocale(courseDetail.currentPrice, " đồng")}
+                    formatCharacter.numberLocale(
+                      courseDetail.currentPrice,
+                      " đồng"
+                    )}
 
                   <span className="original_price">
                     {courseDetail.originalPrice &&
-                      numberLocale(courseDetail.originalPrice, " đồng")}
+                      formatCharacter.numberLocale(
+                        courseDetail.originalPrice,
+                        " đồng"
+                      )}
                   </span>
                 </span>
               ) : (
@@ -192,7 +199,7 @@ const CourseDetail = () => {
               {/* btn add cart */}
               <BtnAddCart
                 courseId={courseDetail._id}
-                isBought={courseDetail.isBuyed}
+                isBought={courseDetail.isBought}
               />
             </div>
             <CourseSummary

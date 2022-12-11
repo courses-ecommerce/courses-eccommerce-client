@@ -6,7 +6,7 @@ import Loading from "src/components/Loading/Loading";
 import RevenueInvoiceItem from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueInvoiceItem";
 import { IInvoice } from "src/types/invoice";
 import { ITeacher } from "src/types/statistic";
-import { numberLocale } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
 import formatDate from "src/utils/formatDay";
 import "./TeacherRevenue.scss";
 
@@ -56,8 +56,8 @@ export default function TeacherRevenue() {
     <div className="teacher-revenue">
       <h3>
         Doanh thu của tôi từ ngày{" "}
-        {formatDate(dateRange?.start, "dd-MM-yyyy HH:mm:ss")} đến ngày{" "}
-        {formatDate(dateRange?.end, "dd-MM-yyyy HH:mm:ss")}
+        {formatDate.getDate(dateRange?.start, "dd-MM-yyyy HH:mm:ss")} đến ngày{" "}
+        {formatDate.getDate(dateRange?.end, "dd-MM-yyyy HH:mm:ss")}
       </h3>
       <Box sx={{ display: "flex", gap: 1 }}>
         <DateRangePicker onChange={(date) => setDateRange(date)} />
@@ -76,7 +76,7 @@ export default function TeacherRevenue() {
             </span>
             <span>
               <b>Tổng tiền nhận được: </b>
-              {numberLocale(teacherInfo?.revenue, " đồng")}
+              {formatCharacter.numberLocale(teacherInfo?.revenue, " đồng")}
             </span>
           </div>
         </div>

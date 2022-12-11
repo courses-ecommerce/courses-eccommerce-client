@@ -23,7 +23,7 @@ export default function CoursesHotByYear() {
 
   useEffect(() => {
     const options = getOptionsCharBar(
-      `Biểu đồ thể hiện top khoá học bán chạy nhất trong năm ${formatDate(
+      `Biểu đồ thể hiện top khoá học bán chạy nhất trong năm ${formatDate.getDate(
         year,
         "yyyy"
       )}`

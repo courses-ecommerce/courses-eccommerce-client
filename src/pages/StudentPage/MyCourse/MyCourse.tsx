@@ -1,13 +1,13 @@
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import myCourseApi from "src/apis/myCourseApi";
 import InputSelect from "src/components/InputSelect";
 import Loading from "src/components/Loading/Loading";
 import Pagination from "src/components/Pagination/Pagination";
 import { myCourseTypes } from "src/data/searchInfo";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
 import { IMyCourse } from "src/types/myCourse";
-import { numberRound } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
 import "./MyCourse.scss";
 import MyCourseItem from "./MyCourseItem/MyCourseItem";
 
@@ -47,7 +47,7 @@ export default function MyCourse() {
       // console.log("myCourses", myCourses, total);
       setIsLoading(false);
       setCourses(myCourses);
-      setTotal(numberRound(total / limit));
+      setTotal(formatCharacter.numberRound(total / limit));
     } catch (error) {
       setIsLoading(false);
       console.log("lỗi rồi", { error });
@@ -59,7 +59,7 @@ export default function MyCourse() {
       return courses.map((course, index) => (
         <MyCourseItem
           isUpdate={(status) => setIsUpdate(status)}
-          data={course}
+          courseInfo={course}
           key={index}
         />
       ));

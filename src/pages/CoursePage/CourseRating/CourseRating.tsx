@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { IRating } from "src/types/myCourse";
-
 import CourseRatingItem from "./CourseRatingItem/CourseRatingItem";
 import "./CourseRating.scss";
 
 interface CourseRatingProps {
-  ratingComents?: IRating[];
+  ratingComments?: IRating[];
 }
 
-const CourseRating: React.FC<CourseRatingProps> = ({ ratingComents = [] }) => {
+const CourseRating: React.FC<CourseRatingProps> = ({ ratingComments = [] }) => {
   // console.log("sdasdasdas", ratingComents);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   //call page
@@ -16,7 +15,7 @@ const CourseRating: React.FC<CourseRatingProps> = ({ ratingComents = [] }) => {
     window.screen.width <= 430 && setIsMobile(true);
   }, []);
 
-  const redenderCourseRating = (ratingComments: IRating[]) => {
+  const renderCourseRating = (ratingComments: IRating[]) => {
     return (
       ratingComments.length > 0 &&
       ratingComments.map((ratingComment, index) => (
@@ -31,12 +30,8 @@ const CourseRating: React.FC<CourseRatingProps> = ({ ratingComents = [] }) => {
 
   return (
     <div className="course-rating">
-      <span className="title">
-        Đánh giá của học viên ({ratingComents.length} người)
-      </span>
-      <div className="course-content">
-        {redenderCourseRating(ratingComents)}
-      </div>
+      <span className="title">({ratingComments.length} người đánh giá)</span>
+      <div className="course-content">{renderCourseRating(ratingComments)}</div>
     </div>
   );
 };
