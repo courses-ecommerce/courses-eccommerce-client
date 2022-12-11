@@ -1,3 +1,6 @@
+import { ICategory } from "./category";
+import { IUser } from "./user";
+
 export interface IGetCourse {
   page?: number;
   limit: number;
@@ -8,6 +11,37 @@ export interface IGetCourse {
   price?: string;
   publish?: boolean;
   author?: string;
+}
+
+export interface RatingProps {
+  numOfRate?: number;
+  rate?: number;
+}
+
+export interface SearchKeyProps {
+  original?: string;
+  suggestion?: string;
+}
+
+export interface LessonProps {
+  _id?: string;
+  complete?: boolean;
+  description?: string;
+  number?: number;
+  title?: number;
+  video?: any;
+}
+
+export interface ChaptersProps {
+  _id?: string;
+  name?: string;
+  number?: number;
+  lessons?: LessonProps[];
+}
+
+export interface ICourseAuthor {
+  _id?: string;
+  fullName?: string;
 }
 
 export type CourseType =
@@ -25,4 +59,30 @@ export enum ICourseStatues {
   denied = "Từ chối",
   updating = "Đang update",
   "update denied" = "Từ chối cập nhật",
+}
+
+export interface ICourse {
+  _id?: string;
+  author?: IUser;
+  chapters?: ChaptersProps[];
+  name?: string;
+  thumbnail?: string;
+  category?: ICategory;
+  currentPrice?: number;
+  originalPrice?: number;
+  description?: string;
+  hashtags?: string[];
+  intendedLearners?: string[];
+  requirements?: string[];
+  rating?: RatingProps;
+  language?: string;
+  level?: string;
+  saleOff?: number;
+  sellNumber?: string;
+  slug?: string;
+  isBought?: boolean;
+  targets?: string[];
+  discount?: number;
+  type?: string;
+  status?: CourseType;
 }

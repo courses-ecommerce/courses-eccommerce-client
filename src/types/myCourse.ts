@@ -1,4 +1,5 @@
-import { ICourse, IUser } from ".";
+import { ICourse } from "./course";
+import { IUser } from "./user";
 
 export interface IMyCourse {
   _id?: string;
