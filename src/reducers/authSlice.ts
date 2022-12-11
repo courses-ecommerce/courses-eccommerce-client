@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IAuthSlice } from "src/types/slice";
+import { IAuthSlice } from "src/types/storeSlice";
 
 const initialState: IAuthSlice = {
   isLoading: false,

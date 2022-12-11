@@ -1,4 +1,4 @@
-import { IRoute } from "src/types";
+import { IRoute } from "src/types/route";
 
 export const linkHeader: IRoute[] = [
   { name: "Trang chủ", path: "/", href: "" },
