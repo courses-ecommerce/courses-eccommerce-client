@@ -40,7 +40,6 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
 
   return (
     <ModalContainer
-      width={900}
       title="Xem thông tin chi tiết tài khoản"
       open={show}
       onClose={onClose}

@@ -39,7 +39,6 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
 
   return (
     <ModalContainer
-      width={900}
       title="Thông tin chi tiết mã giảm giá"
       open={show}
       onClose={onClose}

@@ -81,7 +81,6 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
   };
   return (
     <ModalContainer
-      width={900}
       title="Cập nhật thông tin tài khoản ngân hàng"
       open={show}
       onClose={() => {

@@ -94,12 +94,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <ModalContainer
-      width={900}
-      title="Tạo tài khoản mới"
-      open={show}
-      onClose={onClose}
-    >
+    <ModalContainer title="Tạo tài khoản mới" open={show} onClose={onClose}>
       <form
         id="create-account"
         style={{

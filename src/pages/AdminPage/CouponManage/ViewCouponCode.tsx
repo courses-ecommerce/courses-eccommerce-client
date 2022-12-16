@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import couponApi from "src/apis/couponApi";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 
+const clientId =
+  "942896735462-hem47nr3c8j7edng3f141di5begbq7gk.apps.googleusercontent.com";
+
 interface ViewCouponCodeProps {
   couponId?: any;
 }
@@ -39,7 +42,7 @@ const ViewCouponCode: React.FC<ViewCouponCodeProps> = ({ couponId }) => {
 
   return (
     <GoogleLogin
-      clientId="942896735462-hem47nr3c8j7edng3f141di5begbq7gk.apps.googleusercontent.com"
+      clientId={clientId}
       render={(renderProps) => (
         <span style={{ cursor: "pointer" }} onClick={renderProps.onClick}>
           Xem chi tiết

@@ -149,7 +149,6 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
 
   return (
     <ModalContainer
-      width={900}
       title="Cập nhật thông tin mã khuyến mãi"
       open={show}
       onClose={() => {

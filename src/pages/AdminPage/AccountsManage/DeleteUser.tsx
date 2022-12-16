@@ -44,7 +44,6 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({
 
   return (
     <ModalContainer
-      width={900}
       title="Bạn có chắc muốn xoá tài khoản này không?"
       open={show}
       onClose={onClose}
