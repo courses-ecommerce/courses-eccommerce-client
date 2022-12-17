@@ -29,3 +29,5 @@ export interface IUser {
   updatedAt?: string;
   teacher?: ITeacherStatus;
 }
+
+export type Role = "admin" | "user" | "teacher" | "student" | "director";
