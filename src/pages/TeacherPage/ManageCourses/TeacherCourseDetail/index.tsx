@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,18 +13,18 @@ import teacherApi from "src/apis/teacherApi";
 import Icon from "src/components/Icon/Icon";
 import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
-import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
+import LayoutContainer from "src/layouts/LayoutContainer/LayoutContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import * as Yup from "yup";
 import Chapter, { IChapter } from "./Chapter";
 import "./TeacherCourseDetail.scss";
 
+import InputFile from "src/components/InputFile";
 import { ICourseStatues } from "src/types/course";
 import IntendedLearners from "../IntendedLearners";
 import Requirements from "../Requirements";
 import Targets from "../Targets";
 import { ICategories } from "../TeacherCourse";
-import InputFile from "src/components/InputFile";
 
 const TeacherCourseDetail: React.FC = () => {
   document.title = "Quản lý khóa học";

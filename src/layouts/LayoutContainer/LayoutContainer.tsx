@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
+import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
+import "./LayoutContainer.scss";
 
 interface LayoutContainerProps {
   children: ReactNode;
@@ -14,9 +15,9 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({
   footerShow = true,
 }) => {
   return (
-    <div>
+    <div className="layout-container">
       <Header titleShow={titleShow} />
-      <div>{children}</div>
+      <div className="body-container">{children}</div>
       {footerShow && <Footer />}
     </div>
   );

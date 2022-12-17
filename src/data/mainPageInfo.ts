@@ -37,7 +37,7 @@ export const listSlideShow = [
 ];
 
 export const listFooter = {
-  comunication: [
+  communication: [
     {
       name: "Fanpage",
       href: "#",

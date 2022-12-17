@@ -13,23 +13,23 @@ const Footer: React.FC<FooterProps> = ({ info = listFooter }) => {
       <h3>Thông tin liên hệ</h3>
       <div>
         <div className="footer-introduction">
-          {info.comunication.map((comunicate: any, index: number) => (
-            <Link to={comunicate.href} key={index}>
-              {comunicate.name}
+          {info.communication.map((communicate: any, index: number) => (
+            <Link to={communicate.href} key={index}>
+              {communicate.name}
             </Link>
           ))}
         </div>
         <div className="footer-contact">
-          {info.contact.map((comunicate: any, index: number) => (
-            <Link to={comunicate.href} key={index}>
-              {comunicate.name}
+          {info.contact.map((communicate: any, index: number) => (
+            <Link to={communicate.href} key={index}>
+              {communicate.name}
             </Link>
           ))}
         </div>
         <div className="footer-contact">
-          {info.contact.map((comunicate: any, index: number) => (
-            <Link to={comunicate.href} key={index}>
-              {comunicate.name}
+          {info.contact.map((communicate: any, index: number) => (
+            <Link to={communicate.href} key={index}>
+              {communicate.name}
             </Link>
           ))}
         </div>

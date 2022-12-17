@@ -12,7 +12,7 @@ import teacherApi from "src/apis/teacherApi";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import InputSelect from "src/components/InputSelect";
-import LayoutContainer from "src/components/LayoutContainer/LayoutContainer";
+import LayoutContainer from "src/layouts/LayoutContainer/LayoutContainer";
 import Loading from "src/components/Loading/Loading";
 import ModalContainer from "src/components/ModalContainer";
 import { dateCourseTypes, statusCourseTypes } from "src/data/searchInfo";
