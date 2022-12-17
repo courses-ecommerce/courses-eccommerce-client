@@ -1,4 +1,5 @@
 import { Box, Button } from "@mui/material";
+import { fi } from "date-fns/locale";
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
@@ -8,23 +9,25 @@ import ModalContainer from "src/components/ModalContainer";
 import Rating from "src/components/Rating/Rating";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IRating } from "src/types/myCourse";
-import "./RatingMyCourse.scss";
+import "./RatingBoughtCourse.scss";
 
-interface RatingMyCourseProps {
+interface RatingBoughtCourseProps {
   id?: string | number;
   slug?: string;
   show?: boolean;
   value?: IRating;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
+  isUpdate: (status: boolean) => void;
   onClose?: () => void;
 }
 
-const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
+const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
   id,
   slug,
   onClose,
   value,
   show,
+  isUpdate,
   setShow,
 }) => {
   const dispatch = useDispatch();
@@ -33,19 +36,22 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
   const [star, setStar] = useState();
   const [content, setContent] = useState<string>();
 
+  const checkRating = (rating: any) => !rating.value || rating.value === 0;
+
   const handleRating = async (e: any) => {
     e.preventDefault();
     const { rating } = e.target;
-    if (!rating.value || rating.value === 0) {
+
+    if (checkRating(rating)) {
       toast.warning("Số sao rating phải lớn hơn 0", {
         position: "bottom-right",
       });
       return;
     }
-
     const params = { rate: rating.value * 1, content, slug };
     // console.log("params truyền là", params);
     dispatch(isPending());
+    isUpdate?.(false);
     setShow?.(true);
     try {
       await ratingApi.postRate(params);
@@ -57,15 +63,17 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
       toast.warning("Đánh giá khoá học thất bại, hãy thử lại sau", {
         position: "bottom-right",
       });
+    } finally {
+      setShow?.(false);
+      dispatch(isSuccess());
+      isUpdate?.(true);
     }
-    setShow?.(false);
-    dispatch(isSuccess());
   };
 
   const handleRerating = async (e: any) => {
     e.preventDefault();
     const { rating } = e.target;
-    if (!rating.value || rating.value === 0) {
+    if (checkRating(rating)) {
       toast.warning("Số sao rating phải lớn hơn 0", {
         position: "bottom-right",
       });
@@ -75,6 +83,7 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
     const params = { rate: rating.value * 1, content };
     // console.log("params truyền là", params);
     dispatch(isPending());
+    isUpdate?.(false);
     setShow?.(true);
     try {
       await ratingApi.updateRate(value?._id, params);
@@ -88,9 +97,11 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
       toast.warning("Đánh giá khoá học thất bại, hãy thử lại sau", {
         position: "bottom-right",
       });
+    } finally {
+      setShow?.(false);
+      dispatch(isSuccess());
+      isUpdate?.(true);
     }
-    setShow?.(false);
-    dispatch(isSuccess());
   };
 
   return (
@@ -180,4 +191,4 @@ const RatingMyCourse: React.FC<RatingMyCourseProps> = ({
   );
 };
 
-export default RatingMyCourse;
+export default RatingBoughtCourse;

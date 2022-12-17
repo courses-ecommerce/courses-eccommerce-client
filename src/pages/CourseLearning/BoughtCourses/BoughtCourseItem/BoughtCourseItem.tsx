@@ -1,21 +1,21 @@
 import { Button, Tooltip } from "@mui/material";
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import Rating from "src/components/Rating/Rating";
 import { IMyCourse } from "src/types/myCourse";
 import formatCharacter from "src/utils/formatCharacter";
+import RatingBoughtCourse from "../RatingBoughtCourse/RatingBoughtCourse";
 
-import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
-import "./MyCourseItem.scss";
+import "./BoughtCourseItem.scss";
 
-interface MyCourseItemProps {
+interface BoughtCourseItemProps {
   courseInfo?: IMyCourse;
   isUpdate?: (status: boolean) => void;
 }
 
-const MyCourseItem: React.FC<MyCourseItemProps> = ({
+const BoughtCourseItem: React.FC<BoughtCourseItemProps> = ({
   courseInfo,
   isUpdate,
 }) => {
@@ -23,13 +23,13 @@ const MyCourseItem: React.FC<MyCourseItemProps> = ({
   const navigate = useNavigate();
   const [showRating, setShowRating] = useState<boolean>(false);
 
-  useEffect(() => {
-    isUpdate?.(showRating);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showRating]);
+  // useEffect(() => {
+  //   isUpdate?.(showRating);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [showRating]);
 
   return (
-    <>
+    <React.Fragment>
       <div className="my-course-item">
         <div
           className="course-thumbnail"
@@ -93,14 +93,15 @@ const MyCourseItem: React.FC<MyCourseItemProps> = ({
           </span>
         </div>
       </div>
-      <RatingMyCourse
+      <RatingBoughtCourse
+        isUpdate={(status) => isUpdate?.(status)}
         slug={courseInfo?.course?.slug}
         show={showRating}
         value={courseInfo?.rating}
         onClose={() => setShowRating(false)}
         setShow={setShowRating}
       />
-    </>
+    </React.Fragment>
   );
 };
-export default MyCourseItem;
+export default BoughtCourseItem;

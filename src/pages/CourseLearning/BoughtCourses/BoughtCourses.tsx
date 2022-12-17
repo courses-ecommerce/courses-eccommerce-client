@@ -8,16 +8,16 @@ import { myCourseTypes } from "src/data/searchInfo";
 import { ICourse } from "src/types/course";
 import { IMyCourse } from "src/types/myCourse";
 import formatCharacter from "src/utils/formatCharacter";
-import "./MyCourse.scss";
-import MyCourseItem from "./MyCourseItem/MyCourseItem";
+import MyCourseItem from "./BoughtCourseItem/BoughtCourseItem";
+import "./BoughtCourses.scss";
 
-export default function MyCourse() {
+export default function BoughtCourses() {
   document.title = "Khoá học của tôi";
 
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [sort, setSort] = useState<any>("progress-desc");
 
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [isUpdateComplete, setIsUpdateComplete] = useState<boolean>(false);
 
   const limit = 6;
   const [page, setPage] = useState(1);
@@ -25,11 +25,11 @@ export default function MyCourse() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!isUpdate) {
+    if (isUpdateComplete) {
       getMyCourse();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdate]);
+  }, [isUpdateComplete]);
 
   useEffect(() => {
     getMyCourse();
@@ -58,7 +58,7 @@ export default function MyCourse() {
     if (courses.length > 0) {
       return courses.map((course, index) => (
         <MyCourseItem
-          isUpdate={(status) => setIsUpdate(status)}
+          isUpdate={(status) => setIsUpdateComplete(status)}
           courseInfo={course}
           key={index}
         />

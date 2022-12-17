@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  Switch,
-  TextField,
-} from "@mui/material";
+import { Box, Button, FormControlLabel, Switch } from "@mui/material";
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
@@ -15,7 +9,7 @@ import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IRating } from "src/types/myCourse";
 
-interface AcceptMyCourseProps {
+interface AcceptCourseLearningProps {
   id?: string | number;
   slug?: string;
   show?: boolean;
@@ -24,7 +18,7 @@ interface AcceptMyCourseProps {
   onClose?: () => void;
 }
 
-const AcceptMyCourse: React.FC<AcceptMyCourseProps> = ({
+const AcceptCourseLearning: React.FC<AcceptCourseLearningProps> = ({
   id,
   slug,
   onClose,
@@ -70,7 +64,7 @@ const AcceptMyCourse: React.FC<AcceptMyCourseProps> = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("value", event.target.checked);
+    // console.log("value", event.target.checked);
     setPublish(event.target.checked);
   };
 
@@ -96,11 +90,6 @@ const AcceptMyCourse: React.FC<AcceptMyCourseProps> = ({
             label={!publish ? "Không duyệt khoá học" : "Duyệt khoá học"}
           />
           {!publish && (
-            // <TextField
-            //   name="content"
-            //   fullWidth
-            //   label="Nhập nội lý do từ chối"
-            // />
             <div className="editor">
               <h2>
                 Lý do từ chối <span>*</span>
@@ -122,4 +111,4 @@ const AcceptMyCourse: React.FC<AcceptMyCourseProps> = ({
   );
 };
 
-export default AcceptMyCourse;
+export default AcceptCourseLearning;

@@ -15,11 +15,12 @@ import {
 } from "src/reducers/authSlice";
 import { ICourse } from "src/types/course";
 import { IRating } from "src/types/myCourse";
-import AcceptMyCourse from "../AcceptMyCourse/AcceptMyCourse";
-import RatingMyCourse from "../RatingMyCourse/RatingMyCourse";
-import "./MyCourseDetail.scss";
+import AcceptMyCourse from "../AcceptCourseLearning/AcceptCourseLearning";
+import RatingBoughtCourse from "../BoughtCourses/RatingBoughtCourse/RatingBoughtCourse";
 
-const MyCourseDetail = () => {
+import "./CourseLearningDetail.scss";
+
+const CourseLearningDetail = () => {
   document.title = "Thông tin khoá học chi tiết";
   const navigate = useNavigate();
   const { isRole } = useSelector(selectAuthorization);
@@ -155,7 +156,10 @@ const MyCourseDetail = () => {
         </div>
       </div>
       {isRole === "student" && (
-        <RatingMyCourse
+        <RatingBoughtCourse
+          isUpdate={(status) => {
+            console.log("status rating update", status);
+          }}
           slug={course.slug}
           show={showRating}
           value={rating}
@@ -175,4 +179,4 @@ const MyCourseDetail = () => {
     </>
   );
 };
-export default MyCourseDetail;
+export default CourseLearningDetail;

@@ -23,15 +23,15 @@ import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
 import PaymentDetail from "src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail";
 import CartList from "src/pages/StudentPage/ManageCart/CartList";
-import MyCourse from "src/pages/StudentPage/MyCourse/MyCourse";
-import MyCourseDetail from "src/pages/StudentPage/MyCourse/MyCourseDetail/MyCourseDetail";
-import StudentPage from "src/pages/StudentPage/StudentPage";
-import TeacherInfo from "src/pages/TeacherPage/ManageProfile/TeacherInfo";
-import TeacherRevenue from "src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue";
-import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
 import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
+import BoughtCourses from "src/pages/CourseLearning/BoughtCourses/BoughtCourses";
+import CourseLearningDetail from "src/pages/CourseLearning/CourseLearningDetail/CourseLearningDetail";
+import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
+import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherCourse from "src/pages/TeacherPage/ManageCourses/TeacherCourse";
 import TeacherCourseDetail from "src/pages/TeacherPage/ManageCourses/TeacherCourseDetail";
+import TeacherInfo from "src/pages/TeacherPage/ManageProfile/TeacherInfo";
+import TeacherRevenue from "src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue";
 
 // main route
 const MAIN_ROUTE = [
@@ -88,7 +88,7 @@ const ADMIN_ROUTE = [
   {
     role: "admin",
     path: "admin/dashboard/courses/:id",
-    element: <MyCourseDetail />,
+    element: <CourseLearningDetail />,
   },
 ];
 
@@ -103,7 +103,7 @@ const STUDENT_ROUTE = [
   {
     role: "student",
     path: "/student/my-course/:id",
-    element: <MyCourseDetail />,
+    element: <CourseLearningDetail />,
   },
 ];
 
@@ -137,7 +137,7 @@ const TEACHER_ROUTE = [
   {
     role: "teacher",
     path: "teacher/course/preview-course/:id",
-    element: <MyCourseDetail />,
+    element: <CourseLearningDetail />,
   },
 ];
 
@@ -275,7 +275,7 @@ const DASHBOARD_ROUTE = [
       {
         path: "my-course",
         href: "/student/my-course",
-        element: <MyCourse />,
+        element: <BoughtCourses />,
         title: "Khoá học của tôi",
         icon: "film",
       },
