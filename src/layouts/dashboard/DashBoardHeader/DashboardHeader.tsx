@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import AccountPopover from "src/components/AccountPopover/AccountPopover";
-// import CartIcon from "src/components/CartIcon/CartIcon";
+import Icon from "src/components/Icon/Icon";
 import Notification from "src/components/Notification/Notification";
 import { linkUserProfile } from "src/data/sidebar";
 import "./DashboardHeader.scss";
@@ -16,9 +16,6 @@ const DashboardHeader = () => {
       <div className="logo" onClick={() => navigate("/")}></div>
 
       <div className="content">
-        <Notification type="notify" />
-        {/* <Notification type="message" /> */}
-        {/* <CartIcon /> */}
         <AccountPopover routes={linkUserProfile} />
       </div>
     </div>

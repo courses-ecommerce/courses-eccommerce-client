@@ -1,4 +1,3 @@
-import DashboardLayout from "src/layouts/dashboard/DashboardLayout";
 import UserList from "src/pages/AdminPage/AccountsManage/AccountList";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
@@ -32,6 +31,7 @@ import TeacherCourse from "src/pages/TeacherPage/ManageCourses/TeacherCourse";
 import TeacherCourseDetail from "src/pages/TeacherPage/ManageCourses/TeacherCourseDetail";
 import TeacherInfo from "src/pages/TeacherPage/ManageProfile/TeacherInfo";
 import TeacherRevenue from "src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue";
+import DashboardLayout from "src/layouts/Dashboard/DashboardLayout";
 
 // main route
 const MAIN_ROUTE = [

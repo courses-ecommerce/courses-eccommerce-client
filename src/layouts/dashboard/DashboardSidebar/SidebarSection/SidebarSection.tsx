@@ -1,13 +1,16 @@
 import { matchPath, useLocation } from "react-router-dom";
-import NavItem from "./NavItem/NavItem";
-import "./NavSection.scss";
+import SidebarItem from "./SidebarItem/SidebarItem";
+import "./SidebarSection.scss";
 
-interface NavSectionProps {
+interface SidebarSectionProps {
   navConfig: Array<any>;
   other?: any;
 }
 
-const NavSection: React.FC<NavSectionProps> = ({ navConfig, ...other }) => {
+const SidebarSection: React.FC<SidebarSectionProps> = ({
+  navConfig,
+  ...other
+}) => {
   const { pathname } = useLocation();
 
   const match = (path: any) =>
@@ -16,9 +19,9 @@ const NavSection: React.FC<NavSectionProps> = ({ navConfig, ...other }) => {
   return (
     <div className="nav-section">
       {navConfig.map((item, index) => (
-        <NavItem key={index} item={item} active={match} />
+        <SidebarItem key={index} item={item} active={match} />
       ))}
     </div>
   );
 };
-export default NavSection;
+export default SidebarSection;

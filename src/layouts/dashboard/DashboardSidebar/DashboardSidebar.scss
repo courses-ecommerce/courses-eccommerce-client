@@ -1,0 +1,15 @@
+.dashboard-sidebar {
+  background: white;
+  max-width: 260px;
+  height: 100%;
+
+  .content-info {
+    padding-top: 100px;
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 30px;
+  }
+}

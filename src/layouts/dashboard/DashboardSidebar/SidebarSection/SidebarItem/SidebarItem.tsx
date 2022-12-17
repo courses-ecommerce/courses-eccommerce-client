@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "src/components/Icon/Icon";
 import useHover from "src/hooks/useHover";
-import "./NavItem.scss";
+import "./SidebarItem.scss";
 
 interface ItemProps {
   title: string;
@@ -14,12 +14,12 @@ interface ItemProps {
   children?: ItemProps[];
 }
 
-interface NavItemProps {
+interface SidebarItemProps {
   item: ItemProps;
   active: (path: any) => boolean;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({ item, active }) => {
   const [show, setShow] = useState<boolean>(false);
   const { title, href, icon, children } = item;
   const { pathname } = useLocation();
@@ -120,4 +120,4 @@ const NavItem: React.FC<NavItemProps> = ({ item, active }) => {
   );
 };
 
-export default NavItem;
+export default SidebarItem;
