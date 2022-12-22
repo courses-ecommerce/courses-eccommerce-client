@@ -30,4 +30,29 @@ export interface IUser {
   teacher?: ITeacherStatus;
 }
 
-export type Role = "admin" | "user" | "teacher" | "student" | "director";
+export type Role =
+  | "admin"
+  | "user"
+  | "teacher"
+  | "student"
+  | "director"
+  | "page";
+
+export const convertRole = (role: Role) => {
+  switch (role) {
+    case "admin":
+      return "admin";
+    case "user":
+      return "user";
+    case "teacher":
+      return "teacher";
+    case "director":
+      return "director";
+    case "page":
+      return "page";
+
+    default:
+      console.log(`$Role {role} is not defined`);
+      break;
+  }
+};

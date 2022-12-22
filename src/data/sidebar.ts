@@ -1,12 +1,12 @@
-import { IRoute } from "src/types/route";
+import { Router } from "src/types";
 
-export const linkHeader: IRoute[] = [
+export const linkHeader: Router[] = [
   { name: "Trang chủ", path: "/", href: "" },
   { name: "Danh sách khoá học", path: "/course", href: "course" },
   // { name: "Hỗ trợ", path: "/support", href: "contact" },
 ];
 
-export const linkUserProfile: IRoute[] = [
+export const linkUserProfile: Router[] = [
   //for user
   { name: "Trang chủ", path: "/", role: "user" },
   //for admin

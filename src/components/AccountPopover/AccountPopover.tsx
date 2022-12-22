@@ -5,11 +5,11 @@ import { avatarNone } from "src/assets";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IRoute } from "src/types/route";
+import { Router } from "src/types/route";
 import "./AccountPopover.scss";
 
 interface AccountPopoverProps {
-  routes: IRoute[];
+  routes: Router[];
 }
 
 const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
@@ -29,7 +29,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
         <div className="account-popover">
           <div className="menu-list">
             {routes?.map(
-              (route: IRoute) =>
+              (route: Router) =>
                 (route.role === isRole || route.role === "user") && (
                   <MenuItem
                     key={route.name}

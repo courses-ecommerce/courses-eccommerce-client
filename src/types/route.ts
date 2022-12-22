@@ -1,8 +1,10 @@
 import { Role } from "./user";
 
-export interface IRoute {
-  name: string;
+export interface Router {
   path: string;
+  element?: JSX.Element;
+  children?: Router[];
+  name?: string;
   href?: string;
-  role?: Role;
+  role?: Role | string;
 }

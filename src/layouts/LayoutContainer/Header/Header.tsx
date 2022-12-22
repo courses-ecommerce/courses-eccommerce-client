@@ -11,7 +11,7 @@ import { linkHeader, linkUserProfile } from "src/data/sidebar";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IRoute } from "src/types/route";
+import { Router } from "src/types";
 import "./Header.scss";
 
 interface HeaderProps {
@@ -24,10 +24,10 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
 
   const { nodeRef, show, setShow } = useClickOutSide();
 
-  const renderSmoothLinks = (links: IRoute[]) => {
+  const renderSmoothLinks = (links: Router[]) => {
     return (
       links.length > 0 &&
-      links.map((link: IRoute, index) => (
+      links.map((link: Router, index) => (
         <Link
           key={index}
           activeClass="active"

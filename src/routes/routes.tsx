@@ -1,8 +1,10 @@
+import DashboardLayout from "src/layouts/Dashboard/DashboardLayout";
 import UserList from "src/pages/AdminPage/AccountsManage/AccountList";
 import AdminPage from "src/pages/AdminPage/AdminPage";
 import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
 import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
 import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
+import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
 import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
 import RevenueStatistic from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenueStatistic";
 import RevenueTeacherDetail from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherDetail";
@@ -12,7 +14,10 @@ import UserStatistic from "src/pages/AdminPage/StatisticManage/UserStatistic/Use
 import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
 import Login from "src/pages/AuthPage/Login/Login";
 import Register from "src/pages/AuthPage/Register/Register";
+import BoughtCourses from "src/pages/CourseLearning/BoughtCourses/BoughtCourses";
+import CourseLearningDetail from "src/pages/CourseLearning/CourseLearningDetail/CourseLearningDetail";
 import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
+import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
 import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
 import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
 import MainPage from "src/pages/MainPage/MainPage";
@@ -22,16 +27,11 @@ import ProfilePage from "src/pages/ProfilePage/ProfilePage";
 import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
 import PaymentDetail from "src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail";
 import CartList from "src/pages/StudentPage/ManageCart/CartList";
-import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
-import BoughtCourses from "src/pages/CourseLearning/BoughtCourses/BoughtCourses";
-import CourseLearningDetail from "src/pages/CourseLearning/CourseLearningDetail/CourseLearningDetail";
-import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
 import StudentPage from "src/pages/StudentPage/StudentPage";
 import TeacherCourse from "src/pages/TeacherPage/ManageCourses/TeacherCourse";
 import TeacherCourseDetail from "src/pages/TeacherPage/ManageCourses/TeacherCourseDetail";
 import TeacherInfo from "src/pages/TeacherPage/ManageProfile/TeacherInfo";
 import TeacherRevenue from "src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue";
-import DashboardLayout from "src/layouts/Dashboard/DashboardLayout";
 
 // main route
 const MAIN_ROUTE = [

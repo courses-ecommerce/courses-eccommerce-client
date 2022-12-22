@@ -1,51 +1,89 @@
 import { Outlet, Route } from "react-router-dom";
+import { Role, Router } from "src/types";
 import { AuthRoute } from "./AuthRoute";
 import { NonAuthRoute } from "./NonAuthRoute";
 
-const mainRoute = (routes: Array<any>) => {
+const mainRoute = (routes: Router[]) => {
   return routes.map((route, index) => {
     return <Route key={index} path={route.path} element={route.element} />;
   });
 };
-const authRoute = (routes: Array<any>) => {
+
+const authRoute = (routes: Router[]) => {
   return routes.map((route, index) => {
     return (
       <Route
         key={index}
         path={route.path}
-        element={<NonAuthRoute>{route.element}</NonAuthRoute>}
+        element={<NonAuthRoute>{route.element as JSX.Element}</NonAuthRoute>}
       />
     );
   });
 };
-const privateRoute = (routes: Array<any>) => {
+
+// const privateRoute = (routes: Router[]) => {
+//   return routes.map((route, index) => {
+//     return (
+//       <Route
+//         key={index}
+//         path={route.path}
+//         element={
+//           <AuthRoute roles={route.role as Role}>
+//             {route.element as JSX.Element}
+//           </AuthRoute>
+//         }
+//       >
+//         {route.children &&
+//           route.children.map((subLink: any, index: number) => (
+//             <Route
+//               key={index}
+//               path={subLink.path}
+//               element={subLink.children ? <Outlet /> : subLink.element}
+//             >
+//               {subLink.children &&
+//                 subLink.children.map((subLinkItem: any, index: number) => (
+//                   <Route
+//                     key={index}
+//                     path={subLinkItem.path}
+//                     element={subLinkItem.element}
+//                   ></Route>
+//                 ))}
+//             </Route>
+//           ))}
+//       </Route>
+//     );
+//   });
+// };
+
+const privateRoute = (routes: Router[]) => {
   return routes.map((route, index) => {
     return (
       <Route
         key={index}
         path={route.path}
-        element={<AuthRoute roles={route.role}>{route.element}</AuthRoute>}
+        element={
+          <AuthRoute roles={route.role as Role}>
+            {route.element as JSX.Element}
+          </AuthRoute>
+        }
       >
-        {route.children &&
-          route.children.map((subLink: any, index: number) => (
-            <Route
-              key={index}
-              path={subLink.path}
-              element={subLink.children ? <Outlet /> : subLink.element}
-            >
-              {subLink.children &&
-                subLink.children.map((subLinkItem: any, index: number) => (
-                  <Route
-                    key={index}
-                    path={subLinkItem.path}
-                    element={subLinkItem.element}
-                  ></Route>
-                ))}
-            </Route>
-          ))}
+        {renderSubRoutes(route.children)}
       </Route>
     );
   });
+};
+
+const renderSubRoutes = (routes: Router[] = []) => {
+  if (routes.length === 0) return;
+  return routes.map((router: Router, index: number) => (
+    <Route
+      key={index}
+      path={router.path}
+      element={router.children ? <Outlet /> : router.element}
+    >
+      {renderSubRoutes(router.children)}
+    </Route>
+  ));
 };
 
 export { mainRoute, privateRoute, authRoute };
