@@ -21,14 +21,14 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
     <div className="account-popup">
       <Tooltip title="Thông tin cá nhân">
         <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-          <Avatar src={userInfo?.avatar || avatarNone} alt="photoURL" />
+          <Avatar src={userInfo.avatar || avatarNone} alt="avatar user" />
         </IconButton>
       </Tooltip>
 
       {show && (
         <div className="account-popover">
           <div className="menu-list">
-            {routes?.map(
+            {routes.map(
               (route: Router) =>
                 (route.role === isRole || route.role === "user") && (
                   <MenuItem
@@ -42,7 +42,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
                 )
             )}
           </div>
-          <div className="devider" />
+          <div className="divider" />
           <div className="btns">
             <Logout />
           </div>
