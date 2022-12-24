@@ -1,5 +1,4 @@
 import { Box, Button } from "@mui/material";
-import { fi } from "date-fns/locale";
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
@@ -31,7 +30,7 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
   setShow,
 }) => {
   const dispatch = useDispatch();
-  // console.log("value laf", value);
+  // console.log("value", value);
 
   const [star, setStar] = useState();
   const [content, setContent] = useState<string>();
@@ -105,7 +104,7 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
   };
 
   return (
-    <>
+    <React.Fragment>
       {!value ? (
         <ModalContainer
           width={700}
@@ -187,7 +186,7 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
           </form>
         </ModalContainer>
       )}
-    </>
+    </React.Fragment>
   );
 };
 
