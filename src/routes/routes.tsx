@@ -1,119 +1,88 @@
-import DashboardLayout from "src/layouts/Dashboard/DashboardLayout";
-import UserList from "src/pages/AdminPage/AccountsManage/AccountList";
-import AdminPage from "src/pages/AdminPage/AdminPage";
-import CategoryList from "src/pages/AdminPage/CategoriesManage/CategoryList";
-import CouponList from "src/pages/AdminPage/CouponManage/CouponList";
-import CourseList from "src/pages/AdminPage/CoursesManage/CourseList";
-import InvoiceList from "src/pages/AdminPage/InvoiceManage/InvoiceList";
-import StatisticCourses from "src/pages/AdminPage/StatisticManage/CourseStatistic/CoursesStatistic";
-import RevenueStatistic from "src/pages/AdminPage/StatisticManage/RevenueStatistic/RevenueStatistic";
-import RevenueTeacherDetail from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherDetail";
-import RevenueTeacherStatistic from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherStatistic";
-import StatisticManage from "src/pages/AdminPage/StatisticManage/StatisticViews";
-import UserStatistic from "src/pages/AdminPage/StatisticManage/UserStatistic/UserStatistic";
-import ForgotPassword from "src/pages/AuthPage/ForgotPassword/ForgotPassword";
-import Login from "src/pages/AuthPage/Login/Login";
-import Register from "src/pages/AuthPage/Register/Register";
-import BoughtCourses from "src/pages/CourseLearning/BoughtCourses/BoughtCourses";
-import CourseLearningDetail from "src/pages/CourseLearning/CourseLearningDetail/CourseLearningDetail";
-import CourseDetail from "src/pages/CoursePage/CourseDetail/CourseDetail";
-import OverviewSystem from "src/pages/DirectorPage/OverviewSystem/OverviewSystem";
-import NotFound from "src/pages/MainPage/ErrorPage/NotFound";
-import UnauthorizedPage from "src/pages/MainPage/ErrorPage/UnauthorizedPage";
-import MainPage from "src/pages/MainPage/MainPage";
-import PortfolioPage from "src/pages/MainPage/PortfolioPage/PortfolioPage";
-import Message from "src/pages/Message/Message";
-import ProfilePage from "src/pages/ProfilePage/ProfilePage";
-import HistoryPayment from "src/pages/StudentPage/HistoryPayment/HistoryPayment";
-import PaymentDetail from "src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail";
-import CartList from "src/pages/StudentPage/ManageCart/CartList";
-import StudentPage from "src/pages/StudentPage/StudentPage";
-import TeacherCourse from "src/pages/TeacherPage/ManageCourses/TeacherCourse";
-import TeacherCourseDetail from "src/pages/TeacherPage/ManageCourses/TeacherCourseDetail";
-import TeacherInfo from "src/pages/TeacherPage/ManageProfile/TeacherInfo";
-import TeacherRevenue from "src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue";
+import {
+  ADMIN_PAGE,
+  AUTH_PAGE,
+  DASHBOARD_PAGE,
+  DIRECTOR_PAGE,
+  MAIN_PAGE,
+  STUDENT_PAGE,
+  TEACHER_PAGE,
+} from "./LazySuspenseComponent";
 
 // main route
 const MAIN_ROUTE = [
   {
     role: "page",
     path: "/",
-    element: <MainPage />,
+    element: MAIN_PAGE.MainPage,
   },
-
-  // {
-  //   role: "page",
-  //   path: "/courses",
-  //   element: <CoursePage />,
-  // },
   {
     role: "page",
     path: "/courses/:id",
-    element: <CourseDetail />,
+    element: MAIN_PAGE.CourseDetail,
   },
   {
     role: "page",
     path: "invoice/:id",
-    element: <PaymentDetail />,
+    element: MAIN_PAGE.PaymentDetail,
   },
   {
     role: "page",
     path: "user/:id",
-    element: <PortfolioPage />,
+    element: MAIN_PAGE.PortfolioPage,
   },
-  { role: "page", path: "/unauthorized", element: <UnauthorizedPage /> },
-  { role: "page", path: "/*", element: <NotFound /> },
+  { role: "page", path: "/unauthorized", element: MAIN_PAGE.UnauthorizedPage },
+  { role: "page", path: "/*", element: MAIN_PAGE.NotFound },
 ];
 
 //auth route
 const AUTH_ROUTE = [
-  { role: "auth", path: "/login", element: <Login /> },
-  { role: "auth", path: "/register", element: <Register /> },
-  { role: "auth", path: "/forgot_password", element: <ForgotPassword /> },
+  { role: "auth", path: "/login", element: AUTH_PAGE.Login },
+  { role: "auth", path: "/register", element: AUTH_PAGE.Register },
+  { role: "auth", path: "/forgot_password", element: AUTH_PAGE.ForgotPassword },
 ];
 
 // admin route
 const ADMIN_ROUTE = [
-  { role: "admin", path: "/admin", element: <AdminPage /> },
+  { role: "admin", path: "/admin", element: ADMIN_PAGE.AdminPage },
   {
     role: "admin",
     path: "/admin/dashboard/statistic/revenue-teachers/:id",
-    element: <RevenueTeacherDetail />,
+    element: ADMIN_PAGE.RevenueTeacherDetail,
   },
   {
     role: "admin",
     path: "/admin/dashboard/invoices/:id",
-    element: <PaymentDetail />,
+    element: ADMIN_PAGE.PaymentDetail,
   },
   {
     role: "admin",
     path: "admin/dashboard/courses/:id",
-    element: <CourseLearningDetail />,
+    element: ADMIN_PAGE.CourseLearningDetail,
   },
 ];
 
 // Student route
 const STUDENT_ROUTE = [
-  { role: "student", path: "/student", element: <StudentPage /> },
+  { role: "student", path: "/student", element: STUDENT_PAGE.StudentPage },
   {
     role: "student",
     path: "/student/history-payment/:id",
-    element: <PaymentDetail />,
+    element: STUDENT_PAGE.PaymentDetail,
   },
   {
     role: "student",
     path: "/student/my-course/:id",
-    element: <CourseLearningDetail />,
+    element: STUDENT_PAGE.CourseLearningDetail,
   },
 ];
 
 // director route
 const DIRECTOR_ROUTE = [
-  { role: "director", path: "/director", element: <StudentPage /> },
+  { role: "director", path: "/director", element: STUDENT_PAGE.StudentPage },
   {
     role: "director",
     path: "/director/revenue-teachers/:id",
-    element: <RevenueTeacherDetail />,
+    element: DIRECTOR_PAGE.RevenueTeacherDetail,
   },
 ];
 
@@ -127,17 +96,17 @@ const TEACHER_ROUTE = [
   {
     role: "teacher",
     path: "/teacher/course",
-    element: <TeacherCourse />,
+    element: TEACHER_PAGE.TeacherCourse,
   },
   {
     role: "teacher",
     path: "/teacher/course/:id",
-    element: <TeacherCourseDetail />,
+    element: TEACHER_PAGE.TeacherCourseDetail,
   },
   {
     role: "teacher",
     path: "teacher/course/preview-course/:id",
-    element: <CourseLearningDetail />,
+    element: TEACHER_PAGE.CourseLearningDetail,
   },
 ];
 
@@ -147,12 +116,12 @@ const DASHBOARD_ROUTE = [
   {
     role: "admin",
     path: "/admin",
-    element: <DashboardLayout />,
+    element: DASHBOARD_PAGE.DashboardLayout,
     children: [
       {
         path: "info",
         href: "/admin/info",
-        element: <ProfilePage />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.ProfilePage,
         title: "Thông tin cá nhân",
         icon: "info-circle",
       },
@@ -166,14 +135,14 @@ const DASHBOARD_ROUTE = [
       {
         path: "dashboard/user",
         href: "/admin/dashboard/user",
-        element: <UserList />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.UserList,
         title: "Quản lý người dùng",
         icon: "user",
       },
       {
         path: "dashboard/categories",
         href: "/admin/dashboard/categories",
-        element: <CategoryList />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.CategoryList,
         title: "Quản lý danh mục",
         icon: "newspaper-o",
       },
@@ -181,20 +150,20 @@ const DASHBOARD_ROUTE = [
         path: "dashboard/courses",
         title: "Quản lý khoá học",
         href: "/admin/dashboard/courses",
-        element: <CourseList />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.CourseList,
         icon: "book",
       },
       {
         path: "dashboard/invoices",
         title: "Quản lý hoá đơn",
         href: "/admin/dashboard/invoices",
-        element: <InvoiceList />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.InvoiceList,
         icon: "file-text-o",
       },
       {
         path: "dashboard/coupons",
         href: "/admin/dashboard/coupons",
-        element: <CouponList />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.CouponList,
         title: "Quản lý khuyến mãi",
         icon: "barcode",
       },
@@ -202,7 +171,7 @@ const DASHBOARD_ROUTE = [
       {
         path: "dashboard/statistic/",
         href: "/admin/dashboard/statistic",
-        element: <StatisticManage />,
+        element: DASHBOARD_PAGE.ADMIN_DASHBOARD.StatisticManage,
         title: "Biểu đồ thống kê",
         icon: "bar-chart",
         children: [
@@ -210,43 +179,36 @@ const DASHBOARD_ROUTE = [
             path: "users",
             href: "/admin/dashboard/statistic/users",
             title: "Thống kê người dùng",
-            element: <UserStatistic />,
+            element: DASHBOARD_PAGE.ADMIN_DASHBOARD.UserStatistic,
             // icon: "info",
           },
           {
             path: "revenues",
             href: "/admin/dashboard/statistic/revenues",
             title: "Thống kê doanh thu",
-            element: <RevenueStatistic />,
+            element: DASHBOARD_PAGE.ADMIN_DASHBOARD.RevenueStatistic,
             // icon: "money",
           },
           {
             path: "revenue-teachers",
             href: "/admin/dashboard/statistic/revenue-teachers",
             title: "Doanh thu giảng viên",
-            element: <RevenueTeacherStatistic />,
+            element: DASHBOARD_PAGE.ADMIN_DASHBOARD.RevenueTeacherStatistic,
             // icon: "money",
           },
           {
             path: "courses",
             href: "/admin/dashboard/statistic/courses",
             title: "Thống kê khoá học",
-            element: <StatisticCourses />,
+            element: DASHBOARD_PAGE.ADMIN_DASHBOARD.StatisticCourses,
             // icon: "money",
           },
-          // {
-          //   path: "coupons",
-          //   href: "/admin/dashboard/statistic/coupons",
-          //   title: "Thống kê mã khuyến mãi",
-          //   element: <CouponStatistic />,
-          //   // icon: "money",
-          // },
         ],
       },
       {
         path: "message",
         href: "/admin/message",
-        element: <Message />,
+        element: DASHBOARD_PAGE.Message,
         title: "Trò chuyện trực tuyến",
         icon: "wechat",
       },
@@ -256,40 +218,40 @@ const DASHBOARD_ROUTE = [
   {
     role: "student",
     path: "/student",
-    element: <DashboardLayout />,
+    element: DASHBOARD_PAGE.DashboardLayout,
     children: [
       {
         path: "info",
         href: "/student/info",
-        element: <ProfilePage />,
+        element: DASHBOARD_PAGE.STUDENT_DASHBOARD.ProfilePage,
         title: "Thông tin cá nhân",
         icon: "info-circle",
       },
       {
         path: "cart",
         href: "/student/cart",
-        element: <CartList />,
+        element: DASHBOARD_PAGE.STUDENT_DASHBOARD.CartList,
         title: "Quản lý giỏ hàng",
         icon: "shopping-cart",
       },
       {
         path: "my-course",
         href: "/student/my-course",
-        element: <BoughtCourses />,
+        element: DASHBOARD_PAGE.STUDENT_DASHBOARD.BoughtCourses,
         title: "Khoá học của tôi",
         icon: "film",
       },
       {
         path: "history-payment",
         href: "/student/history-payment",
-        element: <HistoryPayment />,
+        element: DASHBOARD_PAGE.STUDENT_DASHBOARD.HistoryPayment,
         title: "Lịch sử thanh toán",
         icon: "file-text-o",
       },
       {
         path: "message",
         href: "/student/message",
-        element: <Message />,
+        element: DASHBOARD_PAGE.Message,
         title: "Trò chuyện trực tuyến",
         icon: "wechat",
       },
@@ -299,40 +261,40 @@ const DASHBOARD_ROUTE = [
   {
     role: "teacher",
     path: "/teacher",
-    element: <DashboardLayout />,
+    element: DASHBOARD_PAGE.DashboardLayout,
     children: [
       {
         path: "info",
         href: "/teacher/info",
-        element: <ProfilePage />,
+        element: DASHBOARD_PAGE.TEACHER_DASHBOARD.ProfilePage,
         title: "Thông tin cá nhân",
         icon: "info-circle",
       },
       {
         path: "banking_info",
         href: "/teacher/banking_info",
-        element: <TeacherInfo />,
+        element: DASHBOARD_PAGE.TEACHER_DASHBOARD.TeacherInfo,
         title: "Thông tin ngân hàng",
         icon: "id-card",
       },
       {
         path: "revenue",
         href: "/teacher/revenue",
-        element: <TeacherRevenue />,
+        element: DASHBOARD_PAGE.TEACHER_DASHBOARD.TeacherRevenue,
         title: "Doanh thu cá nhân",
         icon: "cc-paypal",
       },
       {
         path: "dashboard/coupon",
         href: "/teacher/dashboard/coupon",
-        element: <CouponList />,
+        element: DASHBOARD_PAGE.TEACHER_DASHBOARD.CouponList,
         title: "Quản lý khuyến mãi",
         icon: "barcode",
       },
       {
         path: "message",
         href: "/teacher/message",
-        element: <Message />,
+        element: DASHBOARD_PAGE.Message,
         title: "Trò chuyện trực tuyến",
         icon: "wechat",
       },
@@ -342,26 +304,26 @@ const DASHBOARD_ROUTE = [
   {
     role: "director",
     path: "/director",
-    element: <DashboardLayout />,
+    element: DASHBOARD_PAGE.DashboardLayout,
     children: [
       {
         path: "info",
         href: "/director/info",
-        element: <ProfilePage />,
+        element: DASHBOARD_PAGE.DIRECTOR_DASHBOARD.ProfilePage,
         title: "Thông tin cá nhân",
         icon: "info-circle",
       },
       {
         path: "over-view",
         href: "/director/over-view",
-        element: <OverviewSystem />,
+        element: DASHBOARD_PAGE.DIRECTOR_DASHBOARD.OverviewSystem,
         title: "Tổng quan hệ thống",
         icon: "gears",
       },
       {
         path: "revenue-teachers",
         href: "/director/revenue-teachers",
-        element: <RevenueTeacherStatistic />,
+        element: DASHBOARD_PAGE.DIRECTOR_DASHBOARD.RevenueTeacherStatistic,
         title: "Doanh thu giảng viên",
         icon: "money",
       },
@@ -369,21 +331,21 @@ const DASHBOARD_ROUTE = [
         path: "users",
         href: "/director/users",
         title: "Tài khoản người dùng",
-        element: <UserStatistic />,
+        element: DASHBOARD_PAGE.DIRECTOR_DASHBOARD.UserStatistic,
         icon: "users",
       },
       {
         path: "revenues",
         href: "/director/revenues",
         title: "Doanh thu hệ thống",
-        element: <RevenueStatistic />,
+        element: DASHBOARD_PAGE.DIRECTOR_DASHBOARD.RevenueStatistic,
         icon: "rocket",
       },
       {
         path: "courses",
         href: "/director/courses",
         title: "Khoá học bán chạy",
-        element: <StatisticCourses />,
+        element: DASHBOARD_PAGE.DIRECTOR_DASHBOARD.StatisticCourses,
         icon: "cart-plus",
       },
     ],

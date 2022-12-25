@@ -1,8 +1,10 @@
+import { ComponentType } from "react";
 import { Role } from "./user";
 
 export interface Router {
   path: string;
-  element?: JSX.Element;
+  element?: JSX.Element | ComponentType;
+  // element?: LazyExoticComponent<() => JSX.Element>;
   children?: Router[];
   name?: string;
   href?: string;

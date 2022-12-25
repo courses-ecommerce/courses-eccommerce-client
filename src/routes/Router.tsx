@@ -5,7 +5,13 @@ import { NonAuthRoute } from "./NonAuthRoute";
 
 const mainRoute = (routes: Router[]) => {
   return routes.map((route, index) => {
-    return <Route key={index} path={route.path} element={route.element} />;
+    return (
+      <Route
+        key={index}
+        path={route.path}
+        element={route.element as JSX.Element}
+      />
+    );
   });
 };
 
@@ -20,40 +26,6 @@ const authRoute = (routes: Router[]) => {
     );
   });
 };
-
-// const privateRoute = (routes: Router[]) => {
-//   return routes.map((route, index) => {
-//     return (
-//       <Route
-//         key={index}
-//         path={route.path}
-//         element={
-//           <AuthRoute roles={route.role as Role}>
-//             {route.element as JSX.Element}
-//           </AuthRoute>
-//         }
-//       >
-//         {route.children &&
-//           route.children.map((subLink: any, index: number) => (
-//             <Route
-//               key={index}
-//               path={subLink.path}
-//               element={subLink.children ? <Outlet /> : subLink.element}
-//             >
-//               {subLink.children &&
-//                 subLink.children.map((subLinkItem: any, index: number) => (
-//                   <Route
-//                     key={index}
-//                     path={subLinkItem.path}
-//                     element={subLinkItem.element}
-//                   ></Route>
-//                 ))}
-//             </Route>
-//           ))}
-//       </Route>
-//     );
-//   });
-// };
 
 const privateRoute = (routes: Router[]) => {
   return routes.map((route, index) => {
@@ -79,7 +51,7 @@ const renderSubRoutes = (routes: Router[] = []) => {
     <Route
       key={index}
       path={router.path}
-      element={router.children ? <Outlet /> : router.element}
+      element={router.children ? <Outlet /> : (router.element as JSX.Element)}
     >
       {renderSubRoutes(router.children)}
     </Route>
