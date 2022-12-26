@@ -2,16 +2,16 @@ import { Divider } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-scroll";
-import AccountPopover from "src/components/AccountPopover/AccountPopover";
-import CartIcon from "src/components/CartIcon/CartIcon";
-import Icon from "src/components/Icon/Icon";
-import Notification from "src/components/Notification/Notification";
+import AccountPopover from "src/components/AccountPopover";
+import CartIcon from "src/components/CartIcon";
+import Icon from "src/components/Icon";
+import Notification from "src/components/Notification";
+
 import { linkHeader, linkUserProfile } from "src/data/sidebar";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { Router } from "src/types";
+import HeaderNavigation from "../HeaderNavigation";
 import "./Header.scss";
 
 interface HeaderProps {
@@ -24,26 +24,8 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
 
   const { nodeRef, show, setShow } = useClickOutSide();
 
-  const renderSmoothLinks = (links: Router[]) => {
-    return (
-      links.length > 0 &&
-      links.map((link: Router, index) => (
-        <Link
-          key={index}
-          activeClass="active"
-          to={link.href || ""}
-          spy={true}
-          smooth={true}
-          duration={400}
-        >
-          {link.name}
-        </Link>
-      ))
-    );
-  };
-
   return (
-    <>
+    <React.Fragment>
       {/* for website */}
       <div className="header">
         <div
@@ -53,8 +35,7 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
         ></div>
 
         <div className="header-links">
-          {/* <NavLinks links={linkHeader} /> */}
-          {titleShow && renderSmoothLinks(linkHeader)}
+          {titleShow && <HeaderNavigation links={linkHeader} />}
         </div>
         <div className="header-profile">
           {isRole !== "director" && (
@@ -74,22 +55,18 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
           ref={nodeRef}
           onClick={() => setShow(!show)}
         >
-          {!show ? (
-            <Icon icon="align-justify" size={30} />
-          ) : (
-            <Icon icon="close" size={30} />
-          )}
+          <Icon icon={!show ? "align-justify" : "close"} size={30} />
         </div>
 
         {show && (
           <div className="header-mobile-links">
-            {renderSmoothLinks(linkHeader)}
+            <HeaderNavigation links={linkHeader} />
             <Divider />
             <Logout />
           </div>
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

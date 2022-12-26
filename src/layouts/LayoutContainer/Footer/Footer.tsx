@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { listFooter } from "src/data/mainPageInfo";
 import "./Footer.scss";
 
+type ContactType = "communication" | "contact";
+interface ContactProps {
+  name: string;
+  href: string;
+}
 interface FooterProps {
-  info?: any;
+  info?: Record<ContactType, ContactProps[]>;
 }
 
 const Footer: React.FC<FooterProps> = ({ info = listFooter }) => {
@@ -13,23 +18,23 @@ const Footer: React.FC<FooterProps> = ({ info = listFooter }) => {
       <h3>Thông tin liên hệ</h3>
       <div>
         <div className="footer-introduction">
-          {info.communication.map((communicate: any, index: number) => (
-            <Link to={communicate.href} key={index}>
-              {communicate.name}
+          {info.communication.map((contactInfo, index) => (
+            <Link to={contactInfo.href} key={index}>
+              {contactInfo.name}
             </Link>
           ))}
         </div>
         <div className="footer-contact">
-          {info.contact.map((communicate: any, index: number) => (
-            <Link to={communicate.href} key={index}>
-              {communicate.name}
+          {info.contact.map((contactInfo, index) => (
+            <Link to={contactInfo.href} key={index}>
+              {contactInfo.name}
             </Link>
           ))}
         </div>
         <div className="footer-contact">
-          {info.contact.map((communicate: any, index: number) => (
-            <Link to={communicate.href} key={index}>
-              {communicate.name}
+          {info.contact.map((contactInfo, index) => (
+            <Link to={contactInfo.href} key={index}>
+              {contactInfo.name}
             </Link>
           ))}
         </div>

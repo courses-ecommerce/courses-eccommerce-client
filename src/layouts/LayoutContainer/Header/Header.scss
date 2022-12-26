@@ -1,7 +1,8 @@
 .header {
   height: 60px;
   width: 100%;
-  background: white;
+  background-color: #fff;
+
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
   display: flex;
@@ -15,8 +16,6 @@
   right: 0;
   z-index: 10;
 
-  background: white;
-
   &-img {
     max-width: 200px;
     width: 100%;
@@ -28,17 +27,6 @@
   &-links {
     display: flex;
     gap: 30px;
-    > a {
-      cursor: pointer;
-      font-size: 16px;
-      color: black;
-      user-select: none;
-
-      &.active {
-        color: red;
-        font-weight: 500;
-      }
-    }
   }
   &-profile {
     display: flex;
@@ -81,35 +69,17 @@
     > .icon-toggle {
       padding: 15px;
 
-      width: 100%;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       border-bottom: 1px solid rgb(213, 213, 213);
-      background: white;
+      background-color: #fff;
     }
     &-links {
-      // width: fit-content;
-
       padding: 20px;
-      // height: 600px;
-
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background: white;
-
       display: flex;
       flex-direction: column;
       gap: 15px;
-
-      > a {
-        cursor: pointer;
-        font-size: 16px;
-        color: black;
-        user-select: none;
-
-        &.active {
-          color: red;
-          font-weight: 500;
-        }
-      }
     }
   }
 }
