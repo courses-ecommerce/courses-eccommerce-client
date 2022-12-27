@@ -15,23 +15,23 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ info = listFooter }) => {
   return (
     <div className="footer">
-      <h3>Thông tin liên hệ</h3>
-      <div>
-        <div className="footer-introduction">
+      <h3 className="footer-title">Thông tin liên hệ</h3>
+      <div className="footer-description">
+        <div className="introduction">
           {info.communication.map((contactInfo, index) => (
             <Link to={contactInfo.href} key={index}>
               {contactInfo.name}
             </Link>
           ))}
         </div>
-        <div className="footer-contact">
+        <div className="contact">
           {info.contact.map((contactInfo, index) => (
             <Link to={contactInfo.href} key={index}>
               {contactInfo.name}
             </Link>
           ))}
         </div>
-        <div className="footer-contact">
+        <div className="contact">
           {info.contact.map((contactInfo, index) => (
             <Link to={contactInfo.href} key={index}>
               {contactInfo.name}
