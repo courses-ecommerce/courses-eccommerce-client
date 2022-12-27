@@ -1,6 +1,6 @@
 export interface SliderBanner {
-  name: string;
+  name?: string;
   image: string;
-  description: string;
+  description?: string;
   btn?: boolean;
 }
