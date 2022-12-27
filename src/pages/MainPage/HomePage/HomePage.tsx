@@ -1,8 +1,8 @@
 import React from "react";
-import SlideShow from "src/components/SlideShow/SlideShow";
+import Slider from "src/components/Slider";
 import { listSlideShow } from "src/data/mainPageInfo";
 
 const HomePage = () => {
-  return <SlideShow listSlideShow={listSlideShow} />;
+  return <Slider.SlideContainer listSlideShow={listSlideShow} />;
 };
 export default HomePage;

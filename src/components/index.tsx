@@ -5,6 +5,5 @@ export * from "./Input";
 export * from "./LoadingSkeleton";
 export * from "./NavLinks";
 export * from "./Notification";
-export * from "./SlideShow";
 export * from "./Table";
 export * from "./Loading";
