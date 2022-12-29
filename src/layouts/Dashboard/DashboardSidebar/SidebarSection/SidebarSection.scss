@@ -3,8 +3,7 @@
   flex-direction: column;
   gap: 2px;
 
-  > a,
-  > .nav-list {
+  > .sidebar-item {
     width: 100%;
     font-size: 14px;
     line-height: 20px;
@@ -25,10 +24,8 @@
 
     &:hover,
     &.active {
-      border-radius: 6px;
       background: rgb(232, 238, 247);
       color: rgb(73, 129, 217);
-      // font-weight: 600;
     }
   }
 }

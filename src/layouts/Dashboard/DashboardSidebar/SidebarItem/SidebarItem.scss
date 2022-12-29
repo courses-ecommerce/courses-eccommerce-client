@@ -1,11 +1,26 @@
-a {
+.sidebar-item-title {
   display: flex;
   align-items: center;
-  > .title-list {
+  > .sidebar-title {
     margin-left: 20px;
   }
-  > .title-item {
+  > .sidebar-children-title {
     margin-left: 4px;
+  }
+}
+
+.nav-section {
+  .sidebar-item-title {
+    .sidebar-icon {
+      path {
+        fill: #637381 !important;
+      }
+      &.active {
+        path {
+          fill: #2065d1 !important;
+        }
+      }
+    }
   }
 }
 
@@ -23,11 +38,11 @@ a {
   }
 }
 
-.nav-item {
+.nav-child-list {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  > a {
+  > .sidebar-item-title {
     width: 100%;
 
     padding: 8px 30px;
@@ -41,6 +56,7 @@ a {
     &:hover,
     &.active {
       color: rgb(73, 129, 217);
+      background-color: rgba(232, 238, 247, 0.4);
     }
   }
 }

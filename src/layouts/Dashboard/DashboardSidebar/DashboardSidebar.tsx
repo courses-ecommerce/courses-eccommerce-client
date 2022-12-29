@@ -1,22 +1,22 @@
 import { useSelector } from "react-redux";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { DASHBOARD_ROUTE } from "src/routes/routes";
-import AvatarUser from "../AvatarUser/AvatarUser";
-import SidebarSection from "./SidebarSection/SidebarSection";
+import { DASHBOARD_ROUTE } from "src/routes";
+import AvatarUser from "../AvatarUser";
+import SidebarSection from "./SidebarSection";
+import { Router } from "src/types";
 import "./DashboardSidebar.scss";
 
 const DashboardSidebar = () => {
   const { isRole } = useSelector(selectAuthorization);
 
-  const renderDashBoard = (dashboards: Array<any>) => {
+  const renderDashBoard = (dashboards: Router[]) => {
+    const dashboardRoleIndex = dashboards.findIndex(
+      (dashboard) => dashboard.role === isRole
+    );
     return (
-      dashboards.length > 0 &&
-      dashboards.map(
-        (dashboard, index) =>
-          dashboard.role === isRole && (
-            <SidebarSection key={index} navConfig={dashboard.children} />
-          )
-      )
+      <SidebarSection
+        sidebarSection={dashboards[dashboardRoleIndex].children as Router[]}
+      />
     );
   };
 
@@ -26,7 +26,6 @@ const DashboardSidebar = () => {
         <div className="content-info-user">
           <AvatarUser />
         </div>
-        {/* link dashboard here */}
         <div className="content-info-nav">
           {renderDashBoard(DASHBOARD_ROUTE)}
         </div>

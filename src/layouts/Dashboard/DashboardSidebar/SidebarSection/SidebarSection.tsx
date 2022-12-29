@@ -1,25 +1,24 @@
-import { matchPath, useLocation } from "react-router-dom";
-import SidebarItem from "./SidebarItem/SidebarItem";
+import { Router } from "src/types";
+import SidebarItem from "../SidebarItem";
 import "./SidebarSection.scss";
 
 interface SidebarSectionProps {
-  navConfig: Array<any>;
+  sidebarSection: Router[];
   other?: any;
 }
 
 const SidebarSection: React.FC<SidebarSectionProps> = ({
-  navConfig,
+  sidebarSection,
   ...other
 }) => {
-  const { pathname } = useLocation();
-
-  const match = (path: any) =>
-    path ? !!matchPath({ path, end: false }, pathname) : false;
-
   return (
     <div className="nav-section">
-      {navConfig.map((item, index) => (
-        <SidebarItem key={index} item={item} active={match} />
+      {sidebarSection.map((sidebarItem, index) => (
+        <SidebarItem
+          className="sidebar-item"
+          key={index}
+          sidebarItem={sidebarItem}
+        />
       ))}
     </div>
   );

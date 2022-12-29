@@ -9,4 +9,7 @@ export interface Router {
   name?: string;
   href?: string;
   role?: Role | string;
+
+  title?: string;
+  icon?: string;
 }
