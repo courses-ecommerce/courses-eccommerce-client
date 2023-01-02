@@ -11,7 +11,7 @@ import "./DashboardHeader.scss";
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nodeRef, show, setShow } = useClickOutSide("<div>");
+  const { nodeRef, show, setShow } = useClickOutSide("div");
 
   useEffect(() => {
     dispatch(setToggleStatus(show));
