@@ -1,26 +1,57 @@
 .dashboard-layout {
+  max-width: 1600px;
+  width: 100%;
+  margin: auto;
+
+  // width: 100vw;
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
 
-  > .header {
+  > .dashboard-header {
     width: 100%;
     padding: 0;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
   }
 
-  > .body {
+  > .dashboard-content {
+    height: 100vh;
+
     display: flex;
     flex-direction: row;
-    height: 100vh;
+
+    position: relative;
     > .sidebar {
-      position: fixed;
       height: 100%;
+
+      position: fixed;
+      top: 0;
+      left: 0;
     }
 
     > .content {
-      flex: 1;
-      margin-top: 80px;
-      margin-left: 260px;
-      padding: 0 30px;
+      position: absolute;
+      left: 220px;
+      z-index: -1;
+
+      max-width: 1300px;
+      width: 100%;
+      padding: 100px 30px;
+    }
+  }
+}
+
+@media (max-width: 836px) {
+  .dashboard-layout {
+    > .dashboard-content {
+      > .content {
+        left: 0;
+      }
     }
   }
 }

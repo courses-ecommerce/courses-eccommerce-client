@@ -1,7 +1,7 @@
 import { IUser } from "./user";
 import { IVideo } from "./video";
 
-export interface IAuthSlice {
+export interface AuthSlice {
   isLoading: boolean;
   isAuth: boolean;
   isRole: string;
@@ -9,4 +9,13 @@ export interface IAuthSlice {
   userInfo: IUser;
   videoView: IVideo;
   panelActive?: string;
+}
+
+export interface ToggleSlice {
+  toggleState: boolean;
+}
+
+export interface ActionSlices {
+  auth: AuthSlice;
+  toggle: ToggleSlice;
 }

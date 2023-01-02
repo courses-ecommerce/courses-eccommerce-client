@@ -11,19 +11,20 @@ const AvatarUser = () => {
   const { isRole, userInfo } = useSelector(selectAuthorization);
 
   return (
-    <Tooltip title="Trang chủ">
-      <Link className="user" to="/">
-        <Avatar className="user-avatar" src={userInfo.avatar} alt="photoURL" />
-        <div className="user-info">
-          <span className="name">{userInfo.fullName}</span>
+    <Link className="user" to="/">
+      <Avatar
+        className="user-avatar"
+        src={userInfo.avatar}
+        alt={userInfo.fullName}
+      />
+      <div className="user-info">
+        <span className="name">{userInfo.fullName}</span>
 
-          <span className="role">
-            {/* Chức vụ: */}
-            {isRole && <span> {translateVi(isRole)}</span>}
-          </span>
-        </div>
-      </Link>
-    </Tooltip>
+        <span className="role">
+          {isRole && <span> {translateVi(isRole)}</span>}
+        </span>
+      </div>
+    </Link>
   );
 };
 

@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 2px;
 
+  user-select: none;
+
   > .sidebar-item {
     width: 100%;
     font-size: 14px;
