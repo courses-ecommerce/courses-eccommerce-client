@@ -8,7 +8,7 @@ import teacherApi from "src/apis/teacherApi";
 import Input from "src/components/Input";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IPayment } from "src/types";
+import { IPayment } from "src/types/payment";
 import * as Yup from "yup";
 
 interface UpdateBankingCardProps {
@@ -81,7 +81,6 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
   };
   return (
     <ModalContainer
-      width={900}
       title="Cập nhật thông tin tài khoản ngân hàng"
       open={show}
       onClose={() => {

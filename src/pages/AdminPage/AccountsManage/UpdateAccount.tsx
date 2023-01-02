@@ -9,8 +9,7 @@ import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { accountTypes, genderTypes, statusTypes } from "src/data/searchInfo";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IUser } from "src/types";
-// import { phoneRegExp } from "src/utils";
+import { IUser } from "src/types/user";
 import * as Yup from "yup";
 
 interface UpdateAccountProps {

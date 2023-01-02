@@ -5,7 +5,7 @@ import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { discountApplyTypes, discountTypes } from "src/data/searchInfo";
-import { ICounpon } from "src/types/cart";
+import { ICoupon } from "src/types/cart";
 
 import formatDate from "src/utils/formatDay";
 
@@ -20,7 +20,7 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
   show = false,
   onClose,
 }) => {
-  const [couponDetail, setCouponDetail] = useState<ICounpon>({});
+  const [couponDetail, setCouponDetail] = useState<ICoupon>({});
 
   useEffect(() => {
     id && getCategoryDetail(id);
@@ -39,7 +39,6 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
 
   return (
     <ModalContainer
-      width={900}
       title="Thông tin chi tiết mã giảm giá"
       open={show}
       onClose={onClose}
@@ -75,13 +74,19 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
             disabled
             label="Ngày bắt đầu"
             // type="datetime-local"
-            value={formatDate(couponDetail.startDate, "dd-MM-yyyy hh:mm")}
+            value={formatDate.getDate(
+              couponDetail.startDate,
+              "dd-MM-yyyy hh:mm"
+            )}
           />
           <Input
             disabled
             label="Ngày hết hạn"
             // type="datetime-local"
-            value={formatDate(couponDetail.expireDate, "dd-MM-yyyy hh:mm")}
+            value={formatDate.getDate(
+              couponDetail.expireDate,
+              "dd-MM-yyyy hh:mm"
+            )}
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>

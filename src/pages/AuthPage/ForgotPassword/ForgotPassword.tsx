@@ -1,7 +1,6 @@
 // import SendIcon from "@mui/icons-material/Send";
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,7 +8,7 @@ import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IForgotPassword } from "src/types/auth";
-import { isEmail } from "src/utils";
+import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
 import "./ForgotPassword.scss";
@@ -41,7 +40,7 @@ const ForgotPassword = () => {
   });
 
   const handleVerifyEmail = () => {
-    if (!isEmail(formik.values.email)) {
+    if (!isVerifyCharacter.isEmail(formik.values.email)) {
       toast.warning("Địa chỉ email không hợp lệ, xin vui lòng nhập lại", {
         position: "bottom-right",
       });

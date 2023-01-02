@@ -1,7 +1,8 @@
 import _ from "lodash";
-import { numberLocale } from ".";
 import formatDate from "./formatDay";
-import { translateVi } from ".";
+
+import formatCharacter from "./formatCharacter";
+import translateVi from "./translateVi";
 
 //get all keys to pass for header table
 export const getHeaderColumns = (data: string[], excepts: string[] = []) => {
@@ -46,13 +47,13 @@ export const getNewHeaderColumn = (
         key === "totalPrice" ||
         key === "revenue"
       ) {
-        return { [key]: numberLocale(item[key]) + " đ" };
+        return { [key]: formatCharacter.numberLocale(item[key]) + " đ" };
       }
       if (key === "isActive") {
         return { [key]: item[key] ? "Đang mở" : "Hết hạn" };
       }
       if (key === "expireDate" || key === "startDate" || key === "createdAt") {
-        return { [key]: formatDate(item[key], "dd-MM-yyyy hh:mm:ss") };
+        return { [key]: formatDate.getDate(item[key], "dd-MM-yyyy hh:mm:ss") };
       }
       if (key === "percentProgress") {
         return { [key]: !item[key] ? "Chưa xem" : item[key] };

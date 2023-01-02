@@ -1,3 +1,6 @@
+import { IAccount } from "./auth";
+import { ITeacherStatus } from "./teacher";
+
 export interface IGetUser {
   page?: string | number;
   limit?: string | number;
@@ -13,3 +16,43 @@ export interface ICreateNewUser {
   gender?: boolean | string;
   phone?: string;
 }
+
+export interface IUser {
+  _id?: string;
+  account?: IAccount;
+  fullName?: string;
+  birthday?: string;
+  gender?: boolean;
+  phone?: string;
+  avatar?: any;
+  createdAt?: string;
+  updatedAt?: string;
+  teacher?: ITeacherStatus;
+}
+
+export type Role =
+  | "admin"
+  | "user"
+  | "teacher"
+  | "student"
+  | "director"
+  | "page";
+
+export const convertRole = (role: Role) => {
+  switch (role) {
+    case "admin":
+      return "admin";
+    case "user":
+      return "user";
+    case "teacher":
+      return "teacher";
+    case "director":
+      return "director";
+    case "page":
+      return "page";
+
+    default:
+      console.log(`$Role {role} is not defined`);
+      break;
+  }
+};

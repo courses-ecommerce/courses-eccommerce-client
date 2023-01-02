@@ -9,7 +9,7 @@ import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { categoryTypes, statusTypes } from "src/data/searchInfo";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { ICategory } from "src/types";
+import { ICategory } from "src/types/category";
 import * as Yup from "yup";
 
 interface UpdateCategoryProps {

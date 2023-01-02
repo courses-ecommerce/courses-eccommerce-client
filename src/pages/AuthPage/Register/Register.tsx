@@ -1,7 +1,6 @@
 // import SendIcon from "@mui/icons-material/Send";
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,7 +8,8 @@ import authApi from "src/apis/authApi";
 import Input from "src/components/Input";
 import { isPending, isSuccess } from "src/reducers/authSlice";
 import { IRegister } from "src/types/auth";
-import { isEmail, phoneRegExp } from "src/utils";
+import isVerifyCharacter from "src/utils/isVerifyCharacter";
+import regexCharacter from "src/utils/regexCharacter";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout/AuthLayout";
 import "./Register.scss";
@@ -41,7 +41,10 @@ const Register = () => {
       // passwordConfirm: Yup.string()
       //   .min(8, "Mật khẩu ít nhất 8 kí tự")
       //   .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng nhau"),
-      phone: Yup.string().matches(phoneRegExp, "Nhập đúng số điện thoại"),
+      phone: Yup.string().matches(
+        regexCharacter.phoneRegExp,
+        "Nhập đúng số điện thoại"
+      ),
     }),
     onSubmit: (values) => {
       // console.log("lấy được dữ liệu là", values);
@@ -50,7 +53,7 @@ const Register = () => {
   });
 
   const handleVerifyEmail = () => {
-    if (!isEmail(formik.values.email)) {
+    if (!isVerifyCharacter.isEmail(formik.values.email)) {
       toast.warning("Địa chỉ email không hợp lệ, xin vui lòng nhập lại", {
         position: "bottom-right",
       });

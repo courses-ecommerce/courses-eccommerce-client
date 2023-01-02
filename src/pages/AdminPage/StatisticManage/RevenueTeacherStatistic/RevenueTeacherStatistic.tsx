@@ -17,7 +17,7 @@ import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
 // import TopTeacherByEveryMonth from "./TopTeacherByEveryMonth";
 import TopTeacherByYear from "./TopTeacherByYear";
 
-const columsHeader: GridColDef[] = [
+const columnsHeader: GridColDef[] = [
   {
     field: "_id",
     headerName: "STT",
@@ -203,7 +203,7 @@ const RevenueTeacherStatistic = () => {
             </Button>
           </Box>
         }
-        title={`Danh sách bảng lương của giảng viên tháng ${formatDate(
+        title={`Danh sách bảng lương của giảng viên tháng ${formatDate.getDate(
           monthAndYear,
           "MM-yyyy"
         )}`}
@@ -218,7 +218,7 @@ const RevenueTeacherStatistic = () => {
         titleBtnMultiDelete="Xoá mã khuyến mãi"
         titleBtnAdd="Tạo mã giảm giá mới"
         isLoading={loading}
-        columnsData={columsHeader}
+        columnsData={columnsHeader}
         rowsData={teacherRevenues}
         onViewItemDetail={(id) => navigate(`${id}`)}
         // handleAddItem={() => setShowCreate(true)}

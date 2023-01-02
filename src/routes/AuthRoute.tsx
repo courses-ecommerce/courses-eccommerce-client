@@ -2,32 +2,19 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
 import AccessDenied from "src/pages/MainPage/ErrorPage/AccessDenied";
 import { selectAuthorization } from "src/reducers/authSlice";
+import { Role } from "src/types";
 
-/**
- * A wrapper around the element which checks if the user is authenticated
- * If authenticated, renders the passed element
- * If not authenticated, redirects the user to Login page.
- */
-export const AuthRoute = ({
-  children,
-  roles,
-}: {
+export interface AuthRouteProps {
   children: JSX.Element;
-  roles: string;
-  // roles: Array<Role>;
-}) => {
+  roles: Role;
+}
+
+export const AuthRoute: React.FC<AuthRouteProps> = ({ children, roles }) => {
   let location = useLocation();
 
-  const { isAuth, isLoading, isRole } = useSelector(selectAuthorization);
+  const { isAuth, isRole } = useSelector(selectAuthorization);
 
-  // if (status === "idle" || status === "pending")
-  //   return (
-  //     <div className="body-center container">
-  //       <Spin size="large" tip="Checking in.." />
-  //     </div>
-  //   );
-
-  const userHasRequiredRole = roles.includes(isRole) ? true : false;
+  const userHasRequiredRole = roles.includes(isRole);
 
   if (!isAuth) {
     return <Navigate to="/login" state={{ from: location }} />;

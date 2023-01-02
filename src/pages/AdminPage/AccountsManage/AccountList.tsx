@@ -7,10 +7,9 @@ import InputSelect from "src/components/InputSelect";
 import Table from "src/components/Table/Table";
 import { accountTypes, statusTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { IUser } from "src/types";
-// import { useTypingDebounce } from "src/hooks";
-import { translateVi } from "src/utils";
+import { IUser } from "src/types/user";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import translateVi from "src/utils/translateVi";
 import AccountDetail from "./AccountDetail";
 import CreateAccount from "./CreateAccount";
 import DeleteAccount from "./DeleteUser";
@@ -18,7 +17,7 @@ import MultiDeleteAccount from "./MultiDeleteAccount";
 import UpdateAccount from "./UpdateAccount";
 import UploadAccountByExcel from "./UploadAccountByExcel";
 
-const columsHeader: GridColDef[] = [
+const columnsHeader: GridColDef[] = [
   {
     field: "_id",
     headerName: "STT",
@@ -225,7 +224,7 @@ export default function AccountList() {
         titleBtnAdd="Tạo tài khoản mới"
         isLoading={loading}
         title="Danh sách thông tin người dùng"
-        columnsData={columsHeader}
+        columnsData={columnsHeader}
         rowsData={users}
         total={total}
         handleAddItem={() => setShowCreate(true)}

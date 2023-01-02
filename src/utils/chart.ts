@@ -1,4 +1,3 @@
-import { translateVi } from ".";
 import { getHeaderColumns } from "./table";
 import {
   Chart as ChartJS,
@@ -12,6 +11,7 @@ import {
   Title,
   BarElement,
 } from "chart.js";
+import translateVi from "./translateVi";
 
 ChartJS.register(
   CategoryScale,

@@ -20,7 +20,7 @@ const TopTeacherByYear = () => {
     const params = { year: new Date(year).getFullYear(), top };
 
     const options = getOptionsCharBar(
-      `Biểu đồ thể hiện top giảng viên có doanh thu cao trong năm ${formatDay(
+      `Biểu đồ thể hiện top giảng viên có doanh thu cao trong năm ${formatDay.getDate(
         year,
         "yyyy"
       )}`

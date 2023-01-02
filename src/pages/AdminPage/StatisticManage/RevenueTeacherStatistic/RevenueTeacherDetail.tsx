@@ -11,7 +11,9 @@ import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
 import { LINK_DOMAIN } from "src/data/link";
 import { IInvoice } from "src/types/invoice";
 import { ITeacher } from "src/types/statistic";
-import { checkGender, numberLocale } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+import isVerifyCharacter from "src/utils/isVerifyCharacter";
+
 import formatDate from "src/utils/formatDay";
 import RevenueInvoiceItem from "./RevenueInvoiceItem";
 import "./RevenueTeacherStatistic.scss";
@@ -78,7 +80,7 @@ const RevenueTeacherDetail = () => {
     <>
       <NavigationHeader />
       <div className="revenue-teacher-detail">
-        <h3>{`Thông tin chi tiết của bảng lương của giảng viên tháng ${formatDate(
+        <h3>{`Thông tin chi tiết của bảng lương của giảng viên tháng ${formatDate.getDate(
           monthAndYear,
           "MM-yyyy"
         )}`}</h3>
@@ -127,7 +129,7 @@ const RevenueTeacherDetail = () => {
               </span>
               <span>
                 <b>Giới tính: </b>
-                {checkGender(teacherRevenueDetail?.gender)}
+                {isVerifyCharacter.isGender(teacherRevenueDetail?.gender)}
               </span>
               <span>
                 <b>Chức vụ: </b>
@@ -143,7 +145,10 @@ const RevenueTeacherDetail = () => {
               </span>
               <span>
                 <b>Tổng tiền nhận được: </b>
-                {numberLocale(teacherRevenueDetail?.revenue, " đồng")}
+                {formatCharacter.numberLocale(
+                  teacherRevenueDetail?.revenue,
+                  " đồng"
+                )}
               </span>
             </div>
           </div>

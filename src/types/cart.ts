@@ -1,6 +1,7 @@
-import { ICourse, IUser } from ".";
+import { ICourse } from "./course";
+import { IUser } from "./user";
 
-export interface ICounpon {
+export interface ICoupon {
   _id?: string;
   title?: string;
   isActive?: boolean;

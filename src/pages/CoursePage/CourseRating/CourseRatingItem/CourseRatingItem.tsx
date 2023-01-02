@@ -24,7 +24,7 @@ const CourseRatingItem: React.FC<CourseRatingItemProps> = ({
           {!isMobile && "Học viên:"} {data?.author?.fullName}
         </span>
         <span className="date">
-          {formatDate(data?.createdAt, "dd-MM-yyyy HH:mm")}
+          {formatDate.getDate(data?.createdAt, "dd-MM-yyyy HH:mm")}
         </span>
       </div>
       <Divider />

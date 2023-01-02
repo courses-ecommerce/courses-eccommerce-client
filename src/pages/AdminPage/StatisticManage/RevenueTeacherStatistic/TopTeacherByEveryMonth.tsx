@@ -72,7 +72,7 @@ const TopTeacherByEveryMonth = () => {
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <h3>
         Top giảng viên có doanh thu cao các tháng trong năm{" "}
-        {formatDay(year, "yyyy")}
+        {formatDay.getDate(year, "yyyy")}
       </h3>
       <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>

@@ -5,11 +5,11 @@ import { avatarNone } from "src/assets";
 import useClickOutSide from "src/hooks/useClickOutSide";
 import Logout from "src/pages/AuthPage/Logout/Logout";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IRoute } from "src/types";
+import { Router } from "src/types/route";
 import "./AccountPopover.scss";
 
 interface AccountPopoverProps {
-  routes: IRoute[];
+  routes: Router[];
 }
 
 const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
@@ -21,15 +21,15 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
     <div className="account-popup">
       <Tooltip title="Thông tin cá nhân">
         <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-          <Avatar src={userInfo?.avatar || avatarNone} alt="photoURL" />
+          <Avatar src={userInfo.avatar || avatarNone} alt="avatar user" />
         </IconButton>
       </Tooltip>
 
       {show && (
         <div className="account-popover">
           <div className="menu-list">
-            {routes?.map(
-              (route: IRoute) =>
+            {routes.map(
+              (route: Router) =>
                 (route.role === isRole || route.role === "user") && (
                   <MenuItem
                     key={route.name}
@@ -42,7 +42,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
                 )
             )}
           </div>
-          <div className="devider" />
+          <div className="divider" />
           <div className="btns">
             <Logout />
           </div>

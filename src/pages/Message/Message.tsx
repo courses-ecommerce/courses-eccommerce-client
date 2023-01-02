@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 import MessageContent from "./MessageContent/MessageContent";
 import MessageUser from "./MessageUser/MessageUser";
 import "./Message.scss";
-import { IUser } from "src/types";
+import { IUser } from "src/types/user";
 
 interface MessageProps {}
 

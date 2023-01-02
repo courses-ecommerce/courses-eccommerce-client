@@ -13,7 +13,7 @@ const CourseTarget: React.FC<CourseTargetProps> = ({
   content = [],
   isLoading = false,
 }) => {
-  console.log(isLoading);
+  // console.log(isLoading);
 
   const renderContent = (content: string[]) => {
     if (content.length > 0) {

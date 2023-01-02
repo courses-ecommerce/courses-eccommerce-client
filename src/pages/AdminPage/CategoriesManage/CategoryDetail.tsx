@@ -4,7 +4,7 @@ import Input from "src/components/Input";
 import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { categoryTypes, statusTypes } from "src/data/searchInfo";
-import { ICategory } from "src/types";
+import { ICategory } from "src/types/category";
 
 interface CategoryDetailProps {
   id: string | number;

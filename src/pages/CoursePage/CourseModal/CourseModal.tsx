@@ -1,5 +1,6 @@
 import React from "react";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
+
 import "./CourseModal.scss";
 
 interface CourseModalProps {

@@ -3,8 +3,8 @@ import classNames from "classnames";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { IUser } from "src/types";
 import { IMessage } from "src/types/chat";
+import { IUser } from "src/types/user";
 import "./MessageUser.scss";
 
 interface MessageUserProps {

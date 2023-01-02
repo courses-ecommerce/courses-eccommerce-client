@@ -1,5 +1,8 @@
-import { IAccount, ICourse, IUser } from ".";
-import { IDetailInvoice, IPayMent } from "./invoice";
+import { IAccount } from "./auth";
+import { ICourse } from "./course";
+import { IDetailInvoice } from "./invoice";
+import { IPayment } from "./payment";
+import { IUser } from "./user";
 
 export interface IYearStatistic {
   value?: number;
@@ -16,7 +19,7 @@ export interface IUserStatistic {
 }
 
 export interface ITeacherInfo {
-  payments?: IPayMent;
+  payments?: IPayment;
 }
 
 export interface ITeacher {

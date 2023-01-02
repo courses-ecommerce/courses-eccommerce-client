@@ -145,12 +145,7 @@ const CreateCoupon: React.FC<CreateCouponProps> = ({
   };
 
   return (
-    <ModalContainer
-      width={900}
-      title="Tạo mã giảm giá mới"
-      open={show}
-      onClose={onClose}
-    >
+    <ModalContainer title="Tạo mã giảm giá mới" open={show} onClose={onClose}>
       <form
         id="create-form"
         onSubmit={formik.handleSubmit}

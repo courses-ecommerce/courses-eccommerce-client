@@ -1,15 +1,5 @@
-import { IUser } from ".";
-
-export interface IPayMent {
-  accountNumber?: string;
-  bankName?: string;
-  cardNumber?: string;
-  name?: string;
-}
-export interface ICourseAuthor {
-  _id?: string;
-  fullName?: string;
-}
+import { ICourseAuthor } from "./course";
+import { IUser } from "./user";
 
 export interface IDetailInvoice {
   _id?: string;

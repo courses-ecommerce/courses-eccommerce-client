@@ -9,7 +9,7 @@ import InputSelect from "src/components/InputSelect";
 import ModalContainer from "src/components/ModalContainer";
 import { discountTypes } from "src/data/searchInfo";
 import { isPending, isSuccess } from "src/reducers/authSlice";
-import { ICounpon } from "src/types/cart";
+import { ICoupon } from "src/types/cart";
 import * as Yup from "yup";
 
 interface UpdateCouponProps {
@@ -28,7 +28,7 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
   onClose,
 }) => {
   const dispatch = useDispatch();
-  const [couponDetail, setCouponDetail] = useState<ICounpon>({});
+  const [couponDetail, setCouponDetail] = useState<ICoupon>({});
 
   useEffect(() => {
     id && getCategoryDetail(id);
@@ -149,7 +149,6 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
 
   return (
     <ModalContainer
-      width={900}
       title="Cập nhật thông tin mã khuyến mãi"
       open={show}
       onClose={() => {

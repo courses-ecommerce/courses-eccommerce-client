@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { ChaptersProps } from "src/types";
+import { ChaptersProps } from "src/types/course";
 import CourseChapters from "./CourseChapters/CourseChapters";
 import "./CourseSummary.scss";
 

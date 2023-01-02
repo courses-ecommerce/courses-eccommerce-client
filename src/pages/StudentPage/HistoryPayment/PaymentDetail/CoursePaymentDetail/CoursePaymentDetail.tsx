@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Image from "src/components/Image/Image";
 import { IDetailInvoice } from "src/types/invoice";
-import { numberLocale } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+
 import "./CoursePaymentDetail.scss";
 
 interface CoursePaymentDetailProps {
@@ -35,15 +36,15 @@ const CoursePaymentDetail: React.FC<CoursePaymentDetailProps> = ({ data }) => {
         </span>
         <span>
           <b>Giá gốc: </b>
-          {numberLocale(data?.courseCurrentPrice, " đồng")}
+          {formatCharacter.numberLocale(data?.courseCurrentPrice, " đồng")}
         </span>
         <span>
           <b>Giá giảm: </b>
-          {numberLocale(data?.discount, " đồng")}
+          {formatCharacter.numberLocale(data?.discount, " đồng")}
         </span>
         <span>
           <b>Giá thanh toán: </b>
-          {numberLocale(data?.amount, " đồng")}
+          {formatCharacter.numberLocale(data?.amount, " đồng")}
         </span>
       </div>
     </div>

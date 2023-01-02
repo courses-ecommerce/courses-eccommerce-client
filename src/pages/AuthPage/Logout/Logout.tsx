@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { isLogout, selectAuthorization } from "src/reducers/authSlice";
 
 const Logout = () => {
@@ -12,9 +13,9 @@ const Logout = () => {
   const handleLogout = () => {
     dispatch(isLogout());
 
-    // toast.success("Đăng xuất thành công, quay lại trang đăng nhập", {
-    //   position: "bottom-right",
-    // });
+    toast.success("Đăng xuất thành công, chúc bạn có 1 ngày tốt lành ^^", {
+      position: "bottom-right",
+    });
     localStorage.clear();
     navigate("/login");
   };

@@ -1,5 +1,5 @@
 import { Box, Divider } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
@@ -9,8 +9,8 @@ import Pagination from "src/components/Pagination/Pagination";
 import { priceRangeTypes, sortTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { selectAuthorization } from "src/reducers/authSlice";
-import { ICourse, SearchKeyProps } from "src/types";
-import { numberRound } from "src/utils";
+import { ICourse, SearchKeyProps } from "src/types/course";
+import formatCharacter from "src/utils/formatCharacter";
 import CourseContainer from "./CourseContainer/CourseContainer";
 import "./CoursePage.scss";
 
@@ -55,7 +55,7 @@ const CoursePage = () => {
   }, [debouncedValue]);
 
   useEffect(() => {
-    getCatergories();
+    getCategories();
   }, []);
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const CoursePage = () => {
       setSearchKey(searchKey);
       setIsLoading(false);
       setTotalCourse(total);
-      setTotal(numberRound(total / limit));
+      setTotal(formatCharacter.numberRound(total / limit));
     } catch (error) {
       console.log("lỗi rồi", { error });
       setIsLoading(false);
@@ -119,7 +119,7 @@ const CoursePage = () => {
       // console.log("courses hot", courses);
       setCoursesHot(courses);
       setIsLoadingHot(false);
-      setTotalHot(numberRound(total / limitCourse));
+      setTotalHot(formatCharacter.numberRound(total / limitCourse));
     } catch (error) {
       setIsLoadingHot(false);
       console.log("lỗi rồi", { error });
@@ -134,13 +134,13 @@ const CoursePage = () => {
       // console.log("courses hot", courses);
       setCoursesSuggest(courses);
       setIsLoadingSuggest(false);
-      setTotalSuggest(numberRound(total / total));
+      setTotalSuggest(formatCharacter.numberRound(total / total));
     } catch (error) {
       setIsLoadingSuggest(false);
       console.log("lỗi rồi", { error });
     }
   };
-  const getCatergories = async () => {
+  const getCategories = async () => {
     try {
       const response = await categoryApi.getCategories();
       const { categories }: any = response;

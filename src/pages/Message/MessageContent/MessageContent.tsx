@@ -1,14 +1,14 @@
 import { Avatar } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import chatApi from "src/apis/chatApi";
 import Input from "src/components/Input";
 import InputFile from "src/components/InputFile";
 import { IMessage } from "src/types/chat";
-import MessageItem from "./MessageItem/MessageItem";
-import { IUser } from "src/types";
-import { translateVi } from "src/utils";
-import { useNavigate } from "react-router-dom";
+import { IUser } from "src/types/user";
+import translateVi from "src/utils/translateVi";
 import "./MessageContent.scss";
+import MessageItem from "./MessageItem/MessageItem";
 
 interface MessageContentProps {
   receiver?: IUser;
@@ -112,7 +112,7 @@ const MessageContent: React.FC<MessageContentProps> = ({
   return (
     <>
       {conservationId ? (
-        <div className="mesage-content">
+        <div className="message-content">
           <div className="receiver">
             <Avatar alt={receiver?.fullName} src={receiver?.avatar} />
             <div className="receiver-info">

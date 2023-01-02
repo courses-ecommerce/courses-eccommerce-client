@@ -14,7 +14,7 @@ interface ModalProps {
 }
 
 const ModalContainer: React.FC<ModalProps> = ({
-  width,
+  width = 900,
   height,
   children,
   title,
@@ -34,7 +34,7 @@ const ModalContainer: React.FC<ModalProps> = ({
     >
       <div className="modal-container" style={{ width, height }}>
         <div className="modal-container-header">
-          {title && <span className="title">{title}</span>}
+          {title ? <span className="title">{title}</span> : ""}
           <Icon
             className="icon"
             icon="close"

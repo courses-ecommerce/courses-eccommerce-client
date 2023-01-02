@@ -1,6 +1,7 @@
 import React from "react";
 import LoadingSkeleton from "src/components/LoadingSkeleton/LoadingSkeleton";
-import { ICourse } from "src/types";
+import { ICourse } from "src/types/course";
+
 import CourseItem from "../CourseItem/CourseItem";
 import "./CourseContainer.scss";
 
@@ -18,7 +19,7 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   const renderCourses = (courses: ICourse[]) => {
     if (courses.length > 0) {
       return courses.map((course: ICourse, index) => (
-        <CourseItem key={index} data={course} />
+        <CourseItem key={index} courseInfo={course} />
       ));
     }
     return <div className="none-courses">Hiện tại chưa có khoá học nào</div>;

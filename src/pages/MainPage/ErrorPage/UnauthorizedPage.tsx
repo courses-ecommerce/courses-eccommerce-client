@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { isLogout } from "src/reducers/authSlice";
@@ -9,14 +9,10 @@ const UnauthorizedPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    clearData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const clearData = () => {
     localStorage.clear();
     dispatch(isLogout());
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="error-page">

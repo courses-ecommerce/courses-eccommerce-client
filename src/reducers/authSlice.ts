@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IAuthSlice } from "src/types/slice";
+import { ActionSlices, AuthSlice } from "src/types";
 
-const initialState: IAuthSlice = {
+const initialState: AuthSlice = {
   isLoading: false,
   isAuth: false,
   isRole: "",
@@ -65,6 +65,6 @@ export const {
   getVideoView,
 } = actions;
 
-export const selectAuthorization = (state: { auth: IAuthSlice }) => state.auth;
+export const selectAuthorization = (state: ActionSlices) => state.auth;
 
 export default reducer;

@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getPanelActive } from "src/reducers/authSlice";
-import { ChaptersProps } from "src/types";
+import { ChaptersProps } from "src/types/course";
 import CourseChapterLesson from "./CourseChapterLesson/CourseChapterLesson";
 import "./CourseChapters.scss";
 

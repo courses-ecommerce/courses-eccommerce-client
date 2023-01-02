@@ -7,7 +7,8 @@ import Image from "src/components/Image/Image";
 import Input from "src/components/Input";
 import { getTotalCart, isPending, isSuccess } from "src/reducers/authSlice";
 import { ICart } from "src/types/cart";
-import { numberLocale } from "src/utils";
+import formatCharacter from "src/utils/formatCharacter";
+
 import "./CartItem.scss";
 
 interface CartItemProps {
@@ -172,11 +173,13 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
       <div className="price">
         <span>
           <b>Giá: </b>
-          <span>{numberLocale(cartItem?.course?.currentPrice)} đồng</span>
+          <span>
+            {formatCharacter.numberLocale(cartItem?.course?.currentPrice)} đồng
+          </span>
         </span>
         <span>
           <b>Giảm: </b>
-          {numberLocale(cartItem?.course?.discount)} đồng
+          {formatCharacter.numberLocale(cartItem?.course?.discount)} đồng
         </span>
       </div>
       <div className="handle">

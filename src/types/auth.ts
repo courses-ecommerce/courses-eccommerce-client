@@ -25,3 +25,13 @@ export interface IUpdatePassword {
   password: string;
   passwordConfirm?: string;
 }
+
+export interface IAccount {
+  id: string;
+  email: string;
+  password: string;
+  role: "student" | "admin" | "teacher";
+  refreshToken: string;
+  accessToken: string;
+  isActive: boolean;
+}

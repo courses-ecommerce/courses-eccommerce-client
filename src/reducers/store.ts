@@ -4,15 +4,11 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import authReducer from "./authSlice";
-
-// export default configureStore({
-//   reducer: {
-//     auth: authReducer,
-//   },
-// });
+import toggleShow from "./toggleSlice";
 
 const reducers = combineReducers({
   auth: authReducer,
+  toggle: toggleShow,
 });
 
 const persistConfig = {
