@@ -15,15 +15,15 @@ const lessonApi = {
   addLesson: (
     idChapter?: string,
     number?: number,
-    title?: string,
-    description?: string
+    title: string = "",
+    description: string = ""
   ) => {
     const url = LESSON_API;
     return axiosClient.post(url, {
       chapter: idChapter,
       number,
-      title: title?.trim() || "",
-      description: description?.trim() || "",
+      title: title.trim(),
+      description: description.trim(),
     });
   },
   updateLesson: async (
