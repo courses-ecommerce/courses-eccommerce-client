@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
-function useTypingDebounce<T>(value: T, delay?: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+function useTypingDebounce<T>(typing_text: T, delayTime: number = 1000): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(typing_text);
 
   useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay || 1000);
+    const timer = setTimeout(() => setDebouncedValue(typing_text), delayTime);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [value, delay]);
+  }, [typing_text, delayTime]);
 
   return debouncedValue;
 }

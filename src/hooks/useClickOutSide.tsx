@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const useClickOutSide = (nodeHtml?: string) => {
   const nodeRef = React.useRef<any>(null);
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    const handleClickOutSide = (event: Event) => {
+  const handleClickOutSide = useCallback(
+    (event: Event) => {
       const target = event.target as HTMLTextAreaElement;
 
       if (!nodeRef.current) return;
@@ -17,14 +17,17 @@ const useClickOutSide = (nodeHtml?: string) => {
       } else {
         !nodeRef.current.contains(target) && setShow(false);
       }
-    };
+    },
+    [nodeHtml]
+  );
 
+  useEffect(() => {
     document.addEventListener("click", handleClickOutSide);
 
     return () => {
       document.removeEventListener("click", handleClickOutSide);
     };
-  }, [nodeHtml]);
+  }, [handleClickOutSide]);
 
   return { nodeRef, show, setShow };
 };
