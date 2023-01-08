@@ -1,4 +1,4 @@
-import { ICourseStatues } from "src/types/course";
+import { CourseStatus } from "src/types";
 
 const ONE_HUNDRED_THOUSAND = 100000;
 
@@ -81,15 +81,15 @@ export const priceRangeTypes = [
 //course
 export const statusCourseTypes = [
   { value: "", name: "Tất cả" },
-  { value: "draft", name: ICourseStatues.draft },
-  { value: "pending", name: ICourseStatues.pending },
-  { value: "approved", name: ICourseStatues.approved },
-  { value: "updating", name: ICourseStatues.updating },
-  { value: "denied", name: ICourseStatues.denied },
+  { value: "draft", name: CourseStatus.draft },
+  { value: "pending", name: CourseStatus.pending },
+  { value: "approved", name: CourseStatus.approved },
+  { value: "updating", name: CourseStatus.updating },
+  { value: "denied", name: CourseStatus.denied },
+  { value: "update denied", name: CourseStatus["update denied"] },
 ];
-
 export const dateCourseTypes = [
-  { value: "", name: "-" },
+  { value: "", name: "Mặc định" },
   { value: "createdAt-desc", name: "Khóa học mới nhất" },
   { value: "createdAt-asc", name: "Khóa học cũ nhất" },
 ];
