@@ -1,30 +1,30 @@
+import { CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import "./index.scss";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-// redux, redux toolkit
+import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
-// import configureStore from "./reducers/store";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from "redux-persist";
-import store from "./reducers/store";
-
+import { BrowserRouter } from "react-router-dom";
 //For react toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "react-quill/dist/quill.snow.css";
-
-let persistor = persistStore(store);
+import { PersistGate } from "redux-persist/integration/react";
+import App from "./App";
+import "./index.scss";
+import { persistor, store } from "./reducers";
+import reportWebVitals from "./reportWebVitals";
+import theme from "./utils/theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <App />
-          <ToastContainer />
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <App />
+            <ToastContainer />
+          </ThemeProvider>
         </BrowserRouter>
       </PersistGate>
     </Provider>
@@ -32,7 +32,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
