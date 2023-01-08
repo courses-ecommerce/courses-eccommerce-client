@@ -1,7 +1,7 @@
 import { Dialog, Divider } from "@mui/material";
 
 import * as React from "react";
-import Icon from "../Icon/Icon";
+import Icon from "../Icon";
 import "./ModalContainer.scss";
 
 interface ModalProps {
@@ -17,7 +17,7 @@ const ModalContainer: React.FC<ModalProps> = ({
   width = 900,
   height,
   children,
-  title,
+  title = "Chưa đặt tên tiêu đề",
   onClose,
   open = false,
 }) => {
@@ -28,13 +28,13 @@ const ModalContainer: React.FC<ModalProps> = ({
       scroll="body"
       sx={{
         "& .MuiPaper-root": {
-          maxWidth: "max-content",
+          width,
         },
       }}
     >
-      <div className="modal-container" style={{ width, height }}>
+      <div className="modal-container" style={{ height }}>
         <div className="modal-container-header">
-          {title ? <span className="title">{title}</span> : ""}
+          <span className="title">{title}</span>
           <Icon
             className="icon"
             icon="close"
@@ -44,7 +44,7 @@ const ModalContainer: React.FC<ModalProps> = ({
           />
         </div>
         <Divider sx={{ marginTop: 3, marginBottom: 3 }} />
-        {children}
+        <div className="modal-container-children">{children}</div>
       </div>
     </Dialog>
   );
