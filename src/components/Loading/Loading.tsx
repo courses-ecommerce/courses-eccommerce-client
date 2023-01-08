@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { BeatLoader } from "react-spinners";
 
-const Loading = () => {
-  let [color] = useState("#8376d7");
+interface LoadingProps {
+  color?: string;
+  size?: number;
+  loading?: boolean;
+}
 
-  return <BeatLoader color={color} loading={true} size={10} />;
+const Loading: React.FC<LoadingProps> = ({
+  color = "#8376d7",
+  loading = true,
+  size = 10,
+}) => {
+  return <BeatLoader color={color} loading={loading} size={size} />;
 };
 
 export default Loading;
