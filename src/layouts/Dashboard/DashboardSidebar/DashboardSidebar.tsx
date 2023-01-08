@@ -6,6 +6,7 @@ import { Router } from "src/types";
 import SidebarLargeScreen from "./SidebarLargeScreen";
 import SidebarMobile from "./SidebarMobile";
 import "./DashboardSidebar.scss";
+import { useMediaQuery } from "@mui/material";
 
 const DashboardSidebar = () => {
   const { isRole } = useSelector(selectAuthorization);
@@ -18,11 +19,11 @@ const DashboardSidebar = () => {
     setDashboard(DASHBOARD_ROUTE[dashboardRoleIndex].children as Router[]);
   }, [isRole]);
 
-  if (window.screen.width <= 837) {
-    return <SidebarMobile dashboard={dashboard} />;
+  if (useMediaQuery("(min-width:837px)")) {
+    return <SidebarLargeScreen dashboard={dashboard} />;
   }
 
-  return <SidebarLargeScreen dashboard={dashboard} />;
+  return <SidebarMobile dashboard={dashboard} />;
 };
 
 export default DashboardSidebar;
