@@ -1,11 +1,17 @@
+import { Backdrop } from "@mui/material";
 import { RingLoader } from "react-spinners";
-import "./PageLoading.scss";
 
 const PageLoading = () => {
   return (
-    <div className="page-loading">
+    <Backdrop
+      open
+      sx={{
+        backgroundColor: "rgba(248, 248, 248, 0.5)",
+        zIndex: 99999,
+      }}
+    >
       <RingLoader loading color="#7423c4" size={100} />
-    </div>
+    </Backdrop>
   );
 };
 
