@@ -15,3 +15,4 @@ export * from "./token";
 export * from "./user";
 export * from "./video";
 export * from "./slider";
+export * from "./lesson";

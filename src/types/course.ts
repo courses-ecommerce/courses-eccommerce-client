@@ -52,7 +52,7 @@ export type CourseType =
   | "updating"
   | "update denied";
 
-export enum ICourseStatues {
+export enum CourseStatus {
   draft = "Bản nháp",
   pending = "Đang chờ duyệt",
   approved = "Đã duyệt",
@@ -60,6 +60,8 @@ export enum ICourseStatues {
   updating = "Đang update",
   "update denied" = "Từ chối cập nhật",
 }
+
+export type LessonType = "video" | "file" | "quiz";
 
 export interface ICourse {
   _id?: string;
