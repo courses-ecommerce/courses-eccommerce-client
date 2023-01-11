@@ -1,25 +1,31 @@
 import IcomoonReact from "icomoon-react";
-import React from "react";
+import React, { CSSProperties } from "react";
 import iconSet from "./selection.json";
 
-interface IconProps {
+interface IcoMoonProps {
   icon: string;
   color?: string;
   size?: number;
   className?: string;
   onClick?: () => void;
+  style?: CSSProperties;
 }
 
-const Icon: React.FC<IconProps> = (props) => {
-  const { color, size, icon, className, ...rest } = props;
+const Icon: React.FC<IcoMoonProps> = ({
+  color,
+  size,
+  icon,
+  className,
+  style,
+}) => {
   return (
     <IcomoonReact
       className={className}
+      style={style}
       iconSet={iconSet}
       color={color ?? "#444"}
       size={size ?? 100}
       icon={icon}
-      {...rest}
     />
   );
 };
