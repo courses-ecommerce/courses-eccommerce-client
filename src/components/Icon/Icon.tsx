@@ -16,12 +16,14 @@ const Icon: React.FC<IcoMoonProps> = ({
   size,
   icon,
   className,
+  onClick,
   style,
 }) => {
   return (
     <IcomoonReact
       className={className}
       style={style}
+      onClick={onClick}
       iconSet={iconSet}
       color={color ?? "#444"}
       size={size ?? 100}
