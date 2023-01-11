@@ -1,15 +1,11 @@
 .item {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  > .title {
-    font-weight: 600;
-    font-size: 16px;
-  }
 }
 
 @media (max-width: 536px) {
   .item {
-    grid-template-columns: 100px;
+    grid-template-columns: 150px;
     > .title {
       display: none;
     }

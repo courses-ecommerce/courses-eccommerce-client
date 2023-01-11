@@ -5,7 +5,7 @@ import "./InfoContent.scss";
 
 interface InfoContentProps {
   title: string;
-  value?: string | number | Array<any>;
+  value?: string | number;
   hyphen_type?: string;
   className?: string;
 }
@@ -18,11 +18,21 @@ const InfoContent: React.FC<InfoContentProps> = ({
 }) => {
   return (
     <Box maxWidth={250} className={classNames("item", className)}>
-      <Typography className="title" component="span">
+      <Typography
+        className="title"
+        component="span"
+        variant="body2"
+        fontWeight={600}
+      >
         {title}
         {hyphen_type}
       </Typography>
-      <Typography variant="subtitle2" className="value" component="span">
+      <Typography
+        variant="subtitle2"
+        className="value"
+        component="span"
+        fontWeight={400}
+      >
         {value}
       </Typography>
     </Box>
