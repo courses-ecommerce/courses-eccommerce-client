@@ -8,6 +8,7 @@ const formatCharacter = {
     return Math.ceil(number);
     // return number.toString().substring(0, 5);
   },
+  convertIntoMB: (size: number) => Math.floor(size / Math.pow(1024, 2)),
 };
 
 export default formatCharacter;
