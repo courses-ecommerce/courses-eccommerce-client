@@ -1,20 +1,18 @@
-import { Avatar, Button, Divider } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import userApi from "src/apis/userApi";
-import ItemInfo from "src/components/ItemInfo/ItemInfo";
-import Loading from "src/components/Loading/Loading";
+import InfoContent from "src/components/InfoContent";
+import Loading from "src/components/Loading";
 import { selectAuthorization } from "src/reducers/authSlice";
 import { IUser } from "src/types/user";
 import formatDate from "src/utils/formatDay";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import translateVi from "src/utils/translateVi";
-import "./ProfilePage.scss";
-import UpdateDescription from "./UpdateDescription/UpdateDescription";
-import UpdatePassword from "./UpdatePassword/UpdatePassword";
-import UpdateProfile from "./UpdateProfile/UpdateProfile";
+import GoToTeacherPortfolio from "./GoToTeacherPortfolio";
+import UpdatePassword from "./UpdatePassword";
+import UpdateProfile from "./UpdateProfile";
 
 const ProfilePage = () => {
   document.title = "Thông tin chi tiết cá nhân";
@@ -23,90 +21,85 @@ const ProfilePage = () => {
 
   const [info, setInfo] = useState<IUser>({});
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [showDescription, setShowDescription] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
-    getMe();
+    getMyInformation();
   }, [isUpdate]);
 
-  const getMe = async () => {
+  const getMyInformation = async () => {
     try {
       const response = await userApi.getMe();
       const { user }: any = response;
-      // console.log(user);
-
       setInfo(user);
     } catch (error) {
       console.log("lỗi r", { error });
     }
   };
+
   if (_.isEmpty(info)) {
     return <Loading />;
-  } else {
-    return (
-      <>
-        <div className="profile-page">
-          <h3 className="profile-page-title">Thông tin chi tiết cá nhân</h3>
-          <div className="profile-page-info">
-            <div className="avatar">
-              <Avatar
-                alt={info.fullName}
-                src={info.avatar}
-                sx={{ width: 120, height: 120 }}
-              />
-            </div>
-            <div className="content">
-              <ItemInfo title="Tên:" value={info.fullName} />
-              <ItemInfo
-                title="Chức vụ:"
-                value={translateVi(info.account?.role)}
-              />
-              <ItemInfo title="Email:" value={info.account?.email} />
-              <ItemInfo
-                title="Giới tính:"
-                value={isVerifyCharacter.isGender(info.gender)}
-              />
-              <ItemInfo title="Số điện thoại:" value={info.phone} />
-              <ItemInfo
-                title="Ngày sinh:"
-                value={formatDate.getDate(info.birthday, "dd-MM-yyyy")}
-              />
-            </div>
-          </div>
-
-          <div className="btns">
-            <UpdateProfile
-              data={info}
-              onUpdate={(status) => setIsUpdate(status)}
-            />
-            <UpdatePassword />
-          </div>
-          {isRole === "teacher" && (
-            <>
-              <Divider />
-              <h3>Phần dành riêng cho giảng viên</h3>
-              <Button
-                variant="contained"
-                color="inherit"
-                onClick={() => navigate(`/user/${info._id}`)}
-                sx={{ width: 300 }}
-              >
-                Xem thử trang portfolio
-              </Button>
-            </>
-          )}
-        </div>
-        <UpdateDescription
-          id={info._id}
-          show={showDescription}
-          onClose={() => setShowDescription(false)}
-          setShow={setShowDescription}
-        />
-      </>
-    );
   }
+
+  return (
+    <React.Fragment>
+      <Box display="flex" flexDirection="column" gap={30}>
+        <Typography variant="h6" component="span" fontWeight={600}>
+          Thông tin chi tiết cá nhân
+        </Typography>
+        <Box className="profile-page-info" display="flex" gap={80}>
+          <Avatar
+            alt={info.fullName}
+            src={info.avatar}
+            sx={{ width: 120, height: 120 }}
+          />
+
+          <Box
+            className="content"
+            display="flex"
+            flexDirection="column"
+            gap={8}
+          >
+            <InfoContent hyphen_type=":" title="Tên" value={info.fullName} />
+            <InfoContent
+              hyphen_type=":"
+              title="Chức vụ"
+              value={translateVi(info.account?.role)}
+            />
+            <InfoContent
+              hyphen_type=":"
+              title="Email"
+              value={info.account?.email}
+            />
+            <InfoContent
+              hyphen_type=":"
+              title="Giới tính"
+              value={isVerifyCharacter.isGender(info.gender)}
+            />
+            <InfoContent
+              hyphen_type=":"
+              title="Số điện thoại"
+              value={info.phone}
+            />
+            <InfoContent
+              hyphen_type=":"
+              title="Ngày sinh"
+              value={formatDate.getDate(info.birthday, "dd-MM-yyyy")}
+            />
+          </Box>
+        </Box>
+
+        <Box display="flex" gap={8}>
+          <UpdateProfile
+            data={info}
+            onUpdate={(status) => setIsUpdate(status)}
+          />
+          <UpdatePassword />
+        </Box>
+
+        {isRole === "teacher" && <GoToTeacherPortfolio user_id={info._id} />}
+      </Box>
+    </React.Fragment>
+  );
 };
 
 export default ProfilePage;
