@@ -12,7 +12,7 @@ const handleObject = {
       if (key === "avatar") {
         object[key] && formData.append(key, object[key]);
       } else {
-        formData.append(key, object[key]);
+        formData.append(key, object[key].toString().trim() ?? "");
       }
     });
 
