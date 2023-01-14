@@ -1,27 +1,12 @@
 .input-file {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  & > .error {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: red;
-  }
-
-  & > span {
-    font-weight: bold;
-    font-size: 14px;
-    // color: @gray-500;
-  }
-
   & > input {
     display: none;
   }
 
   & > label {
     cursor: pointer;
-    width: fit-content !important;
+    width: fit-content;
+
     & > img {
       width: 120px;
       height: 120px;

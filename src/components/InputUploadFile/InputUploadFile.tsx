@@ -1,10 +1,16 @@
+import { Box, Typography } from "@mui/material";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { downloadIMG } from "src/assets";
-import "./InputFile.scss";
+import formatCharacter from "src/utils/formatCharacter";
+import "./InputUploadFile.scss";
 
-interface InputFileProps {
+/**
+ * Now, it has not support upload multiple files yet
+ */
+
+interface InputUploadFileProps {
   label?: string;
   value?: string | string[];
   valueDefault?: string;
@@ -15,7 +21,7 @@ interface InputFileProps {
   className?: string;
 }
 
-const InputFile: React.FC<InputFileProps> = ({
+const InputUploadFile: React.FC<InputUploadFileProps> = ({
   label,
   value,
   valueDefault,
@@ -25,8 +31,6 @@ const InputFile: React.FC<InputFileProps> = ({
   labelImg = true,
   className = "",
 }) => {
-  // const [image, setImage] = useState<any>([]);
-
   const [imagePreview, setImagePreview] = useState(valueDefault);
 
   useEffect(() => {
@@ -35,13 +39,11 @@ const InputFile: React.FC<InputFileProps> = ({
 
   const handleChangeImage = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
-    // let formData = new FormData();
+
     if (_target.files && _target.files.length > 0) {
-      // console.log(_target.files[0].size);
-      const convertBtoMB = Math.floor(
-        _target.files[0].size / Math.pow(1024, 2)
-      );
-      if (convertBtoMB > 0) {
+      const convertBtoMB = formatCharacter.convertIntoMB(_target.files[0].size);
+
+      if (convertBtoMB >= 2) {
         toast.warning("Hình ảnh không được quá 2MB", {
           position: "bottom-right",
         });
@@ -64,8 +66,12 @@ const InputFile: React.FC<InputFileProps> = ({
   };
 
   return (
-    <div className="input-file">
-      {label && <span>{label}</span>}
+    <Box className="input-file" display="flex" flexDirection="column" gap={10}>
+      {label && (
+        <Typography variant="body1" component="span" fontWeight={700}>
+          {label}
+        </Typography>
+      )}
       <input
         id="file_input"
         type="file"
@@ -75,16 +81,23 @@ const InputFile: React.FC<InputFileProps> = ({
       />
 
       <label htmlFor="file_input">
-        {imagePreview && labelImg ? (
-          <img className={classNames(className)} src={imagePreview} alt="" />
-        ) : (
-          <img className={classNames(className)} src={downloadIMG} alt="" />
-        )}
+        <img
+          className={classNames(className)}
+          src={imagePreview && labelImg ? imagePreview : downloadIMG}
+          alt=""
+        />
       </label>
-
-      <div className="error">{errorMessage}</div>
-    </div>
+      <Typography
+        variant="h2"
+        component="span"
+        marginTop={0.5}
+        fontWeight={600}
+        color="#f52727"
+      >
+        {errorMessage}
+      </Typography>
+    </Box>
   );
 };
 
-export default InputFile;
+export default InputUploadFile;
