@@ -17,7 +17,7 @@ const InfoContent: React.FC<InfoContentProps> = ({
   hyphen_type = "",
 }) => {
   return (
-    <Box maxWidth={250} className={classNames("item", className)}>
+    <Box className={classNames("item", className)}>
       <Typography
         className="title"
         component="span"
