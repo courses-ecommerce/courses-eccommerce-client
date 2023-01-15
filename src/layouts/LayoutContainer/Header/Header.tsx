@@ -8,7 +8,7 @@ import MediaContent from "src/components/MediaContent";
 import Notification from "src/components/Notification";
 import { linkHeader, linkUserProfile } from "src/data";
 import useClickOutSide from "src/hooks/useClickOutSide";
-import AuthPageContent from "src/pages/AuthPage";
+import Logout from "src/pages/AuthPage/Logout";
 import { selectAuthorization } from "src/reducers";
 import HeaderNavigation from "../HeaderNavigation";
 import "./Header.scss";
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
           <div className="header-mobile-links">
             <HeaderNavigation links={linkHeader} />
             <Divider />
-            <AuthPageContent.Logout />
+            <Logout />
           </div>
         )}
       </div>
