@@ -1,7 +1,8 @@
 import { Divider, Tooltip } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Icon from "src/components/Icon/Icon";
+import MediaContent from "src/components/MediaContent";
+
 import "./AuthLayout.scss";
 
 interface AuthLayoutProps {
@@ -17,7 +18,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ title, children }) => {
         <div className="auth-title">
           <Tooltip title="Quay lại trang chủ">
             <span className="icon" onClick={() => navigate("/")}>
-              <Icon icon="home" size={28} />
+              <MediaContent.Icon icon="home" size={28} />
             </span>
           </Tooltip>
           <span>{title}</span>

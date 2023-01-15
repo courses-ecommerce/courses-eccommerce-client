@@ -1,10 +1,9 @@
-import { Avatar, Tooltip } from "@mui/material";
+import { Avatar } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectAuthorization } from "src/reducers/authSlice";
 import translateVi from "src/utils/translateVi";
-
 import "./AvatarUser.scss";
 
 const AvatarUser = () => {

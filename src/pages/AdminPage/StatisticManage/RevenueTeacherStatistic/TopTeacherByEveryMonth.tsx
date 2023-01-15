@@ -3,10 +3,11 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import statisticApi from "src/apis/statisticApi";
-import InputSelect from "src/components/InputSelect";
-import { numberRangeTypes } from "src/data/searchInfo";
-import { ITeacher } from "src/types/statistic";
-import formatDay from "src/utils/formatDay";
+import FormInput from "src/components/FormInput";
+import { numberRangeTypes } from "src/data";
+import { ITeacher } from "src/types";
+import formatDate from "src/utils/formatDate";
+
 import "./RevenueTeacherStatistic.scss";
 
 const TeacherShowColumn = (data: any) => {
@@ -72,7 +73,7 @@ const TopTeacherByEveryMonth = () => {
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <h3>
         Top giảng viên có doanh thu cao các tháng trong năm{" "}
-        {formatDay.getDate(year, "yyyy")}
+        {formatDate.getDate(year, "yyyy")}
       </h3>
       <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -90,10 +91,10 @@ const TopTeacherByEveryMonth = () => {
             )}
           />
         </LocalizationProvider>
-        <InputSelect
+        <FormInput.InputSelect
           list={numberRangeTypes}
           defaultValue={top}
-          onChange={(e) => setTop(e.target.value)}
+          onChange={(amount) => setTop(amount)}
         />
       </Box>
 

@@ -1,13 +1,11 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { accountTypes, genderTypes, statusTypes } from "src/data/searchInfo";
-import { IUser } from "src/types/user";
-
-import formatDate from "src/utils/formatDay";
+import { accountTypes, genderTypes, statusTypes } from "src/data";
+import { IUser } from "src/types";
+import formatDate from "src/utils/formatDate";
 
 interface AccountDetailProps {
   id: string | number;
@@ -54,25 +52,25 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
         }}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
+          <FormInput.Input
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
             value={userDetail.account?.email}
             disabled
           />
-          <Input
+          <FormInput.Input
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             value={userDetail.fullName}
             disabled
           />
-          <InputSelect
+          <FormInput.InputSelect
             label="Chức vụ"
             list={accountTypes}
             defaultValue={userDetail.account?.role}
             disabled={true}
           />
-          <Input
+          <FormInput.Input
             // type="date"
             disabled
             placeholder="ngày-tháng-năm"
@@ -81,25 +79,25 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <InputSelect
+          <FormInput.InputSelect
             label="Giới tính"
             list={genderTypes}
             disabled={true}
             defaultValue={userDetail.gender}
           />
-          <InputSelect
+          <FormInput.InputSelect
             label="Trạng thái"
             list={statusTypes}
             disabled={true}
             defaultValue={userDetail.account?.isActive}
           />
-          <Input
+          <FormInput.Input
             label="Số điện thoại"
             placeholder="Nhập số điện thoại"
             disabled
             value={userDetail.phone}
           />
-          <Input
+          <FormInput.Input
             // type="date"
             disabled
             label="Ngày sinh nhật"

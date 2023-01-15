@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { linkUserProfile } from "src/data/sidebar";
-import { selectAuthorization } from "src/reducers/authSlice";
-import AccountPopover from "../AccountPopover/AccountPopover";
-import CartIcon from "../CartIcon/CartIcon";
+import { linkUserProfile } from "src/data";
+import { selectAuthorization } from "src/reducers";
+import AccountPopover from "../AccountPopover";
+import CartIcon from "../CartIcon";
 import "./NavigationHeader.scss";
 
 export default function NavigationHeader() {

@@ -1,9 +1,5 @@
 const isVerifyCharacter = {
-  isGender: (name?: boolean) => {
-    if (!name) return "Chưa thiết lập giới tính";
-    return name ? "Nam" : "Nữ";
-  },
-
+  isGender: (gender?: boolean) => (gender ? "Nam" : "Nữ"),
   isEmail: (email: string) =>
     String(email)
       .toLowerCase()

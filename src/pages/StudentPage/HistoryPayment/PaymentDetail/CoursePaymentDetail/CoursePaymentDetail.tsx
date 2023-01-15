@@ -1,9 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Image from "src/components/Image/Image";
-import { IDetailInvoice } from "src/types/invoice";
+import MediaContent from "src/components/MediaContent";
+import { IDetailInvoice } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-
 import "./CoursePaymentDetail.scss";
 
 interface CoursePaymentDetailProps {
@@ -19,7 +18,7 @@ const CoursePaymentDetail: React.FC<CoursePaymentDetailProps> = ({ data }) => {
         className="thumbnail"
         onClick={() => navigate(`/courses/${data?.courseSlug}`)}
       >
-        <Image width={300} src={data?.courseThumbnail} />
+        <MediaContent.Image width={300} src={data?.courseThumbnail} />
       </div>
       <div className="content">
         <span>

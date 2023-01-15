@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import userApi from "src/apis/userApi";
 import InfoContent from "src/components/InfoContent";
-import Loading from "src/components/Loading";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { IUser } from "src/types/user";
-import formatDate from "src/utils/formatDay";
+import LoadingContent from "src/components/LoadingContent";
+import { selectAuthorization } from "src/reducers";
+import { IUser } from "src/types";
+import formatDate from "src/utils/formatDate";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import translateVi from "src/utils/translateVi";
 import GoToTeacherPortfolio from "./GoToTeacherPortfolio";
@@ -20,16 +20,19 @@ const ProfilePage = () => {
   const { isRole } = useSelector(selectAuthorization);
 
   const [info, setInfo] = useState<IUser>({});
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<boolean>(true);
 
   useEffect(() => {
-    getMyInformation();
+    isUpdate && getMyInformation();
   }, [isUpdate]);
 
   const getMyInformation = async () => {
     try {
       const response = await userApi.getMe();
       const { user }: any = response;
+
+      // console.log(user);
+
       setInfo(user);
     } catch (error) {
       console.log("lỗi r", { error });
@@ -37,7 +40,7 @@ const ProfilePage = () => {
   };
 
   if (_.isEmpty(info)) {
-    return <Loading />;
+    return <LoadingContent.Loading />;
   }
 
   return (

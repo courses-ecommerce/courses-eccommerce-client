@@ -6,15 +6,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import Loading from "src/components/Loading/Loading";
-import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
-import { LINK_DOMAIN } from "src/data/link";
-import { IInvoice } from "src/types/invoice";
-import { ITeacher } from "src/types/statistic";
+import LoadingContent from "src/components/LoadingContent";
+import NavigationHeader from "src/components/NavigationHeader";
+import { LINK_DOMAIN } from "src/data";
+import { IInvoice, ITeacher } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
+import formatDate from "src/utils/formatDate";
+
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 
-import formatDate from "src/utils/formatDay";
 import RevenueInvoiceItem from "./RevenueInvoiceItem";
 import "./RevenueTeacherStatistic.scss";
 
@@ -178,7 +178,7 @@ const RevenueTeacherDetail = () => {
               {isLoading ? (
                 renderRevenueInvoices(teacherRevenueDetail?.detailInvoices)
               ) : (
-                <Loading />
+                <LoadingContent.Loading />
               )}
             </div>
           </div>

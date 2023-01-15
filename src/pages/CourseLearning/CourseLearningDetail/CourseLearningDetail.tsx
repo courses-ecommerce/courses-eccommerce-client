@@ -5,18 +5,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import myCourseApi from "src/apis/myCourseApi";
 import teacherApi from "src/apis/teacherApi";
-import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
-import Video from "src/components/Video/Video";
-import CourseSummary from "src/pages/CoursePage/CourseSummary/CourseSummary";
+import MediaContent from "src/components/MediaContent";
+import NavigationHeader from "src/components/NavigationHeader";
+import CourseSummary from "src/pages/CoursePage/CourseSummary";
+
 import {
   getPanelActive,
   getVideoView,
   selectAuthorization,
-} from "src/reducers/authSlice";
-import { ICourse } from "src/types/course";
-import { IRating } from "src/types/myCourse";
-import AcceptMyCourse from "../AcceptCourseLearning/AcceptCourseLearning";
-import RatingBoughtCourse from "../BoughtCourses/RatingBoughtCourse/RatingBoughtCourse";
+} from "src/reducers";
+import { ICourse, IRating } from "src/types";
+import AcceptCourseLearning from "../AcceptCourseLearning";
+import RatingBoughtCourse from "../BoughtCourses/RatingBoughtCourse";
 
 import "./CourseLearningDetail.scss";
 
@@ -138,7 +138,7 @@ const CourseLearningDetail = () => {
         </div>
         <div className="my-course-video">
           <div className="stream">
-            <Video
+            <MediaContent.Video
               courseId={id}
               lessonId={videoView?._id}
               poster={course.thumbnail}
@@ -168,7 +168,7 @@ const CourseLearningDetail = () => {
         />
       )}
       {isRole === "admin" && (
-        <AcceptMyCourse
+        <AcceptCourseLearning
           slug={course.slug}
           show={showAccept}
           value={rating}

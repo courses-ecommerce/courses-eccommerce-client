@@ -3,11 +3,12 @@ import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import invoicesApi from "src/apis/invoicesApi";
-import Input from "src/components/Input";
-import Table from "src/components/Table/Table";
+import FormInput from "src/components/FormInput";
+import Table from "src/components/Table";
+
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { IInvoice } from "src/types/invoice";
-import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import { IInvoice } from "src/types";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 
 const columsHeader: GridColDef[] = [
   {
@@ -140,12 +141,12 @@ export default function InvoiceList() {
             gap: 1,
           }}
         >
-          <Input
+          <FormInput.Input
             style={{ width: 250 }}
             placeholder="Nhập mã giao dịch"
             onChange={(e: any) => setValue(e.target.value)}
           />
-          <Input
+          <FormInput.Input
             style={{ width: 250 }}
             placeholder="Nhập mã người mua"
             onChange={(e: any) => setValueName(e.target.value)}

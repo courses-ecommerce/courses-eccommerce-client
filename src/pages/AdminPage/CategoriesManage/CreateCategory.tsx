@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
-import Input from "src/components/Input";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { isPending, isSuccess } from "src/reducers/authSlice";
+import { isPending, isSuccess } from "src/reducers";
 import * as Yup from "yup";
 
 interface CreateCategoryProps {
@@ -71,14 +71,9 @@ const CreateCategory: React.FC<CreateCategoryProps> = ({
   };
 
   return (
-    <ModalContainer
-      width={500}
-      title="Tạo danh mục mới"
-      open={show}
-      onClose={onClose}
-    >
+    <ModalContainer title="Tạo danh mục mới" open={show} onClose={onClose}>
       <form id="create-form" onSubmit={formik.handleSubmit}>
-        <Input
+        <FormInput.Input
           required
           label="Tên danh mục"
           placeholder="Nhập tên danh mục"

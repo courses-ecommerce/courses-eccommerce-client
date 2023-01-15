@@ -3,12 +3,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
-import Image from "src/components/Image/Image";
-import Input from "src/components/Input";
-import { getTotalCart, isPending, isSuccess } from "src/reducers/authSlice";
-import { ICart } from "src/types/cart";
+import FormInput from "src/components/FormInput";
+import MediaContent from "src/components/MediaContent";
+import { getTotalCart, isPending, isSuccess } from "src/reducers";
+import { ICart } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-
 import "./CartItem.scss";
 
 interface CartItemProps {
@@ -129,7 +128,11 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
   return (
     <div className="cart-item">
       <div className="image">
-        <Image width={150} height={120} src={cartItem?.course?.thumbnail} />
+        <MediaContent.Image
+          width={150}
+          height={120}
+          src={cartItem?.course?.thumbnail}
+        />
       </div>
       <div className="info">
         <span className="title">{cartItem?.course?.name}</span>
@@ -147,7 +150,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
               height: 35,
             }}
           >
-            <Input
+            <FormInput.Input
               placeholder="Nhập coupon"
               value={cartItem?.coupon}
               style={{ height: 35 }}

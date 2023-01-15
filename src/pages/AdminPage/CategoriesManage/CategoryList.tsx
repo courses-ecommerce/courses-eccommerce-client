@@ -2,17 +2,12 @@ import { Box } from "@mui/system";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import categoryApi from "src/apis/categoryApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
-import Table from "src/components/Table/Table";
-import {
-  categoryStatusTypes,
-  categoryTypes,
-  statusTypes,
-} from "src/data/searchInfo";
+import FormInput from "src/components/FormInput";
+import Table from "src/components/Table";
+import { categoryStatusTypes, categoryTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICategory } from "src/types/category";
-import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import { ICategory } from "src/types";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import CategoryDetail from "./CategoryDetail";
 import CreateCategory from "./CreateCategory";
 import MultiDeleteCategory from "./MultiDeleteCategory";
@@ -131,22 +126,22 @@ const CategoryList = () => {
               gap: 1,
             }}
           >
-            <Input
+            <FormInput.Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng tên danh mục"
               onChange={(e: any) => setValue(e.target.value)}
             />
-            <InputSelect
+            <FormInput.InputSelect
               defaultValue={publish}
               list={statusTypes}
               onChange={(e) => setPublish(e.target.value)}
             />
-            <InputSelect
+            <FormInput.InputSelect
               defaultValue={used}
               list={categoryStatusTypes}
               onChange={(e) => setUsed(e.target.value)}
             />
-            <InputSelect
+            <FormInput.InputSelect
               defaultValue={isPending}
               list={categoryTypes}
               onChange={(e) => setIsPending(e.target.value)}

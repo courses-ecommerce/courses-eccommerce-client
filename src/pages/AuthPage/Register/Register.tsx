@@ -1,17 +1,18 @@
-// import SendIcon from "@mui/icons-material/Send";
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import Input from "src/components/Input";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IRegister } from "src/types/auth";
+import FormInput from "src/components/FormInput";
+import { isPending, isSuccess } from "src/reducers";
+import { IRegister } from "src/types";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import regexCharacter from "src/utils/regexCharacter";
+
 import * as Yup from "yup";
-import AuthLayout from "../AuthLayout/AuthLayout";
+import AuthPageContent from "..";
+
 import "./Register.scss";
 
 const Register = () => {
@@ -99,14 +100,14 @@ const Register = () => {
   };
 
   return (
-    <AuthLayout title="Đăng ký tài khoản">
+    <AuthPageContent.AuthLayout title="Đăng ký tài khoản">
       <form
         id="register-form"
         className="register-form"
         onSubmit={formik.handleSubmit}
       >
         <div>
-          <Input
+          <FormInput.Input
             required
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
@@ -114,7 +115,7 @@ const Register = () => {
             {...formik.getFieldProps("email")}
           />
           <div className="verify-code">
-            <Input
+            <FormInput.Input
               required
               label="Mã xác nhận email"
               placeholder="Nhập mã xác nhận"
@@ -134,7 +135,7 @@ const Register = () => {
             </Tooltip>
           </div>
 
-          <Input
+          <FormInput.Input
             required
             type="password"
             label="Mật khẩu"
@@ -157,14 +158,14 @@ const Register = () => {
         </div>
 
         <div>
-          <Input
+          <FormInput.Input
             required
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
             {...formik.getFieldProps("fullName")}
           />
-          <Input
+          <FormInput.Input
             label="Số điện thoại"
             placeholder="Nhập số điện thoại"
             errorMessage={formik.touched.phone ? formik.errors.phone : ""}
@@ -196,7 +197,7 @@ const Register = () => {
           Quên mật khẩu
         </Link>
       </div>
-    </AuthLayout>
+    </AuthPageContent.AuthLayout>
   );
 };
 export default Register;

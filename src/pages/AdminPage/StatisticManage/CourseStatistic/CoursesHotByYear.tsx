@@ -7,12 +7,11 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import InputSelect from "src/components/InputSelect";
-import Loading from "src/components/Loading/Loading";
-import { topAmountTypes } from "src/data/searchInfo";
-import { LINK_DOMAIN } from "src/data/link";
-import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
-import formatDate from "src/utils/formatDay";
+import FormInput from "src/components/FormInput";
+import LoadingContent from "src/components/LoadingContent";
+import { LINK_DOMAIN, topAmountTypes } from "src/data";
+import { getOptionsCharBar, getValueChartVertical } from "src/utils";
+import formatDate from "src/utils/formatDate";
 
 export default function CoursesHotByYear() {
   const [year, setYear] = useState<any>(new Date());
@@ -107,11 +106,11 @@ export default function CoursesHotByYear() {
             )}
           />
         </LocalizationProvider>
-        <InputSelect
+        <FormInput.InputSelect
           defaultValue={top}
           hideErrorMessage={true}
           list={topAmountTypes}
-          onChange={(e) => setTop(e.target.value)}
+          onChange={(amount) => setTop(amount)}
         />
         <Button
           sx={{ height: 35 }}
@@ -128,7 +127,7 @@ export default function CoursesHotByYear() {
           <Bar options={options} data={courseTopByYear} />
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

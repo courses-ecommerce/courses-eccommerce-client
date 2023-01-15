@@ -5,18 +5,13 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import Input from "src/components/Input";
-import {
-  isLogin,
-  isPending,
-  isSuccess,
-  getUserInfo,
-} from "src/reducers/authSlice";
+import FormInput from "src/components/FormInput";
+import { getUserInfo, isLogin, isPending, isSuccess } from "src/reducers";
+
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
-import AuthLayout from "../AuthLayout/AuthLayout";
-// import FacebookLogin from "../SocialLogin/FacebookLogin";
-import GoogleLogin from "../SocialLogin/GoogleLogin";
+import AuthPageContent from "..";
+import SocialLogin from "../SocialLogin";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,7 +21,8 @@ const Login = () => {
     try {
       const response = await authApi.postLogin(data);
       // console.log(response);
-      const { refreshToken, user, role, token }: any = response;
+      // const { refreshToken, user, role, token }: any = response;
+      const { user, role, token }: any = response;
 
       localStorage.setItem("access_token", JSON.stringify(token));
 
@@ -64,16 +60,16 @@ const Login = () => {
   });
 
   return (
-    <AuthLayout title="Đăng nhập hệ thống">
+    <AuthPageContent.AuthLayout title="Đăng nhập hệ thống">
       <form onSubmit={formik.handleSubmit}>
-        <Input
+        <FormInput.Input
           required
           label="Địa chỉ email"
           placeholder="Nhập địa chỉ gmail"
           errorMessage={formik.touched.email ? formik.errors.email : ""}
           {...formik.getFieldProps("email")}
         />
-        <Input
+        <FormInput.Input
           required
           type="password"
           label="Mật khẩu"
@@ -88,7 +84,7 @@ const Login = () => {
       </form>
       <div className="extra-links">
         <div>
-          <GoogleLogin />
+          <SocialLogin.GoogleLogin />
           {/* <FacebookLogin /> */}
         </div>
         <div>
@@ -100,7 +96,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
-    </AuthLayout>
+    </AuthPageContent.AuthLayout>
   );
 };
 export default Login;

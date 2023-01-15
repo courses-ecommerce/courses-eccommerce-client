@@ -6,14 +6,10 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import InputSelect from "src/components/InputSelect";
-import Loading from "src/components/Loading/Loading";
-import { yearNumberCompare } from "src/data/searchInfo";
-import { LINK_DOMAIN } from "src/data/link";
-import {
-  getOptionsCharBar,
-  getValueChartVerticalMultiColumn,
-} from "src/utils/chart";
+import FormInput from "src/components/FormInput";
+import LoadingContent from "src/components/LoadingContent";
+import { LINK_DOMAIN, yearNumberCompare } from "src/data";
+import { getOptionsCharBar, getValueChartVerticalMultiColumn } from "src/utils";
 
 export default function RevenueByEveryMonth() {
   const [year, setYear] = useState<any>(new Date());
@@ -134,12 +130,12 @@ export default function RevenueByEveryMonth() {
             )}
           />
         </LocalizationProvider>
-        <InputSelect
+        <FormInput.InputSelect
           label="Phạm vi"
           hideErrorMessage={true}
           list={yearNumberCompare}
           defaultValue={yearNumber}
-          onChange={(e) => setYearNumber(e.target.value)}
+          onChange={(range_year) => setYearNumber(range_year)}
         />
         <Button
           sx={{ height: 36 }}
@@ -156,7 +152,7 @@ export default function RevenueByEveryMonth() {
           <Bar options={options} data={revenueData} />
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

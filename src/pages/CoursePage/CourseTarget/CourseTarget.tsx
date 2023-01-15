@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "src/components/Image/Image";
+import MediaContent from "src/components/MediaContent";
 import "./CourseTarget.scss";
 
 interface CourseTargetProps {
@@ -32,7 +32,11 @@ const CourseTarget: React.FC<CourseTargetProps> = ({
     <div className="course-target">
       <span className="title-target">{title}</span>
       <div className="content-target">
-        {!isLoading ? renderContent(content) : <Image height={100} />}
+        {!isLoading ? (
+          renderContent(content)
+        ) : (
+          <MediaContent.Image height={100} />
+        )}
       </div>
     </div>
   );

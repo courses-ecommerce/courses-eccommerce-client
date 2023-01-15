@@ -1,13 +1,14 @@
 import { Tooltip } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Rating from "src/components/Rating/Rating";
+import Rating from "src/components/Rating";
 import useHover from "src/hooks/useHover";
-import { ICourse } from "src/types/course";
+import { ICourse } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
 import translateVi from "src/utils/translateVi";
-import BtnAddCart from "../BtnAddCart/BtnAddCart";
-import CourseModal from "../CourseModal/CourseModal";
+import BtnAddCart from "../BtnAddCart";
+import CourseModal from "../CourseModal";
+
 import "./CourseItem.scss";
 
 interface CourseItemProps {

@@ -4,8 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import adminApi from "src/apis/adminApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
 import { accountTypes, genderTypes } from "src/data/searchInfo";
 import { isPending, isSuccess } from "src/reducers/authSlice";
@@ -106,21 +105,21 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         onSubmit={formik.handleSubmit}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
+          <FormInput.Input
             required
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
             {...formik.getFieldProps("fullName")}
           />
-          <Input
+          <FormInput.Input
             required
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
             errorMessage={formik.touched.email ? formik.errors.email : ""}
             {...formik.getFieldProps("email")}
           />
-          <Input
+          <FormInput.Input
             required
             type="password"
             label="Mật khẩu"
@@ -128,7 +127,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
             errorMessage={formik.touched.password ? formik.errors.password : ""}
             {...formik.getFieldProps("password")}
           />
-          <InputSelect
+          <FormInput.InputSelect
             label="Chức vụ"
             list={accountTypes}
             onChange={(e) => formik.setFieldValue("role", e.target.value)}
@@ -136,7 +135,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <InputSelect
+          <FormInput.InputSelect
             label="Giới tính"
             list={genderTypes}
             onChange={(e) =>
@@ -144,13 +143,13 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
             }
             defaultValue={formik.values.gender}
           />
-          <Input
+          <FormInput.Input
             label="Số điện thoại"
             placeholder="Nhập số điện thoại"
             errorMessage={formik.touched.phone ? formik.errors.phone : ""}
             {...formik.getFieldProps("phone")}
           />
-          <Input
+          <FormInput.Input
             type="date"
             label="Ngày sinh nhật"
             {...formik.getFieldProps("birthday")}

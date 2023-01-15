@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import { Pie } from "react-chartjs-2";
 import statisticApi from "src/apis/statisticApi";
-import Loading from "src/components/Loading/Loading";
-import { getValueChartPie } from "src/utils/chart";
+import LoadingContent from "src/components/LoadingContent";
+import { getValueChartPie } from "src/utils";
 
 export default function CourseTotal() {
   const [data, setData] = useState<any>({});
@@ -38,7 +38,7 @@ export default function CourseTotal() {
           <Pie data={data} />
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

@@ -1,10 +1,10 @@
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import categoryApi from "src/apis/categoryApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { categoryTypes, statusTypes } from "src/data/searchInfo";
-import { ICategory } from "src/types/category";
+import { categoryTypes, statusTypes } from "src/data";
+import { ICategory } from "src/types";
 
 interface CategoryDetailProps {
   id: string | number;
@@ -35,28 +35,31 @@ const CategoryDetail: React.FC<CategoryDetailProps> = ({
 
   return (
     <ModalContainer
-      width={700}
       title="Thông tin chi tiết danh mục"
       open={show}
       onClose={onClose}
     >
-      <form>
-        <Input label="Tên danh mục" value={categoryDetail.name} disabled />
-        <Input label="slug" value={categoryDetail.slug} disabled />
+      <Box component="form">
+        <FormInput.Input
+          label="Tên danh mục"
+          value={categoryDetail.name}
+          disabled
+        />
+        <FormInput.Input label="slug" value={categoryDetail.slug} disabled />
 
-        <InputSelect
+        <FormInput.InputSelect
           label="Xuất bản"
           list={statusTypes}
           defaultValue={categoryDetail.publish}
           disabled
         />
-        <InputSelect
+        <FormInput.InputSelect
           label="Trạng thái"
           list={categoryTypes}
           defaultValue={categoryDetail.isPending?.toString()}
           disabled
         />
-      </form>
+      </Box>
     </ModalContainer>
   );
 };

@@ -4,11 +4,11 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import statisticApi from "src/apis/statisticApi";
-import InputSelect from "src/components/InputSelect";
-import Loading from "src/components/Loading/Loading";
-import { numberRangeTypes } from "src/data/searchInfo";
-import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
-import formatDay from "src/utils/formatDay";
+import FormInput from "src/components/FormInput";
+import LoadingContent from "src/components/LoadingContent";
+import { numberRangeTypes } from "src/data";
+import { getOptionsCharBar, getValueChartVertical } from "src/utils";
+import formatDate from "src/utils/formatDate";
 
 const TopTeacherByYear = () => {
   const [year, setYear] = useState(new Date());
@@ -20,7 +20,7 @@ const TopTeacherByYear = () => {
     const params = { year: new Date(year).getFullYear(), top };
 
     const options = getOptionsCharBar(
-      `Biểu đồ thể hiện top giảng viên có doanh thu cao trong năm ${formatDay.getDate(
+      `Biểu đồ thể hiện top giảng viên có doanh thu cao trong năm ${formatDate.getDate(
         year,
         "yyyy"
       )}`
@@ -72,10 +72,10 @@ const TopTeacherByYear = () => {
             )}
           />
         </LocalizationProvider>
-        <InputSelect
+        <FormInput.InputSelect
           list={numberRangeTypes}
           defaultValue={top}
-          onChange={(e) => setTop(e.target.value)}
+          onChange={(amount) => setTop(amount)}
         />
       </Box>
 
@@ -84,7 +84,7 @@ const TopTeacherByYear = () => {
           <Bar options={options} data={topTeacherByYear} />
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

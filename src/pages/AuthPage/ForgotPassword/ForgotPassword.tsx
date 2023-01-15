@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import Input from "src/components/Input";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IForgotPassword } from "src/types/auth";
+import FormInput from "src/components/FormInput";
+import { isPending, isSuccess } from "src/reducers";
+import { IForgotPassword } from "src/types";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import * as Yup from "yup";
-import AuthLayout from "../AuthLayout/AuthLayout";
+import AuthPageContent from "..";
 import "./ForgotPassword.scss";
 
 const ForgotPassword = () => {
@@ -86,9 +86,9 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthLayout title="Lấy lại mật khẩu">
+    <AuthPageContent.AuthLayout title="Lấy lại mật khẩu">
       <form className="forgot-password-form" onSubmit={formik.handleSubmit}>
-        <Input
+        <FormInput.Input
           required
           label="Email"
           placeholder="Nhập địa chỉ gmail"
@@ -96,7 +96,7 @@ const ForgotPassword = () => {
           {...formik.getFieldProps("email")}
         />
         <div className="verify-code">
-          <Input
+          <FormInput.Input
             required
             label="Mã xác nhận email"
             placeholder="Nhập mã xác nhận"
@@ -115,7 +115,7 @@ const ForgotPassword = () => {
             </Button>
           </Tooltip>
         </div>
-        <Input
+        <FormInput.Input
           required
           type="password"
           label="Mật khẩu"
@@ -134,7 +134,7 @@ const ForgotPassword = () => {
           Đăng ký tài khoản
         </Link>
       </div>
-    </AuthLayout>
+    </AuthPageContent.AuthLayout>
   );
 };
 export default ForgotPassword;

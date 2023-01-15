@@ -1,8 +1,7 @@
 import React from "react";
-import LoadingSkeleton from "src/components/LoadingSkeleton/LoadingSkeleton";
-import { ICourse } from "src/types/course";
-
-import CourseItem from "../CourseItem/CourseItem";
+import LoadingContent from "src/components/LoadingContent";
+import { ICourse } from "src/types";
+import CourseItem from "../CourseItem";
 import "./CourseContainer.scss";
 
 interface CourseContainerProps {
@@ -33,7 +32,7 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
         {!isLoading ? (
           renderCourses(courses)
         ) : (
-          <LoadingSkeleton
+          <LoadingContent.LoadingSkeleton
             width={300}
             height={160}
             amount={courses.length || 4}

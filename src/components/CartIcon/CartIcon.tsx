@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import cartApi from "src/apis/cartApi";
-import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
+import { getTotalCart, selectAuthorization } from "src/reducers";
 import "./CartIcon.scss";
 
 interface CartIconProps {

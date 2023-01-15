@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AccountPopover from "src/components/AccountPopover";
-import Icon from "src/components/Icon";
-import { linkUserProfile } from "src/data/sidebar";
+import MediaContent from "src/components/MediaContent";
+import { linkUserProfile } from "src/data";
 import useClickOutSide from "src/hooks/useClickOutSide";
-import { setToggleStatus } from "src/reducers/toggleSlice";
+import { setToggleStatus } from "src/reducers";
 import "./DashboardHeader.scss";
 
 const DashboardHeader = () => {
@@ -26,7 +26,7 @@ const DashboardHeader = () => {
           ref={nodeRef}
           onClick={() => setShow(!show)}
         >
-          <Icon icon={!show ? "bars" : "close"} size={20} />
+          <MediaContent.Icon icon={!show ? "bars" : "close"} size={20} />
         </div>
       </div>
       <div className="content">

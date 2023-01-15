@@ -2,9 +2,9 @@ import { Divider, Typography } from "@mui/material";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Icon from "src/components/Icon/Icon";
-import { getVideoView, selectAuthorization } from "src/reducers/authSlice";
-import { LessonProps } from "src/types/course";
+import MediaContent from "src/components/MediaContent";
+import { getVideoView, selectAuthorization } from "src/reducers";
+import { LessonProps } from "src/types";
 import "./CourseChapterLesson.scss";
 
 interface CourseChapterLessonProps {
@@ -51,7 +51,7 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
                 {chapterNumber + 1}.{index + 1}{" "}
               </b>
               {lesson.title}{" "}
-              {lesson.complete && <Icon icon="check" size={18} />}
+              {lesson.complete && <MediaContent.Icon icon="check" size={18} />}
             </Typography>
             {index < lessons.length - 1 && <Divider />}
           </div>

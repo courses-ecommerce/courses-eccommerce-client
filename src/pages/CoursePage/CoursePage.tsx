@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
-import Pagination from "src/components/Pagination/Pagination";
-import { priceRangeTypes, sortTypes } from "src/data/searchInfo";
+import FormInput from "src/components/FormInput";
+import Pagination from "src/components/Pagination";
+import { priceRangeTypes, sortTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { ICourse, SearchKeyProps } from "src/types/course";
+import { selectAuthorization } from "src/reducers";
+import { ICourse, SearchKeyProps } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-import CourseContainer from "./CourseContainer/CourseContainer";
+import CourseContainer from "./CourseContainer";
+
 import "./CoursePage.scss";
 
 const CoursePage = () => {
@@ -162,7 +162,7 @@ const CoursePage = () => {
       {/* search input */}
       <div className="search-courses">
         {/* input search text */}
-        <Input
+        <FormInput.Input
           className="input-text"
           style={{ width: 300 }}
           hideErrorMessage={true}
@@ -173,37 +173,37 @@ const CoursePage = () => {
         <div className="input-select">
           {categoryList && (
             <Box sx={{ width: 150 }}>
-              <InputSelect
+              <FormInput.InputSelect
                 hideErrorMessage={true}
                 defaultValue={category}
                 list={categoryList}
-                onChange={(e) => {
+                onChange={(status) => {
                   setPage(1);
-                  setCategory(e.target.value);
+                  setCategory(status);
                 }}
               />
             </Box>
           )}
 
           <Box sx={{ width: 200 }}>
-            <InputSelect
+            <FormInput.InputSelect
               hideErrorMessage={true}
               defaultValue={sort}
               list={sortTypes}
-              onChange={(e) => {
+              onChange={(status) => {
                 setPage(1);
-                setSort(e.target.value);
+                setSort(status);
               }}
             />
           </Box>
           <Box sx={{ width: 200 }}>
-            <InputSelect
+            <FormInput.InputSelect
               hideErrorMessage={true}
               defaultValue={price}
               list={priceRangeTypes}
-              onChange={(e) => {
+              onChange={(range_price) => {
                 setPage(1);
-                setPrice(e.target.value);
+                setPrice(range_price);
               }}
             />
           </Box>

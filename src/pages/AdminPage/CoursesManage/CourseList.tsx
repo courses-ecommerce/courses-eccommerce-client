@@ -3,13 +3,12 @@ import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
-import Table from "src/components/Table/Table";
-import { statusCourseTypes } from "src/data/searchInfo";
+import FormInput from "src/components/FormInput";
+import Table from "src/components/Table";
+import { statusCourseTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICourse } from "src/types/course";
-import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import { ICourse } from "src/types";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 
 const columnsHeader: GridColDef[] = [
   {
@@ -134,7 +133,7 @@ const CourseList = () => {
             gap: 1,
           }}
         >
-          <Input
+          <FormInput.Input
             style={{ width: 250 }}
             placeholder="Nhập tên khoá học"
             onChange={(e: any) => setValue(e.target.value)}
@@ -146,11 +145,11 @@ const CourseList = () => {
             onChange={(e) => setPublish(e.target.value)}
           /> */}
 
-          <InputSelect
+          <FormInput.InputSelect
             defaultValue={status}
             placeholder="Chọn trạng thái khóa học"
             list={statusCourseTypes}
-            onChange={(e) => setStatus(e.target.value)}
+            onChange={(status) => setStatus(status)}
           />
         </Box>
       }

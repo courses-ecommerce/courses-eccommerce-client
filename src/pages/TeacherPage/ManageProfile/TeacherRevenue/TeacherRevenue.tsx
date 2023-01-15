@@ -1,13 +1,12 @@
 import { Box, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import teacherApi from "src/apis/teacherApi";
-import DateRangePicker from "src/components/DateRangePicker/DateRangePicker";
-import Loading from "src/components/Loading/Loading";
+import FormInput from "src/components/FormInput";
+import LoadingContent from "src/components/LoadingContent";
 import RevenueInvoiceItem from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueInvoiceItem";
-import { IInvoice } from "src/types/invoice";
-import { ITeacher } from "src/types/statistic";
+import { IInvoice, ITeacher } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-import formatDate from "src/utils/formatDay";
+import formatDate from "src/utils/formatDate";
 import "./TeacherRevenue.scss";
 
 export default function TeacherRevenue() {
@@ -60,7 +59,7 @@ export default function TeacherRevenue() {
         {formatDate.getDate(dateRange?.end, "dd-MM-yyyy HH:mm:ss")}
       </h3>
       <Box sx={{ display: "flex", gap: 1 }}>
-        <DateRangePicker onChange={(date) => setDateRange(date)} />
+        <FormInput.DateRangePicker onChange={(date) => setDateRange(date)} />
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
         <div className="revenue-teacher-info">
@@ -84,7 +83,11 @@ export default function TeacherRevenue() {
         <div className="revenue-teacher-content">
           <h3>Thông tin các khoá học đã bán trong tháng</h3>
           <div className="content">
-            {!isLoading ? renderRevenueInvoices(invoices) : <Loading />}
+            {!isLoading ? (
+              renderRevenueInvoices(invoices)
+            ) : (
+              <LoadingContent.Loading />
+            )}
           </div>
         </div>
       </Box>

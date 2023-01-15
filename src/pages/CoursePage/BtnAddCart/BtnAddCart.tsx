@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
-import Loading from "src/components/Loading/Loading";
-import { getTotalCart, selectAuthorization } from "src/reducers/authSlice";
+import LoadingContent from "src/components/LoadingContent";
+import { getTotalCart, selectAuthorization } from "src/reducers";
 
 interface BtnAddCartProps {
   courseId?: string;
@@ -66,7 +66,7 @@ const BtnAddCart: React.FC<BtnAddCartProps> = ({ courseId, isBought }) => {
       onClick={handleAddCart}
       disabled={isLoading}
     >
-      {!isLoading ? "Mua khoá học ngay" : <Loading />}
+      {!isLoading ? "Mua khoá học ngay" : <LoadingContent.Loading />}
     </Button>
   );
 };

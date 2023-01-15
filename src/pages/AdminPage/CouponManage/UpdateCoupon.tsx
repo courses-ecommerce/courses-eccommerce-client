@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import couponApi from "src/apis/couponApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { discountTypes } from "src/data/searchInfo";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import { ICoupon } from "src/types/cart";
+import { discountTypes } from "src/data";
+import { isPending, isSuccess } from "src/reducers";
+import { ICoupon } from "src/types";
 import * as Yup from "yup";
 
 interface UpdateCouponProps {
@@ -167,21 +166,21 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
         }}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
+          <FormInput.Input
             required
             label="Tên mã giảm giá"
             placeholder="Nhập tên mã giảm giá"
             errorMessage={formik.touched.title ? formik.errors.title : ""}
             {...formik.getFieldProps("title")}
           />
-          <InputSelect
+          <FormInput.InputSelect
             required
             label="Đơn vị tính"
             list={discountTypes}
             defaultValue={formik.values.type}
             onChange={(e) => formik.setFieldValue("type", e.target.value)}
           />
-          <Input
+          <FormInput.Input
             required
             label="Ngày bắt đầu"
             type="datetime-local"
@@ -190,7 +189,7 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
             }
             {...formik.getFieldProps("startDate")}
           />
-          <Input
+          <FormInput.Input
             required
             label="Ngày hết hạn"
             type="datetime-local"
@@ -201,7 +200,7 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
+          <FormInput.Input
             required
             label={`Số lượng giảm ${
               formik.values.type === "percent" ? "(Phần trăm)" : "(VNĐ)"
@@ -210,7 +209,7 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
             errorMessage={formik.touched.amount ? formik.errors.amount : ""}
             {...formik.getFieldProps("amount")}
           />
-          <Input
+          <FormInput.Input
             disabled={formik.values.type !== "percent"}
             label="Giảm giá tối đa (VNĐ) - Chỉ dành cho đơn vị tính là %"
             placeholder="Nhập giá tối đa"
@@ -219,7 +218,7 @@ const UpdateCoupon: React.FC<UpdateCouponProps> = ({
             }
             {...formik.getFieldProps("maxDiscount")}
           />
-          <Input
+          <FormInput.Input
             label="Giá tối thiểu (VNĐ)"
             placeholder="Nhập giá tối thiểu"
             errorMessage={formik.touched.minPrice ? formik.errors.minPrice : ""}

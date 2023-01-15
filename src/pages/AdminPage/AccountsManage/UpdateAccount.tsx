@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import adminApi from "src/apis/adminApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { accountTypes, genderTypes, statusTypes } from "src/data/searchInfo";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IUser } from "src/types/user";
+import { accountTypes, genderTypes, statusTypes } from "src/data";
+import { isPending, isSuccess } from "src/reducers";
+import { IUser } from "src/types";
 import * as Yup from "yup";
 
 interface UpdateAccountProps {
@@ -98,7 +97,6 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
 
   return (
     <ModalContainer
-      width={700}
       title="Cập nhật thông tin tài khoản"
       open={show}
       onClose={onClose}
@@ -114,26 +112,26 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
         onSubmit={formik.handleSubmit}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
+          <FormInput.Input
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
             value={userDetail.account?.email}
             disabled
           />
-          <Input
+          <FormInput.Input
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
             {...formik.getFieldProps("fullName")}
           />
-          <Input
+          <FormInput.Input
             type="password"
             label="Mật khẩu"
             placeholder="Nhập mật khẩu"
             errorMessage={formik.touched.password ? formik.errors.password : ""}
             {...formik.getFieldProps("password")}
           />
-          <InputSelect
+          <FormInput.InputSelect
             label="Chức vụ"
             list={accountTypes}
             onChange={(e) => formik.setFieldValue("role", e.target.value)}
@@ -141,25 +139,25 @@ const UpdateAccount: React.FC<UpdateAccountProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <InputSelect
+          <FormInput.InputSelect
             label="Giới tính"
             list={genderTypes}
             onChange={(e) => formik.setFieldValue("gender", e.target.value)}
             defaultValue={formik.values.gender}
           />
-          <InputSelect
+          <FormInput.InputSelect
             label="Trạng thái"
             list={statusTypes}
             onChange={(e) => formik.setFieldValue("isActive", e.target.value)}
             defaultValue={formik.values.isActive}
           />
-          <Input
+          <FormInput.Input
             label="Số điện thoại"
             placeholder="Nhập số điện thoại"
             errorMessage={formik.touched.phone ? formik.errors.phone : ""}
             {...formik.getFieldProps("phone")}
           />
-          <Input
+          <FormInput.Input
             type="date"
             label="Ngày sinh nhật"
             {...formik.getFieldProps("birthday")}

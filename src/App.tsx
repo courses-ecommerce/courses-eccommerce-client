@@ -1,26 +1,27 @@
-import { Backdrop, CircularProgress } from "@mui/material";
 import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { Routes } from "react-router-dom";
-import PageLoading from "./components/PageLoading";
-import { selectAuthorization } from "./reducers/authSlice";
-import { authRoute, mainRoute, privateRoute } from "./routes/Router";
+import LoadingContent from "./components/LoadingContent";
+import { selectAuthorization } from "./reducers";
 import {
   ADMIN_ROUTE,
+  authRoute,
   AUTH_ROUTE,
   DASHBOARD_ROUTE,
   DIRECTOR_ROUTE,
+  mainRoute,
   MAIN_ROUTE,
+  privateRoute,
   STUDENT_ROUTE,
   TEACHER_ROUTE,
-} from "./routes/routes";
+} from "./routes";
 
 function App() {
   const { isLoading } = useSelector(selectAuthorization);
 
   return (
     <React.Fragment>
-      <Suspense fallback={<PageLoading />}>
+      <Suspense fallback={<LoadingContent.PageLoading />}>
         <Routes>
           {mainRoute(MAIN_ROUTE)}
           {authRoute(AUTH_ROUTE)}
@@ -32,13 +33,8 @@ function App() {
           {privateRoute(DASHBOARD_ROUTE)}
         </Routes>
       </Suspense>
-      <Backdrop
-        // sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        sx={{ color: "#fff", zIndex: 99999 }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+
+      <LoadingContent.LoadingBackdrop isLoading={isLoading} />
     </React.Fragment>
   );
 }

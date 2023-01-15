@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import invoicesApi from "src/apis/invoicesApi";
-import Image from "src/components/Image/Image";
-import Loading from "src/components/Loading/Loading";
-import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { IDetailInvoice, IInvoice } from "src/types/invoice";
+import LoadingContent from "src/components/LoadingContent";
+import MediaContent from "src/components/MediaContent";
+import NavigationHeader from "src/components/NavigationHeader";
+import { selectAuthorization } from "src/reducers";
+import { IDetailInvoice, IInvoice } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-import formatDate from "src/utils/formatDay";
+import formatDate from "src/utils/formatDate";
 import translateVi from "src/utils/translateVi";
 import CoursePaymentDetail from "./CoursePaymentDetail/CoursePaymentDetail";
 import "./PaymentDetail.scss";
@@ -48,7 +48,7 @@ const PaymentDetail = () => {
 
   const renderCoursePaymentDetail = (courses: IDetailInvoice[]) => {
     if (courses.length === 0) {
-      return <Loading />;
+      return <LoadingContent.Loading />;
     }
 
     return (
@@ -59,9 +59,9 @@ const PaymentDetail = () => {
     );
   };
 
-  const handlePrint = async () => {
-    await setShow(true);
-    await window.print();
+  const handlePrint = () => {
+    setShow(true);
+    window.print();
     setShow(false);
   };
 
@@ -82,7 +82,7 @@ const PaymentDetail = () => {
         </Button>
 
         <div className="invoice-info">
-          <Image width={200} height={200} src={invoice.qrcode} />
+          <MediaContent.Image width={200} height={200} src={invoice.qrcode} />
 
           <table className="info">
             <tr>

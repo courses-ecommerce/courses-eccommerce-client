@@ -1,16 +1,15 @@
 import { Button, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
 import paymentApi from "src/apis/paymentApi";
-import Loading from "src/components/Loading/Loading";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { ICart, ICartInfo } from "src/types/cart";
-
-import { useNavigate } from "react-router-dom";
+import LoadingContent from "src/components/LoadingContent";
+import { selectAuthorization } from "src/reducers";
+import { ICart, ICartInfo } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-import CartItem from "./CartItem/CartItem";
+import CartItem from "./CartItem";
 import "./CartList.scss";
 
 const CartList = () => {
@@ -106,7 +105,9 @@ const CartList = () => {
     <div className="cart-list">
       <h3>Thông tin giỏ hàng</h3>
       <div className="cart-content">
-        <div className="cart-items">{renderCartItem(cart) || <Loading />}</div>
+        <div className="cart-items">
+          {renderCartItem(cart) || <LoadingContent.Loading />}
+        </div>
         {cart.length > 0 && (
           <div className="cart-price">
             <h3>Tổng tiền giỏ hàng</h3>
@@ -135,7 +136,7 @@ const CartList = () => {
               onClick={handlePayment}
               disabled={isLoading}
             >
-              {!isLoading ? "Thanh toán" : <Loading />}
+              {!isLoading ? "Thanh toán" : <LoadingContent.Loading />}
             </Button>
           </div>
         )}
@@ -144,7 +145,7 @@ const CartList = () => {
       <h3>Danh sách mua sau</h3>
       <div className="cart-content">
         <div className="cart-items">
-          {renderCartItem(wishlist) || <Loading />}
+          {renderCartItem(wishlist) || <LoadingContent.Loading />}
         </div>
       </div>
     </div>

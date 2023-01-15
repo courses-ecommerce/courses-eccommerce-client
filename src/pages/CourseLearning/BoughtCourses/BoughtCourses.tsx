@@ -1,14 +1,13 @@
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import myCourseApi from "src/apis/myCourseApi";
-import InputSelect from "src/components/InputSelect";
-import Loading from "src/components/Loading/Loading";
-import Pagination from "src/components/Pagination/Pagination";
-import { myCourseTypes } from "src/data/searchInfo";
-import { ICourse } from "src/types/course";
-import { IMyCourse } from "src/types/myCourse";
+import FormInput from "src/components/FormInput";
+import LoadingContent from "src/components/LoadingContent";
+import Pagination from "src/components/Pagination";
+import { myCourseTypes } from "src/data";
+import { ICourse, IMyCourse } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
-import MyCourseItem from "./BoughtCourseItem/BoughtCourseItem";
+import BoughtCourseItem from "./BoughtCourseItem";
 import "./BoughtCourses.scss";
 
 export default function BoughtCourses() {
@@ -57,7 +56,7 @@ export default function BoughtCourses() {
   const renderMyCourses = (courses: IMyCourse[]) => {
     if (courses.length > 0) {
       return courses.map((course, index) => (
-        <MyCourseItem
+        <BoughtCourseItem
           isUpdate={(status) => setIsUpdateComplete(status)}
           courseInfo={course}
           key={index}
@@ -80,15 +79,15 @@ export default function BoughtCourses() {
         }}
       >
         <h3>Danh sách khoá học của tôi</h3>
-        <InputSelect
+        <FormInput.InputSelect
           hideErrorMessage={true}
           defaultValue={sort}
           list={myCourseTypes}
-          onChange={(e) => setSort(e.target.value)}
+          onChange={(status) => setSort(status)}
         />
       </Box>
       <div className="my-course-content">
-        {!isLoading ? renderMyCourses(courses) : <Loading />}
+        {!isLoading ? renderMyCourses(courses) : <LoadingContent.Loading />}
       </div>
       <div className="my-course-pagination">
         <Pagination

@@ -2,13 +2,12 @@ import { Box, Button } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
-import Table from "src/components/Table/Table";
+import FormInput from "src/components/FormInput";
+import Table from "src/components/Table";
 import { accountTypes, statusTypes } from "src/data/searchInfo";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { IUser } from "src/types/user";
-import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import translateVi from "src/utils/translateVi";
 import AccountDetail from "./AccountDetail";
 import CreateAccount from "./CreateAccount";
@@ -64,9 +63,9 @@ export default function AccountList() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [userId, setUserId] = useState<string | number>("");
   const [userIds, setUserIds] = useState<string[] | number[]>([]);
-  const [role, setRole] = useState<string>("student");
-  const [isActive, setIsActive] = useState<boolean>(true);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [role, setRole] = useState("student");
+  const [isActive, setIsActive] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   //pagination
   const [total, setTotal] = useState<number>(0);
@@ -79,20 +78,19 @@ export default function AccountList() {
   const [email, setEmail] = useState<string>();
 
   //modal
-  const [showDelete, setShowDelete] = useState<boolean>(false);
-  const [showMultiDelete, setShowMultiDelete] = useState<boolean>(false);
-  const [showCreate, setShowCreate] = useState<boolean>(false);
-  const [showUpdate, setShowUpdate] = useState<boolean>(false);
-  const [showUpload, setShowUpload] = useState<boolean>(false);
-  const [showDetail, setShowDetail] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [showMultiDelete, setShowMultiDelete] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
 
   //check status
-  const [isCreateCompleted, setIsCreateCompleted] = useState<boolean>(false);
-  const [isDeleteCompleted, setIsDeleteCompleted] = useState<boolean>(false);
-  const [isMultiDeleteCompleted, setIsMultiDeleteCompleted] =
-    useState<boolean>(false);
-  const [isUpdateCompleted, setIsUpdateCompleted] = useState<boolean>(false);
-  const [isUploadCompleted, setIsUploadCompleted] = useState<boolean>(false);
+  const [isCreateCompleted, setIsCreateCompleted] = useState(false);
+  const [isDeleteCompleted, setIsDeleteCompleted] = useState(false);
+  const [isMultiDeleteCompleted, setIsMultiDeleteCompleted] = useState(false);
+  const [isUpdateCompleted, setIsUpdateCompleted] = useState(false);
+  const [isUploadCompleted, setIsUploadCompleted] = useState(false);
 
   useEffect(() => {
     getUsers();
@@ -187,20 +185,20 @@ export default function AccountList() {
               gap: 1,
             }}
           >
-            <Input
+            <FormInput.Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng địa chỉ email"
               onChange={(e: any) => setValue(e.target.value)}
             />
-            <InputSelect
+            <FormInput.InputSelect
               defaultValue={role}
               list={accountTypes}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(role) => setRole(role)}
             />
-            <InputSelect
+            <FormInput.InputSelect
               defaultValue={isActive}
               list={statusTypes}
-              onChange={(e) => setIsActive(e.target.value)}
+              onChange={(status) => setIsActive(status)}
             />
           </Box>
         }

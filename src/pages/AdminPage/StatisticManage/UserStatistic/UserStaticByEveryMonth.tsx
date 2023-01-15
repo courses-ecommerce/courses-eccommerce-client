@@ -6,12 +6,9 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import Loading from "src/components/Loading/Loading";
-import { LINK_DOMAIN } from "src/data/link";
-import {
-  getOptionsCharBar,
-  getValueChartVerticalMultiColumn,
-} from "src/utils/chart";
+import LoadingContent from "src/components/LoadingContent";
+import { LINK_DOMAIN } from "src/data";
+import { getOptionsCharBar, getValueChartVerticalMultiColumn } from "src/utils";
 
 export default function UserStaticByEveryMonth() {
   const [year, setYear] = useState<any>(new Date());
@@ -124,7 +121,7 @@ export default function UserStaticByEveryMonth() {
           <Bar options={options} data={userData} />
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

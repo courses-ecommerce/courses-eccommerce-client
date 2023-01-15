@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import { linearIMG, quotes } from "src/assets";
-import Image from "../Image/Image";
+import MediaContent from "../MediaContent";
 import "./ArticleReadMore.scss";
 
 interface ArticleReadMoreProps {
@@ -22,7 +22,7 @@ const ArticleReadMore: React.FC<ArticleReadMoreProps> = ({
   return (
     <div className={classNames(className)}>
       <div>
-        <Image src={quotes} width={18} />
+        <MediaContent.Image src={quotes} width={18} />
         <span className="description-readmore">{title}</span>
         <hr style={{ marginTop: 5, marginBottom: 2 }} />
       </div>
@@ -38,7 +38,7 @@ const ArticleReadMore: React.FC<ArticleReadMoreProps> = ({
 
       {!isShowContent && (
         <div className="bg-linear">
-          <Image src={linearIMG} height={64} />
+          <MediaContent.Image src={linearIMG} height={64} />
         </div>
       )}
 

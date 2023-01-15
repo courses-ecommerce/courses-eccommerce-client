@@ -1,13 +1,13 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import Input from "src/components/Input";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { isPending, isSuccess } from "src/reducers/authSlice";
-import { IUpdatePassword } from "src/types/auth";
+import { isPending, isSuccess } from "src/reducers";
+import { IUpdatePassword } from "src/types";
 import * as Yup from "yup";
 
 const UpdatePassword = () => {
@@ -90,7 +90,7 @@ const UpdatePassword = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Button
         variant="contained"
         color="warning"
@@ -99,7 +99,6 @@ const UpdatePassword = () => {
         Đổi mật khẩu
       </Button>
       <ModalContainer
-        width={500}
         title="Thay đổi mật khẩu"
         open={showModal}
         onClose={() => {
@@ -107,11 +106,14 @@ const UpdatePassword = () => {
           setShowModal(false);
         }}
       >
-        <form
-          style={{ display: "flex", flexDirection: "column", gap: 20 }}
+        <Box
+          component="form"
+          display="flex"
+          flexDirection="column"
+          rowGap={12}
           onSubmit={formik.handleSubmit}
         >
-          <Input
+          <FormInput.Input
             label="Nhập mật khẩu hiện tại"
             type="password"
             errorMessage={
@@ -119,13 +121,13 @@ const UpdatePassword = () => {
             }
             {...formik.getFieldProps("oldPassword")}
           />
-          <Input
+          <FormInput.Input
             label="Nhập mật khẩu mới"
             type="password"
             errorMessage={formik.touched.password ? formik.errors.password : ""}
             {...formik.getFieldProps("password")}
           />
-          <Input
+          <FormInput.Input
             label="Xác nhận lại mật khẩu mới"
             type="password"
             errorMessage={
@@ -136,14 +138,12 @@ const UpdatePassword = () => {
             {...formik.getFieldProps("passwordConfirm")}
           />
 
-          <div>
-            <Button type="submit" variant="contained" color="warning">
-              Đổi mật khẩu
-            </Button>
-          </div>
-        </form>
+          <Button type="submit" variant="contained" color="warning">
+            Đổi mật khẩu
+          </Button>
+        </Box>
       </ModalContainer>
-    </>
+    </React.Fragment>
   );
 };
 

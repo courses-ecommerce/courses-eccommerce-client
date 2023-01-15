@@ -6,10 +6,10 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import Loading from "src/components/Loading/Loading";
-import { LINK_DOMAIN } from "src/data/link";
-import { IUserStatistic } from "src/types/statistic";
-import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
+import LoadingContent from "src/components/LoadingContent";
+import { LINK_DOMAIN } from "src/data";
+import { IUserStatistic } from "src/types";
+import { getOptionsCharBar, getValueChartVertical } from "src/utils";
 
 export default function UserStaticByRangeYear() {
   const [startYear, setStartYear] = useState(new Date("2021-06-01"));
@@ -171,7 +171,7 @@ export default function UserStaticByRangeYear() {
           </Box>
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

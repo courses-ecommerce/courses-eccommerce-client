@@ -2,10 +2,10 @@ import { Avatar, Tooltip } from "@mui/material";
 import classNames from "classnames";
 import React from "react";
 import { useSelector } from "react-redux";
-import Image from "src/components/Image/Image";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { IMessage } from "src/types/chat";
-import formatDate from "src/utils/formatDay";
+import MediaContent from "src/components/MediaContent";
+import { selectAuthorization } from "src/reducers";
+import { IMessage } from "src/types";
+import formatDate from "src/utils/formatDate";
 import "./MessageItem.scss";
 
 interface MessageItemProps {
@@ -36,7 +36,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ data }) => {
         title={formatDate.getDate(data?.createdAt, "dd-MM-yyyy HH:mm:ss")}
       >
         {data?.type === "image" ? (
-          <Image className="chat-message-image" src={data?.text} />
+          <MediaContent.Image className="chat-message-image" src={data?.text} />
         ) : (
           <span className="chat-message-text">{data?.text}</span>
         )}

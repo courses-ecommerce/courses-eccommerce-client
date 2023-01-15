@@ -1,14 +1,12 @@
 import { createTheme } from "@mui/material";
 
+/**
+ * Reference: https://github.com/mui/material-ui/issues/32100
+ */
+
 const theme = createTheme({
   spacing: 1,
   shape: { borderRadius: 4 },
-  // typography: {
-  //   fontFamily: "fantasy",
-  // },
-  //   palette: {
-  //     mode: "light",
-  //   },
 });
 
 export default theme;

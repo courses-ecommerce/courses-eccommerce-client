@@ -59,7 +59,7 @@ const UploadAccountByExcel: React.FC<UploadAccountByExcelProps> = ({
 
   return (
     <ModalContainer
-      width={450}
+      maxWidth="sm"
       title="Upload người dùng bằng file excel"
       open={show}
       onClose={onClose}

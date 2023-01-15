@@ -1,1 +1,1 @@
-export * from "./ArticleReadMore";
+export { default } from "./ArticleReadMore";

@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
@@ -32,12 +32,10 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
     e.preventDefault();
 
     const params = { description };
-    // console.log("params truyền là", params);
     dispatch(isPending());
     setShow?.(true);
     try {
       await teacherApi.updateTeacherInfoById(id, params);
-      // console.log("adsa", response);
 
       toast.success("Cập nhật thông tin mô tả thành công", {
         position: "bottom-right",
@@ -54,38 +52,33 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
 
   return (
     <ModalContainer
-      width={700}
       title="Tiến hành mô tả thông tin cá nhân"
       open={show}
       onClose={onClose}
     >
-      <form onSubmit={handleUpdateDescription}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-          }}
-        >
-          <div className="editor">
-            <h2>
-              Thông tin mô tả cá nhân <span>*</span>
-            </h2>
-            <ReactQuill
-              // style={{
-              //   height: 70,
-              // }}
-              defaultValue={value}
-              theme="snow"
-              onChange={(value) => setDescription(value)}
-              placeholder="Nhập nội dung mô tả thông tin cá nhân."
-            />
-          </div>
-          <Button type="submit" variant="contained">
-            Cập nhật mô tả
-          </Button>
-        </Box>
-      </form>
+      <Box
+        component="form"
+        onSubmit={handleUpdateDescription}
+        display="flex"
+        flexDirection="column"
+        gap={16}
+      >
+        <Typography variant="h6" fontWeight={600} component="span">
+          Thông tin mô tả cá nhân <span>*</span>
+        </Typography>
+        <ReactQuill
+          // style={{
+          //   height: 70,
+          // }}
+          defaultValue={value}
+          theme="snow"
+          onChange={(value) => setDescription(value)}
+          placeholder="Nhập nội dung mô tả thông tin cá nhân."
+        />
+        <Button type="submit" variant="contained">
+          Cập nhật mô tả
+        </Button>
+      </Box>
     </ModalContainer>
   );
 };

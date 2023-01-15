@@ -6,15 +6,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
-import Table from "src/components/Table/Table";
-import { revenueSortTypes } from "src/data/searchInfo";
-import { LINK_DOMAIN } from "src/data/link";
+import FormInput from "src/components/FormInput";
+import Table from "src/components/Table";
+import { LINK_DOMAIN, revenueSortTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import formatDate from "src/utils/formatDay";
-import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
-// import TopTeacherByEveryMonth from "./TopTeacherByEveryMonth";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
+import formatDate from "src/utils/formatDate";
 import TopTeacherByYear from "./TopTeacherByYear";
 
 const columnsHeader: GridColDef[] = [
@@ -171,17 +168,17 @@ const RevenueTeacherStatistic = () => {
               gap: 1,
             }}
           >
-            <Input
+            <FormInput.Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng địa chỉ email"
               hideErrorMessage={true}
               onChange={(e: any) => setValue(e.target.value)}
             />
-            <InputSelect
+            <FormInput.InputSelect
               hideErrorMessage={true}
               list={revenueSortTypes}
               defaultValue={sort}
-              onChange={(e) => setSort(e.target.value)}
+              onChange={(status) => setSort(status)}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker

@@ -4,12 +4,10 @@ import _ from "lodash";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import DateRangePicker from "src/components/DateRangePicker/DateRangePicker";
-import InputSelect from "src/components/InputSelect";
-import Loading from "src/components/Loading/Loading";
-import { dateTypes } from "src/data/searchInfo";
-import { LINK_DOMAIN } from "src/data/link";
-import { getOptionsCharBar, getValueChartVertical } from "src/utils/chart";
+import { getOptionsCharBar, getValueChartVertical } from "src/utils";
+import FormInput from "src/components/FormInput";
+import { dateTypes, LINK_DOMAIN } from "src/data";
+import LoadingContent from "src/components/LoadingContent";
 
 export default function RevenueByRangeDate() {
   const [dateType, setDateType] = useState<any>("day");
@@ -84,12 +82,12 @@ export default function RevenueByRangeDate() {
           alignItems: "end",
         }}
       >
-        <DateRangePicker onChange={(date) => setDateRange(date)} />
-        <InputSelect
+        <FormInput.DateRangePicker onChange={(date) => setDateRange(date)} />
+        <FormInput.InputSelect
           defaultValue={dateType}
           hideErrorMessage={true}
           list={dateTypes}
-          onChange={(e) => setDateType(e.target.value)}
+          onChange={(type) => setDateType(type)}
         />
         <Button
           sx={{ height: 36 }}
@@ -106,7 +104,7 @@ export default function RevenueByRangeDate() {
           <Bar options={options} data={data} />
         </Box>
       ) : (
-        <Loading />
+        <LoadingContent.Loading />
       )}
     </Box>
   );

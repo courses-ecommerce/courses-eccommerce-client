@@ -3,8 +3,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useClickOutSide from "src/hooks/useClickOutSide";
-import { selectAuthorization } from "src/reducers/authSlice";
-import Icon from "../Icon/Icon";
+import { selectAuthorization } from "src/reducers";
+import MediaContent from "../MediaContent";
 import "./Notification.scss";
 
 interface NotificationProps {
@@ -38,7 +38,11 @@ const Notification: React.FC<NotificationProps> = ({
         <div className="notification">
           <Tooltip title="Thông báo">
             <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-              <Icon icon="envelope-open" size={28} color="#3265b7" />
+              <MediaContent.Icon
+                icon="envelope-open"
+                size={28}
+                color="#3265b7"
+              />
             </IconButton>
           </Tooltip>
           <span className="unread_amount">9</span>
@@ -53,7 +57,11 @@ const Notification: React.FC<NotificationProps> = ({
         <div className="notification" onClick={goToMessage}>
           <Tooltip title="Tin nhắn">
             <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-              <Icon icon="commenting-o" size={28} color="#3265b7" />
+              <MediaContent.Icon
+                icon="commenting-o"
+                size={28}
+                color="#3265b7"
+              />
             </IconButton>
           </Tooltip>
           {unRead_total > 0 && (

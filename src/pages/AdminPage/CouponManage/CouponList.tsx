@@ -2,14 +2,12 @@ import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import couponApi from "src/apis/couponApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
-import Table from "src/components/Table/Table";
-import { statusTypes } from "src/data/searchInfo";
+import FormInput from "src/components/FormInput";
+import Table from "src/components/Table";
+import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
-import { ICoupon } from "src/types/cart";
-
-import { getHeaderColumns, getNewHeaderColumn } from "src/utils/table";
+import { ICoupon } from "src/types";
+import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import CouponDetail from "./CouponDetail";
 import CreateCoupon from "./CreateCoupon";
 import MultiDeleteCoupon from "./MultiDeleteCoupon";
@@ -187,16 +185,16 @@ const CouponList = () => {
               gap: 1,
             }}
           >
-            <Input
+            <FormInput.Input
               style={{ width: 250 }}
               placeholder="Nhập tên mã giảm giá"
               onChange={(e: any) => setValue(e.target.value)}
             />
 
-            <InputSelect
+            <FormInput.InputSelect
               defaultValue={isActive}
               list={statusTypes}
-              onChange={(e) => setIsActive(e.target.value)}
+              onChange={(status) => setIsActive(status)}
             />
           </Box>
         }

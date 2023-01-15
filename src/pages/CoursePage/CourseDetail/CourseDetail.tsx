@@ -3,21 +3,20 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
-import ArticleReadMore from "src/components/ArticleReadMore/ArticleReadMore";
-import Image from "src/components/Image/Image";
-import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
-import Pagination from "src/components/Pagination/Pagination";
-import Rating from "src/components/Rating/Rating";
-import { getPanelActive, getVideoView } from "src/reducers/authSlice";
-import { ICourse } from "src/types/course";
-import { IRating } from "src/types/myCourse";
+import ArticleReadMore from "src/components/ArticleReadMore";
+import MediaContent from "src/components/MediaContent";
+import NavigationHeader from "src/components/NavigationHeader";
+import Pagination from "src/components/Pagination";
+import Rating from "src/components/Rating";
+import { getPanelActive, getVideoView } from "src/reducers";
+import { ICourse, IRating } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
 import translateVi from "src/utils/translateVi";
-import BtnAddCart from "../BtnAddCart/BtnAddCart";
-import CourseContainer from "../CourseContainer/CourseContainer";
-import CourseRating from "../CourseRating/CourseRating";
-import CourseSummary from "../CourseSummary/CourseSummary";
-import CourseTarget from "../CourseTarget/CourseTarget";
+import BtnAddCart from "../BtnAddCart";
+import CourseContainer from "../CourseContainer";
+import CourseRating from "../CourseRating";
+import CourseSummary from "../CourseSummary";
+import CourseTarget from "../CourseTarget";
 import "./CourseDetail.scss";
 
 const CourseDetail = () => {
@@ -123,7 +122,7 @@ const CourseDetail = () => {
                 -{formatCharacter.numberRound(courseDetail.saleOff)}%
               </span>
             )}
-            <Image src={courseDetail.thumbnail} />
+            <MediaContent.Image src={courseDetail.thumbnail} />
             <span className="name">{courseDetail.name}</span>
             <span className="description">
               <ArticleReadMore

@@ -1,8 +1,7 @@
 import { Element } from "react-scroll";
-import { homePageElements } from "src/data/home";
-import LayoutContainer from "src/layouts/LayoutContainer/LayoutContainer";
-import { IComponent } from "src/types/component";
-
+import { homePageElements } from "src/data";
+import LayoutContainer from "src/layouts/LayoutContainer";
+import { IComponent } from "src/types";
 import "./MainPage.scss";
 
 const MainPage = () => {

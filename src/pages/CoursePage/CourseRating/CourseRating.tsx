@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IRating } from "src/types/myCourse";
-import CourseRatingItem from "./CourseRatingItem/CourseRatingItem";
 import "./CourseRating.scss";
+import CourseRatingItem from "./CourseRatingItem";
 
 interface CourseRatingProps {
   ratingComments?: IRating[];

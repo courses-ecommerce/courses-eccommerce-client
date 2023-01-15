@@ -70,7 +70,6 @@ const AcceptCourseLearning: React.FC<AcceptCourseLearningProps> = ({
 
   return (
     <ModalContainer
-      width={700}
       title="Tiến hành xác nhận duyệt khoá học"
       open={show}
       onClose={onClose}

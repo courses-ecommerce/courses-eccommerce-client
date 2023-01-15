@@ -4,13 +4,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AccountPopover from "src/components/AccountPopover";
 import CartIcon from "src/components/CartIcon";
-import Icon from "src/components/Icon";
+import MediaContent from "src/components/MediaContent";
 import Notification from "src/components/Notification";
-
-import { linkHeader, linkUserProfile } from "src/data/sidebar";
+import { linkHeader, linkUserProfile } from "src/data";
 import useClickOutSide from "src/hooks/useClickOutSide";
-import Logout from "src/pages/AuthPage/Logout/Logout";
-import { selectAuthorization } from "src/reducers/authSlice";
+import AuthPageContent from "src/pages/AuthPage";
+import { selectAuthorization } from "src/reducers";
 import HeaderNavigation from "../HeaderNavigation";
 import "./Header.scss";
 
@@ -55,14 +54,17 @@ const Header: React.FC<HeaderProps> = ({ titleShow = true }) => {
           ref={nodeRef}
           onClick={() => setShow(!show)}
         >
-          <Icon icon={!show ? "align-justify" : "close"} size={30} />
+          <MediaContent.Icon
+            icon={!show ? "align-justify" : "close"}
+            size={30}
+          />
         </div>
 
         {show && (
           <div className="header-mobile-links">
             <HeaderNavigation links={linkHeader} />
             <Divider />
-            <Logout />
+            <AuthPageContent.Logout />
           </div>
         )}
       </div>

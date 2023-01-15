@@ -3,8 +3,8 @@ import { CourseStatus } from "src/types";
 const ONE_HUNDRED_THOUSAND = 100000;
 
 export const genderTypes = [
-  { value: "false", name: "Nữ" },
-  { value: "true", name: "Nam" },
+  { value: false, name: "Nữ" },
+  { value: true, name: "Nam" },
 ];
 export const accountTypes = [
   { value: "student", name: "Học sinh" },
@@ -12,8 +12,8 @@ export const accountTypes = [
   { value: "admin", name: "Quản trị viên" },
 ];
 export const statusTypes = [
-  { value: "false", name: "Đang khoá" },
-  { value: "true", name: "Hoạt động" },
+  { value: false, name: "Đang khoá" },
+  { value: true, name: "Hoạt động" },
   // { value: , name: "Tất cả" },
 ];
 

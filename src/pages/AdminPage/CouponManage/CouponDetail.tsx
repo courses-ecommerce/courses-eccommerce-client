@@ -1,13 +1,12 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import couponApi from "src/apis/couponApi";
-import Input from "src/components/Input";
-import InputSelect from "src/components/InputSelect";
+import FormInput from "src/components/FormInput";
 import ModalContainer from "src/components/ModalContainer";
-import { discountApplyTypes, discountTypes } from "src/data/searchInfo";
-import { ICoupon } from "src/types/cart";
+import { discountApplyTypes, discountTypes } from "src/data";
+import { ICoupon } from "src/types";
 
-import formatDate from "src/utils/formatDay";
+import formatDate from "src/utils/formatDate";
 
 interface CouponDetailProps {
   id: string | number;
@@ -52,25 +51,25 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
         }}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <Input
+          <FormInput.Input
             label="Tên mã giảm giá"
             placeholder="Nhập tên mã giảm giá"
             value={couponDetail.title}
             disabled
           />
-          <Input
+          <FormInput.Input
             label="Người tạo"
             placeholder="Nhập tên mã giảm giá"
             value={couponDetail.author?.fullName}
             disabled
           />
-          <InputSelect
+          <FormInput.InputSelect
             label="Đơn vị tính"
             list={discountTypes}
             defaultValue={couponDetail.type}
             disabled
           />
-          <Input
+          <FormInput.Input
             disabled
             label="Ngày bắt đầu"
             // type="datetime-local"
@@ -79,7 +78,7 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
               "dd-MM-yyyy hh:mm"
             )}
           />
-          <Input
+          <FormInput.Input
             disabled
             label="Ngày hết hạn"
             // type="datetime-local"
@@ -90,20 +89,20 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <InputSelect
+          <FormInput.InputSelect
             disabled
             label="Phạm vi áp dụng"
             list={discountApplyTypes}
             defaultValue={couponDetail.apply}
           />
-          <Input
+          <FormInput.Input
             disabled
             label="Còn lại"
             placeholder="Nhập số lượng giảm"
             value={`${couponDetail.remain}/${couponDetail.number}`}
           />
 
-          <Input
+          <FormInput.Input
             disabled
             label={`Số lượng giảm ${
               couponDetail.type === "percent" ? "(Phần trăm)" : "(VNĐ)"
@@ -111,13 +110,13 @@ const CouponDetail: React.FC<CouponDetailProps> = ({
             placeholder="Nhập số lượng giảm"
             value={couponDetail.amount}
           />
-          <Input
+          <FormInput.Input
             disabled
             label="Giảm giá tối đa (VNĐ) - Chỉ dành cho đơn vị tính là %"
             placeholder="Nhập giá tối đa"
             value={couponDetail.maxDiscount}
           />
-          <Input
+          <FormInput.Input
             disabled
             label="Giá tối thiểu (VNĐ)"
             placeholder="Nhập giá tối thiểu"

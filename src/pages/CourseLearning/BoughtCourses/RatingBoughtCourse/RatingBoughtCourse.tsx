@@ -106,12 +106,7 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
   return (
     <React.Fragment>
       {!value ? (
-        <ModalContainer
-          width={700}
-          title="Đánh giá khoá học"
-          open={show}
-          onClose={onClose}
-        >
+        <ModalContainer title="Đánh giá khoá học" open={show} onClose={onClose}>
           <form onSubmit={handleRating}>
             <Box
               sx={{
@@ -144,7 +139,6 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
         </ModalContainer>
       ) : (
         <ModalContainer
-          width={700}
           title="Đánh giá lại khoá học"
           open={show}
           onClose={onClose}
