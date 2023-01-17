@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import classnames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MediaContent from "src/components/MediaContent";
 import TextContent from "src/components/TextContent";
 import "./Input.scss";
