@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import classnames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MediaContent from "src/components/MediaContent";
 import TextContent from "src/components/TextContent";
 import "./Input.scss";
@@ -29,10 +29,7 @@ const Input = React.forwardRef(
     const [show, setShow] = useState(false);
 
     return (
-      <Box
-        className={classnames("input-container", className)}
-        component="form"
-      >
+      <Box className={classnames("input-container", className)}>
         <TextContent.Label label={label} required={required} />
         <Box
           className={classnames("input", {
