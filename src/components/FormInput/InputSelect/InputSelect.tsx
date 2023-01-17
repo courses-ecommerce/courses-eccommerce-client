@@ -30,7 +30,9 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
   const [value, setValue] = React.useState<ValueInputSelectType>("");
 
   React.useEffect(() => {
-    defaultValue && setValue(defaultValue);
+    if (defaultValue || typeof defaultValue === "boolean") {
+      setValue(defaultValue);
+    }
   }, [defaultValue]);
 
   const handleChange = (event: SelectChangeEvent<ValueInputSelectType>) => {
@@ -48,20 +50,14 @@ const InputSelect: React.FC<InputSelectProps> = (props) => {
         <Select
           disabled={disabled}
           displayEmpty
-          renderValue={() =>
-            list.map((item, index) =>
-              item.value === defaultValue ? (
-                <Box key={index} fontWeight={500}>
-                  {item.name}
-                </Box>
-              ) : (
-                item.value === "" && (
-                  <Box key={index} sx={{ color: "#aaa", fontWeight: "normal" }}>
+          renderValue={
+            defaultValue || typeof defaultValue === "boolean"
+              ? undefined
+              : () => (
+                  <Box sx={{ color: "#aaa", fontWeight: "normal" }}>
                     {placeholder}
                   </Box>
                 )
-              )
-            )
           }
           onChange={handleChange}
           sx={{
