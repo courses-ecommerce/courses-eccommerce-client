@@ -230,13 +230,13 @@ const CoursePage = () => {
         )}
       </div>
 
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 40 }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 12,
+            gap: 90,
           }}
         >
           <CourseContainer
@@ -261,7 +261,7 @@ const CoursePage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 12,
+            gap: 90,
           }}
         >
           <CourseContainer
@@ -289,7 +289,7 @@ const CoursePage = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  gap: 12,
+                  gap: 90,
                 }}
               >
                 <CourseContainer

@@ -27,7 +27,6 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   return (
     <div className="course-container">
       <span className="title">{title}</span>
-
       <div className="courses">
         {!isLoading ? (
           renderCourses(courses)
