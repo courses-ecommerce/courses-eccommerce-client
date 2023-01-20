@@ -1,10 +1,11 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import userApi from "src/apis/userApi";
-import InfoContent from "src/components/InfoContent";
+import BoxContent from "src/components/BoxContent";
 import LoadingContent from "src/components/LoadingContent";
+import TextContent from "src/components/TextContent";
 import { selectAuthorization } from "src/reducers";
 import { IUser } from "src/types";
 import formatDate from "src/utils/formatDate";
@@ -46,9 +47,7 @@ const ProfilePage = () => {
   return (
     <React.Fragment>
       <Box display="flex" flexDirection="column" gap={30}>
-        <Typography variant="h6" component="span" fontWeight={600}>
-          Thông tin chi tiết cá nhân
-        </Typography>
+        <TextContent.NormalText content="Thông tin chi tiết cá nhân" />
         <Box className="profile-page-info" display="flex" gap={80}>
           <Avatar
             alt={info.fullName}
@@ -56,39 +55,29 @@ const ProfilePage = () => {
             sx={{ width: 120, height: 120 }}
           />
 
-          <Box
-            className="content"
-            display="flex"
-            flexDirection="column"
-            gap={8}
-          >
-            <InfoContent hyphen_type=":" title="Tên" value={info.fullName} />
-            <InfoContent
-              hyphen_type=":"
-              title="Chức vụ"
-              value={translateVi(info.account?.role)}
+          <BoxContent.NormalContent style={{ maxWidth: 300, gap: 10 }}>
+            <BoxContent.ContentInfo title="Tên: " content={info.fullName} />
+            <BoxContent.ContentInfo
+              title="Chức vụ: "
+              content={translateVi(info.account?.role)}
             />
-            <InfoContent
-              hyphen_type=":"
+            <BoxContent.ContentInfo
               title="Email"
-              value={info.account?.email}
+              content={info.account?.email}
             />
-            <InfoContent
-              hyphen_type=":"
-              title="Giới tính"
-              value={isVerifyCharacter.isGender(info.gender)}
+            <BoxContent.ContentInfo
+              title="Giới tính: "
+              content={isVerifyCharacter.isGender(info.gender)}
             />
-            <InfoContent
-              hyphen_type=":"
-              title="Số điện thoại"
-              value={info.phone}
+            <BoxContent.ContentInfo
+              title="Số điện thoại: "
+              content={info.phone}
             />
-            <InfoContent
-              hyphen_type=":"
-              title="Ngày sinh"
-              value={formatDate.getDate(info.birthday, "dd-MM-yyyy")}
+            <BoxContent.ContentInfo
+              title="Ngày sinh: "
+              content={formatDate.getDate(info.birthday, "dd-MM-yyyy")}
             />
-          </Box>
+          </BoxContent.NormalContent>
         </Box>
 
         <Box display="flex" gap={8}>
