@@ -6,4 +6,3 @@ export * from "./regexCharacter";
 export * from "./table";
 export * from "./translateVi";
 export * from "./handleObject";
-export * from "./theme";
