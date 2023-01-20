@@ -1,10 +1,11 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import teacherApi from "src/apis/teacherApi";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { IUser } from "src/types/user";
-import "./TeacherInfo.scss";
+import BoxContent from "src/components/BoxContent";
+import TextContent from "src/components/TextContent";
+import { selectAuthorization } from "src/reducers";
+import { IUser } from "src/types";
 import UpdateBankingCard from "./UpdateBankingCard";
 
 const TeacherInfo: React.FC = () => {
@@ -45,27 +46,38 @@ const TeacherInfo: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="teacher-info">
-        <h3>Thông tin tài khoản ngân hàng</h3>
-        <div className="banking_info">
-          <span>
-            <b>Mã số tài khoản: </b>
-            {teacherInfo?.teacher?.payments?.accountNumber}
-          </span>
-          <span>
-            <b>Tên ngân hàng: </b>
-            {teacherInfo?.teacher?.payments?.bankName}
-          </span>
-          <span>
-            <b>Tên chủ sở hữu : </b>
-            {teacherInfo?.teacher?.payments?.name}
-          </span>
-        </div>
+    <React.Fragment>
+      <Box display="flex" flexDirection="column" gap={30}>
+        <TextContent.NormalText content="Thông tin tài khoản ngân hàng" />
+
+        <BoxContent.BoxShadow>
+          <BoxContent.ContentInfo
+            type="fit-content"
+            responsive={false}
+            title="Mã số tài khoản: "
+            content={teacherInfo?.teacher?.payments?.accountNumber}
+          />
+
+          <BoxContent.ContentInfo
+            type="fit-content"
+            responsive={false}
+            title="Tên ngân hàng: "
+            content={teacherInfo?.teacher?.payments?.bankName}
+          />
+
+          <BoxContent.ContentInfo
+            type="fit-content"
+            responsive={false}
+            title="Tên chủ sở hữu: "
+            content={teacherInfo?.teacher?.payments?.name}
+          />
+        </BoxContent.BoxShadow>
+
         <Button variant="contained" onClick={() => setShowUpdateBanking(true)}>
           Cập nhật thông tin tài khoản ngân hàng
         </Button>
-      </div>
+      </Box>
+
       <UpdateBankingCard
         bankingCard={teacherInfo?.teacher?.payments}
         id={teacherInfo?._id}
@@ -74,7 +86,7 @@ const TeacherInfo: React.FC = () => {
         onClose={() => setShowUpdateBanking(false)}
         setShow={setShowUpdateBanking}
       />
-    </>
+    </React.Fragment>
   );
 };
 
