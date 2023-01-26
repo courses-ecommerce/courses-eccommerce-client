@@ -26,7 +26,7 @@ const NormalText: React.FC<NormalTextProps> = ({
         variant="body1"
         fontWeight={600}
       >
-        {content || "Chưa có thông tin"}
+        {content}
       </Typography>
     );
   }
@@ -39,7 +39,7 @@ const NormalText: React.FC<NormalTextProps> = ({
         style={style}
         variant="body1"
       >
-        {content || "Chưa có thông tin"}
+        {content}
       </Typography>
     );
   }
@@ -52,7 +52,7 @@ const NormalText: React.FC<NormalTextProps> = ({
       variant="h6"
       fontWeight={600}
     >
-      {content || "Chưa có thông tin"}
+      {content}
     </Typography>
   );
 };
