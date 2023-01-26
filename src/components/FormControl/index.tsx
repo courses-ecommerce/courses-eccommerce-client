@@ -1,13 +1,15 @@
 import DateRangePicker from "./DateRangePicker";
+import FormEditor from "./FormEditor";
 import Input from "./Input";
 import InputSelect from "./InputSelect";
 import InputUploadFile from "./InputUploadFile";
 
-const FormInput = {
+const FormControl = {
   Input: Input,
   InputSelect: InputSelect,
   InputUploadFile: InputUploadFile,
   DateRangePicker: DateRangePicker,
+  FormEditor: FormEditor,
 };
 
-export default FormInput;
+export default FormControl;
