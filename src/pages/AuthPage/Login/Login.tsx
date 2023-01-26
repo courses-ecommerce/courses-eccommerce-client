@@ -1,13 +1,12 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import { getUserInfo, isLogin, isPending, isSuccess } from "src/reducers";
-
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
 import AuthPageContent from "..";
@@ -61,15 +60,21 @@ const Login = () => {
 
   return (
     <AuthPageContent.AuthLayout title="Đăng nhập hệ thống">
-      <form onSubmit={formik.handleSubmit}>
-        <FormInput.Input
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        gap={20}
+        onSubmit={formik.handleSubmit}
+      >
+        <FormControl.Input
           required
           label="Địa chỉ email"
           placeholder="Nhập địa chỉ gmail"
           errorMessage={formik.touched.email ? formik.errors.email : ""}
           {...formik.getFieldProps("email")}
         />
-        <FormInput.Input
+        <FormControl.Input
           required
           type="password"
           label="Mật khẩu"
@@ -81,21 +86,21 @@ const Login = () => {
         <Button type="submit" variant="contained">
           Đăng nhập
         </Button>
-      </form>
-      <div className="extra-links">
-        <div>
+      </Box>
+      <Box display="flex" flexDirection="column" gap={20}>
+        <Box display="flex" flexDirection="row" gap={20}>
           <SocialLogin.GoogleLogin />
-          {/* <FacebookLogin /> */}
-        </div>
-        <div>
+          <SocialLogin.FacebookLogin />
+        </Box>
+        <Box display="flex" flexDirection="row" gap={20}>
           <Link className="register" to="/register">
             Đăng ký tài khoản
           </Link>
           <Link className="forgot_password" to="/forgot_password">
             Quên mật khẩu
           </Link>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </AuthPageContent.AuthLayout>
   );
 };

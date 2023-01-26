@@ -1,11 +1,10 @@
-// import SendIcon from "@mui/icons-material/Send";
 import { Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import { isPending, isSuccess } from "src/reducers";
 import { IForgotPassword } from "src/types";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
@@ -88,7 +87,7 @@ const ForgotPassword = () => {
   return (
     <AuthPageContent.AuthLayout title="Lấy lại mật khẩu">
       <form className="forgot-password-form" onSubmit={formik.handleSubmit}>
-        <FormInput.Input
+        <FormControl.Input
           required
           label="Email"
           placeholder="Nhập địa chỉ gmail"
@@ -96,7 +95,7 @@ const ForgotPassword = () => {
           {...formik.getFieldProps("email")}
         />
         <div className="verify-code">
-          <FormInput.Input
+          <FormControl.Input
             required
             label="Mã xác nhận email"
             placeholder="Nhập mã xác nhận"
@@ -115,7 +114,7 @@ const ForgotPassword = () => {
             </Button>
           </Tooltip>
         </div>
-        <FormInput.Input
+        <FormControl.Input
           required
           type="password"
           label="Mật khẩu"

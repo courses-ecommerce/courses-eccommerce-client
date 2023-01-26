@@ -5,7 +5,6 @@ import ReactDOM from "react-dom";
 import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-//For react toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
@@ -13,7 +12,7 @@ import App from "./App";
 import "./index.scss";
 import { persistor, store } from "./reducers";
 import reportWebVitals from "./reportWebVitals";
-import theme from "./utils/theme";
+import { theme } from "./styles";
 
 ReactDOM.render(
   <React.StrictMode>

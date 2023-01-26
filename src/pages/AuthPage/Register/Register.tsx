@@ -4,15 +4,13 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import { isPending, isSuccess } from "src/reducers";
 import { IRegister } from "src/types";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import regexCharacter from "src/utils/regexCharacter";
-
 import * as Yup from "yup";
 import AuthPageContent from "..";
-
 import "./Register.scss";
 
 const Register = () => {
@@ -107,7 +105,7 @@ const Register = () => {
         onSubmit={formik.handleSubmit}
       >
         <div>
-          <FormInput.Input
+          <FormControl.Input
             required
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
@@ -115,7 +113,7 @@ const Register = () => {
             {...formik.getFieldProps("email")}
           />
           <div className="verify-code">
-            <FormInput.Input
+            <FormControl.Input
               required
               label="Mã xác nhận email"
               placeholder="Nhập mã xác nhận"
@@ -135,7 +133,7 @@ const Register = () => {
             </Tooltip>
           </div>
 
-          <FormInput.Input
+          <FormControl.Input
             required
             type="password"
             label="Mật khẩu"
@@ -158,14 +156,14 @@ const Register = () => {
         </div>
 
         <div>
-          <FormInput.Input
+          <FormControl.Input
             required
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             errorMessage={formik.touched.fullName ? formik.errors.fullName : ""}
             {...formik.getFieldProps("fullName")}
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Số điện thoại"
             placeholder="Nhập số điện thoại"
             errorMessage={formik.touched.phone ? formik.errors.phone : ""}

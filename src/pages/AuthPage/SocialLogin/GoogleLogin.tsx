@@ -1,17 +1,12 @@
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
-import GoogleLogin from "react-google-login";
+import { GoogleLogin as GoogleLoginBtn } from "react-google-login";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import {
-  getUserInfo,
-  isLogin,
-  isPending,
-  isSuccess,
-} from "src/reducers/authSlice";
+import { getUserInfo, isLogin, isPending, isSuccess } from "src/reducers";
 
-const GoogleLoginBtn = () => {
+const GoogleLogin = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,7 +50,7 @@ const GoogleLoginBtn = () => {
   };
 
   return (
-    <GoogleLogin
+    <GoogleLoginBtn
       clientId="72783105646-0j3u484s6rmteh96oucfvgu8oucp9g9o.apps.googleusercontent.com"
       buttonText="Đăng nhập bằng google"
       onSuccess={responseGoogle}
@@ -65,4 +60,4 @@ const GoogleLoginBtn = () => {
   );
 };
 
-export default GoogleLoginBtn;
+export default GoogleLogin;

@@ -1,8 +1,10 @@
-import { Divider, Tooltip } from "@mui/material";
+import { Divider } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import BoxContent from "src/components/BoxContent";
 import MediaContent from "src/components/MediaContent";
-
+import TextContent from "src/components/TextContent";
 import "./AuthLayout.scss";
 
 interface AuthLayoutProps {
@@ -14,18 +16,21 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ title, children }) => {
   const navigate = useNavigate();
   return (
     <div className="auth-container">
-      <div className="auth-content">
-        <div className="auth-title">
-          <Tooltip title="Quay lại trang chủ">
-            <span className="icon" onClick={() => navigate("/")}>
-              <MediaContent.Icon icon="home" size={28} />
-            </span>
-          </Tooltip>
-          <span>{title}</span>
-        </div>
+      <BoxContent.BoxShadow style={{ maxWidth: 650, background: "white" }}>
+        <Box display="flex" flexDirection="row" gap={10}>
+          <MediaContent.Icon
+            icon="home"
+            size={28}
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          />
+          <TextContent.NormalText type="title-header" content={title} />
+        </Box>
         <Divider />
-        <div className="auth-form">{children}</div>
-      </div>
+        <Box display="flex" flexDirection="column" gap={20}>
+          {children}
+        </Box>
+      </BoxContent.BoxShadow>
     </div>
   );
 };
