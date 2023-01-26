@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
 import { LINK_DOMAIN, topAmountTypes } from "src/data";
 import { getOptionsCharBar, getValueChartVertical } from "src/utils";
@@ -106,7 +106,7 @@ export default function CoursesHotByYear() {
             )}
           />
         </LocalizationProvider>
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           defaultValue={top}
           hideErrorMessage={true}
           list={topAmountTypes}

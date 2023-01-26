@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
-import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,13 +9,12 @@ import categoryApi from "src/apis/categoryApi";
 import chapterApi from "src/apis/chapterApi";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import LayoutContainer from "src/layouts/LayoutContainer";
 import { isPending, isSuccess } from "src/reducers";
 import { CourseStatus } from "src/types";
 import * as Yup from "yup";
-import ManageCourses from "..";
 import IntendedLearners from "../IntendedLearners";
 import Requirements from "../Requirements";
 import Targets from "../Targets";
@@ -321,21 +319,21 @@ const TeacherCourseDetail: React.FC = () => {
                   gap: 1,
                 }}
               >
-                <FormInput.InputUploadFile
+                <FormControl.InputUploadFile
                   className="thumbnail-course"
                   label="Thumbnail khóa học"
                   valueDefault={formik.values.thumbnail}
                   // onChange={(value) => formik.setFieldValue("thumbnail", value)}
                   onChange={(value) => postImage(value)}
                 />
-                <FormInput.Input
+                <FormControl.Input
                   required
                   label="Tên khóa học"
                   placeholder="Nhập tên khóa học"
                   errorMessage={formik.touched.name ? formik.errors.name : ""}
                   {...formik.getFieldProps("name")}
                 />
-                <FormInput.Input
+                <FormControl.Input
                   required
                   label="Giá gốc khóa học"
                   placeholder="1.200.000 đ"
@@ -346,7 +344,7 @@ const TeacherCourseDetail: React.FC = () => {
                   }
                   {...formik.getFieldProps("originalPrice")}
                 />
-                <FormInput.Input
+                <FormControl.Input
                   required
                   label="Giá khuyến mãi khóa học"
                   placeholder="1.000.000 đ"
@@ -361,11 +359,7 @@ const TeacherCourseDetail: React.FC = () => {
                   <h2>
                     Nội dung khóa học <span>*</span>
                   </h2>
-                  <ReactQuill
-                    style={{
-                      height: 70,
-                    }}
-                    theme="snow"
+                  <FormControl.FormEditor
                     value={formik.values.description}
                     onChange={(value) =>
                       formik.setFieldValue("description", value)
@@ -378,7 +372,7 @@ const TeacherCourseDetail: React.FC = () => {
                     {formik.errors.description}
                   </div>
                 )}
-                <FormInput.InputSelect
+                <FormControl.InputSelect
                   label="Loại khóa học"
                   list={categories}
                   onChange={(category_type) =>

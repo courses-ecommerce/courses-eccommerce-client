@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import couponApi from "src/apis/couponApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
@@ -185,13 +185,13 @@ const CouponList = () => {
               gap: 1,
             }}
           >
-            <FormInput.Input
+            <FormControl.Input
               style={{ width: 250 }}
               placeholder="Nhập tên mã giảm giá"
               onChange={(e: any) => setValue(e.target.value)}
             />
 
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               defaultValue={isActive}
               list={statusTypes}
               onChange={(status) => setIsActive(status)}

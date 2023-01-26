@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import myCourseApi from "src/apis/myCourseApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
 import Pagination from "src/components/Pagination";
 import { myCourseTypes } from "src/data";
@@ -79,7 +79,7 @@ export default function BoughtCourses() {
         }}
       >
         <h3>Danh sách khoá học của tôi</h3>
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           hideErrorMessage={true}
           defaultValue={sort}
           list={myCourseTypes}

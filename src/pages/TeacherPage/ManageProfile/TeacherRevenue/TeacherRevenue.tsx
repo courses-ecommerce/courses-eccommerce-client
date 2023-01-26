@@ -1,8 +1,10 @@
 import { Box, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import teacherApi from "src/apis/teacherApi";
-import FormInput from "src/components/FormInput";
+import BoxContent from "src/components/BoxContent";
+import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
+import TextContent from "src/components/TextContent";
 import RevenueInvoiceItem from "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueInvoiceItem";
 import { IInvoice, ITeacher } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
@@ -53,35 +55,55 @@ export default function TeacherRevenue() {
 
   return (
     <div className="teacher-revenue">
-      <h3>
-        Doanh thu của tôi từ ngày{" "}
-        {formatDate.getDate(dateRange?.start, "dd-MM-yyyy HH:mm:ss")} đến ngày{" "}
-        {formatDate.getDate(dateRange?.end, "dd-MM-yyyy HH:mm:ss")}
-      </h3>
+      {/* <BoxContent.NormalContent style={{ gap: 30 }}> */}
+      <TextContent.NormalText
+        type="title-header"
+        content={`Doanh thu từ ngày ${formatDate.getDate(
+          dateRange?.start,
+          "dd-MM-yyyy HH:mm:ss"
+        )} đến ngày
+        ${formatDate.getDate(dateRange?.end, "dd-MM-yyyy HH:mm:ss")}`}
+      />
       <Box sx={{ display: "flex", gap: 1 }}>
-        <FormInput.DateRangePicker onChange={(date) => setDateRange(date)} />
+        <FormControl.DateRangePicker onChange={(date) => setDateRange(date)} />
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
         <div className="revenue-teacher-info">
-          <h3>Thông tin giản viên</h3>
+          <TextContent.NormalText
+            type="title-header"
+            content="Thông tin giản viên"
+          />
           <div className="info">
-            <span>
-              <b>Tên giảng viên: </b>
-              {teacherInfo?.fullName}
-            </span>
-            <span>
-              <b>Tổng đã bán được trong tháng: </b>
-              {teacherInfo?.numOfDetailInvoice}
-            </span>
-            <span>
-              <b>Tổng tiền nhận được: </b>
-              {formatCharacter.numberLocale(teacherInfo?.revenue, " đồng")}
-            </span>
+            <BoxContent.ContentInfo
+              title="Tên giảng viên:"
+              content={teacherInfo?.fullName}
+              type="fit-content"
+              style={{ gap: 5 }}
+            />
+            <BoxContent.ContentInfo
+              title="Tổng số lượng đã bán trong tháng:"
+              content={teacherInfo?.numOfDetailInvoice}
+              type="fit-content"
+              style={{ gap: 5 }}
+            />
+            <BoxContent.ContentInfo
+              title="Tổng số tiền nhận được:"
+              content={formatCharacter.numberLocale(
+                teacherInfo?.revenue,
+                " đồng"
+              )}
+              type="fit-content"
+              style={{ gap: 5 }}
+            />
           </div>
         </div>
         <Divider />
         <div className="revenue-teacher-content">
-          <h3>Thông tin các khoá học đã bán trong tháng</h3>
+          <TextContent.NormalText
+            type="title-header"
+            content="Thông tin các khoá học đã bán trong tháng"
+          />
+
           <div className="content">
             {!isLoading ? (
               renderRevenueInvoices(invoices)
@@ -91,6 +113,7 @@ export default function TeacherRevenue() {
           </div>
         </div>
       </Box>
+      {/* </BoxContent.NormalContent> */}
     </div>
   );
 }

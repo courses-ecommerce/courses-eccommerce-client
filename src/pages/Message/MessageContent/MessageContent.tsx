@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import chatApi from "src/apis/chatApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import { IMessage, IUser } from "src/types";
 import translateVi from "src/utils/translateVi";
 
@@ -135,14 +135,14 @@ const MessageContent: React.FC<MessageContentProps> = ({
             <div ref={messagesEndRef}></div>
           </div>
           <form className="chat-handle" onSubmit={handleSubmit}>
-            <FormInput.Input
+            <FormControl.Input
               value={text}
               hideErrorMessage={true}
               className="input-text"
               placeholder="Nhập nội dung đoạn chat"
               onChange={(e: any) => setText(e.target.value)}
             />
-            <FormInput.InputUploadFile
+            <FormControl.InputUploadFile
               labelImg={false}
               onChange={handleImagePost}
             />

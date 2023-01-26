@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import Pagination from "src/components/Pagination";
 import { priceRangeTypes, sortTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
@@ -11,7 +11,6 @@ import { selectAuthorization } from "src/reducers";
 import { ICourse, SearchKeyProps } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
 import CourseContainer from "./CourseContainer";
-
 import "./CoursePage.scss";
 
 const CoursePage = () => {
@@ -162,7 +161,7 @@ const CoursePage = () => {
       {/* search input */}
       <div className="search-courses">
         {/* input search text */}
-        <FormInput.Input
+        <FormControl.Input
           className="input-text"
           style={{ width: 300 }}
           hideErrorMessage={true}
@@ -173,7 +172,7 @@ const CoursePage = () => {
         <div className="input-select">
           {categoryList && (
             <Box sx={{ width: 150 }}>
-              <FormInput.InputSelect
+              <FormControl.InputSelect
                 hideErrorMessage={true}
                 defaultValue={category}
                 list={categoryList}
@@ -186,7 +185,7 @@ const CoursePage = () => {
           )}
 
           <Box sx={{ width: 200 }}>
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               hideErrorMessage={true}
               defaultValue={sort}
               list={sortTypes}
@@ -197,7 +196,7 @@ const CoursePage = () => {
             />
           </Box>
           <Box sx={{ width: 200 }}>
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               hideErrorMessage={true}
               defaultValue={price}
               list={priceRangeTypes}

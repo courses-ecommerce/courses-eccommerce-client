@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import categoryApi from "src/apis/categoryApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
 import { categoryTypes, statusTypes } from "src/data";
 import { ICategory } from "src/types";
@@ -40,20 +40,20 @@ const CategoryDetail: React.FC<CategoryDetailProps> = ({
       onClose={onClose}
     >
       <Box component="form">
-        <FormInput.Input
+        <FormControl.Input
           label="Tên danh mục"
           value={categoryDetail.name}
           disabled
         />
-        <FormInput.Input label="slug" value={categoryDetail.slug} disabled />
+        <FormControl.Input label="slug" value={categoryDetail.slug} disabled />
 
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           label="Xuất bản"
           list={statusTypes}
           defaultValue={categoryDetail.publish}
           disabled
         />
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           label="Trạng thái"
           list={categoryTypes}
           defaultValue={categoryDetail.isPending?.toString()}

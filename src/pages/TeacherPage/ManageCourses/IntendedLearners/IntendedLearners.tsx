@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import { isPending, isSuccess } from "src/reducers";
 import "./IntendedLearners.scss";
@@ -54,7 +54,7 @@ const IntendedLearners: React.FC = () => {
     <div className="intended-learners">
       <div className="form">
         {textList.map((text, index) => (
-          <FormInput.Input
+          <FormControl.Input
             key={index}
             required
             value={text}

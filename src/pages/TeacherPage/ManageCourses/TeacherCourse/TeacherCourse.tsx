@@ -2,14 +2,13 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
 import ModalContainer from "src/components/ModalContainer";
 import { dateCourseTypes, statusCourseTypes } from "src/data";
@@ -158,7 +157,7 @@ const TeacherCourse: React.FC = () => {
         <h2 className="teacher_title">Khoá học của tôi</h2>
 
         <div className="teacher_navbar">
-          <FormInput.Input
+          <FormControl.Input
             style={{ width: 300 }}
             placeholder="Nhập tên khoá học của bạn"
             value={filter.name}
@@ -169,14 +168,14 @@ const TeacherCourse: React.FC = () => {
               })
             }
           />
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             style={{ width: 225 }}
             placeholder="Chọn trạng thái khóa học"
             defaultValue={filter.status}
             list={statusCourseTypes}
             onChange={(status) => setFilter({ ...filter, status })}
           />
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             style={{ width: 225 }}
             placeholder="Chọn thời gian khóa học"
             defaultValue={filter.sort}
@@ -260,19 +259,19 @@ const TeacherCourse: React.FC = () => {
           <Box
             sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}
           >
-            <FormInput.InputUploadFile
+            <FormControl.InputUploadFile
               className="create-thumbnail-course"
               label="Thumbnail khóa học"
               onChange={(value) => postImage(value)}
             />
-            <FormInput.Input
+            <FormControl.Input
               required
               label="Tên khóa học"
               placeholder="Nhập tên khóa học"
               errorMessage={formik.touched.name ? formik.errors.name : ""}
               {...formik.getFieldProps("name")}
             />
-            <FormInput.Input
+            <FormControl.Input
               required
               label="Giá gốc khóa học"
               placeholder="1.200.000 đ"
@@ -281,7 +280,7 @@ const TeacherCourse: React.FC = () => {
               }
               {...formik.getFieldProps("originalPrice")}
             />
-            <FormInput.Input
+            <FormControl.Input
               required
               label="Giá khuyến mãi khóa học"
               placeholder="1.000.000 đ"
@@ -294,11 +293,7 @@ const TeacherCourse: React.FC = () => {
               <h2>
                 Nội dung khóa học <span>*</span>
               </h2>
-              <ReactQuill
-                style={{
-                  height: 70,
-                }}
-                theme="snow"
+              <FormControl.FormEditor
                 value={formik.values.description}
                 onChange={(value) => formik.setFieldValue("description", value)}
                 placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
@@ -307,7 +302,7 @@ const TeacherCourse: React.FC = () => {
             {formik.touched.description && (
               <div className="editor-error">{formik.errors.description}</div>
             )}
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               label="Loại khóa học"
               list={categories}
               onChange={(category_type) =>

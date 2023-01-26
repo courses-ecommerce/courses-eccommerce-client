@@ -108,7 +108,7 @@ const PaymentDetail = () => {
             <tr>
               <th>Ngày thanh toán</th>
               <td>
-                {formatDate.getDate(invoice.createdAt, "dd-MM-yyyy hh:mm")}
+                {formatDate.getDate(invoice.createdAt, "dd-MM-yyyy HH:mm")}
               </td>
             </tr>
             <tr>

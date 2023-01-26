@@ -2,7 +2,7 @@ import { Box } from "@mui/system";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import categoryApi from "src/apis/categoryApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { categoryStatusTypes, categoryTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
@@ -126,25 +126,25 @@ const CategoryList = () => {
               gap: 1,
             }}
           >
-            <FormInput.Input
+            <FormControl.Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng tên danh mục"
               onChange={(e: any) => setValue(e.target.value)}
             />
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               defaultValue={publish}
               list={statusTypes}
-              onChange={(e) => setPublish(e.target.value)}
+              onChange={(status) => setPublish(status)}
             />
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               defaultValue={used}
               list={categoryStatusTypes}
-              onChange={(e) => setUsed(e.target.value)}
+              onChange={(status) => setUsed(status)}
             />
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               defaultValue={isPending}
               list={categoryTypes}
-              onChange={(e) => setIsPending(e.target.value)}
+              onChange={(status) => setIsPending(status)}
             />
           </Box>
         }

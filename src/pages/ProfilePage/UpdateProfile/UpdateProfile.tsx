@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import userApi from "src/apis/userApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
 import { genderTypes } from "src/data";
 import { getUserInfo, isPending, isSuccess } from "src/reducers";
@@ -84,28 +84,28 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ data, onUpdate }) => {
         onClose={() => setShowModal(false)}
       >
         <Box component="form" onSubmit={formik.handleSubmit}>
-          <FormInput.InputUploadFile
+          <FormControl.InputUploadFile
             label="Ảnh đại diện"
             // multiple
             // value={formik.values.avatar}
             valueDefault={data.avatar}
             onChange={(value) => formik.setFieldValue("avatar", value)}
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Họ và tên"
             {...formik.getFieldProps("fullName")}
           />
-          <FormInput.Input
+          <FormControl.Input
             type="date"
             label="Ngày sinh"
             {...formik.getFieldProps("birthday")}
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Số điện thoại"
             {...formik.getFieldProps("phone")}
             // errorMessage={formik.touched.phone ? formik.errors.phone : ""}
           />
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             label="Giới tính"
             list={genderTypes}
             required

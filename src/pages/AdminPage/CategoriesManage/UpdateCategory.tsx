@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
 import { categoryTypes, statusTypes } from "src/data";
 import { isPending, isSuccess } from "src/reducers";
@@ -103,21 +103,21 @@ const UpdateCategory: React.FC<UpdateCategoryProps> = ({
       }}
     >
       <form id="update-account" onSubmit={formik.handleSubmit}>
-        <FormInput.Input
+        <FormControl.Input
           label="Tên danh mục"
           placeholder="Nhập tên danh mục"
           errorMessage={formik.touched.name ? formik.errors.name : ""}
           {...formik.getFieldProps("name")}
         />
 
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           label="Xuất bản"
           list={statusTypes}
           defaultValue={formik.values.publish}
           errorMessage={formik.touched.publish ? formik.errors.publish : ""}
           {...formik.getFieldProps("publish")}
         />
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           label="Trạng thái"
           list={categoryTypes}
           defaultValue={formik.values.isPending?.toString()}

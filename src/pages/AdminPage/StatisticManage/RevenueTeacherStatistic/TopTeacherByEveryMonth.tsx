@@ -3,11 +3,10 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import statisticApi from "src/apis/statisticApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import { numberRangeTypes } from "src/data";
 import { ITeacher } from "src/types";
 import formatDate from "src/utils/formatDate";
-
 import "./RevenueTeacherStatistic.scss";
 
 const TeacherShowColumn = (data: any) => {
@@ -91,7 +90,7 @@ const TopTeacherByEveryMonth = () => {
             )}
           />
         </LocalizationProvider>
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           list={numberRangeTypes}
           defaultValue={top}
           onChange={(amount) => setTop(amount)}

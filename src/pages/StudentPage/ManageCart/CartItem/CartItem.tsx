@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cartApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import { getTotalCart, isPending, isSuccess } from "src/reducers";
 import { ICart } from "src/types";
@@ -150,7 +150,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onUpdate }) => {
               height: 35,
             }}
           >
-            <FormInput.Input
+            <FormControl.Input
               placeholder="Nhập coupon"
               value={cartItem?.coupon}
               style={{ height: 35 }}

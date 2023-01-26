@@ -2,9 +2,9 @@ import { Box, Button } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
-import { accountTypes, statusTypes } from "src/data/searchInfo";
+import { accountTypes, statusTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
 import { IUser } from "src/types/user";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
@@ -185,17 +185,17 @@ export default function AccountList() {
               gap: 1,
             }}
           >
-            <FormInput.Input
+            <FormControl.Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng địa chỉ email"
               onChange={(e: any) => setValue(e.target.value)}
             />
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               defaultValue={role}
               list={accountTypes}
               onChange={(role) => setRole(role)}
             />
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               defaultValue={isActive}
               list={statusTypes}
               onChange={(status) => setIsActive(status)}

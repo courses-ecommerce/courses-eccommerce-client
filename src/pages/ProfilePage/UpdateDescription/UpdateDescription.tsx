@@ -1,11 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import teacherApi from "src/apis/teacherApi";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
-import { isPending, isSuccess } from "src/reducers/authSlice";
+import { isPending, isSuccess } from "src/reducers";
 
 interface UpdateDescriptionProps {
   id?: string;
@@ -66,14 +66,10 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
         <Typography variant="h6" fontWeight={600} component="span">
           Thông tin mô tả cá nhân <span>*</span>
         </Typography>
-        <ReactQuill
-          // style={{
-          //   height: 70,
-          // }}
+        <FormControl.FormEditor
           defaultValue={value}
-          theme="snow"
-          onChange={(value) => setDescription(value)}
           placeholder="Nhập nội dung mô tả thông tin cá nhân."
+          onChange={(value) => setDescription(value)}
         />
         <Button type="submit" variant="contained">
           Cập nhật mô tả

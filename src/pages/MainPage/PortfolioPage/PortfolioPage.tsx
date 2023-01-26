@@ -5,15 +5,15 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
-import NavigationHeader from "src/components/NavigationHeader/NavigationHeader";
-import Pagination from "src/components/Pagination/Pagination";
-import CourseContainer from "src/pages/CoursePage/CourseContainer/CourseContainer";
-import UpdateDescription from "src/pages/ProfilePage/UpdateDescription/UpdateDescription";
-import { selectAuthorization } from "src/reducers/authSlice";
-import { ICourse } from "src/types/course";
-import { ITeacherPortfolio } from "src/types/statistic";
+import NavigationHeader from "src/components/NavigationHeader";
+import Pagination from "src/components/Pagination";
+import CourseContainer from "src/pages/CoursePage/CourseContainer";
+import UpdateDescription from "src/pages/ProfilePage/UpdateDescription";
+import { selectAuthorization } from "src/reducers";
+import { ICourse, ITeacherPortfolio } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
+
 import "./PortfolioPage.scss";
 
 const PortfolioPage = () => {

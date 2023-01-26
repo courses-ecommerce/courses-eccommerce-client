@@ -1,5 +1,5 @@
 export * from "./AccountPopover";
-export * from "./FormInput";
+export * from "./FormControl";
 export * from "./LoadingContent";
 export * from "./MediaContent";
 export * from "./ModalContainer";

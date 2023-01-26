@@ -4,7 +4,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import statisticApi from "src/apis/statisticApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
 import { numberRangeTypes } from "src/data";
 import { getOptionsCharBar, getValueChartVertical } from "src/utils";
@@ -72,7 +72,7 @@ const TopTeacherByYear = () => {
             )}
           />
         </LocalizationProvider>
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           list={numberRangeTypes}
           defaultValue={top}
           onChange={(amount) => setTop(amount)}

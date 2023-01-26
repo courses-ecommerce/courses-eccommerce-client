@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { LINK_DOMAIN, revenueSortTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
@@ -168,13 +168,13 @@ const RevenueTeacherStatistic = () => {
               gap: 1,
             }}
           >
-            <FormInput.Input
+            <FormControl.Input
               style={{ width: 250 }}
               placeholder="Tìm kiếm bằng địa chỉ email"
               hideErrorMessage={true}
               onChange={(e: any) => setValue(e.target.value)}
             />
-            <FormInput.InputSelect
+            <FormControl.InputSelect
               hideErrorMessage={true}
               list={revenueSortTypes}
               defaultValue={sort}

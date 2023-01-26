@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import lessonApi from "src/apis/lessonApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import { isPending, isSuccess } from "src/reducers";
 import Lesson, { ILessonUpload } from "../Lesson";
@@ -81,7 +81,7 @@ const Chapter: React.FC<ChapterUploadProps> = ({
         <div className="chapter_title">
           <h2>Section {index + 1}: </h2>
           {editTitle ? (
-            <FormInput.Input
+            <FormControl.Input
               style={{ height: 34, width: "100%" }}
               value={value}
               onChange={(e) => setValue((e.target as HTMLInputElement).value)}

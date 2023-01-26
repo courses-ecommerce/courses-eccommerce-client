@@ -5,7 +5,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import teacherApi from "src/apis/teacherApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers";
 import { IPayment } from "src/types";
@@ -92,7 +92,7 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
         onSubmit={formik.handleSubmit}
         style={{ display: "flex", flexDirection: "column", gap: 10 }}
       >
-        <FormInput.Input
+        <FormControl.Input
           label="Nhập mã số tài khoản"
           defaultValue={bankingCard?.accountNumber}
           errorMessage={
@@ -100,13 +100,13 @@ const UpdateBankingCard: React.FC<UpdateBankingCardProps> = ({
           }
           {...formik.getFieldProps("accountNumber")}
         />
-        <FormInput.Input
+        <FormControl.Input
           defaultValue={bankingCard?.bankName}
           label="Nhập tên ngân hàng"
           errorMessage={formik.touched.bankName ? formik.errors.bankName : ""}
           {...formik.getFieldProps("bankName")}
         />
-        <FormInput.Input
+        <FormControl.Input
           label="Nhập tên chủ sở hữu"
           defaultValue={bankingCard?.name}
           errorMessage={formik.touched.name ? formik.errors.name : ""}

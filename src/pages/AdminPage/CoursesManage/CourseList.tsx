@@ -3,7 +3,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { statusCourseTypes } from "src/data";
 import useTypingDebounce from "src/hooks/useTypingDebounce";
@@ -133,7 +133,7 @@ const CourseList = () => {
             gap: 1,
           }}
         >
-          <FormInput.Input
+          <FormControl.Input
             style={{ width: 250 }}
             placeholder="Nhập tên khoá học"
             onChange={(e: any) => setValue(e.target.value)}
@@ -145,7 +145,7 @@ const CourseList = () => {
             onChange={(e) => setPublish(e.target.value)}
           /> */}
 
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             defaultValue={status}
             placeholder="Chọn trạng thái khóa học"
             list={statusCourseTypes}

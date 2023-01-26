@@ -5,9 +5,9 @@ import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
 import { getOptionsCharBar, getValueChartVertical } from "src/utils";
-import FormInput from "src/components/FormInput";
 import { dateTypes, LINK_DOMAIN } from "src/data";
 import LoadingContent from "src/components/LoadingContent";
+import FormControl from "src/components/FormControl";
 
 export default function RevenueByRangeDate() {
   const [dateType, setDateType] = useState<any>("day");
@@ -82,8 +82,8 @@ export default function RevenueByRangeDate() {
           alignItems: "end",
         }}
       >
-        <FormInput.DateRangePicker onChange={(date) => setDateRange(date)} />
-        <FormInput.InputSelect
+        <FormControl.DateRangePicker onChange={(date) => setDateRange(date)} />
+        <FormControl.InputSelect
           defaultValue={dateType}
           hideErrorMessage={true}
           list={dateTypes}

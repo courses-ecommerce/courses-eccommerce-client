@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
 import { isPending, isSuccess } from "src/reducers";
 import { IUpdatePassword } from "src/types";
@@ -113,7 +113,7 @@ const UpdatePassword = () => {
           rowGap={12}
           onSubmit={formik.handleSubmit}
         >
-          <FormInput.Input
+          <FormControl.Input
             label="Nhập mật khẩu hiện tại"
             type="password"
             errorMessage={
@@ -121,13 +121,13 @@ const UpdatePassword = () => {
             }
             {...formik.getFieldProps("oldPassword")}
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Nhập mật khẩu mới"
             type="password"
             errorMessage={formik.touched.password ? formik.errors.password : ""}
             {...formik.getFieldProps("password")}
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Xác nhận lại mật khẩu mới"
             type="password"
             errorMessage={

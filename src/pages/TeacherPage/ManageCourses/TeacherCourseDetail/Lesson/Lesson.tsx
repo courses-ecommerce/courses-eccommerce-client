@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { toast } from "react-toastify";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import "./Lesson.scss";
 import { IVideoUpload, LessonUploadProps } from "./Lesson.type";
@@ -63,7 +63,7 @@ const Lesson: React.FC<LessonUploadProps> = ({
           <span>Lecture {index + 1}:</span>
 
           {editTitle ? (
-            <FormInput.Input
+            <FormControl.Input
               style={{ height: 34, width: "100%" }}
               value={value}
               onChange={(e) => setValue((e.target as HTMLInputElement).value)}
@@ -281,7 +281,7 @@ const Lesson: React.FC<LessonUploadProps> = ({
               </div>
             </div>
           ) : (
-            <FormInput.Input
+            <FormControl.Input
               type="file"
               onChange={handleUploadFile}
               accept="video/mp4,video/x-m4v,video/*"

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import adminApi from "src/apis/adminApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
 import { accountTypes, genderTypes, statusTypes } from "src/data";
 import { IUser } from "src/types";
@@ -52,25 +52,25 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
         }}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <FormInput.Input
+          <FormControl.Input
             label="Địa chỉ email"
             placeholder="Nhập địa chỉ email"
             value={userDetail.account?.email}
             disabled
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Họ và tên"
             placeholder="Nhập họ và tên"
             value={userDetail.fullName}
             disabled
           />
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             label="Chức vụ"
             list={accountTypes}
             defaultValue={userDetail.account?.role}
             disabled={true}
           />
-          <FormInput.Input
+          <FormControl.Input
             // type="date"
             disabled
             placeholder="ngày-tháng-năm"
@@ -79,25 +79,25 @@ const AccountDetail: React.FC<AccountDetailProps> = ({
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             label="Giới tính"
             list={genderTypes}
             disabled={true}
             defaultValue={userDetail.gender}
           />
-          <FormInput.InputSelect
+          <FormControl.InputSelect
             label="Trạng thái"
             list={statusTypes}
             disabled={true}
             defaultValue={userDetail.account?.isActive}
           />
-          <FormInput.Input
+          <FormControl.Input
             label="Số điện thoại"
             placeholder="Nhập số điện thoại"
             disabled
             value={userDetail.phone}
           />
-          <FormInput.Input
+          <FormControl.Input
             // type="date"
             disabled
             label="Ngày sinh nhật"

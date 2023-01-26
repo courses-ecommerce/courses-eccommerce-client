@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { toast } from "react-toastify";
 import statisticApi from "src/apis/statisticApi";
-import FormInput from "src/components/FormInput";
+import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
 import { LINK_DOMAIN, yearNumberCompare } from "src/data";
 import { getOptionsCharBar, getValueChartVerticalMultiColumn } from "src/utils";
@@ -130,7 +130,7 @@ export default function RevenueByEveryMonth() {
             )}
           />
         </LocalizationProvider>
-        <FormInput.InputSelect
+        <FormControl.InputSelect
           label="Phạm vi"
           hideErrorMessage={true}
           list={yearNumberCompare}
