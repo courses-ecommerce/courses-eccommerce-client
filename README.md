@@ -2,7 +2,7 @@
 
 ## Demo Links:
 
-[Link Apis](https://copper-large-rubidium.glitch.me/api-docs)
+[Link Apis](https://courses-ecommerce-apis.onrender.com/api-docs)
 
 [Banking card demo](https://sandbox.vnpayment.vn/apis/vnpay-demo/)
 
