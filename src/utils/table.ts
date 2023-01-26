@@ -52,7 +52,7 @@ export const getNewHeaderColumn = (
         return { [key]: item[key] ? "Đang mở" : "Hết hạn" };
       }
       if (key === "expireDate" || key === "startDate" || key === "createdAt") {
-        return { [key]: formatDate.getDate(item[key], "dd-MM-yyyy hh:mm:ss") };
+        return { [key]: formatDate.getDate(item[key], "dd-MM-yyyy HH:mm:ss") };
       }
       if (key === "percentProgress") {
         return { [key]: !item[key] ? "Chưa xem" : item[key] };
