@@ -1,6 +1,10 @@
 import { Typography } from "@mui/material";
 
-type NormalTextType = "title-header" | "title-content" | "description";
+type NormalTextType =
+  | "title-header-large"
+  | "title-header"
+  | "title-content"
+  | "description";
 
 interface NormalTextProps {
   type?: NormalTextType;
@@ -38,6 +42,20 @@ const NormalText: React.FC<NormalTextProps> = ({
         component={component}
         style={style}
         variant="body1"
+      >
+        {content}
+      </Typography>
+    );
+  }
+
+  if (type === "title-header-large") {
+    return (
+      <Typography
+        className={className}
+        component={component}
+        style={style}
+        variant="h5"
+        fontWeight={600}
       >
         {content}
       </Typography>
