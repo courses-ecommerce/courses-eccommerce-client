@@ -227,25 +227,25 @@ const Lesson: React.FC<LessonUploadProps> = ({
               </div>
               <span>Video</span>
             </div>
-            {/* <div className="type" onClick={() => setContentType(2)}>
+            <div className="type" onClick={() => setContentType(2)}>
               <div className="icon">
-                <Icon icon="file-movie-o" size={20} />
+                <MediaContent.Icon icon="file-movie-o" size={20} />
               </div>
-              <span>Video & Slide Mashup</span>
-            </div> */}
-            {/* <div
+              <span>Quizzes</span>
+            </div>
+            <div
               className="type"
               onClick={() => {
                 setContentType(3);
-                setValue(article);
-                setEditArticle(true);
+                // setValue(article);
+                // setEditArticle(true);
               }}
             >
               <div className="icon">
-                <Icon icon="file-text-o" size={20} />
+                <MediaContent.Icon icon="file-text-o" size={20} />
               </div>
-              <span>Article</span>
-            </div> */}
+              <span>Documents</span>
+            </div>
           </div>
         </div>
       )}

@@ -8,20 +8,16 @@
   display: flex;
   gap: 50px;
 
-  & > .sidebar {
-    position: sticky;
-    top: 100px;
-    left: 0;
-
-    height: fit-content;
-  }
-
   & > .form {
+    position: absolute;
+    left: 260px;
+
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: white;
     padding: 24px;
+
     border-radius: 16px;
-    width: calc(100% - 250px);
+    width: calc(100% - 280px);
 
     .thumbnail-course {
       width: 400px;
@@ -42,10 +38,6 @@
           color: red;
         }
       }
-
-      .ql-container {
-        height: 120px;
-      }
     }
 
     .editor-error {
@@ -54,67 +46,6 @@
       margin-top: -14px;
       font-weight: 600;
       color: red;
-    }
-
-    & > .title {
-      height: 100px;
-      display: flex;
-      justify-content: space-between;
-      padding: 24px 0;
-      margin-bottom: 24px;
-      border-bottom: 1px solid #d1d7dc;
-
-      & > p {
-        font-size: 14px;
-        margin-top: 50px;
-
-        & > span {
-          color: red;
-        }
-      }
-    }
-
-    & > .chapter-list {
-    }
-  }
-
-  & > .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 250px;
-
-    & > h2 {
-      font-size: 16px;
-    }
-    & > p {
-      cursor: pointer;
-      position: relative;
-      padding: 8px;
-      border-left: 5px solid transparent;
-
-      &.active {
-        border-color: #1c1d1f;
-      }
-    }
-  }
-
-  .new {
-    height: 32px;
-    padding: 8px;
-    position: relative;
-
-    &:hover {
-      & > .icon {
-        visibility: visible;
-      }
-    }
-
-    & > .icon {
-      cursor: pointer;
-      position: absolute;
-      left: 20px;
-      visibility: hidden;
     }
   }
 }
