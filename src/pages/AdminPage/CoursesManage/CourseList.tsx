@@ -6,7 +6,8 @@ import courseApi from "src/apis/courseApi";
 import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { statusCourseTypes } from "src/data";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
+
 import { ICourse } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 
@@ -57,17 +58,13 @@ const CourseList = () => {
   document.title = "Quản lý khoá học";
   const [loading, setLoading] = useState<boolean>(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
-  // const [publish, setPublish] = useState<boolean>(true);
 
-  //for search
   const [status, setStatus] = useState<string>("");
 
-  //pagination
   const [total, setTotal] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
 
-  //debounce
   const [value, setValue] = useState<string>();
   const debouncedValue = useTypingDebounce(value);
   const [name, setName] = useState<string>();

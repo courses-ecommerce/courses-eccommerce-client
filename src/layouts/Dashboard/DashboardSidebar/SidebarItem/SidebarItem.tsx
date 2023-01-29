@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MediaContent from "src/components/MediaContent";
-import useHover from "src/hooks/useHover";
+import { useHover } from "src/hooks";
 import { Router } from "src/types";
 import "./SidebarItem.scss";
 

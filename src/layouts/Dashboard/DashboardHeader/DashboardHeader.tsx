@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AccountPopover from "src/components/AccountPopover";
 import MediaContent from "src/components/MediaContent";
 import { linkUserProfile } from "src/data";
-import useClickOutSide from "src/hooks/useClickOutSide";
+import { useClickOutSide } from "src/hooks";
 import { setToggleStatus } from "src/reducers";
 import "./DashboardHeader.scss";
 

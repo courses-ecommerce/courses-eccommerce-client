@@ -6,7 +6,7 @@ import courseApi from "src/apis/courseApi";
 import FormControl from "src/components/FormControl";
 import Pagination from "src/components/Pagination";
 import { priceRangeTypes, sortTypes } from "src/data";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
 import { selectAuthorization } from "src/reducers";
 import { ICourse, SearchKeyProps } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";

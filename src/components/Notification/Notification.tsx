@@ -2,7 +2,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useClickOutSide from "src/hooks/useClickOutSide";
+import { useClickOutSide } from "src/hooks";
 import { selectAuthorization } from "src/reducers";
 import MediaContent from "../MediaContent";
 import "./Notification.scss";

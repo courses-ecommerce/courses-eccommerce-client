@@ -2,7 +2,7 @@ import { Tooltip } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Rating from "src/components/Rating";
-import useHover from "src/hooks/useHover";
+import { useHover } from "src/hooks";
 import { ICourse } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
 import translateVi from "src/utils/translateVi";
@@ -16,8 +16,6 @@ interface CourseItemProps {
 }
 const CourseItem: React.FC<CourseItemProps> = ({ courseInfo }) => {
   const navigate = useNavigate();
-
-  // console.log(courseInfo);
 
   const { nodeRef, show } = useHover();
 

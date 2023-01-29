@@ -7,7 +7,7 @@ import CartIcon from "src/components/CartIcon";
 import MediaContent from "src/components/MediaContent";
 import Notification from "src/components/Notification";
 import { linkHeader, linkUserProfile } from "src/data";
-import useClickOutSide from "src/hooks/useClickOutSide";
+import { useClickOutSide } from "src/hooks";
 import Logout from "src/pages/AuthPage/Logout";
 import { selectAuthorization } from "src/reducers";
 import HeaderNavigation from "../HeaderNavigation";

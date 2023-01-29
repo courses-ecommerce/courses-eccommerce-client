@@ -5,7 +5,7 @@ import couponApi from "src/apis/couponApi";
 import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { statusTypes } from "src/data";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
 import { ICoupon } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import CouponDetail from "./CouponDetail";

@@ -5,7 +5,7 @@ type CopyFn = (text: string) => Promise<boolean>; // Return success
 
 type useCopyToClipBoardType = [CopiedValue, CopyFn];
 
-const useCopyToClipBoard = (): useCopyToClipBoardType => {
+export const useCopyToClipBoard = (): useCopyToClipBoardType => {
   const [copiedText, setCopiedText] = useState<CopiedValue>(null);
 
   const copy: CopyFn = async (text) => {
@@ -30,5 +30,3 @@ const useCopyToClipBoard = (): useCopyToClipBoardType => {
 
   return [copiedText, copy];
 };
-
-export default useCopyToClipBoard;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import invoicesApi from "src/apis/invoicesApi";
 import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
 import { IInvoice } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 

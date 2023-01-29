@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-const useClickOutSide = (nodeHtml?: string) => {
+export const useClickOutSide = (nodeHtml?: string) => {
   const nodeRef = React.useRef<any>(null);
   const [show, setShow] = useState(false);
 
@@ -31,5 +31,3 @@ const useClickOutSide = (nodeHtml?: string) => {
 
   return { nodeRef, show, setShow };
 };
-
-export default useClickOutSide;

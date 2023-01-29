@@ -5,7 +5,7 @@ import categoryApi from "src/apis/categoryApi";
 import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { categoryStatusTypes, categoryTypes, statusTypes } from "src/data";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
 import { ICategory } from "src/types";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import CategoryDetail from "./CategoryDetail";

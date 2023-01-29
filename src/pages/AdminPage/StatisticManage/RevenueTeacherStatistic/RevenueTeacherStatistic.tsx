@@ -9,7 +9,7 @@ import statisticApi from "src/apis/statisticApi";
 import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { LINK_DOMAIN, revenueSortTypes } from "src/data";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import formatDate from "src/utils/formatDate";
 import TopTeacherByYear from "./TopTeacherByYear";

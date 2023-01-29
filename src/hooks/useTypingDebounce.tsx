@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-function useTypingDebounce<T>(typing_text: T, delayTime: number = 1000): T {
+export function useTypingDebounce<T>(
+  typing_text: T,
+  delayTime: number = 1000
+): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(typing_text);
 
   useEffect(() => {
@@ -13,5 +16,3 @@ function useTypingDebounce<T>(typing_text: T, delayTime: number = 1000): T {
 
   return debouncedValue;
 }
-
-export default useTypingDebounce;

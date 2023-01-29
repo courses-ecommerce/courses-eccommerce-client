@@ -5,7 +5,7 @@ import adminApi from "src/apis/adminApi";
 import FormControl from "src/components/FormControl";
 import Table from "src/components/Table";
 import { accountTypes, statusTypes } from "src/data";
-import useTypingDebounce from "src/hooks/useTypingDebounce";
+import { useTypingDebounce } from "src/hooks";
 import { IUser } from "src/types/user";
 import { getHeaderColumns, getNewHeaderColumn } from "src/utils";
 import translateVi from "src/utils/translateVi";

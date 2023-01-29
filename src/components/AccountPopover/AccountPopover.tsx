@@ -2,7 +2,7 @@ import { Avatar, IconButton, MenuItem, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { avatarNone } from "src/assets";
-import useClickOutSide from "src/hooks/useClickOutSide";
+import { useClickOutSide } from "src/hooks";
 import Logout from "src/pages/AuthPage/Logout";
 import { selectAuthorization } from "src/reducers";
 import { Router } from "src/types";

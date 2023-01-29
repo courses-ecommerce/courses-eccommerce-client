@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const useHover = () => {
+export const useHover = () => {
   const nodeRef = React.useRef<any>(null);
 
   const [show, setShow] = useState(false);
@@ -30,5 +30,3 @@ const useHover = () => {
     show,
   };
 };
-
-export default useHover;
