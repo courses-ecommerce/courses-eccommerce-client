@@ -18,6 +18,7 @@ const NormalContent: React.FC<NormalContentProps> = ({
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
+        alignItems="center"
         padding={20}
         borderRadius={3}
         style={style}
