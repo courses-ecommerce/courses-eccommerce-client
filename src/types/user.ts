@@ -52,7 +52,7 @@ export const convertRole = (role: Role) => {
       return "page";
 
     default:
-      console.log(`$Role {role} is not defined`);
+      console.log(`Role ${role} is not defined`);
       break;
   }
 };
