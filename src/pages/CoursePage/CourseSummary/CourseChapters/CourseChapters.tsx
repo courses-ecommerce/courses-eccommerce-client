@@ -8,10 +8,9 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getPanelActive } from "src/reducers/authSlice";
-import { ChaptersProps } from "src/types/course";
-import CourseChapterLesson from "./CourseChapterLesson/CourseChapterLesson";
-import "./CourseChapters.scss";
+import { getPanelActive } from "src/reducers";
+import { ChaptersProps } from "src/types";
+import CourseChapterLesson from "../CourseChapterLesson";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -30,17 +29,15 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
     {...props}
   />
-))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, .05)"
-      : "rgba(0, 0, 0, .03)",
+))(() => ({
+  gap: 4,
   flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
-  "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
+  "&.panel-active": {
+    background: "rgb(99, 99, 99)",
+    color: " rgb(255, 255, 255)",
   },
 }));
 
@@ -77,7 +74,7 @@ const CourseChapters: React.FC<CourseChaptersProps> = ({
     };
 
   return (
-    <>
+    <React.Fragment>
       <Accordion
         expanded={panelActive === `panel${index}`}
         onChange={handleChange(`panel${index}`)}
@@ -98,7 +95,7 @@ const CourseChapters: React.FC<CourseChaptersProps> = ({
           />
         </AccordionDetails>
       </Accordion>
-    </>
+    </React.Fragment>
   );
 };
 
