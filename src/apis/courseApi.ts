@@ -45,11 +45,6 @@ const courseApi = {
     const url = COURSE_API + "/check/" + id;
     return axiosClient.get(url);
   },
-
-  uploadImage: (image: any) => {
-    const url = COURSE_API + "/upload/image";
-    return axiosClient.post(url, image);
-  },
 };
 
 export default courseApi;
