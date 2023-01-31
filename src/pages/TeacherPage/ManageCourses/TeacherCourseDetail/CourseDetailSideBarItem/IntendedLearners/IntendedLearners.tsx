@@ -1,8 +1,7 @@
-import { Box, Button, Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
 import BoxContent from "src/components/BoxContent";
@@ -10,9 +9,9 @@ import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import TextContent from "src/components/TextContent";
 import { isPending, isSuccess } from "src/reducers";
-import "./IntendedLearners.scss";
+import { notificationMessage } from "src/utils";
 
-const IntendedLearners: React.FC = () => {
+const IntendedLearners = () => {
   const { id } = useParams();
   const [textList, setTextList] = useState<string[]>([]);
   const [slug, setSlug] = useState("");
@@ -20,11 +19,17 @@ const IntendedLearners: React.FC = () => {
 
   const handleAddText = () => {
     if (textList.length >= 5) {
-      toast.error("Thêm tối đa 5 item", {
-        position: "bottom-right",
-      });
+      notificationMessage("error", "Tối đa 5 đối tượng");
     } else {
       setTextList([...textList, ""]);
+    }
+  };
+  const handleDeleteText = () => {
+    if (textList.length === 1) {
+      notificationMessage("error", "Tối thiểu 1 đối tượng");
+    } else {
+      const newTextList = textList.slice(0, textList.length - 1);
+      setTextList([...newTextList]);
     }
   };
 
@@ -34,7 +39,10 @@ const IntendedLearners: React.FC = () => {
       .updateCourse(slug, {
         intendedLearners: textList,
       })
-      .then(() => dispatch(isSuccess()));
+      .then(() => {
+        notificationMessage("success", "Cập nhật thông tin thành công");
+        dispatch(isSuccess());
+      });
   };
 
   useEffect(() => {
@@ -59,56 +67,76 @@ const IntendedLearners: React.FC = () => {
         content="Đối tượng nào nên học?"
       />
       <Divider />
-      <div className="intended-learners">
-        <BoxContent.NormalContent style={{ padding: 0 }}>
-          {textList.map((text, index) => (
-            <FormControl.Input
-              key={index}
-              required
-              value={text}
-              onChange={(e) => {
-                const _value = (e.target as HTMLInputElement).value;
-                setTextList(
-                  textList.map((textItem, i) => {
-                    if (index === i) {
-                      return _value;
-                    }
-                    return textItem;
-                  })
-                );
-              }}
-              placeholder="A desire for a higher TOEIC score"
+      <BoxContent.NormalContent style={{ padding: 0 }}>
+        {textList.map((text, index) => (
+          <FormControl.Input
+            key={index}
+            required
+            value={text}
+            onChange={(e) => {
+              const _value = (e.target as HTMLInputElement).value;
+              setTextList(
+                textList.map((textItem, i) => {
+                  if (index === i) {
+                    return _value;
+                  }
+                  return textItem;
+                })
+              );
+            }}
+            placeholder="A desire for a higher TOEIC score"
+          />
+        ))}
+        <BoxContent.NormalContent
+          flexDirectionType="row"
+          style={{ width: "fit-content", gap: 10, padding: 0 }}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              height: 45,
+            }}
+            onClick={handleAddText}
+          >
+            <MediaContent.Icon icon="plus" color="#ffffff" size={15} />
+            <TextContent.NormalText
+              type="title-content"
+              content="Thêm 1 dòng"
+              style={{ marginLeft: "15px" }}
             />
-          ))}
+          </Button>
           <Button
             type="submit"
             variant="outlined"
             color="error"
             sx={{
               height: 45,
-              width: "fit-content",
             }}
-            onClick={handleAddText}
+            onClick={handleDeleteText}
           >
-            <MediaContent.Icon icon="plus" color="#d32f2f" size={15} />
-            <span style={{ marginLeft: "15px" }}>Thêm 1 dòng</span>
+            <MediaContent.Icon icon="minus" color="#d32f2f" size={15} />
+            <TextContent.NormalText
+              type="title-content"
+              content="Xóa 1 dòng"
+              style={{ marginLeft: "15px" }}
+            />
           </Button>
         </BoxContent.NormalContent>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{
-            height: 45,
-            display: "block",
-            marginLeft: "auto",
-            marginTop: "20px",
-          }}
-          onClick={handleSave}
-        >
-          Lưu thông tin
-        </Button>
-      </div>
+      </BoxContent.NormalContent>
+      <Button
+        type="submit"
+        variant="contained"
+        color="success"
+        sx={{
+          height: 45,
+          marginLeft: "auto",
+        }}
+        onClick={handleSave}
+      >
+        Lưu thông tin
+      </Button>
     </BoxContent.NormalContent>
   );
 };

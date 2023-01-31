@@ -2,14 +2,15 @@ import { Box, Button, Divider } from "@mui/material";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
+import uploadDocumentApi from "src/apis/uploadDocumentApi";
 import BoxContent from "src/components/BoxContent";
 import FormControl from "src/components/FormControl";
 import TextContent from "src/components/TextContent";
 import { isPending, isSuccess } from "src/reducers";
 import { CourseStatus } from "src/types";
+import { notificationMessage } from "src/utils";
 import * as Yup from "yup";
 import { ICategoriesCourse } from "../../TeacherCourseDetail.type";
 
@@ -62,7 +63,6 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
     onSubmit: async (values) => {
       dispatch(isPending());
       isUpdateCompleted?.(false);
-      console.log("image", image, typeof image);
 
       courseApi
         .updateCourse(slug, {
@@ -74,22 +74,29 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
         .then(() => {
           dispatch(isSuccess());
           isUpdateCompleted?.(true);
-          toast.success("Update thông tin khóa học thành công", {
-            position: "bottom-right",
-          });
+
+          notificationMessage(
+            "success",
+            "Cập nhật thông tin khóa học thành công"
+          );
         });
     },
   });
 
   useEffect(() => {
-    categoryApi.getCategories().then((res: any) => {
-      setCategories(
-        res.categories.map((category: any) => {
-          return { value: category._id, name: category.name };
-        })
-      );
-    });
-    // eslint-disable-next-line
+    const timeout = setTimeout(() => {
+      categoryApi.getCategories().then((res: any) => {
+        setCategories(
+          res.categories.map((category: any) => {
+            return { value: category._id, name: category.name };
+          })
+        );
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -97,24 +104,21 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseInformationValue]);
 
-  const postImage = (image: any) => {
+  const postImage = (image: File) => {
     dispatch(isPending());
-    const formData = new FormData();
-    formData.append("image", image);
 
-    courseApi
-      .uploadImage(formData)
+    uploadDocumentApi
+      .uploadImage(image)
       .then((res: any) => {
         dispatch(isSuccess());
-        const { message, url } = res;
-        toast.success(`${message}`, {
-          position: "bottom-right",
-        });
+        const { url } = res;
+        notificationMessage("success", "Cập nhật Thumbnail thành công");
         setImage(url);
       })
       .catch((err) => {
         dispatch(isSuccess());
         console.log("Lỗi rồi", err);
+        notificationMessage("error", err);
       });
   };
 
@@ -125,13 +129,15 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
           type="title-header-large"
           content="Thông tin khóa học"
         />
-        {/* I dont know exactly typeof here. 
-          I will fix it, when I have sufficient knowledge ^^ */}
+
         <BoxContent.NormalContent
           flexDirectionType="row"
           style={{ maxWidth: "fit-content", gap: 5, padding: 0 }}
         >
           <TextContent.Label label="Trạng thái khóa học:" />
+
+          {/* I dont know exactly typeof here. So I have put "never" in here :((
+          I will fix it, when I have sufficient knowledge ^^ */}
           <TextContent.ErrorMessage
             message={CourseStatus[courseStatus as never]}
           />
@@ -149,7 +155,6 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
           className="thumbnail-course"
           label="Thumbnail khóa học"
           valueDefault={formik.values.thumbnail}
-          // onChange={(value) => formik.setFieldValue("thumbnail", value)}
           onChange={(value) => postImage(value)}
         />
         <FormControl.Input
@@ -177,10 +182,8 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
           }
           {...formik.getFieldProps("currentPrice")}
         />
-        <div className="editor">
-          <h2>
-            Nội dung khóa học <span>*</span>
-          </h2>
+        <BoxContent.NormalContent style={{ gap: 0, padding: 0, height: 200 }}>
+          <TextContent.Label label="Nội dung khóa học" required />
           <FormControl.FormEditor
             style={{
               height: 120,
@@ -189,10 +192,7 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
             onChange={(value) => formik.setFieldValue("description", value)}
             placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
           />
-        </div>
-        {formik.touched.description && (
-          <div className="editor-error">{formik.errors.description}</div>
-        )}
+        </BoxContent.NormalContent>
         <FormControl.InputSelect
           label="Loại khóa học"
           list={categories}

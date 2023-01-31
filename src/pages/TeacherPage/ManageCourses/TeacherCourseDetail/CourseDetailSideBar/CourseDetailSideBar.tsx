@@ -8,7 +8,7 @@ const CourseDetailSideBar: React.FC<CourseDetailSideBarProps> = ({
   getSideBarId,
   children,
 }) => {
-  const [navBar, setNavbar] = useState(0);
+  const [navBar, setNavbar] = useState(3);
 
   useEffect(() => {
     getSideBarId?.(navBar);
