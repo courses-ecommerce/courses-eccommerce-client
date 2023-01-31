@@ -14,7 +14,7 @@ import {
   getVideoView,
   selectAuthorization,
 } from "src/reducers";
-import { ICourse, IRating } from "src/types";
+import { ICourse, IRating, Role } from "src/types";
 import AcceptCourseLearning from "../AcceptCourseLearning";
 import RatingBoughtCourse from "../BoughtCourses/RatingBoughtCourse";
 
@@ -35,25 +35,43 @@ const CourseLearningDetail = () => {
   const { videoView } = useSelector(selectAuthorization);
 
   const [rating, setRating] = useState<IRating>();
-  const [showRating, setShowRating] = useState<boolean>(false);
-  const [showAccept, setShowAccept] = useState<boolean>(false);
+  const [showRating, setShowRating] = useState(false);
+  const [showAccept, setShowAccept] = useState(false);
 
   useEffect(() => {
-    if (!isRole) {
-      navigate("/login");
-      // return;
-    }
-    if (isRole === "student") {
-      getMyCourseDetail();
-    }
-    if (isRole === "teacher") {
-      getTeacherCourseDetails();
-    }
-    if (isRole === "admin") {
-      getAdminCourseDetail();
-    }
+    const timeout = setTimeout(() => {
+      checkByRole(isRole as Role);
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const checkByRole = (isRole: Role) => {
+    /**
+     * ! Note: Mustn't use "return function()"
+     * Because, it will end when call this function()
+     * So use "return" when function() has completed or use "break"
+     * In this case, I use "switch-case" -> so I use "break" for this situation
+     */
+    switch (isRole) {
+      case "student":
+        getMyCourseDetail();
+        break;
+      case "teacher":
+        getTeacherCourseDetails();
+        break;
+      case "admin":
+        getAdminCourseDetail();
+        break;
+
+      default:
+        console.log(`Role ${isRole} doesn't have initial`);
+        navigate("/login");
+        break;
+    }
+  };
 
   const getTeacherCourseDetails = async () => {
     try {
@@ -108,7 +126,7 @@ const CourseLearningDetail = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <NavigationHeader />
       <div className="my-course-detail">
         <div className="info">
@@ -176,7 +194,7 @@ const CourseLearningDetail = () => {
           setShow={setShowAccept}
         />
       )}
-    </>
+    </React.Fragment>
   );
 };
 export default CourseLearningDetail;
