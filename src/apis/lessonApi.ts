@@ -1,4 +1,5 @@
-import { toast } from "react-toastify";
+import { DocumentType } from "src/types";
+import { notificationMessage } from "src/utils";
 import axiosClient from "./axiosClient";
 
 const LESSON_API = "/lessons";
@@ -19,46 +20,29 @@ const lessonApi = {
     description: string = ""
   ) => {
     const url = LESSON_API;
-    return axiosClient.post(url, {
+    const lesson_information = {
       chapter: idChapter,
       number,
       title: title.trim(),
       description: description.trim(),
-    });
+    };
+    return axiosClient.post(url, lesson_information);
   },
   updateLesson: async (
     idLesson?: string,
     number?: number,
     title?: string,
     description?: string,
-    file?: File
+    file?: string,
+    type?: DocumentType
   ) => {
     const url = LESSON_API + "/" + idLesson;
-    const formData = new FormData();
-    title && formData.append("title", title);
-    number && formData.append("number", number.toString());
-    description && formData.append("description", description);
-    file && formData.append("file", file);
-    file && formData.append("type", "video");
-
+    const lesson_information = { number, title, description, file, type };
     try {
-      const res: any = await axiosClient.put(url, formData);
-      if (res) {
-        if (file) {
-          toast.success("Upload video thành công", {
-            position: "bottom-right",
-          });
-        } else {
-          toast.success(res.message, {
-            position: "bottom-right",
-          });
-        }
-        return res;
-      }
-
-      return undefined;
+      await axiosClient.put(url, lesson_information);
+      notificationMessage("success", "Cập nhật thông tin lesson thành công");
     } catch (error) {
-      return undefined;
+      notificationMessage("error", error as string);
     }
   },
   deleteLesson: (idLesson: string) => {
