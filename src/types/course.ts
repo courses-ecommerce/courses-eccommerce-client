@@ -61,8 +61,6 @@ export enum CourseStatus {
   "update denied" = "Từ chối cập nhật",
 }
 
-export type LessonType = "video" | "file" | "quiz";
-
 export interface ICourse {
   _id?: string;
   author?: IUser;
