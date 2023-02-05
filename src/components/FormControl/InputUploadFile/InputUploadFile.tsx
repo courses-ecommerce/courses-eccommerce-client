@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { downloadIMG } from "src/assets";
+import { notificationMessage } from "src/utils";
 import formatCharacter from "src/utils/formatCharacter";
 import "./InputUploadFile.scss";
 import { InputUploadFileProps } from "./InputUploadFile.type";
@@ -16,6 +15,7 @@ const InputUploadFile: React.FC<InputUploadFileProps> = ({
   errorMessage,
   labelImg = true,
   className = "",
+  style,
 }) => {
   const [imagePreview, setImagePreview] = useState(valueDefault);
 
@@ -30,23 +30,16 @@ const InputUploadFile: React.FC<InputUploadFileProps> = ({
       const convertBtoMB = formatCharacter.convertIntoMB(_target.files[0].size);
 
       if (convertBtoMB >= 2) {
-        toast.warning("Hình ảnh không được quá 2MB", {
-          position: "bottom-right",
-        });
-        return;
-      } else {
-        // setImage(_target.files[0]);
-        onChange(_target.files[0]);
-
-        const url_img = URL.createObjectURL(_target.files[0]);
-        setImagePreview(url_img);
-        // URL.revokeObjectURL(url_img);
-        return;
+        return notificationMessage("error", "Hình ảnh không được quá 2MB");
       }
+      onChange(_target.files[0]);
+
+      const url_img = URL.createObjectURL(_target.files[0]);
+      return setImagePreview(url_img);
     } else {
-      toast.warning(
-        "Định dạng file không được hỗ trợ. Vui lòng chỉ chọn file hình ảnh (*.png, *.jpg, *.jpeg)",
-        { position: "bottom-center" }
+      notificationMessage(
+        "error",
+        "Định dạng file không được hỗ trợ. Vui lòng chỉ chọn file hình ảnh (*.png, *.jpg, *.jpeg)"
       );
     }
   };
@@ -68,8 +61,9 @@ const InputUploadFile: React.FC<InputUploadFileProps> = ({
 
       <label htmlFor="file_input">
         <img
-          className={classNames(className)}
+          className={className}
           src={imagePreview && labelImg ? imagePreview : downloadIMG}
+          style={style}
           alt=""
         />
       </label>
