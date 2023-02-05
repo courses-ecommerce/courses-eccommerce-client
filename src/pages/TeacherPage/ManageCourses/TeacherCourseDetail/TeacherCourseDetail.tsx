@@ -1,14 +1,14 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import chapterApi from "src/apis/chapterApi";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
 import LayoutContainer from "src/layouts/LayoutContainer";
 import { isPending, isSuccess } from "src/reducers";
+import { notificationMessage } from "src/utils";
 import { IChapterUpload } from "./Chapter";
 import CourseDetailSideBar, {
   CourseDetailSideBarData,
@@ -16,7 +16,7 @@ import CourseDetailSideBar, {
 import CourseDetailSideBarItem from "./CourseDetailSideBarItem";
 import "./TeacherCourseDetail.scss";
 
-const TeacherCourseDetail: React.FC = () => {
+const TeacherCourseDetail = () => {
   document.title = "Quản lý khóa học";
 
   const { id } = useParams();
@@ -37,52 +37,54 @@ const TeacherCourseDetail: React.FC = () => {
       name: "",
       description: "",
       category: "",
-      originalPrice: "",
-      currentPrice: "",
+      originalPrice: 0,
+      currentPrice: 0,
       thumbnail: "",
     },
     onSubmit: () => {},
   });
 
-  const getCourseDetails = useCallback(() => {
-    id &&
-      teacherApi
-        .getCourseDetails(id)
-        .then((res: any) => {
-          const {
-            name,
-            description,
-            category,
-            slug: _slugCourse,
-            chapters: chapterCourse,
-            status,
-            originalPrice,
-            currentPrice,
-            thumbnail,
-          } = res.course;
-          dispatch(isSuccess());
-          setSlug(_slugCourse);
-          formik.setValues({
-            name,
-            description,
-            originalPrice,
-            currentPrice,
-            category: category._id,
-            thumbnail,
-          });
-          setChapters(chapterCourse);
-          setCourseStatus(status);
-        })
-        .catch(() => {
-          dispatch(isSuccess());
-          nav("/teacher/info");
-        });
+  const getCourseDetails = useCallback(async () => {
+    dispatch(isPending());
+    try {
+      const response = await teacherApi.getCourseDetails(id);
+
+      const { course }: any = response;
+      const {
+        name,
+        description,
+        category,
+        slug: _slugCourse,
+        chapters: chapterCourse,
+        status,
+        originalPrice,
+        currentPrice,
+        thumbnail,
+      } = course;
+
+      dispatch(isSuccess());
+      setSlug(_slugCourse);
+      formik.setValues({
+        name,
+        description,
+        originalPrice,
+        currentPrice,
+        category: category._id,
+        thumbnail,
+      });
+      setChapters(chapterCourse);
+      setCourseStatus(status);
+    } catch (error) {
+      console.log("Lỗi rồi");
+      notificationMessage("error", error as string);
+      dispatch(isSuccess());
+      nav("/teacher/info");
+    }
 
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    dispatch(isPending());
     getCourseDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -113,10 +115,7 @@ const TeacherCourseDetail: React.FC = () => {
       })
       .then(() => {
         getCourseDetails();
-
-        toast.success("Chờ admin duyệt khóa học của bạn", {
-          position: "bottom-right",
-        });
+        notificationMessage("success", "Chờ admin duyệt khóa học của bạn");
       });
   };
 
@@ -125,22 +124,20 @@ const TeacherCourseDetail: React.FC = () => {
     courseApi
       .deleteCourse(slug)
       .then(() => {
-        toast.success("Xóa khóa học thành công", {
-          position: "bottom-right",
-        });
+        notificationMessage("success", "Xóa khóa học thành công");
         dispatch(isSuccess());
         nav("/teacher/course");
       })
       .catch((error) => {
-        console.log("lỗi rồi", { error });
-        toast.warning(`${error}`, { position: "bottom-right" });
+        console.log("lỗi rồi", error);
+        notificationMessage("error", error);
         dispatch(isSuccess());
       });
   };
 
   return (
     <LayoutContainer titleShow={false} footerShow={false}>
-      <div className="teacher-course-detail">
+      <Box className="teacher-course-detail">
         <CourseDetailSideBar
           sideBarContent={CourseDetailSideBarData}
           getSideBarId={(sideBarId) => setNavbar(sideBarId as number)}
@@ -176,7 +173,7 @@ const TeacherCourseDetail: React.FC = () => {
             Quay lại trang trước
           </Button>
         </CourseDetailSideBar>
-        <div className="form">
+        <Box className="teacher-course-detail-content">
           {navbar === 0 ? (
             <CourseDetailSideBarItem.CourseInformation
               slug={slug}
@@ -198,8 +195,8 @@ const TeacherCourseDetail: React.FC = () => {
           ) : (
             <CourseDetailSideBarItem.Targets />
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </LayoutContainer>
   );
 };
