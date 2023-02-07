@@ -28,6 +28,7 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
   courseInformationValue,
 }) => {
   const dispatch = useDispatch();
+  // console.log("courseInformationValue", courseInformationValue);
 
   const [image, setImage] = useState();
   const [categories, setCategories] = useState<ICategoriesCourse[]>([]);
@@ -38,8 +39,8 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
       name: "",
       description: "",
       category: "",
-      originalPrice: "",
-      currentPrice: "",
+      originalPrice: 0,
+      currentPrice: 0,
       thumbnail: "",
     },
     validationSchema: Yup.object({
@@ -153,6 +154,7 @@ const CourseInformation: React.FC<CourseInformationProps> = ({
       >
         <FormControl.InputUploadFile
           className="thumbnail-course"
+          style={{ width: 400, height: 200, objectFit: "cover" }}
           label="Thumbnail khóa học"
           valueDefault={formik.values.thumbnail}
           onChange={(value) => postImage(value)}

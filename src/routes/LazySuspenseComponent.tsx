@@ -138,6 +138,10 @@ const TeacherRevenue = React.lazy(
 );
 //#endregion
 
+//#region QuizPage
+const QuizPage = React.lazy(() => import("src/pages/QuizPage"));
+//#endregion
+
 //ALL PAGES COMPONENTS
 const MAIN_PAGE = {
   MainPage: <MainPage />,
@@ -156,6 +160,7 @@ const AUTH_PAGE = {
 
 const ADMIN_PAGE = {
   AdminPage: <AdminPage />,
+  QuizPage: <QuizPage />,
   RevenueTeacherDetail: <RevenueTeacherDetail />,
   PaymentDetail: <PaymentDetail />,
   CourseLearningDetail: <CourseLearningDetail />,
@@ -177,6 +182,7 @@ const ADMIN_PAGE = {
 
 const STUDENT_PAGE = {
   StudentPage: <StudentPage />,
+  QuizPage: <QuizPage />,
   PaymentDetail: <PaymentDetail />,
   CourseLearningDetail: <CourseLearningDetail />,
   STUDENT_DASHBOARD: {
@@ -204,6 +210,7 @@ const TEACHER_PAGE = {
   TeacherCourse: <TeacherCourse />,
   TeacherCourseDetail: <TeacherCourseDetail />,
   CourseLearningDetail: <CourseLearningDetail />,
+  QuizPage: <QuizPage />,
   TEACHER_DASHBOARD: {
     ProfilePage: <ProfilePage />,
     TeacherInfo: <TeacherInfo />,

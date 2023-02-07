@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import categoryApi from "src/apis/categoryApi";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
+import uploadDocumentApi from "src/apis/uploadDocumentApi";
 import FormControl from "src/components/FormControl";
 import LoadingContent from "src/components/LoadingContent";
 import ModalContainer from "src/components/ModalContainer";
@@ -15,6 +16,7 @@ import { dateCourseTypes, statusCourseTypes } from "src/data";
 import LayoutContainer from "src/layouts/LayoutContainer";
 import { isPending, isSuccess } from "src/reducers";
 import { CourseStatus, CourseType, ICourse } from "src/types";
+import { notificationMessage } from "src/utils";
 import * as Yup from "yup";
 import { ICategoriesCourse } from "../TeacherCourseDetail";
 import "./TeacherCourse.scss";
@@ -103,21 +105,17 @@ const TeacherCourse: React.FC = () => {
     },
   });
 
-  const postImage = (image: any) => {
+  const postImage = (image: File) => {
     dispatch(isPending());
-    const formData = new FormData();
-    formData.append("image", image);
+    // const formData = new FormData();
+    // formData.append("image", image);
 
-    courseApi
-      .uploadImage(formData)
+    uploadDocumentApi
+      .uploadImage(image)
       .then((res: any) => {
         dispatch(isSuccess());
-        const { message, url } = res;
-        // console.log("res", res);
-
-        toast.success(`${message}`, {
-          position: "bottom-right",
-        });
+        const { url } = res;
+        notificationMessage("success", "Upload Thumbnail thành công");
         setImage(url);
       })
       .catch((err) => {
@@ -149,6 +147,7 @@ const TeacherCourse: React.FC = () => {
     }, 500);
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   return (

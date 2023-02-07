@@ -7,6 +7,7 @@ export interface SideBarItem {
   title?: string;
 }
 export interface CourseDetailSideBarProps {
+  defaultSideBarId?: string | number;
   sideBarContent: SideBarItem[];
   getSideBarId?: (sideBarId: number | string) => void;
   children?: React.ReactNode;

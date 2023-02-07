@@ -85,7 +85,13 @@ const TeacherCourseDetail = () => {
   }, []);
 
   useEffect(() => {
-    getCourseDetails();
+    const timer = setTimeout(() => {
+      getCourseDetails();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -93,7 +99,6 @@ const TeacherCourseDetail = () => {
     if (isInformationCourseUpdated) {
       getCourseDetails();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInformationCourseUpdated]);
 
@@ -139,6 +144,7 @@ const TeacherCourseDetail = () => {
     <LayoutContainer titleShow={false} footerShow={false}>
       <Box className="teacher-course-detail">
         <CourseDetailSideBar
+          defaultSideBarId={navbar}
           sideBarContent={CourseDetailSideBarData}
           getSideBarId={(sideBarId) => setNavbar(sideBarId as number)}
         >

@@ -105,6 +105,11 @@ const TEACHER_ROUTE = [
   },
   {
     role: "teacher",
+    path: "/teacher/course/:id/:lessonId/quiz",
+    element: TEACHER_PAGE.QuizPage,
+  },
+  {
+    role: "teacher",
     path: "teacher/course/preview-course/:id",
     element: TEACHER_PAGE.CourseLearningDetail,
   },

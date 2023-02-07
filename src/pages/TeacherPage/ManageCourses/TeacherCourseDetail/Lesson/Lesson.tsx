@@ -2,10 +2,16 @@ import { Button } from "@mui/material";
 import classNames from "classnames";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import uploadDocumentApi from "src/apis/uploadDocumentApi";
+import BoxContent from "src/components/BoxContent";
 import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
+import TextContent from "src/components/TextContent";
+import { isPending, isSuccess } from "src/reducers";
+import { DocumentType } from "src/types";
+import { notificationMessage } from "src/utils";
 import "./Lesson.scss";
 import { IVideoUpload, LessonUploadProps } from "./Lesson.type";
 
@@ -15,15 +21,20 @@ const Lesson: React.FC<LessonUploadProps> = ({
   handleDeleteLesson,
   handleUpdateLesson,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
   const [show, setShow] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
   const [isContent, setIsContent] = useState(false);
-  const [contentType, setContentType] = useState(0);
+  const [contentType, setContentType] = useState<DocumentType>("none");
   const [description, setDescription] = useState(lesson.description);
-  const [article, setArticle] = useState("");
+
   const [video, setVideo] = useState<IVideoUpload>();
+  const [slide, setSlide] = useState<string>();
+
   const [value, setValue] = useState("");
-  const [editArticle, setEditArticle] = useState(false);
 
   const handleUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const _target = e.target as HTMLInputElement;
@@ -32,18 +43,103 @@ const Lesson: React.FC<LessonUploadProps> = ({
         _target.files[0].size / Math.pow(1024, 2)
       );
       if (convertBtoMB > 10) {
-        toast.error("Video tối đa upload là 10Mb", {
-          position: "bottom-right",
-        });
+        notificationMessage("error", "Video tối đa upload là 10Mb");
       } else {
-        handleUpdateLesson(
-          lesson.title,
-          index + 1,
-          lesson._id,
-          lesson.description,
-          _target.files[0]
-        );
+        uploadVideo(lesson._id, _target.files[0]);
       }
+    }
+  };
+
+  const handleUploadDocument = (e: React.FormEvent<HTMLInputElement>) => {
+    const _target = e.target as HTMLInputElement;
+    if (_target.files && _target.files.length !== 0) {
+      const convertBtoMB = Math.floor(
+        _target.files[0].size / Math.pow(1024, 2)
+      );
+      if (convertBtoMB > 10) {
+        notificationMessage("error", "Tài liệu tối đa upload là 10Mb");
+      } else {
+        uploadDocument(_target.files[0]);
+      }
+    }
+  };
+
+  const uploadVideo = async (lesson_id: string, video: File) => {
+    dispatch(isPending());
+    try {
+      const response = await uploadDocumentApi.uploadVideo(lesson_id, video);
+      const { video: videoURL, videoInfo }: any = response;
+      // console.log("response", response);
+      // console.log(" videoURL", videoURL);
+
+      dispatch(isSuccess());
+      //Link mp4
+      // setVideoUrl(videoURL[1]);
+
+      handleUpdateLesson(
+        lesson.title,
+        index + 1,
+        lesson._id,
+        lesson.description,
+        videoURL,
+        "video",
+        videoInfo
+      );
+    } catch (error) {
+      console.log("Lỗi rồi", { error });
+      dispatch(isSuccess());
+      notificationMessage("error", error as string);
+    }
+  };
+
+  const handleUploadQuiz = () => {
+    handleUpdateLesson(
+      lesson.title,
+      index + 1,
+      lesson._id,
+      lesson.description,
+      "",
+      "quiz"
+    );
+    navigate(`${lesson._id}/quiz`);
+  };
+
+  const uploadDocument = async (document: File) => {
+    dispatch(isPending());
+    try {
+      const response = await uploadDocumentApi.uploadFile(document);
+      const { url }: any = response;
+
+      dispatch(isSuccess());
+
+      handleUpdateLesson(
+        lesson.title,
+        index + 1,
+        lesson._id,
+        lesson.description,
+        url,
+        "slide"
+      );
+    } catch (error) {
+      console.log("Lỗi rồi", { error });
+      dispatch(isSuccess());
+      notificationMessage("error", error as string);
+    }
+  };
+
+  const checkTypeLesson = (type: DocumentType) => {
+    // console.log("type", type, lesson);
+
+    if (type === "video") {
+      setVideo(lesson.videoInfo || "");
+      setContentType(lesson.videoInfo ? "video" : "none");
+    }
+    if (type === "quiz") {
+      setContentType("quiz");
+    }
+    if (type === "slide") {
+      setSlide(lesson.slide);
+      setContentType("slide");
     }
   };
 
@@ -52,8 +148,9 @@ const Lesson: React.FC<LessonUploadProps> = ({
       setValue("");
       setEditTitle(true);
     }
-    setVideo(lesson.videoInfo || "");
-    setContentType(lesson.videoInfo ? 1 : 0);
+
+    checkTypeLesson(lesson.type as DocumentType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson]);
 
   return (
@@ -64,12 +161,12 @@ const Lesson: React.FC<LessonUploadProps> = ({
 
           {editTitle ? (
             <FormControl.Input
-              style={{ height: 34, width: "100%" }}
+              style={{ height: 34 }}
               value={value}
               onChange={(e) => setValue((e.target as HTMLInputElement).value)}
             />
           ) : (
-            <>
+            <React.Fragment>
               <MediaContent.Icon icon="file-text-o" size={15} />
               <span>{lesson.title}</span>
 
@@ -93,49 +190,45 @@ const Lesson: React.FC<LessonUploadProps> = ({
                 />
               </div>
               {lesson.publish && <div className="active">Đã kích hoạt</div>}
-            </>
+            </React.Fragment>
           )}
         </div>
         {!editTitle && (
           <div className="right">
-            {isContent && !video && !article ? (
+            {isContent && !video ? (
               <span>
-                {contentType === 0
+                {contentType === "none"
                   ? "Select content type"
-                  : contentType === 1
-                  ? "Add Video"
-                  : // : contentType === 2
-                    // ? "Add Video & Slide Mashup"
-                    "Add Article"}
+                  : contentType === "video"
+                  ? "Upload Video"
+                  : "Upload tài liệu"}
                 <MediaContent.Icon
                   icon="close"
                   size={15}
                   className="icon"
                   onClick={() => {
                     setIsContent(false);
-                    setContentType(0);
+                    setContentType("none");
                   }}
                 />
               </span>
             ) : (
-              !article && (
-                <>
-                  {!video && (
-                    <div className="content" onClick={() => setIsContent(true)}>
-                      <MediaContent.Icon icon="plus" size={15} />
-                      Content
-                    </div>
-                  )}
-                  <MediaContent.Icon
-                    icon="chevron-down"
-                    size={15}
-                    className={classNames("icon", {
-                      active: show,
-                    })}
-                    onClick={() => setShow(!show)}
-                  />
-                </>
-              )
+              <React.Fragment>
+                {!lesson.type && (
+                  <div className="content" onClick={() => setIsContent(true)}>
+                    <MediaContent.Icon icon="plus" size={15} />
+                    Select Content
+                  </div>
+                )}
+                <MediaContent.Icon
+                  icon="chevron-down"
+                  size={15}
+                  className={classNames("icon", {
+                    active: show,
+                  })}
+                  onClick={() => setShow(!show)}
+                />
+              </React.Fragment>
             )}
           </div>
         )}
@@ -152,9 +245,7 @@ const Lesson: React.FC<LessonUploadProps> = ({
             onClick={() => {
               value
                 ? setEditTitle(false)
-                : toast.error("Vui lòng nhập tiêu đề bài học", {
-                    position: "bottom-right",
-                  });
+                : notificationMessage("error", "Vui lòng nhập tiêu đề bài học");
             }}
           >
             Cancel
@@ -172,9 +263,7 @@ const Lesson: React.FC<LessonUploadProps> = ({
                 setEditTitle(false);
                 handleUpdateLesson(value, index + 1, lesson._id);
               } else {
-                toast.error("Vui lòng nhập tiêu đề bài học", {
-                  position: "bottom-right",
-                });
+                notificationMessage("error", "Vui lòng nhập tiêu đề bài học");
               }
             }}
           >
@@ -183,74 +272,34 @@ const Lesson: React.FC<LessonUploadProps> = ({
         </div>
       )}
 
-      {contentType === 3 && article && !editArticle && (
+      {isContent && contentType === "none" && (
         <div className="bottom">
-          <div className="article">
-            <MediaContent.Icon icon="file-text-o" color="black" />
-            <Button
-              variant="contained"
-              sx={{
-                textTransform: "capitalize",
-                color: "white",
-                fontWeight: "bold",
-                backgroundColor: "black",
-                height: 40,
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-              }}
-              onClick={() => {
-                setEditArticle(true);
-                setValue(article);
-              }}
-            >
-              <MediaContent.Icon
-                icon="edit"
-                size={20}
-                className="icon"
-                color="white"
-              />
-              <span>Edit Content</span>
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {isContent && contentType === 0 && (
-        <div className="bottom">
-          <p style={{ textAlign: "center" }}>Select the main type of content</p>
+          <TextContent.NormalText content="Select the main type of content" />
 
           <div className="types">
-            <div className="type" onClick={() => setContentType(1)}>
+            <div className="type" onClick={() => setContentType("video")}>
               <div className="icon">
                 <MediaContent.Icon icon="play-circle-o" size={20} />
               </div>
               <span>Video</span>
             </div>
-            <div className="type" onClick={() => setContentType(2)}>
+            <div className="type" onClick={() => handleUploadQuiz()}>
               <div className="icon">
                 <MediaContent.Icon icon="file-movie-o" size={20} />
               </div>
-              <span>Quizzes</span>
+              <span>Bài kiểm tra</span>
             </div>
-            <div
-              className="type"
-              onClick={() => {
-                setContentType(3);
-                // setValue(article);
-                // setEditArticle(true);
-              }}
-            >
+            <div className="type" onClick={() => setContentType("slide")}>
               <div className="icon">
                 <MediaContent.Icon icon="file-text-o" size={20} />
               </div>
-              <span>Documents</span>
+              <span>Tài liệu</span>
             </div>
           </div>
         </div>
       )}
 
-      {contentType === 1 ? (
+      {contentType === "video" ? (
         <div className="bottom">
           {video ? (
             <div className="file">
@@ -281,68 +330,65 @@ const Lesson: React.FC<LessonUploadProps> = ({
               </div>
             </div>
           ) : (
-            <FormControl.Input
-              type="file"
-              onChange={handleUploadFile}
-              accept="video/mp4,video/x-m4v,video/*"
-            />
+            <BoxContent.NormalContent style={{ padding: 0, gap: 4 }}>
+              <TextContent.Label label="Chọn video cần upload" required />
+              <FormControl.Input
+                type="file"
+                onChange={handleUploadFile}
+                accept="video/mp4,video/x-m4v,video/*"
+              />
+            </BoxContent.NormalContent>
           )}
         </div>
-      ) : contentType === 2 ? (
-        <></>
-      ) : contentType === 3 && editArticle ? (
+      ) : contentType === "quiz" ? (
         <div className="bottom">
-          <p>Text</p>
-
-          <div className="editor">
-            <ReactQuill
-              style={{
-                height: 70,
-              }}
-              theme="snow"
-              value={value}
-              onChange={setValue}
-              placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
-            />
-          </div>
-          <div className="btns">
-            <Button
-              variant="contained"
-              sx={{
-                textTransform: "capitalize",
-                color: "white",
-                fontWeight: "bold",
-                backgroundColor: "black",
-              }}
-              onClick={() => {
-                setValue("");
-                setArticle(value);
-                setEditArticle(false);
-              }}
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ width: "max-content" }}
+          >
+            <a
+              href={`/teacher/course/${id}/${lesson._id}/quiz`}
+              style={{ color: "white" }}
             >
-              Save
-            </Button>
-          </div>
+              Đi đến trang kiểm tra
+            </a>
+          </Button>
         </div>
+      ) : contentType === "slide" ? (
+        slide ? (
+          <div className="bottom">
+            <a href={slide}>Link tài liệu</a>
+          </div>
+        ) : (
+          <div className="bottom">
+            <BoxContent.NormalContent style={{ padding: 0, gap: 4 }}>
+              <TextContent.Label label="Chọn tài liệu cần upload" required />
+              <FormControl.Input
+                type="file"
+                onChange={handleUploadDocument}
+                accept=".pdf,.doc,.docx"
+              />
+            </BoxContent.NormalContent>
+          </div>
+        )
       ) : (
         <></>
       )}
 
       {show && (
         <div className="bottom">
-          <p>Nội dung khóa học</p>
-
-          <div className="editor">
-            <ReactQuill
+          <BoxContent.NormalContent style={{ gap: 0, padding: 0, height: 200 }}>
+            <TextContent.Label label="Nội dung khóa học" />
+            <FormControl.FormEditor
               style={{
-                height: 70,
+                height: 120,
               }}
-              theme="snow"
               value={description}
               onChange={setDescription}
               placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
             />
-          </div>
+          </BoxContent.NormalContent>
 
           <div className="btns">
             <Button

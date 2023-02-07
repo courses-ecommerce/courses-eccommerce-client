@@ -1,14 +1,15 @@
-import { CourseDetailSideBarProps } from "./CourseDetailSideBar.type";
 import React, { useEffect, useState } from "react";
-import "./CourseDetailSideBar.scss";
 import TextContent from "src/components/TextContent";
+import "./CourseDetailSideBar.scss";
+import { CourseDetailSideBarProps } from "./CourseDetailSideBar.type";
 
 const CourseDetailSideBar: React.FC<CourseDetailSideBarProps> = ({
+  defaultSideBarId = 0,
   sideBarContent,
   getSideBarId,
   children,
 }) => {
-  const [navBar, setNavbar] = useState(3);
+  const [navBar, setNavbar] = useState(defaultSideBarId);
 
   useEffect(() => {
     getSideBarId?.(navBar);

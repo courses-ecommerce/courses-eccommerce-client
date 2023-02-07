@@ -1,3 +1,5 @@
+import { DocumentType, VideoInfo } from "src/types";
+
 type StatusProgress = "pending" | "success";
 
 export interface IVideoUpload {
@@ -15,6 +17,8 @@ export interface ILessonUpload {
   description: string;
   videoInfo: IVideoUpload;
   publish: boolean;
+  type?: DocumentType;
+  slide?: string;
 }
 
 export interface LessonUploadProps {
@@ -25,7 +29,9 @@ export interface LessonUploadProps {
     order: number,
     lessonId: string,
     description?: string,
-    file?: File
+    file?: string,
+    documentType?: DocumentType,
+    videoInfo?: VideoInfo
   ) => void;
   handleDeleteLesson: (id: string) => void;
 }

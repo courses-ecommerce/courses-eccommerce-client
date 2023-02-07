@@ -1,3 +1,19 @@
+//documents ~ slide
+export type DocumentType = "none" | "video" | "quiz" | "slide";
+export enum DocumentENUM {
+  VIDEO = "video",
+  QUIZ = "quiz",
+  DOCUMENTS = "slide",
+}
+
+export interface VideoInfo {
+  name?: string;
+  size?: string;
+  createdAt?: string;
+  status?: string;
+  type?: string;
+}
+
 export interface Answer {
   answerID: string;
   key: string; //A, B, C, D,..

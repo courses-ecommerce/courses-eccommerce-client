@@ -1,4 +1,4 @@
-import { DocumentType } from "src/types";
+import { DocumentType, VideoInfo } from "src/types";
 import { notificationMessage } from "src/utils";
 import axiosClient from "./axiosClient";
 
@@ -33,13 +33,41 @@ const lessonApi = {
     number?: number,
     title?: string,
     description?: string,
-    file?: string,
-    type?: DocumentType
+    file_url?: string | string[],
+    type?: DocumentType,
+    videoInfo?: VideoInfo
   ) => {
     const url = LESSON_API + "/" + idLesson;
-    const lesson_information = { number, title, description, file, type };
+
+    let lesson_information;
+    if (type === "video") {
+      lesson_information = {
+        number,
+        title,
+        description,
+        file: file_url,
+        type,
+        videoInfo,
+      };
+      console.log("lesson_information", lesson_information);
+    }
+    if (type === "slide") {
+      lesson_information = {
+        number,
+        title,
+        description,
+        slide: file_url,
+        type,
+      };
+    }
+    if (type === "quiz") {
+      lesson_information = { number, title, description, type };
+    }
+
     try {
-      await axiosClient.put(url, lesson_information);
+      const response = await axiosClient.put(url, lesson_information);
+      console.log(response);
+
       notificationMessage("success", "Cập nhật thông tin lesson thành công");
     } catch (error) {
       notificationMessage("error", error as string);

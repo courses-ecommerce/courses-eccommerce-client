@@ -1,11 +1,12 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import lessonApi from "src/apis/lessonApi";
 import FormControl from "src/components/FormControl";
 import MediaContent from "src/components/MediaContent";
 import { isPending, isSuccess } from "src/reducers";
+import { DocumentType, VideoInfo } from "src/types";
+import { notificationMessage } from "src/utils";
 import Lesson, { ILessonUpload } from "../Lesson";
 import "./Chapter.scss";
 import { ChapterUploadProps } from "./Chapter.type";
@@ -52,11 +53,13 @@ const Chapter: React.FC<ChapterUploadProps> = ({
     order: number,
     lessonId: string,
     description?: string,
-    file?: File
+    file?: string,
+    type?: DocumentType,
+    videoInfo?: VideoInfo
   ) => {
     dispatch(isPending());
     lessonApi
-      .updateLesson(lessonId, order, name, description, file)
+      .updateLesson(lessonId, order, name, description, file, type, videoInfo)
       .then(() => {
         lessonApi.getLessons(chapter._id).then((res: any) => {
           dispatch(isSuccess());
@@ -70,6 +73,7 @@ const Chapter: React.FC<ChapterUploadProps> = ({
     lessonApi.deleteLesson(chapterId).then(() => {
       lessonApi.getLessons(chapter._id).then((res: any) => {
         dispatch(isSuccess());
+        notificationMessage("success", "Xóa lesson thành công");
         setLessons(res.lessons);
       });
     });
@@ -82,7 +86,7 @@ const Chapter: React.FC<ChapterUploadProps> = ({
           <h2>Section {index + 1}: </h2>
           {editTitle ? (
             <FormControl.Input
-              style={{ height: 34, width: "100%" }}
+              style={{ height: 34 }}
               value={value}
               onChange={(e) => setValue((e.target as HTMLInputElement).value)}
             />
@@ -125,9 +129,10 @@ const Chapter: React.FC<ChapterUploadProps> = ({
               onClick={() => {
                 value
                   ? setEditTitle(false)
-                  : toast.error("Vui lòng nhập tiêu đề của chương", {
-                      position: "bottom-right",
-                    });
+                  : notificationMessage(
+                      "error",
+                      "Vui lòng nhập tiêu đề của chương"
+                    );
               }}
             >
               Cancel
@@ -145,9 +150,10 @@ const Chapter: React.FC<ChapterUploadProps> = ({
                   setEditTitle(false);
                   handleUpdateChapter(value, index + 1, chapter._id);
                 } else {
-                  toast.error("Vui lòng nhập tiêu đề của chương", {
-                    position: "bottom-right",
-                  });
+                  notificationMessage(
+                    "error",
+                    "Vui lòng nhập tiêu đề của chương"
+                  );
                 }
               }}
             >
