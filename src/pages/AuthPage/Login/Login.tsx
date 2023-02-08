@@ -9,7 +9,7 @@ import FormControl from "src/components/FormControl";
 import { getUserInfo, isLogin, isPending, isSuccess } from "src/reducers";
 import { ILogin } from "src/types/auth";
 import * as Yup from "yup";
-import AuthPageContent from "..";
+import AuthLayout from "../AuthLayout";
 import SocialLogin from "../SocialLogin";
 
 const Login = () => {
@@ -59,7 +59,7 @@ const Login = () => {
   });
 
   return (
-    <AuthPageContent.AuthLayout title="Đăng nhập hệ thống">
+    <AuthLayout title="Đăng nhập hệ thống">
       <Box
         component="form"
         display="flex"
@@ -101,7 +101,7 @@ const Login = () => {
           </Link>
         </Box>
       </Box>
-    </AuthPageContent.AuthLayout>
+    </AuthLayout>
   );
 };
 export default Login;

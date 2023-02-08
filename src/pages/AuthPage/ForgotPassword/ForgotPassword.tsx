@@ -9,7 +9,7 @@ import { isPending, isSuccess } from "src/reducers";
 import { IForgotPassword } from "src/types";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import * as Yup from "yup";
-import AuthPageContent from "..";
+import AuthLayout from "../AuthLayout";
 import "./ForgotPassword.scss";
 
 const ForgotPassword = () => {
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthPageContent.AuthLayout title="Lấy lại mật khẩu">
+    <AuthLayout title="Lấy lại mật khẩu">
       <form className="forgot-password-form" onSubmit={formik.handleSubmit}>
         <FormControl.Input
           required
@@ -133,7 +133,7 @@ const ForgotPassword = () => {
           Đăng ký tài khoản
         </Link>
       </div>
-    </AuthPageContent.AuthLayout>
+    </AuthLayout>
   );
 };
 export default ForgotPassword;

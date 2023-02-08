@@ -10,7 +10,7 @@ import { IRegister } from "src/types";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import regexCharacter from "src/utils/regexCharacter";
 import * as Yup from "yup";
-import AuthPageContent from "..";
+import AuthLayout from "../AuthLayout";
 import "./Register.scss";
 
 const Register = () => {
@@ -98,7 +98,7 @@ const Register = () => {
   };
 
   return (
-    <AuthPageContent.AuthLayout title="Đăng ký tài khoản">
+    <AuthLayout title="Đăng ký tài khoản">
       <form
         id="register-form"
         className="register-form"
@@ -195,7 +195,7 @@ const Register = () => {
           Quên mật khẩu
         </Link>
       </div>
-    </AuthPageContent.AuthLayout>
+    </AuthLayout>
   );
 };
 export default Register;
