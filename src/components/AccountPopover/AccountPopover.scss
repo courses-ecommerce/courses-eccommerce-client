@@ -1,37 +1,23 @@
 .account-popup {
   position: relative;
-  display: flex;
 
   > .account-popover {
-    background: white;
+    background-color: #fff;
     border-radius: 8px;
     padding: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    z-index: 2;
 
+    z-index: 2;
     position: absolute;
 
     top: calc(100% + 10px);
     right: calc(100% - 60px);
-
-    > .menu-list {
-      > a {
-        width: 100%;
-      }
-    }
 
     > .divider {
       margin: 10px 0;
       height: 1px;
       width: 100%;
       background: rgb(205, 198, 198);
-    }
-
-    > .btns {
-      > button {
-        width: 100%;
-        min-width: max-content;
-      }
     }
   }
 }

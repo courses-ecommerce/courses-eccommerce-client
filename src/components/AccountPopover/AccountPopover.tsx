@@ -1,4 +1,6 @@
-import { Avatar, IconButton, MenuItem, Tooltip } from "@mui/material";
+import { Avatar, Divider, IconButton, MenuItem, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { avatarNone } from "src/assets";
@@ -18,37 +20,36 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
   const { isRole, userInfo } = useSelector(selectAuthorization);
 
   return (
-    <div className="account-popup">
-      <Tooltip title="Thông tin cá nhân">
-        <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
-          <Avatar src={userInfo.avatar || avatarNone} alt="avatar user" />
-        </IconButton>
-      </Tooltip>
+    <Box className="account-popup">
+      <IconButton ref={nodeRef} onClick={() => setShow(!show)}>
+        <Avatar src={userInfo.avatar || avatarNone} alt="avatar user" />
+      </IconButton>
 
       {show && (
-        <div className="account-popover">
-          <div className="menu-list">
-            {routes.map(
-              (route: Router) =>
-                (route.role === isRole || route.role === "user") && (
-                  <MenuItem
-                    key={route.name}
-                    to={route.path}
-                    component={RouterLink}
-                    onClick={() => setShow(false)}
-                  >
-                    {route.name}
-                  </MenuItem>
-                )
-            )}
-          </div>
-          <div className="divider" />
-          <div className="btns">
-            <Logout />
-          </div>
-        </div>
+        <Paper className="account-popover">
+          {routes.map(
+            (route: Router) =>
+              (route.role === isRole || route.role === "user") && (
+                <MenuItem
+                  style={{ width: "100%" }}
+                  key={route.name}
+                  to={route.path}
+                  component={RouterLink}
+                  onClick={() => setShow(false)}
+                >
+                  {route.name}
+                </MenuItem>
+              )
+          )}
+          <Divider className="divider" />
+          <Logout
+            style={{
+              width: "100%",
+            }}
+          />
+        </Paper>
       )}
-    </div>
+    </Box>
   );
 };
 export default AccountPopover;
