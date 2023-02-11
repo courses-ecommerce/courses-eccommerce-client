@@ -15,8 +15,9 @@ const quizApi = {
     const url = QUIZ_API + "/" + id;
     return axiosClient.delete(url);
   },
-  getQuizLesson: (params: string) => {
+  getQuizLesson: (lesson: string) => {
     const url = QUIZ_API;
+    const params = { lesson };
     return axiosClient.get(url, { params });
   },
 };
