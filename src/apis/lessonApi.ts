@@ -39,29 +39,23 @@ const lessonApi = {
   ) => {
     const url = LESSON_API + "/" + idLesson;
 
-    let lesson_information;
-    if (type === "video") {
-      lesson_information = {
-        number,
-        title,
-        description,
-        file: file_url,
-        type,
-        videoInfo,
-      };
-      console.log("lesson_information", lesson_information);
-    }
-    if (type === "slide") {
-      lesson_information = {
-        number,
-        title,
-        description,
-        slide: file_url,
-        type,
-      };
-    }
-    if (type === "quiz") {
-      lesson_information = { number, title, description, type };
+    const lesson_information: any = { number, title, description };
+
+    switch (type) {
+      case "video":
+        lesson_information.file = file_url;
+        lesson_information.type = type;
+        lesson_information.videoInfo = videoInfo;
+        break;
+      case "slide":
+        lesson_information.slide = file_url;
+        lesson_information.type = type;
+        break;
+      case "quiz":
+        lesson_information.type = type;
+        break;
+      default:
+        break;
     }
 
     try {
