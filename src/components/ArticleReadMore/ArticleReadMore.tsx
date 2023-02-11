@@ -1,18 +1,19 @@
+import { Box, Button, Divider } from "@mui/material";
 import classNames from "classnames";
 import React from "react";
 import { linearIMG, quotes } from "src/assets";
 import MediaContent from "../MediaContent";
+import TextContent from "../TextContent";
 import "./ArticleReadMore.scss";
 
 interface ArticleReadMoreProps {
   title?: string;
-  className?: string;
+
   short_description?: string;
-  content?: string | any;
+  content?: string;
 }
 
 const ArticleReadMore: React.FC<ArticleReadMoreProps> = ({
-  className,
   content,
   short_description,
   title = "Chưa đặt title",
@@ -20,35 +21,46 @@ const ArticleReadMore: React.FC<ArticleReadMoreProps> = ({
   const [isShowContent, setIsShowContent] = React.useState<boolean>(false);
 
   return (
-    <div className={classNames(className)}>
-      <div>
+    <Box>
+      <Box>
         <MediaContent.Image src={quotes} width={18} />
-        <span className="description-readmore">{title}</span>
-        <hr style={{ marginTop: 5, marginBottom: 2 }} />
-      </div>
-      <div className="short-description">
+        <TextContent.NormalText
+          content={title}
+          type="title-content"
+          style={{ marginLeft: 10 }}
+        />
+        <Divider style={{ marginTop: 5, marginBottom: 2 }} />
+      </Box>
+      <Box className="short-description">
         <i>{short_description}</i>
-      </div>
-      <div
-        className={classNames("content-artical", isShowContent && "more")}
+      </Box>
+      <Box
+        className={classNames("content-article", isShowContent && "show")}
         dangerouslySetInnerHTML={{
-          __html: content,
+          __html: content as string,
         }}
       />
 
       {!isShowContent && (
-        <div className="bg-linear">
+        <Box
+          style={{
+            width: "100%",
+            height: 64,
+            marginTop: -64,
+          }}
+        >
           <MediaContent.Image src={linearIMG} height={64} />
-        </div>
+        </Box>
       )}
 
-      <div
-        className={classNames("btn-seeMore", isShowContent && "more")}
+      <Button
+        color="inherit"
+        className={classNames("btn-seeMore", isShowContent && "show")}
         onClick={() => setIsShowContent(!isShowContent)}
       >
         {isShowContent ? "THU GỌN" : "ĐỌC TIẾP"}
-      </div>
-    </div>
+      </Button>
+    </Box>
   );
 };
 
