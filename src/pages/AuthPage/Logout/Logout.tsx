@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { isLogout, selectAuthorization } from "src/reducers/authSlice";
 
-const Logout = () => {
+interface LogoutProps {
+  style?: React.CSSProperties;
+}
+
+const Logout: React.FC<LogoutProps> = ({ style }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuth } = useSelector(selectAuthorization);
@@ -22,7 +26,12 @@ const Logout = () => {
 
   if (isAuth) {
     return (
-      <Button variant="contained" color="warning" onClick={handleLogout}>
+      <Button
+        variant="contained"
+        color="warning"
+        onClick={handleLogout}
+        style={style}
+      >
         Đăng xuất
       </Button>
     );
@@ -32,6 +41,7 @@ const Logout = () => {
       variant="contained"
       color="primary"
       onClick={() => navigate("/login")}
+      style={style}
     >
       Đăng nhập
     </Button>
