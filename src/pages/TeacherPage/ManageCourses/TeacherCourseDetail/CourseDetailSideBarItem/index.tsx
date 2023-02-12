@@ -1,3 +1,4 @@
+import CourseDetailSideBarContentNotFound from "./CourseDetailSideBarContentNotFound";
 import CourseInformation from "./CourseInformation";
 import IntendedLearners from "./IntendedLearners";
 import LearningContent from "./LearningContent";
@@ -10,6 +11,7 @@ const CourseDetailSideBarItem = {
   Requirements: Requirements,
   Targets: Targets,
   LearningContent: LearningContent,
+  CourseDetailSideBarContentNotFound: CourseDetailSideBarContentNotFound,
 };
 
 export default CourseDetailSideBarItem;

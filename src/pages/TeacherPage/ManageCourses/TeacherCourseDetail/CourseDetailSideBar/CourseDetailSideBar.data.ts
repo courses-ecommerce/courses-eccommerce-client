@@ -2,23 +2,23 @@ import { SideBarItem } from "./CourseDetailSideBar.type";
 
 export const CourseDetailSideBarData: SideBarItem[] = [
   {
-    sideBarId: 0,
+    sideBarId: "COURSE_INFORMATION",
     title: "Thông tin khóa học",
   },
   {
-    sideBarId: 1,
+    sideBarId: "INTENDED_LEARNERS",
     title: "Chương trình giảng dạy",
   },
   {
-    sideBarId: 2,
+    sideBarId: "LEARNING_CONTENT",
     title: "Đối tượng khóa học",
   },
   {
-    sideBarId: 3,
+    sideBarId: "REQUIREMENTS",
     title: "Kiến thức bắt buộc",
   },
   {
-    sideBarId: 4,
+    sideBarId: "TARGETS",
     title: "Mục tiêu khóa học",
   },
 ];
