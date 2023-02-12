@@ -7,3 +7,4 @@ export * from "./table";
 export * from "./translateVi";
 export * from "./handleObject";
 export * from "./notificationMessage";
+export * from "./handleLocalStorage";
