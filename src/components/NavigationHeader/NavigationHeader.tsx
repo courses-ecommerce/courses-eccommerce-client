@@ -46,7 +46,12 @@ export default function NavigationHeader(props: NavigationHeaderProps) {
             style={{ cursor: "pointer" }}
           />
         </span>
-        {title && <TextContent.NormalText content={title} />}
+        {title && (
+          <TextContent.NormalText
+            content={title}
+            style={{ userSelect: "none", color: "green" }}
+          />
+        )}
       </Box>
       {userAction && (
         <Box className="user-actions" display="flex" alignItems="center">
