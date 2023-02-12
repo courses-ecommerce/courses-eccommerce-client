@@ -28,11 +28,12 @@ const HeaderNavigationStyle: React.CSSProperties = {
 
 interface NavigationHeaderProps {
   title?: string;
+  turnPreviousPage?: boolean;
   userAction?: boolean;
 }
 
 export default function NavigationHeader(props: NavigationHeaderProps) {
-  const { title, userAction = true } = props;
+  const { title, userAction = true, turnPreviousPage = true } = props;
 
   const navigate = useNavigate();
   const { isRole } = useSelector(selectAuthorization);
@@ -40,12 +41,14 @@ export default function NavigationHeader(props: NavigationHeaderProps) {
   return (
     <BoxContent.BoxShadow shadow="type2" style={HeaderNavigationStyle}>
       <Box flex={1} display="flex" gap={20} padding="12px 0">
-        <span onClick={() => navigate(-1)}>
-          <TextContent.NormalText
-            content="Quay lại trang trước"
-            style={{ cursor: "pointer" }}
-          />
-        </span>
+        {turnPreviousPage && (
+          <span onClick={() => navigate(-1)}>
+            <TextContent.NormalText
+              content="Quay lại trang trước"
+              style={{ cursor: "pointer" }}
+            />
+          </span>
+        )}
         {title && (
           <TextContent.NormalText
             content={title}
