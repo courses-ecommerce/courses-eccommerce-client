@@ -42,7 +42,7 @@ const CourseChapterLesson: React.FC<CourseChapterLessonProps> = ({
             onClick={() => setLesson(lesson)}
           >
             <Typography
-              sx={{ padding: 6, textTransform: "capitalize" }}
+              sx={{ padding: 10, textTransform: "capitalize" }}
               className={classNames(
                 videoView?.title === lesson?.title ? "lesson-title-active" : "",
                 lesson.complete ? "lesson-title-complete" : ""
