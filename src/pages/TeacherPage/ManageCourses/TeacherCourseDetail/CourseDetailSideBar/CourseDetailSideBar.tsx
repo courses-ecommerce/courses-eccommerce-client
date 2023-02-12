@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import TextContent from "src/components/TextContent";
 import "./CourseDetailSideBar.scss";
-import { CourseDetailSideBarProps } from "./CourseDetailSideBar.type";
+import {
+  CourseDetailSideBarItemType,
+  CourseDetailSideBarProps,
+} from "./CourseDetailSideBar.type";
 
 const CourseDetailSideBar: React.FC<CourseDetailSideBarProps> = ({
-  defaultSideBarId = 0,
+  defaultSideBarId = "COURSE_INFORMATION",
   sideBarContent,
   getSideBarId,
   children,
@@ -22,7 +25,9 @@ const CourseDetailSideBar: React.FC<CourseDetailSideBarProps> = ({
       {sideBarContent.map((sideBarItem, index) => (
         <p
           className={sideBarItem.sideBarId === navBar ? "active" : ""}
-          onClick={() => setNavbar(sideBarItem.sideBarId as number)}
+          onClick={() =>
+            setNavbar(sideBarItem.sideBarId as CourseDetailSideBarItemType)
+          }
           key={index}
         >
           {sideBarItem.title}

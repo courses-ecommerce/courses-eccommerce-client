@@ -8,10 +8,12 @@ import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
 import LayoutContainer from "src/layouts/LayoutContainer";
 import { isPending, isSuccess } from "src/reducers";
-import { notificationMessage } from "src/utils";
+import { TeacherPage } from "src/types";
+import { handleLocalStorage, notificationMessage } from "src/utils";
 import { IChapterUpload } from "./Chapter";
 import CourseDetailSideBar, {
   CourseDetailSideBarData,
+  CourseDetailSideBarItemType,
 } from "./CourseDetailSideBar";
 import CourseDetailSideBarItem from "./CourseDetailSideBarItem";
 import "./TeacherCourseDetail.scss";
@@ -23,7 +25,11 @@ const TeacherCourseDetail = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
-  const [navbar, setNavbar] = useState(0);
+  const [navbar, setNavbar] = useState<CourseDetailSideBarItemType>(
+    handleLocalStorage.getLocalStorageItem(
+      TeacherPage.createCourseDetail.sideBarItem
+    ) as CourseDetailSideBarItemType
+  );
   const [isChapterUpdated, setIsChapterUpdated] = useState(false);
   const [isInformationCourseUpdated, setIsInformationCourseUpdated] =
     useState(false);
@@ -96,6 +102,13 @@ const TeacherCourseDetail = () => {
   }, []);
 
   useEffect(() => {
+    handleLocalStorage.setLocalStorage(
+      TeacherPage.createCourseDetail.sideBarItem,
+      navbar
+    );
+  }, [navbar]);
+
+  useEffect(() => {
     if (isInformationCourseUpdated) {
       getCourseDetails();
     }
@@ -140,13 +153,49 @@ const TeacherCourseDetail = () => {
       });
   };
 
+  const renderCourseDetailContent = (
+    courseDetailSideBar: CourseDetailSideBarItemType
+  ) => {
+    switch (courseDetailSideBar) {
+      case "COURSE_INFORMATION":
+        return (
+          <CourseDetailSideBarItem.CourseInformation
+            slug={slug}
+            courseStatus={courseStatus}
+            isUpdateCompleted={(status) =>
+              setIsInformationCourseUpdated(status)
+            }
+            courseInformationValue={formik.values}
+          />
+        );
+
+      case "LEARNING_CONTENT":
+        return (
+          <CourseDetailSideBarItem.LearningContent
+            chapters={chapters}
+            isUpdateCompleted={(status) => setIsChapterUpdated(status)}
+          />
+        );
+      case "INTENDED_LEARNERS":
+        return <CourseDetailSideBarItem.IntendedLearners />;
+
+      case "REQUIREMENTS":
+        return <CourseDetailSideBarItem.Requirements />;
+      case "TARGETS":
+        return <CourseDetailSideBarItem.Targets />;
+
+      default:
+        return <CourseDetailSideBarItem.CourseDetailSideBarContentNotFound />;
+    }
+  };
+
   return (
     <LayoutContainer titleShow={false} footerShow={false}>
       <Box className="teacher-course-detail">
         <CourseDetailSideBar
           defaultSideBarId={navbar}
           sideBarContent={CourseDetailSideBarData}
-          getSideBarId={(sideBarId) => setNavbar(sideBarId as number)}
+          getSideBarId={(sideBarId) => setNavbar(sideBarId)}
         >
           <Button
             variant="contained"
@@ -180,27 +229,7 @@ const TeacherCourseDetail = () => {
           </Button>
         </CourseDetailSideBar>
         <Box className="teacher-course-detail-content">
-          {navbar === 0 ? (
-            <CourseDetailSideBarItem.CourseInformation
-              slug={slug}
-              courseStatus={courseStatus}
-              isUpdateCompleted={(status) =>
-                setIsInformationCourseUpdated(status)
-              }
-              courseInformationValue={formik.values}
-            />
-          ) : navbar === 1 ? (
-            <CourseDetailSideBarItem.LearningContent
-              chapters={chapters}
-              isUpdateCompleted={(status) => setIsChapterUpdated(status)}
-            />
-          ) : navbar === 2 ? (
-            <CourseDetailSideBarItem.IntendedLearners />
-          ) : navbar === 3 ? (
-            <CourseDetailSideBarItem.Requirements />
-          ) : (
-            <CourseDetailSideBarItem.Targets />
-          )}
+          {renderCourseDetailContent(navbar)}
         </Box>
       </Box>
     </LayoutContainer>

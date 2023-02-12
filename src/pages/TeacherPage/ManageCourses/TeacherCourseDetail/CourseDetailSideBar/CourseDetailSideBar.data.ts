@@ -6,11 +6,11 @@ export const CourseDetailSideBarData: SideBarItem[] = [
     title: "Thông tin khóa học",
   },
   {
-    sideBarId: "INTENDED_LEARNERS",
+    sideBarId: "LEARNING_CONTENT",
     title: "Chương trình giảng dạy",
   },
   {
-    sideBarId: "LEARNING_CONTENT",
+    sideBarId: "INTENDED_LEARNERS",
     title: "Đối tượng khóa học",
   },
   {
