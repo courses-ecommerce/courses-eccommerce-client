@@ -3,3 +3,7 @@ export const TeacherPage = {
     sideBarItem: "sidebar_create__course_detail",
   },
 };
+
+export const ReduxProvider = {
+  reduxPersist: "persist:root",
+};
