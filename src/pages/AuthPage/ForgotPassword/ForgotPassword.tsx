@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,10 +7,10 @@ import authApi from "src/apis/authApi";
 import FormControl from "src/components/FormControl";
 import { isPending, isSuccess } from "src/reducers";
 import { IForgotPassword } from "src/types";
+import { notificationMessage } from "src/utils";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout";
-import "./ForgotPassword.scss";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -40,30 +40,29 @@ const ForgotPassword = () => {
 
   const handleVerifyEmail = () => {
     if (!isVerifyCharacter.isEmail(formik.values.email)) {
-      toast.warning("Địa chỉ email không hợp lệ, xin vui lòng nhập lại", {
-        position: "bottom-right",
-      });
+      notificationMessage(
+        "warning",
+        "Địa chỉ email không hợp lệ, xin vui lòng nhập lại"
+      );
     } else {
-      toast.info("Đang tiến hành gửi email", {
-        position: "bottom-right",
-      });
+      notificationMessage("success", "Đang tiến hành gửi email");
       verifyEmail(formik.values.email);
     }
   };
 
   const verifyEmail = async (email: string) => {
     dispatch(isPending());
-    const params = { email: email };
+
     try {
-      const response = await authApi.postVerifyEmailForgotPassword(params);
-      console.log(response);
+      const response = await authApi.postVerifyEmailForgotPassword({ email });
+      // console.log(response);
       const { message }: any = response;
       dispatch(isSuccess());
-      toast.success(`${message}. Vui lòng kiểm tra thử email`, {
-        position: "bottom-right",
-      });
+
+      notificationMessage("success", message + "Vui lòng kiểm tra thử email");
     } catch (error) {
       toast.error(`${error}`, { position: "bottom-right" });
+      notificationMessage("error", error as string);
       dispatch(isSuccess());
     }
   };
@@ -74,19 +73,27 @@ const ForgotPassword = () => {
       await authApi.postForgotPassword(params);
       dispatch(isSuccess());
 
-      toast.warning("Lấy lại mật khẩu thành công, quay lại đăng nhập", {
-        position: "bottom-right",
-      });
+      notificationMessage(
+        "success",
+        "Lấy lại mật khẩu thành công, quay lại đăng nhập"
+      );
       navigate("/login");
     } catch (error) {
-      toast.warning(`${error}`, { position: "bottom-right" });
+      notificationMessage("error", error as string);
       dispatch(isSuccess());
     }
   };
 
   return (
     <AuthLayout title="Lấy lại mật khẩu">
-      <form className="forgot-password-form" onSubmit={formik.handleSubmit}>
+      <Box
+        className="forgot-password-form"
+        display="flex"
+        flexDirection="column"
+        gap={20}
+        component="form"
+        onSubmit={formik.handleSubmit}
+      >
         <FormControl.Input
           required
           label="Email"
@@ -94,9 +101,10 @@ const ForgotPassword = () => {
           errorMessage={formik.touched.email ? formik.errors.email : ""}
           {...formik.getFieldProps("email")}
         />
-        <div className="verify-code">
+        <Box display="flex" flexDirection="row" gap={5} alignItems="flex-end">
           <FormControl.Input
             required
+            style={{ flex: 1 }}
             label="Mã xác nhận email"
             placeholder="Nhập mã xác nhận"
             errorMessage={
@@ -113,7 +121,7 @@ const ForgotPassword = () => {
               Gửi mã
             </Button>
           </Tooltip>
-        </div>
+        </Box>
         <FormControl.Input
           required
           type="password"
@@ -126,7 +134,7 @@ const ForgotPassword = () => {
         <Button type="submit" variant="contained" color="error">
           Lấy lại mật khẩu
         </Button>
-      </form>
+      </Box>
       <div className="extra-links">
         <Link to="/login">Quay lại đăng nhập</Link>
         <Link className="register" to="/register">
