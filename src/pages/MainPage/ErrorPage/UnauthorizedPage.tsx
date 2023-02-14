@@ -2,15 +2,17 @@ import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { isLogout } from "src/reducers/authSlice";
+import { isLogout } from "src/reducers";
+import { handleLocalStorage } from "src/utils";
 import "./ErrorPage.scss";
 
 const UnauthorizedPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    localStorage.clear();
     dispatch(isLogout());
+
+    handleLocalStorage.clearAllLocalStorage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
