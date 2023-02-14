@@ -22,6 +22,7 @@ const Input = React.forwardRef(
       required,
       autoComplete,
       accept,
+      style,
       ...rest
     } = props;
 
@@ -29,7 +30,7 @@ const Input = React.forwardRef(
     const [show, setShow] = useState(false);
 
     return (
-      <Box className={classnames("input-container", className)}>
+      <Box className={classnames("input-container", className)} style={style}>
         <TextContent.Label label={label} required={required} />
         <Box
           className={classnames("input", {
