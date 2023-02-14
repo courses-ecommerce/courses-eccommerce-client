@@ -2,8 +2,8 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { isLogout, selectAuthorization } from "src/reducers/authSlice";
+import { isLogout, selectAuthorization } from "src/reducers";
+import { handleLocalStorage, notificationMessage } from "src/utils";
 
 interface LogoutProps {
   style?: React.CSSProperties;
@@ -17,10 +17,8 @@ const Logout: React.FC<LogoutProps> = ({ style }) => {
   const handleLogout = () => {
     dispatch(isLogout());
 
-    toast.success("Đăng xuất thành công, chúc bạn có 1 ngày tốt lành ^^", {
-      position: "bottom-right",
-    });
-    localStorage.clear();
+    notificationMessage("success", "Đăng xuất thành công");
+    handleLocalStorage.clearAllLocalStorage();
     navigate("/login");
   };
 
