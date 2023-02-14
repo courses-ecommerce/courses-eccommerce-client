@@ -7,3 +7,7 @@ export const TeacherPage = {
 export const ReduxProvider = {
   reduxPersist: "persist:root",
 };
+
+export const Authentication = {
+  accessToken: "access_token",
+};

@@ -3,11 +3,12 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import FormControl from "src/components/FormControl";
 import { getUserInfo, isLogin, isPending, isSuccess } from "src/reducers";
+import { Authentication } from "src/types";
 import { ILogin } from "src/types/auth";
+import { handleLocalStorage, notificationMessage } from "src/utils";
 import * as Yup from "yup";
 import AuthLayout from "../AuthLayout";
 import SocialLogin from "../SocialLogin";
@@ -23,18 +24,16 @@ const Login = () => {
       // const { refreshToken, user, role, token }: any = response;
       const { user, role, token }: any = response;
 
-      localStorage.setItem("access_token", JSON.stringify(token));
+      handleLocalStorage.setLocalStorage(Authentication.accessToken, token);
 
       //get role,user_info
       dispatch(isLogin(role));
       dispatch(getUserInfo(user));
 
-      toast.success("Đăng nhập thành công", { position: "bottom-right" });
-    } catch (error: any) {
-      console.log("lỗi rồi", { error });
-      toast.warning(`${error}`, {
-        position: "bottom-right",
-      });
+      notificationMessage("success", "Đăng nhập thành công");
+    } catch (error) {
+      console.log("lỗi rồi", error);
+      notificationMessage("error", error as string);
       dispatch(isSuccess());
     }
   };
