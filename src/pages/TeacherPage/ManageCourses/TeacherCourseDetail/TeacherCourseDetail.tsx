@@ -26,9 +26,9 @@ const TeacherCourseDetail = () => {
   const nav = useNavigate();
 
   const [navbar, setNavbar] = useState<CourseDetailSideBarItemType>(
-    handleLocalStorage.getLocalStorageItem(
+    (handleLocalStorage.getLocalStorageItem(
       TeacherPage.createCourseDetail.sideBarItem
-    ) as CourseDetailSideBarItemType
+    ) as CourseDetailSideBarItemType) ?? "COURSE_INFORMATION"
   );
   const [isChapterUpdated, setIsChapterUpdated] = useState(false);
   const [isInformationCourseUpdated, setIsInformationCourseUpdated] =
