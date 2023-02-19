@@ -1,12 +1,12 @@
-import { Button, Tooltip } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import authApi from "src/apis/authApi";
 import FormControl from "src/components/FormControl";
 import { isPending, isSuccess } from "src/reducers";
 import { IRegister } from "src/types";
+import { notificationMessage } from "src/utils";
 import isVerifyCharacter from "src/utils/isVerifyCharacter";
 import regexCharacter from "src/utils/regexCharacter";
 import * as Yup from "yup";
@@ -53,13 +53,12 @@ const Register = () => {
 
   const handleVerifyEmail = () => {
     if (!isVerifyCharacter.isEmail(formik.values.email)) {
-      toast.warning("Địa chỉ email không hợp lệ, xin vui lòng nhập lại", {
-        position: "bottom-right",
-      });
+      notificationMessage(
+        "warning",
+        "Địa chỉ email không hợp lệ, xin vui lòng nhập lại"
+      );
     } else {
-      toast.info("Đang tiến hành gửi email", {
-        position: "bottom-right",
-      });
+      notificationMessage("success", "Đang tiến hành gửi email");
       verifyEmail(formik.values.email);
     }
   };
@@ -69,14 +68,12 @@ const Register = () => {
     const params = { email: email };
     try {
       const response = await authApi.postVerifyEmailRegister(params);
-      console.log(response);
+      // console.log(response);
       const { message }: any = response;
       dispatch(isSuccess());
-      toast.success(`${message}. Vui lòng kiểm tra thử email`, {
-        position: "bottom-right",
-      });
+      notificationMessage("success", message + ". Vui lòng kiểm tra thử email");
     } catch (error) {
-      toast.error(`${error}`, { position: "bottom-right" });
+      notificationMessage("error", error as string);
       dispatch(isSuccess());
     }
   };
@@ -87,24 +84,29 @@ const Register = () => {
       await authApi.postRegister(params);
       dispatch(isSuccess());
 
-      toast.warning("Tạo tài khoản thành công, quay lại đăng nhập", {
-        position: "bottom-right",
-      });
+      notificationMessage(
+        "success",
+        "Tạo tài khoản thành công, quay lại đăng nhập"
+      );
       navigate("/login");
     } catch (error) {
-      toast.warning(`${error}`, { position: "bottom-right" });
+      notificationMessage("error", error as string);
       dispatch(isSuccess());
     }
   };
 
   return (
     <AuthLayout title="Đăng ký tài khoản">
-      <form
+      <Box
         id="register-form"
         className="register-form"
+        display="flex"
+        flexDirection="row"
+        gap={30}
+        component="form"
         onSubmit={formik.handleSubmit}
       >
-        <div>
+        <Box flex={1} display="flex" flexDirection="column" gap={20}>
           <FormControl.Input
             required
             label="Địa chỉ email"
@@ -112,8 +114,9 @@ const Register = () => {
             errorMessage={formik.touched.email ? formik.errors.email : ""}
             {...formik.getFieldProps("email")}
           />
-          <div className="verify-code">
+          <Box display="flex" flexDirection="row" gap={5} alignItems="flex-end">
             <FormControl.Input
+              style={{ flex: 1 }}
               required
               label="Mã xác nhận email"
               placeholder="Nhập mã xác nhận"
@@ -131,7 +134,7 @@ const Register = () => {
                 Gửi mã
               </Button>
             </Tooltip>
-          </div>
+          </Box>
 
           <FormControl.Input
             required
@@ -153,9 +156,9 @@ const Register = () => {
             }
             {...formik.getFieldProps("passwordConfirm")}
           /> */}
-        </div>
+        </Box>
 
-        <div>
+        <Box flex={1} display="flex" flexDirection="column" gap={20}>
           <FormControl.Input
             required
             label="Họ và tên"
@@ -175,8 +178,8 @@ const Register = () => {
             {...formik.getFieldProps("birthday")}
           />
           <Dropdown label="Giới tính" list={genderTypes} /> */}
-        </div>
-      </form>
+        </Box>
+      </Box>
       <Button
         form="register-form"
         type="submit"

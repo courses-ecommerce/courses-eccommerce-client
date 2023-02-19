@@ -1,37 +1,9 @@
-.register-form {
-  display: flex;
-  flex-direction: row !important;
-  justify-content: space-between;
-
-  > div {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    // justify-content: space-between;
-    gap: 10px;
-
-    > .verify-code {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 5px;
-
-      > .input-container {
-        flex: 1;
-      }
-    }
-  }
-}
-
 @media (max-width: 430px) {
   .register-form {
-    flex-direction: column !important;
-    gap: 0;
+    flex-direction: column;
   }
   .extra-links {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row !important;
     justify-content: space-between;
   }
 }
