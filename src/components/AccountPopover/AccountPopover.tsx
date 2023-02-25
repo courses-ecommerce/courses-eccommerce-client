@@ -45,6 +45,7 @@ const AccountPopover: React.FC<AccountPopoverProps> = ({ routes }) => {
           <Logout
             style={{
               width: "100%",
+              minWidth: "max-content",
             }}
           />
         </Paper>
