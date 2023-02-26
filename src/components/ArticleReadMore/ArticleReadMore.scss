@@ -37,9 +37,8 @@
 .btn-seeMore {
   width: 100%;
   font-feature-settings: "salt" on;
-  text-align: center;
-  cursor: pointer;
 
+  border: 1px solid rgb(220, 220, 220);
   color: black;
 
   &.show {
