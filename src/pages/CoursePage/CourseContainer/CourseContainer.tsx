@@ -1,7 +1,9 @@
 import React from "react";
 import LoadingContent from "src/components/LoadingContent";
+import TextContent from "src/components/TextContent";
 import { ICourse } from "src/types";
 import CourseItem from "../CourseItem";
+import NoneCourseFound from "../NoneCourseFound";
 import "./CourseContainer.scss";
 
 interface CourseContainerProps {
@@ -17,16 +19,16 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
 }) => {
   const renderCourses = (courses: ICourse[]) => {
     if (courses.length > 0) {
-      return courses.map((course: ICourse, index) => (
+      return courses.map((course, index) => (
         <CourseItem key={index} courseInfo={course} />
       ));
     }
-    return <div className="none-courses">Hiện tại chưa có khoá học nào</div>;
+    return <NoneCourseFound />;
   };
 
   return (
     <div className="course-container">
-      <span className="title">{title}</span>
+      <TextContent.NormalText content={title} />
       <div className="courses">
         {!isLoading ? (
           renderCourses(courses)

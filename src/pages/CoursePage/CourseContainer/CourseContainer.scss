@@ -1,7 +1,6 @@
 .course-container {
-  // margin-top: 50px;
-
   max-width: 1300px;
+
   width: 100%;
   margin: 0 auto;
 
@@ -10,36 +9,18 @@
 
   gap: 20px;
 
-  > .title {
-    // font-size: 18px;
-    font-size: 20px;
-    font-weight: 600;
-  }
-
   > .courses {
-    width: 100%;
     margin: 0 auto;
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    // gap: column row;
     gap: 120px 30px;
-
-    > .none-courses {
-      font-weight: 700;
-      font-size: 18px;
-      padding-top: 20px;
-      margin: 0 auto;
-    }
   }
 }
 
 @media (max-width: 1283px) {
   .course-container {
-    > .title {
-      padding-left: 20px;
-    }
     > .courses {
       max-width: 1000px;
     }
@@ -49,6 +30,7 @@
   .course-container {
     > .courses {
       max-width: 700px;
+      justify-content: space-evenly;
     }
   }
 }
