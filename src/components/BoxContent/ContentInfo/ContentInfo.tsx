@@ -8,9 +8,11 @@ interface ContentInfoProps {
   title: string;
   content?: string | number;
   className?: string;
-  style?: React.CSSProperties;
   responsive?: boolean;
   type?: ContentInfoType;
+  style?: React.CSSProperties;
+  titleStyle?: React.CSSProperties;
+  contentStyle?: React.CSSProperties;
 }
 
 const ContentInfo: React.FC<ContentInfoProps> = ({
@@ -20,13 +22,15 @@ const ContentInfo: React.FC<ContentInfoProps> = ({
   style,
   responsive = true,
   type = "equal-divide",
+  titleStyle,
+  contentStyle,
 }) => {
   if (useMediaQuery("(max-width: 536px)") && responsive) {
     return (
       <Box className={className} style={style}>
         <TextContent.NormalText
           type="description"
-          style={{ flex: 1 }}
+          style={{ flex: 1, ...contentStyle }}
           content={content as string}
         />
       </Box>
@@ -45,11 +49,19 @@ const ContentInfo: React.FC<ContentInfoProps> = ({
         className="title"
         type="title-content"
         content={title}
-        style={type === "equal-divide" ? { flex: 1 } : { width: "fit-content" }}
+        style={
+          type === "equal-divide"
+            ? { flex: 1, ...titleStyle }
+            : { width: "fit-content", ...titleStyle }
+        }
       />
       <TextContent.NormalText
         type="description"
-        style={type === "equal-divide" ? { flex: 1 } : { width: "fit-content" }}
+        style={
+          type === "equal-divide"
+            ? { flex: 1, ...contentStyle }
+            : { width: "fit-content", ...contentStyle }
+        }
         content={content as string}
       />
     </Box>
