@@ -1,6 +1,6 @@
 import React from "react";
 
-//#region COMMON PAGE
+//COMMON PAGE
 const PaymentDetail = React.lazy(
   () =>
     import("src/pages/StudentPage/HistoryPayment/PaymentDetail/PaymentDetail")
@@ -9,9 +9,8 @@ const CourseLearningDetail = React.lazy(
   () =>
     import("src/pages/CourseLearning/CourseLearningDetail/CourseLearningDetail")
 );
-//#endregion
 
-//#region MAIN PAGE
+//MAIN PAGE
 const MainPage = React.lazy(() => import("src/pages/MainPage/MainPage"));
 const CourseDetail = React.lazy(
   () => import("src/pages/CoursePage/CourseDetail/CourseDetail")
@@ -26,9 +25,8 @@ const UnauthorizedPage = React.lazy(
 const PortfolioPage = React.lazy(
   () => import("src/pages/MainPage/PortfolioPage/PortfolioPage")
 );
-//#endregion
 
-//#region AUTH PAGE
+//AUTH PAGE
 const ForgotPassword = React.lazy(
   () => import("src/pages/AuthPage/ForgotPassword/ForgotPassword")
 );
@@ -36,9 +34,8 @@ const Login = React.lazy(() => import("src/pages/AuthPage/Login/Login"));
 const Register = React.lazy(
   () => import("src/pages/AuthPage/Register/Register")
 );
-//#endregion
 
-//#region ADMIN PAGE
+//ADMIN PAGE
 const AdminPage = React.lazy(() => import("src/pages/AdminPage/AdminPage"));
 const RevenueTeacherDetail = React.lazy(
   () =>
@@ -46,24 +43,21 @@ const RevenueTeacherDetail = React.lazy(
       "src/pages/AdminPage/StatisticManage/RevenueTeacherStatistic/RevenueTeacherDetail"
     )
 );
-//#endregion
 
-//#region STUDENT PAGE
+//STUDENT PAGE
 const StudentPage = React.lazy(
   () => import("src/pages/StudentPage/StudentPage")
 );
-//#endregion
 
-//#region TEACHER PAGE
+//TEACHER PAGE
 const TeacherCourse = React.lazy(
   () => import("src/pages/TeacherPage/ManageCourses/TeacherCourse")
 );
 const TeacherCourseDetail = React.lazy(
   () => import("src/pages/TeacherPage/ManageCourses/TeacherCourseDetail")
 );
-//#endregion
 
-//#region DASHBOARD PAGE
+//DASHBOARD PAGE
 const DashboardLayout = React.lazy(
   () => import("src/layouts/Dashboard/DashboardLayout")
 );
@@ -136,11 +130,9 @@ const TeacherRevenue = React.lazy(
   () =>
     import("src/pages/TeacherPage/ManageProfile/TeacherRevenue/TeacherRevenue")
 );
-//#endregion
 
-//#region QuizPage
+//QUIZ PAGE
 const QuizPage = React.lazy(() => import("src/pages/QuizPage"));
-//#endregion
 
 //ALL PAGES COMPONENTS
 const MAIN_PAGE = {
