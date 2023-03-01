@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import teacherApi from "src/apis/teacherApi";
+import BoxContent from "src/components/BoxContent";
 import NavigationHeader from "src/components/NavigationHeader";
 import Pagination from "src/components/Pagination";
+import TextContent from "src/components/TextContent";
 import CourseContainer from "src/pages/CoursePage/CourseContainer";
 import UpdateDescription from "src/pages/ProfilePage/UpdateDescription";
 import { selectAuthorization } from "src/reducers";
@@ -46,7 +48,6 @@ const PortfolioPage = () => {
     if (!showDescription) {
       getInfoTeacher();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, showDescription]);
 
@@ -63,7 +64,7 @@ const PortfolioPage = () => {
       // console.log("thông tin giảng viên", user);
       setTeacherInfo({ user });
     } catch (error) {
-      console.log("lỗi rỗi", { error });
+      console.log("lỗi rồi", { error });
     }
   };
 
@@ -88,28 +89,35 @@ const PortfolioPage = () => {
       <NavigationHeader />
       <div className="portfolio-page">
         <div className="teacher-info">
-          <h3>Thông tin chi tiết giảng viên</h3>
+          <TextContent.NormalText
+            type="title-header"
+            content="Thông tin chi tiết giảng viên"
+          />
           <div className="info">
             <Avatar
               className="avatar-portfolio"
               alt={teacherInfo?.user?.fullName}
               src={teacherInfo?.user?.avatar}
-              // sx={{ width: 200, height: 200 }}
             />
             <div className="content">
-              <span>
-                <b>Tên giảng viên: </b>
-                {teacherInfo?.user?.fullName}
-              </span>
-              <span>
-                <b>Giới tính: </b>
-                {isVerifyCharacter.isGender(teacherInfo?.user?.gender)}
-              </span>
+              <BoxContent.ContentInfo
+                title="Tên giảng viên: "
+                content={teacherInfo?.user?.fullName}
+              />
+
+              <BoxContent.ContentInfo
+                title="Giới tính: "
+                content={isVerifyCharacter.isGender(teacherInfo?.user?.gender)}
+              />
+
               {!teacherInfo?.user?.teacher?.isVerified && (
                 <span className="is-verify">Giảng viên chính thức</span>
               )}
               <Divider />
-              <h3>Thông tin sơ lược</h3>
+              <TextContent.NormalText
+                type="title-header"
+                content="Thông tin sơ lược"
+              />
               <span
                 dangerouslySetInnerHTML={{
                   __html:
@@ -134,7 +142,7 @@ const PortfolioPage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 12,
+            gap: 90,
           }}
         >
           <CourseContainer
