@@ -1,13 +1,15 @@
-import { Box, Divider, Tooltip } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import courseApi from "src/apis/courseApi";
 import ArticleReadMore from "src/components/ArticleReadMore";
+import BoxContent from "src/components/BoxContent";
 import MediaContent from "src/components/MediaContent";
 import NavigationHeader from "src/components/NavigationHeader";
 import Pagination from "src/components/Pagination";
 import Rating from "src/components/Rating";
+import TextContent from "src/components/TextContent";
 import { getPanelActive, getVideoView } from "src/reducers";
 import { ICourse, IRating } from "src/types";
 import formatCharacter from "src/utils/formatCharacter";
@@ -22,11 +24,7 @@ import "./CourseDetail.scss";
 const CourseDetail = () => {
   document.title = "Thông tin chi tiết khoá học";
   const { id } = useParams();
-
   const navigate = useNavigate();
-
-  // console.log("id", id);
-
   const dispatch = useDispatch();
 
   const [courseDetail, setCourseDetail] = useState<ICourse>({});
@@ -35,13 +33,13 @@ const CourseDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingDetail, setIsLoadingDetail] = useState<boolean>(false);
 
-  // //search
+  //search
   const [limit, setLimit] = useState(4);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>(0);
 
   useLayoutEffect(() => {
-    window.scroll(0, 0);
+    window.scrollTo(0, 0);
     dispatch(getPanelActive(""));
     dispatch(getVideoView(""));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +68,7 @@ const CourseDetail = () => {
       const { course }: any = response;
       setCourseDetail(course);
       setIsLoadingDetail(false);
-      // console.log("áddas", course);
+      // console.log("course", course);
     } catch (error) {
       setIsLoadingDetail(false);
       console.log("lỗi", { error });
@@ -113,8 +111,11 @@ const CourseDetail = () => {
   return (
     <>
       <NavigationHeader />
-      <div className="coures-detail">
-        <span className="title">Thông tin chi tiết khoá học</span>
+      <div className="courses-detail">
+        <TextContent.NormalText
+          type="title-header-large"
+          content="Thông tin chi tiết khoá học"
+        />
         <div className="course-preview">
           <div className="info">
             {!!courseDetail.saleOff && (
@@ -123,7 +124,7 @@ const CourseDetail = () => {
               </span>
             )}
             <MediaContent.Image src={courseDetail.thumbnail} />
-            <span className="name">{courseDetail.name}</span>
+            <TextContent.NormalText content={courseDetail.name as string} />
             <span className="description">
               <ArticleReadMore
                 title="Mô tả khoá học"
@@ -136,59 +137,99 @@ const CourseDetail = () => {
           </div>
           <div className="content-detail">
             <div className="detail-info">
-              <h3>Sơ lược thông tin khoá học</h3>
+              <TextContent.NormalText content="Sơ lược thông tin khoá học" />
 
-              <Tooltip
-                title="Xem trang cá nhân"
-                onClick={() => navigate(`/user/${courseDetail.author?._id}`)}
-              >
-                <span className="author" style={{ cursor: "pointer" }}>
-                  <b>Tác giả: </b>
-                  {courseDetail.author?.fullName}
-                </span>
-              </Tooltip>
+              <span className="flex-row">
+                <BoxContent.ContentInfo
+                  type="fit-content"
+                  title="Tác giả: "
+                  content={courseDetail.author?.fullName}
+                  style={{ width: "max-content" }}
+                />
+                <Button
+                  onClick={() => navigate(`/user/${courseDetail.author?._id}`)}
+                  variant="outlined"
+                >
+                  Xem thông tin
+                </Button>
+              </span>
 
-              {courseDetail.currentPrice && courseDetail.currentPrice > 0 ? (
-                <span className="current_price">
-                  <b>Giá hiện tại: </b>
-                  {courseDetail.currentPrice &&
-                    formatCharacter.numberLocale(
-                      courseDetail.currentPrice,
-                      " đồng"
-                    )}
-
-                  <span className="original_price">
-                    {courseDetail.originalPrice &&
+              {courseDetail.currentPrice! > 0 ? (
+                <span className="flex-row">
+                  <BoxContent.ContentInfo
+                    type="fit-content"
+                    title="Giá hiện tại: "
+                    content={
+                      courseDetail.currentPrice &&
+                      formatCharacter.numberLocale(
+                        courseDetail.currentPrice,
+                        " đồng"
+                      )
+                    }
+                  />
+                  <BoxContent.ContentInfo
+                    type="fit-content"
+                    title=""
+                    content={
+                      courseDetail.originalPrice &&
                       formatCharacter.numberLocale(
                         courseDetail.originalPrice,
                         " đồng"
-                      )}
-                  </span>
+                      )
+                    }
+                    contentStyle={{
+                      textDecoration: "line-through",
+                      color: "rgb(119, 119, 119)",
+                    }}
+                  />
                 </span>
               ) : (
-                <span className="current_price">
-                  <b>Giá hiện tại: </b>
-                  <span className="free">Miễn phí</span>
-                </span>
+                <BoxContent.ContentInfo
+                  type="fit-content"
+                  title="Giá hiện tại: "
+                  content="Miễn phí"
+                  contentStyle={{
+                    padding: "1px 10px",
+                    background: "rgb(115, 116, 17)",
+                    borderRadius: 4,
+                    color: "white",
+                    userSelect: "none",
+                  }}
+                />
               )}
 
-              <span>
-                <b>Dành cho: </b>
-                {translateVi(courseDetail.level)}
-              </span>
+              <BoxContent.ContentInfo
+                type="fit-content"
+                title="Dành cho: "
+                content={translateVi(courseDetail.level)}
+              />
               {/* hot tags */}
               <span className="sell-number">
-                <span className="amount">
-                  <b>Số lượng bán được: </b>
-                  {courseDetail.sellNumber}
-                </span>
+                <BoxContent.ContentInfo
+                  type="fit-content"
+                  title="Số lượng bán được: "
+                  content={courseDetail.sellNumber}
+                  style={{ width: "45%" }}
+                />
                 {courseDetail.type && (
-                  <span className="tags">Đang {courseDetail.type}</span>
+                  <TextContent.NormalText
+                    type="title-content"
+                    content={`Đang ${courseDetail.type}`}
+                    style={{
+                      background: "rgb(38, 0, 255)",
+                      color: "white",
+                      padding: "2px 10px",
+                    }}
+                  />
                 )}
               </span>
 
               <span style={{ display: "flex", flexDirection: "row" }}>
-                <b>Đánh giá: </b>
+                {/* <b>Đánh giá: </b> */}
+                <TextContent.NormalText
+                  content="Đánh giá: "
+                  type="title-content"
+                />
                 <Rating
                   average_rating={courseDetail.rating?.rate}
                   total_rating={courseDetail.rating?.numOfRate}
@@ -223,13 +264,13 @@ const CourseDetail = () => {
           </div>
         </div>
 
-        <Divider sx={{ marginY: 10 }} />
+        <Divider sx={{ marginY: 20 }} />
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 12,
+            gap: 90,
             paddingBottom: 10,
           }}
         >
@@ -242,7 +283,7 @@ const CourseDetail = () => {
             <Pagination
               pageActive={page}
               total={total}
-              onChangeValue={(value: any) => setPage(value)}
+              onChangeValue={(value: number) => setPage(value)}
             />
           )}
         </Box>
