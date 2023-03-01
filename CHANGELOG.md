@@ -17,5 +17,6 @@
 
 - Update "Upload new course" (add thumbnail image)
 - React Lazy (splitting components) & loading page for suspense
+- Split components for readability & re-using
 
 ---
