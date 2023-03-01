@@ -141,6 +141,7 @@ const CourseDetail = () => {
 
               <span className="flex-row">
                 <BoxContent.ContentInfo
+                  responsive={false}
                   type="fit-content"
                   title="Tác giả: "
                   content={courseDetail.author?.fullName}
@@ -150,7 +151,7 @@ const CourseDetail = () => {
                   onClick={() => navigate(`/user/${courseDetail.author?._id}`)}
                   variant="outlined"
                 >
-                  Xem thông tin
+                  Xem tác giả
                 </Button>
               </span>
 
@@ -199,6 +200,7 @@ const CourseDetail = () => {
               )}
 
               <BoxContent.ContentInfo
+                responsive={false}
                 type="fit-content"
                 title="Dành cho: "
                 content={translateVi(courseDetail.level)}
@@ -206,6 +208,7 @@ const CourseDetail = () => {
               {/* hot tags */}
               <span className="sell-number">
                 <BoxContent.ContentInfo
+                  responsive={false}
                   type="fit-content"
                   title="Số lượng bán được: "
                   content={courseDetail.sellNumber}
