@@ -1,5 +1,7 @@
 import React from "react";
 
+type InputBorderType = "round" | "square";
+
 export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   label?: string;
   errorMessage?: string | null;
@@ -20,4 +22,5 @@ export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   autoComplete?: string;
   accept?: string;
   style?: React.CSSProperties;
+  borderType?: InputBorderType;
 }

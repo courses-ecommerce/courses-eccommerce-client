@@ -23,6 +23,7 @@ const Input = React.forwardRef(
       autoComplete,
       accept,
       style,
+      borderType = "round",
       ...rest
     } = props;
 
@@ -30,10 +31,10 @@ const Input = React.forwardRef(
     const [show, setShow] = useState(false);
 
     return (
-      <Box className={classnames("input-container", className)} style={style}>
+      <Box className={classnames(className)} style={style}>
         <TextContent.Label label={label} required={required} />
         <Box
-          className={classnames("input", {
+          className={classnames(`input ${borderType}`, {
             focused,
             disabled,
           })}
