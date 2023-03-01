@@ -149,12 +149,16 @@ const PortfolioPage = () => {
             title="Các khoá học đang bán"
             courses={courses}
             isLoading={isLoading}
+            style={{
+              maxWidth: "none",
+              width: "88%",
+            }}
           />
           {total > 0 && (
             <Pagination
               pageActive={page}
               total={total}
-              onChangeValue={(value: any) => setPage(value)}
+              onChangeValue={(value: number) => setPage(value)}
             />
           )}
         </Box>
