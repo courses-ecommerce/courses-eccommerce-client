@@ -10,12 +10,14 @@ interface CourseContainerProps {
   title: string;
   courses: ICourse[];
   isLoading?: boolean;
+  style?: React.CSSProperties;
 }
 
 const CourseContainer: React.FC<CourseContainerProps> = ({
   title,
   courses,
   isLoading = false,
+  style,
 }) => {
   const renderCourses = (courses: ICourse[]) => {
     if (courses.length > 0) {
@@ -27,7 +29,7 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   };
 
   return (
-    <div className="course-container">
+    <div className="course-container" style={style}>
       <TextContent.NormalText content={title} />
       <div className="courses">
         {!isLoading ? (
