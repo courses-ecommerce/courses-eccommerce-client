@@ -12,7 +12,9 @@
       "routers/*": ["./routers/*"],
       "reducers/*": ["./reducers/*"],
       "types/*": ["./types/*"],
-      "utils/*": ["./utils/*"]
+      "utils/*": ["./utils/*"],
+      "styles/*": ["./styles/*"],
+      "translation/*": ["./translation/*"]
     }
   }
 }
