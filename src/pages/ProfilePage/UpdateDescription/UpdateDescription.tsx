@@ -1,11 +1,12 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import teacherApi from "src/apis/teacherApi";
 import FormControl from "src/components/FormControl";
 import ModalContainer from "src/components/ModalContainer";
+import TextContent from "src/components/TextContent";
 import { isPending, isSuccess } from "src/reducers";
+import { notificationMessage } from "src/utils";
 
 interface UpdateDescriptionProps {
   id?: string;
@@ -28,23 +29,23 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
 
   const [description, setDescription] = useState<string>();
 
-  const handleUpdateDescription = async (e: any) => {
-    e.preventDefault();
+  useEffect(() => {
+    setDescription(value);
+  }, [value]);
 
-    const params = { description };
+  const handleUpdateDescription = async () => {
     dispatch(isPending());
     setShow?.(true);
     try {
-      await teacherApi.updateTeacherInfoById(id, params);
+      await teacherApi.updateTeacherInfoById(id, { description });
 
-      toast.success("Cập nhật thông tin mô tả thành công", {
-        position: "bottom-right",
-      });
+      notificationMessage("success", "Cập nhật thông tin mô tả thành công");
     } catch (error) {
       console.log("lỗi rồi", { error });
-      toast.warning("Cập nhật thông tin mô tả thất bại, hãy thử lại sau", {
-        position: "bottom-right",
-      });
+      notificationMessage(
+        "warning",
+        "Cập nhật thông tin mô tả thất bại, hãy thử lại sau"
+      );
     }
     setShow?.(false);
     dispatch(isSuccess());
@@ -56,22 +57,14 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
       open={show}
       onClose={onClose}
     >
-      <Box
-        component="form"
-        onSubmit={handleUpdateDescription}
-        display="flex"
-        flexDirection="column"
-        gap={16}
-      >
-        <Typography variant="h6" fontWeight={600} component="span">
-          Thông tin mô tả cá nhân <span>*</span>
-        </Typography>
+      <Box display="flex" flexDirection="column" gap={16}>
+        <TextContent.Label label="Thông tin mô tả cá nhân" required />
         <FormControl.FormEditor
-          defaultValue={value}
+          value={description}
           placeholder="Nhập nội dung mô tả thông tin cá nhân."
-          onChange={(value) => setDescription(value)}
+          onChange={setDescription}
         />
-        <Button type="submit" variant="contained">
+        <Button variant="contained" onClick={handleUpdateDescription}>
           Cập nhật mô tả
         </Button>
       </Box>
