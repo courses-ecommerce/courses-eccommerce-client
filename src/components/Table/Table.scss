@@ -13,18 +13,12 @@
   > .btns {
     display: flex;
     flex-direction: column;
-    // align-items: flex-end;
+
     > .handle,
     .search {
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-  }
-  > .data-grid {
-    .MuiDataGrid-columnHeaderTitleContainer {
-      display: flex;
-      justify-content: space-between;
     }
   }
 }

@@ -1,38 +1,12 @@
-// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import classNames from "classnames";
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import TableNone from "./TableNone/TableNone";
+import { TableProps } from "./Table.type";
 import "./Table.scss";
-
-interface TableProps {
-  title?: string;
-  titleBtnAdd?: string;
-  titleBtnMultiDelete?: string;
-  columnsData?: GridColDef[];
-  rowsData?: any;
-  className?: string;
-  isLoading?: boolean;
-  isCheckBoxSelection?: boolean;
-  isModify?: boolean;
-  isViewDetail?: boolean;
-  btnAdd?: boolean;
-  btnMultiDeleted?: boolean;
-  btnHandle?: ReactNode;
-  btnSearch?: ReactNode;
-  getRowId?: (rowId: any) => any;
-  onPageSize?: (pageSize: string | number) => void;
-  onPage?: (page: string | number) => void;
-  total?: number;
-  handleAddItem?: () => void;
-  onModifyItem?: (id: string | number) => void;
-  onViewItemDetail?: (id: string | number) => void;
-  onDeleteSelectMultiItem?: (multiSelect: string[] | number[]) => void;
-  onDeleteItem?: (id: string | number) => void;
-}
 
 const Table: React.FC<TableProps> = ({
   title,
@@ -55,7 +29,7 @@ const Table: React.FC<TableProps> = ({
   total = 0,
   handleAddItem,
   onDeleteSelectMultiItem,
-  // onDeleteItem,
+  // onDeleteItem
   onModifyItem,
   onViewItemDetail,
 }) => {
@@ -71,9 +45,6 @@ const Table: React.FC<TableProps> = ({
     renderCell: ({ id }) => {
       return (
         <div style={{ display: "flex", gap: 20 }}>
-          {/* <Tooltip onClick={() => onDeleteItem?.(id)} title="Xoá">
-            <DeleteForeverIcon sx={{ cursor: "pointer" }} />
-          </Tooltip> */}
           {isModify && (
             <Tooltip
               title="Cập nhật thông tin"
@@ -96,17 +67,14 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handleChangePage = (newPage: number) => {
-    // console.log("newPage", newPage);
     onPage?.(newPage + 1);
-    // setPage(newPage + 1);
   };
 
   const handlePageSizeChange = (pageSize: number) => {
-    // console.log("size page", pageSize);
     onPageSize?.(pageSize);
     setPageSize(pageSize);
-    // setPage(1);
   };
+
   const handleDeleteMultiSelectItem = () => {
     onDeleteSelectMultiItem?.(multiSelect);
   };
