@@ -5,7 +5,6 @@ export type DateTypeFormat =
   | "dd/MM/yyyy HH:mm:ss"
   | "dd-MM-yyyy HH:mm"
   | "dd-MM-yyyy HH:mm:ss"
-  // | "dd-MM-yyyy hh:mm:ss"
   | "yyyy"
   | "MM-yyyy"
   | "dd-MM-yyyy";
