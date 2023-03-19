@@ -142,7 +142,7 @@ export default function InvoiceList() {
         >
           <FormControl.Input
             style={{ width: 250 }}
-            placeholder="Nhập mã giao dịch"
+            placeholder="Nhập chính xác mã giao dịch"
             onChange={(e: any) => setValue(e.target.value)}
           />
           <FormControl.Input
