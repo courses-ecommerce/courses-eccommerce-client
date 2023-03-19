@@ -1,11 +1,14 @@
 import React from "react";
 import { Pagination as PaginationMui } from "@mui/material";
 
+type Color = "primary" | "secondary" | "standard";
+type Variant = "outlined" | "text";
+
 interface PaginationProps {
   pageActive?: number;
   total?: number;
-  variant?: "outlined" | "text";
-  color?: "primary" | "secondary" | "standard";
+  variant?: Variant;
+  color?: Color;
   disabled?: boolean;
   onChangeValue?: (value: number) => void;
 }
@@ -19,10 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
   onChangeValue,
 }) => {
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    // console.log("value", value);
-
     onChangeValue?.(value);
-    // setPage(value);
   };
 
   return (
