@@ -20,7 +20,7 @@ jobs:
           node-version: 16.14.2
 
       - name: Install package
-        run: npm ci
+        run: npm i
 
       - name: Build Script
         run: npm run build
