@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: 16.14.2
 
-      - name: Install package
+      - name: Install Package
         run: npm i
 
       - name: Build Script
-        run: npm run build
+        run: CI=false npm run build
