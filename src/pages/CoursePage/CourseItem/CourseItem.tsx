@@ -15,9 +15,6 @@ interface CourseItemProps {
 }
 const CourseItem: React.FC<CourseItemProps> = ({ courseInfo }) => {
   const navigate = useNavigate();
-
-  // console.log(courseInfo);
-
   const { nodeRef, show } = useHover();
 
   return (
@@ -30,7 +27,7 @@ const CourseItem: React.FC<CourseItemProps> = ({ courseInfo }) => {
         )}
         <img
           src={courseInfo.thumbnail}
-          alt="img"
+          alt={courseInfo.name}
           // onClick={() => navigate(`/courses/${courseInfo._id}`)}
           onClick={() => navigate(`/courses/${courseInfo.slug}`)}
         />

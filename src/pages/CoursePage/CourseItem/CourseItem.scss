@@ -1,10 +1,16 @@
 .course-item {
-  min-width: 300px;
   max-height: 350px;
   width: 22%;
   height: 100%;
+  min-width: 300px;
   > .img {
     position: relative;
+    background-color: rgb(255, 242, 242);
+
+    > img {
+      min-height: 160px;
+    }
+
     > .sale-off {
       position: absolute;
       right: 0;
