@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -26,7 +25,7 @@ const Login = () => {
     try {
       const response = await authApi.postLogin(data);
       // console.log(response);
-      const { refreshToken, user, role, token }: any = response;
+      const { user, role, token }: any = response;
 
       localStorage.setItem("access_token", JSON.stringify(token));
 

@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import { IGetCourse } from "src/types/course";
 import axiosClient from "./axiosClient";
 
