@@ -1,0 +1,1 @@
+import{c as n}from"./axiosClient-pxH0JdvY.js";const o="/invoices",s={getInvoices:t=>{const e=o;return n.get(e,{params:t})},getInvoiceDetail:t=>{const e=o+"/"+t;return n.get(e)},updateInvoices:(t,e)=>{const i=o+"/"+t;return n.put(i,e)}};export{s as i};
