@@ -10,9 +10,6 @@
     "@mui/x-data-grid": "^5.11.0",
     "@mui/x-date-pickers": "^5.0.0-alpha.6",
     "@reduxjs/toolkit": "^1.8.1",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "chart.js": "^3.8.0",
     "classnames": "^2.3.1",
@@ -38,18 +35,14 @@
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.5.1",
     "typescript": "^4.6.3",
-    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": " react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": " react-scripts build"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
     "@types/node": "^16.11.27",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
