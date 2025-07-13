@@ -1,0 +1,1 @@
+import{c as o}from"./axiosClient-C7dz9swl.js";const e="/carts",s={getCart:()=>{const t=e;return o.get(t)},addItemToCart:t=>{const r=e;return o.post(r,t)},removeItemFromCart:t=>{const r=e+"/"+t;return o.delete(r)},addCouponToCart:(t,r)=>{const n=e+"/"+t;return o.put(n,r)}};export{s as c};
