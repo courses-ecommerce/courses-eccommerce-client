@@ -1,0 +1,1 @@
+const r={isGender:i=>i?i?"Nam":"Nữ":"Chưa thiết lập giới tính",isEmail:i=>String(i).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)};export{r as i};
