@@ -1,0 +1,1 @@
+import{o as i}from"./Portal-DhjTwL6f.js";function c(...n){return n.reduce((o,t)=>t==null?o:function(...e){o.apply(this,e),t.apply(this,e)},()=>{})}function d(n){return i(n).defaultView||window}export{c,d as o};
