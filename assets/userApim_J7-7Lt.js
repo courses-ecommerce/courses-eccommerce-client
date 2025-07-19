@@ -1,1 +1,0 @@
-import{c as r}from"./axiosClientDlN5LCCR.js";const n="/user",s={getMe:()=>{const t=n;return r.get(t)},updateInfo:t=>{const e=n;return r.put(e,t)},getHistorySearch:()=>{const t=n+"/history";return r.get(t)},getHistoryPayment:t=>{const e=n+"/invoices";return r.get(e,{params:t})},getHistoryPaymentDetail:t=>{const e=n+"/invoices/"+t;return r.get(e)}};export{s as u};
