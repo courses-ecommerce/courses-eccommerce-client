@@ -1,1 +1,0 @@
-import{j as c,c as i}from"./index-wGXNmLvm.js";import{d as l}from"./image-default-BeLx_xWt.js";const p=({src:s,width:a,height:t,borderRadius:m,className:e,onClick:r,...o})=>c.jsx("img",{className:i("image-content",e),src:s||l,alt:"img alt",style:{width:a,height:t,borderRadius:m},onClick:r,...o});export{p as I};
