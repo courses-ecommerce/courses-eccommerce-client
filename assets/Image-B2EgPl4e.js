@@ -1,0 +1,1 @@
+import{j as i}from"./index-Duw321aU.js";import{c}from"./Icon-coZ9-5Uh.js";import{d as l}from"./image-default-BeLx_xWt.js";import"./axiosClient-D1Z7j_j_.js";const x=({src:s,width:t,height:m,borderRadius:a,className:r,onClick:o,...e})=>i.jsx("img",{className:c("image-content",r),src:s||l,alt:"img alt",style:{width:t,height:m,borderRadius:a},onClick:o,...e});export{x as I};
