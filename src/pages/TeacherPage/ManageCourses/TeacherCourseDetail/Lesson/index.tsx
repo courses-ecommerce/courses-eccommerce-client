@@ -3,7 +3,7 @@ import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import Icon from "src/components/Icon/Icon";
 import "./Lesson.scss";
-import ReactQuill from "react-quill";
+import { TiptapEditor } from "@libs/tip-tap-editor";
 import Input from "src/components/Input";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
@@ -319,12 +319,11 @@ const Lesson: React.FC<LessonProps> = ({
           <p>Text</p>
 
           <div className="editor">
-            <ReactQuill
+            <TiptapEditor
               style={{
                 height: 70,
               }}
-              theme="snow"
-              value={value}
+              content={value}
               onChange={setValue}
               placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
             />
