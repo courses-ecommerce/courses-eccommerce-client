@@ -11,5 +11,13 @@ export default defineConfig(({ mode }) => ({
   base: mode === "deploy" ? "/courses-eccommerce-client/" : "/",
   build: {
     outDir: "build",
+    assetsDir: "assets",
+    rollupOptions: {
+      output: {
+        chunkFileNames: "assets/[name][hash].js",
+        entryFileNames: "assets/[name][hash].js",
+        assetFileNames: "assets/[name][hash][extname]",
+      },
+    },
   },
 }));
