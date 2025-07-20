@@ -1,8 +1,7 @@
-import React from "react";
-import Slider from "src/components/Slider";
+import { KeenSlider } from "@libs/keen-slider";
 import { listSlideShow } from "src/data/mainPageInfo";
 
 const HomePage = () => {
-  return <Slider.SlideContainer listSlideShow={listSlideShow} />;
+  return <KeenSlider.SliderContainer listSlideShow={listSlideShow} />;
 };
 export default HomePage;
