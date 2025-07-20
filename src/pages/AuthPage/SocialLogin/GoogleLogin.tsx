@@ -41,7 +41,7 @@ const GoogleLoginBtn = () => {
     try {
       const response = await authApi.postLoginGoogle(params);
       // console.log(response);
-      const { refreshToken, user, token, role }: any = response;
+      const { user, token, role }: any = response;
       localStorage.setItem("access_token", JSON.stringify(token));
       dispatch(getUserInfo(user));
       dispatch(isLogin(role));

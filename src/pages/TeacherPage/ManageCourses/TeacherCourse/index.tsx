@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
+import { TiptapEditor } from "@libs/tip-tap-editor";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -302,12 +302,11 @@ const TeacherCourse: React.FC = () => {
               <h2>
                 Nội dung khóa học <span>*</span>
               </h2>
-              <ReactQuill
+              <TiptapEditor
                 style={{
                   height: 70,
                 }}
-                theme="snow"
-                value={formik.values.description}
+                content={formik.values.description}
                 onChange={(value) => formik.setFieldValue("description", value)}
                 placeholder="Thêm một mô tả. Bao gồm những gì học sinh sẽ có thể làm sau khi hoàn thành bài giảng."
               />

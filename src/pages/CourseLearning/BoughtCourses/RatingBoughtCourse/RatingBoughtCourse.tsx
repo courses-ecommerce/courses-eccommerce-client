@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
+import { TiptapEditor } from "@libs/tip-tap-editor";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ratingApi from "src/apis/ratingApi";
@@ -130,9 +130,8 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
                 />
               </span>
 
-              <ReactQuill
-                defaultValue={content}
-                theme="snow"
+              <TiptapEditor
+                content={content}
                 onChange={(value) => setContent(value)}
                 placeholder="Nhập nội dung đánh giá."
               />
@@ -170,12 +169,8 @@ const RatingBoughtCourse: React.FC<RatingBoughtCourseProps> = ({
                 <h2>
                   Nội dung đánh giá <span>*</span>
                 </h2>
-                <ReactQuill
-                  // style={{
-                  //   height: 70,
-                  // }}
-                  defaultValue={value.content}
-                  theme="snow"
+                <TiptapEditor
+                  content={value.content}
                   onChange={(value) => setContent(value)}
                 />
               </div>

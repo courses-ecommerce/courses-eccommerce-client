@@ -1,8 +1,10 @@
 import axios from "axios";
+import { LINK_DOMAIN } from "src/data";
 import { IAccesstoken } from "src/types/token";
 
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: LINK_DOMAIN,
   headers: {
     "content-type": "application/json",
   },

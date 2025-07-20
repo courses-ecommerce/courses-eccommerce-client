@@ -2,13 +2,13 @@ import { Button } from "@mui/material";
 import React from "react";
 import Image from "src/components/Image";
 import { SliderBanner } from "src/types";
-import "./SlideItem.scss";
+// import "./SlideItem.scss";
 
 interface SlideItemProps {
   imageContent: SliderBanner;
 }
 
-const SlideItem: React.FC<SlideItemProps> = ({ imageContent }) => {
+export const SlideItem: React.FC<SlideItemProps> = ({ imageContent }) => {
   const showContent = imageContent.name && imageContent.description;
 
   return (
@@ -30,5 +30,3 @@ const SlideItem: React.FC<SlideItemProps> = ({ imageContent }) => {
     </div>
   );
 };
-
-export default SlideItem;

@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
+import { TiptapEditor } from "@libs/tip-tap-editor";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import teacherApi from "src/apis/teacherApi";
@@ -71,11 +71,8 @@ const UpdateDescription: React.FC<UpdateDescriptionProps> = ({
             <h2>
               Thông tin mô tả cá nhân <span>*</span>
             </h2>
-            <ReactQuill
-              // style={{
-              //   height: 70,
-              // }}
-              defaultValue={value}
+            <TiptapEditor
+              content={value}
               theme="snow"
               onChange={(value) => setDescription(value)}
               placeholder="Nhập nội dung mô tả thông tin cá nhân."

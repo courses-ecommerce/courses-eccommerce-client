@@ -1,6 +1,6 @@
 import { Box, Button, FormControlLabel, Switch } from "@mui/material";
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
+import { TiptapEditor } from "@libs/tip-tap-editor";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -94,9 +94,8 @@ const AcceptCourseLearning: React.FC<AcceptCourseLearningProps> = ({
               <h2>
                 Lý do từ chối <span>*</span>
               </h2>
-              <ReactQuill
-                defaultValue={content}
-                theme="snow"
+              <TiptapEditor
+                content={content}
                 onChange={(value) => setContent(value)}
                 placeholder="Nhập lý do từ chối."
               />

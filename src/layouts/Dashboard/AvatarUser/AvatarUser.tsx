@@ -1,5 +1,4 @@
-import { Avatar, Tooltip } from "@mui/material";
-import React from "react";
+import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectAuthorization } from "src/reducers/authSlice";
